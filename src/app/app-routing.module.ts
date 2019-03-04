@@ -7,7 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 
-const routes: Routes = [  { path: '/', component: HomeComponent },
+const routes: Routes = [  { path: '', component: HomeComponent },
 { path: 'profile', component: ProfileComponent },
 { path: 'reset', component: ResetComponent },
 {path:'login', component:LoginComponent},
