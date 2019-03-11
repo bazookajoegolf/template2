@@ -3,8 +3,10 @@
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <mat-toolbar>
-    <span>Angular 6 - MEAN Stack Sample Application</span>
+  <mat-toolbar color="primary">
+    <a routerLink="/"><button color="accent" mat-button md-raised-button>Home</button></a>
+    <a routerLink="/login"><button color="accent" mat-button>Login</button></a>
+    <a routerLink="/login"><button color="accent" mat-button>SignUp</button></a>
   </mat-toolbar>
   <div>
     <router-outlet></router-outlet>

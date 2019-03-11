@@ -8,15 +8,10 @@ import { Injectable } from '@angular/core';
 })
 export class LoginService {
 
-  constructor(private http: HttpClient) {
-    http.get('http://localhost:3001/api/auth')
-    .subscribe(data => {
-      console.log(data);
-    });
-   }
+  constructor(private http: HttpClient) {  }
 
   signin() {
-    this.http.get('http://localhost:3001/api/auth')
+    this.http.get('http://localhost:3000/')
     .subscribe(data => {
       console.log(data);
     });
