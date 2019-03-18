@@ -1,0 +1,39 @@
+import { Component, OnInit } from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
+
+@Component({
+  selector: 'app-create-profile',
+  templateUrl: './create-profile.component.html',
+  styleUrls: ['./create-profile.component.css']
+})
+export class CreateProfileComponent implements OnInit {
+
+  email = new FormControl('',[Validators.required, Validators.email]);
+  name =  new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]);
+  password =  new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]);
+
+  constructor() { }
+
+  getEmailErrorMessage() {
+    return this.email.hasError('required') ? 'Please Enter a Value' :
+           this.email.hasError('email') ? 'Not a valid email' :
+           '';
+  }
+
+  getNameErrorMessage() {
+    return this.name.hasError('required') ? 'Please Enter a Value' :
+           this.name.errors.minlength ? 'Name must be 5 characters long' :
+           this.name.errors.maxlength ? 'Name must not exceed 15 characters long' :
+           '';
+  }
+
+  getPasswordErrorMessage() {
+    return this.password.hasError('required') ? 'Please Enter a Value' :
+           this.password.errors.minlength ? 'Password must be 5 characters long' :
+           this.password.errors.maxlength ? 'Name must not exceed 15 characters long' :
+           '';
+  }
+  ngOnInit() {
+  }
+
+}

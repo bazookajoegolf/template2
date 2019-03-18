@@ -8,7 +8,13 @@ import { Injectable } from '@angular/core';
 })
 export class LoginService {
 
-  constructor(private http: HttpClient) {  }
+  constructor(private http: HttpClient) { 
+    this.http.get('http://localhost:3000/')
+    .subscribe(data => {
+      console.log(data);
+    });
+  }
+  
 
   signin() {
     this.http.get('http://localhost:3000/')

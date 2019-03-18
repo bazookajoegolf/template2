@@ -1,0 +1,38 @@
+
+  <form  [formGroup]= "form" (ngSubmit)="onSubmit()" class="create-user">
+  <h1>Create Profile</h1>
+    <mat-form-field>
+    <input matInput 
+           id="name"
+           type="text"
+           placeholder="Name" required
+           formControlName="name">
+    <mat-error *ngIf="">Name Required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput 
+          id="email"
+          type="text" placeholder="E-Mail"
+          formControlName="email">
+    <mat-error *ngIf=""></mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput 
+          id="password"
+          type="password" placeholder="Password" 
+          formControlName="password">
+    <mat-error *ngIf=""></mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput 
+           id="confirm-password"
+           type="password" placeholder="Confirm Password" 
+           formControlName="confirmpassword">
+    <mat-error *ngIf=""></mat-error>
+  </mat-form-field>
+  <button id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid" >Submit</button>
+
+ 
+</form>
