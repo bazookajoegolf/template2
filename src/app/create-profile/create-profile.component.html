@@ -1,20 +1,24 @@
 
   <form  [formGroup]= "form" (ngSubmit)="onSubmit()" class="create-user">
   <h1>Create Profile</h1>
-    <mat-form-field>
-    <input matInput 
+    <mat-form-field >
+    <input matInput
            id="name"
            type="text"
            placeholder="Name" required
            formControlName="name">
-    <mat-error *ngIf="">Name Required</mat-error>
-  </mat-form-field>
+    <mat-error *ngIf="f.name.errors?.required && (f.name.dirty || f.name.invalid)">A Name is Required</mat-error>
+    <mat-error *ngIf="f.name.errors?.minlength && (f.name.dirty || f.name.invalid)">Name must be 5 characters</mat-error> 
+    <mat-error *ngIf="f.name.errors?.maxlength && (f.name.dirty || f.name.invalid)">Name must not exceed 15 characters</mat-error> 
+    </mat-form-field>
   <mat-form-field>
     <input matInput 
           id="email"
           type="text" placeholder="E-Mail"
           formControlName="email">
-    <mat-error *ngIf=""></mat-error>
+          <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">An Email address is Required</mat-error>
+          <mat-error *ngIf="f.email.errors?.email && (f.email.dirty || f.email.invalid)">Name must be valid e-mail address</mat-error> 
+         
   </mat-form-field>
 
   <mat-form-field>
@@ -22,7 +26,9 @@
           id="password"
           type="password" placeholder="Password" 
           formControlName="password">
-    <mat-error *ngIf=""></mat-error>
+          <mat-error *ngIf="f.password.errors?.required && (f.password.dirty || f.password.invalid)">A Password is Required</mat-error>
+          <mat-error *ngIf="f.password.errors?.minlength && (f.password.dirty || f.password.invalid)">Password must be a minimum 5 characters</mat-error> 
+         
   </mat-form-field>
 
   <mat-form-field>
@@ -30,9 +36,10 @@
            id="confirm-password"
            type="password" placeholder="Confirm Password" 
            formControlName="confirmpassword">
-    <mat-error *ngIf=""></mat-error>
+           <mat-error *ngIf="f.confirmpassword.errors?.confirmpassword && (f.confirmpassword.dirty || f.confirmpassword.invalid)">Password must match!</mat-error>
   </mat-form-field>
   <button id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid" >Submit</button>
 
  
 </form>
+

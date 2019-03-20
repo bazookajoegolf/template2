@@ -37,3 +37,7 @@ export class CreateProfileComponent implements OnInit {
   }
 
 }
+
+
+
+hintLabel= "Min 5 - Max 15 Characters"
