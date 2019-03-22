@@ -14,6 +14,7 @@ import { ResetComponent } from './reset/reset.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
+import { NewuserComponent } from './newuser/newuser.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CreateProfileComponent } from './create-profile/create-profile.componen
     HomeComponent,
     ResetComponent,
     ProfileComponent,
-    CreateProfileComponent
+    CreateProfileComponent,
+    NewuserComponent
   ],
   imports: [
     BrowserModule,

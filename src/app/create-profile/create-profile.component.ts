@@ -1,6 +1,8 @@
+import { LoginService } from './../services/login.service';
 import { MatchPassword } from './../validators/password-validator';
 import { Component, OnInit } from '@angular/core';
 import {FormControl,FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 
 
@@ -11,8 +13,9 @@ import {FormControl,FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./create-profile.component.css']
 })
 export class CreateProfileComponent implements OnInit {
-  form 
-  constructor() { }
+  form ;
+  statusMessage = null;
+  constructor(private signup : LoginService, private router:Router) { }
 
   ngOnInit() :void {  
   this.form = new FormGroup({
@@ -27,7 +30,25 @@ export class CreateProfileComponent implements OnInit {
       };
 
   onSubmit() {
-    console.log(this.form.value);
-  }
+    const post = {
+      name : this.form.value.name,
+      email : this.form.value.email,
+      password : this.form.value.password,
+      isadmin : "false"
+    }
+    this.signup.signup(post)
+    .subscribe(response =>{
+        this.statusMessage= "Request Sent Successfully";
+        setTimeout(()=>{
+          alert ('go to next page');
+          this.router.navigate(['validateuser']);
+        },3000);
+      },
+      (error) => {
+        if(error.status === 409) { this.statusMessage = error.error}
+      }
+      );
+
+ }
 
 }
