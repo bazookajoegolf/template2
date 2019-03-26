@@ -40,8 +40,7 @@ export class CreateProfileComponent implements OnInit {
     .subscribe(response =>{
         this.statusMessage= "Request Sent Successfully";
         setTimeout(()=>{
-          alert ('go to next page');
-          this.router.navigate(['validateuser']);
+            this.router.navigate(['validateuser']);
         },3000);
       },
       (error) => {

@@ -1,3 +1,21 @@
-<p>
-  newuser works!
-</p>
+<form  [formGroup]= "form" (ngSubmit)="onSubmit()" class="create-user">
+ 
+  <div>
+    <div *ngIf="statusMessage">
+      {{statusMessage}}
+    </div>
+  </div>
+  <h2>Enter your Confirmation code you received in your Email Account:</h2>
+    <mat-form-field >
+    <input matInput
+           id="confirmid"
+           type="text"
+           placeholder="Confirmation ID:" required
+           formControlName="confirmid">
+    <mat-error *ngIf="f.confirmid.errors?.required && (f.confirmid.dirty || f.confirmid.invalid)">Please enter your confirmation Code:</mat-error>
+
+    </mat-form-field>
+<div>
+<button id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid" >Submit</button>
+</div>
+  </form>

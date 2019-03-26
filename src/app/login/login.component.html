@@ -1,3 +1,32 @@
-<p>
-  login works!
-</p>
+<form  [formGroup]= "form" (ngSubmit)="onSubmit()" class="create-user">
+ 
+    <div>
+      <div *ngIf="statusMessage">
+        {{statusMessage}}
+      </div>
+    </div>
+    <h2>Login</h2>
+      <mat-form-field >
+      <input matInput
+             id="email"
+             type="text"
+             placeholder="Email Adress" required
+             formControlName="email">
+      <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">Please enter your email address</mat-error>
+  
+      </mat-form-field>
+      <div>
+      <mat-form-field >
+          <input matInput
+                 id="password"
+                 type="password"
+                 placeholder="Password" required
+                 formControlName="password">
+          <mat-error *ngIf="f.password.errors?.required && (f.email.dirty || f.email.invalid)">Please enter your email address</mat-error>
+      
+          </mat-form-field>
+        </div>
+  <div>
+  <button id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid" >Submit</button>
+  </div>
+    </form>

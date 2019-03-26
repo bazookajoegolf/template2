@@ -16,6 +16,7 @@ const routes: Routes = [  { path: '', component: HomeComponent },
 { path: 'reset', component: ResetComponent },
 {path:'login', component:LoginComponent},
 {path:'newuser', component:CreateProfileComponent},
+{path:'validateuser/:id', component:NewuserComponent},
 {path:'validateuser', component:NewuserComponent},
 { path: '', redirectTo: '/', pathMatch: 'full'}];
 

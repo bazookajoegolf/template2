@@ -1,5 +1,7 @@
+import { environment } from './../../environments/environment';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 
 
 
@@ -7,6 +9,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LoginService {
+
+ // hostserver= "http://"+ environment.backendhost;
+ hostserver = environment.backendhost + "/api/users"
+ authserver = environment.backendhost + "/api/auth"
+ // hostserver="http://localhost:3000/api/users";
 
    httpOptions = {
     headers: new HttpHeaders({
@@ -20,15 +27,17 @@ export class LoginService {
   }
   
 
-  signin() {
-    this.http.get('http://localhost:3000/')
-    .subscribe(data => {
-      console.log(data);
-    });
+  signin(input) {
+    return this.http.post<any>(this.authserver, input, this.httpOptions)
+  }
+
+  confirm(input) {
+    let confirmid= input.confirmid
+    return this.http.post(this.hostserver+'/'+confirmid,input,this.httpOptions);
   }
 
   signup(input) {
-    return this.http.post('http://localhost:3000/api/users',input, this.httpOptions)
+    return this.http.post(this.hostserver ,input, this.httpOptions)
 
   }
 }
