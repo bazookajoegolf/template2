@@ -1,0 +1,17 @@
+.create-user {
+    width: 600px;
+    max-width: 800px;
+    width: 100%;
+    margin: auto;
+}
+
+.fields {
+    width: 100%;
+
+}
+
+.list-user {
+    margin-top : 100px;
+    width: 500px;
+    margin-left : 300px;
+}

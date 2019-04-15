@@ -7,6 +7,8 @@
     <a routerLink="/"><button color="accent" mat-button md-raised-button>Home</button></a>
     <a routerLink="/login"><button color="accent" mat-button>Login</button></a>
     <a routerLink="/newuser"><button color="accent" mat-button>SignUp</button></a>
+    <a routerLink="/profile"><button color="accent" mat-button>Profile</button></a>
+    <a (click)="signout()"><button color="accent" mat-button>Logout</button></a>
   </mat-toolbar>
   <div>
     <router-outlet></router-outlet>
