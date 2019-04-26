@@ -1,6 +1,7 @@
 import { environment } from './../../environments/environment';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, map, tap } from 'rxjs/operators';
 
 
 
@@ -37,7 +38,30 @@ export class LoginService {
       })
     };
 
-  return this.http.get<any>(this.hostserver+'/me', Options);
+  //  return this.http.get<any>(this.hostserver+'/me', Options);
+    return this.http.get<any>(this.hostserver+'/me/', Options)
+  }
+
+  updateProfile(id,input) {
+    let myToken = localStorage.getItem('token') || " ";
+    let UpdateOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json' ,
+        'x-auth-token' : myToken
+      })
+    };
+    return this.http.put<any>(this.hostserver +'/' + id, input, UpdateOptions);
+  }
+
+  updatePassword(id,input) {
+    let myToken = localStorage.getItem('token') || " ";
+    let PasswordOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json' ,
+        'x-auth-token' : myToken
+      })
+    };
+    return this.http.put<any>(this.hostserver +'/' + id, input, PasswordOptions);
   }
 
   clearProfile() {
@@ -59,6 +83,8 @@ export class LoginService {
     return this.http.post(this.hostserver ,input, this.httpOptions)
 
   }
+
+
   signout() {
     localStorage.removeItem('token');
     

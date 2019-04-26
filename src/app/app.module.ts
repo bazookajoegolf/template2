@@ -15,6 +15,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { NewuserComponent } from './newuser/newuser.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NewuserComponent } from './newuser/newuser.component';
     ResetComponent,
     ProfileComponent,
     CreateProfileComponent,
-    NewuserComponent
+    NewuserComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

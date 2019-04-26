@@ -1,3 +1,4 @@
+import { ChangePasswordComponent } from './change-password/change-password.component';
 import { NewuserComponent } from './newuser/newuser.component';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { LoginComponent } from './login/login.component';
@@ -13,6 +14,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [  { path: '', component: HomeComponent },
 { path: 'profile', component: ProfileComponent },
+{ path: 'changepassword', component: ChangePasswordComponent },
 { path: 'reset', component: ResetComponent },
 {path:'login', component:LoginComponent},
 {path:'newuser', component:CreateProfileComponent},

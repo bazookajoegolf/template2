@@ -1,6 +1,6 @@
 import { User } from './../models/user';
 import { LoginService } from './../services/login.service';
-
+import { MatchPassword } from './../validators/password-validator';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {FormControl,FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   user :User;
   statusMessage = null;
   editMode = false;
+  passwordChange = false;
   id : string;
   exp : Date;
 
@@ -30,9 +31,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       email : new FormControl('',[Validators.required, Validators.email]),
       name : new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
-      oldpassword: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
-    });
+      password : new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)])
+       });
         
+      // this.form = new FormGroup({
+      //   email : new FormControl('',[Validators.required, Validators.email]),
+      //   name : new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
+      //   oldpassword : new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
+      //   password : new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
+      //   confirmpassword : new FormControl('',[Validators.required])
+      //   },{validators: MatchPassword.match});
+  
 
     this.signup.getProfile()
     .subscribe((profile)=>{
@@ -68,44 +77,34 @@ ngOnDestroy() : void {
 get f() {
   return this.form.controls
   };
-
  
 get p() {
   return this.user
 }  
   
-    onSubmit() {
-        const post = {
-            name: this.form.value.name,
-            email: this.form.value.email,
-            oldpassword: this.form.value.oldpassword
-        }
-
-// left off here... try .pipe .catchError instead of subscribe  (error)
-
-        this.signup.updateProfile(this.id, post)
-            .subscribe(response => {
-                this.statusMessage = "Request Sent Successfully";
-                localStorage.setItem('token', response.token);
-                // update the user object.
-                setTimeout(() => {
-                    this.router.navigate(['profile']);
-                    this.form.patchValue({'email' : this.user.email});
-                    this.form.patchValue({'name' : this.user.name});
-                    this.editMode = false;
-                    this.form.disable();
-                    this.statusMessage = null;
-                }, 2000);
-            },
-                (error) => {
-                    console.log("This is the error handler" + error.error.message);
-                    { this.statusMessage = error.error.message }
-                }
-            );
-
+  onSubmit() {
+    const post = {
+      name : this.form.value.name,
+      email : this.form.value.email,
+      password : this.form.value.password,
+      oldpassword : this.form.value.oldpassword,
+      isadmin : "false"
     }
+    this.signup.updateProfile(this.id,post)
+    .subscribe(response =>{
+        this.statusMessage= "Request Sent Successfully";
+        // update the user object.
+        setTimeout(()=>{
+           // set somewhere later this.router.navigate(['login']);
+        },3000);
+      },
+      (error) => {
+        console.log("This is the error handler" + error.error.message);
+         { this.statusMessage = error.error.message}
+      }
+      );
 
-
+ }
 
  cancelUpdate() {
   // this.form = null;
@@ -115,8 +114,9 @@ get p() {
   //    });
   this.form.patchValue({'email' : this.user.email});
   this.form.patchValue({'name' : this.user.name});
-  this.form.patchValue({'oldpassword' : "*****"});
+  this.form.patchValue({'password' : "*****"});
   this.editMode = false;
+  this.passwordChange = false;
   if(this.editMode) {this.form.enable()}
   else (this.form.disable())
   this.statusMessage = null;
@@ -124,20 +124,26 @@ get p() {
 
  onUpdate() {
    this.editMode = true;
-    this.form.patchValue({'oldpassword' : ""});
+   this.passwordChange = false;
+   this.form.patchValue({'password' : ""});
    if(this.editMode) {this.form.enable()}
-   else {this.form.disable()}
+   else (this.form.disable())
    this.statusMessage = null;
  }
  onPasswordUpdate() {
-    this.router.navigate(['changepassword']);
+ // this.editMode = !this.editMode;
+      this.form = null;
+       this.form = new FormGroup({
+        oldpassword : new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
+        password : new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
+        confirmpassword : new FormControl('',[Validators.required])
+        },{validators: MatchPassword.match});
 
-//  // this.editMode = !this.editMode;
-//   this.passwordChange = true;
-//   this.editMode = false;
-//   if(this.passwordChange) {this.form.enable()}
-//   else (this.form.disable())
-//   this.statusMessage = null;
+  this.passwordChange = true;
+  this.editMode = false;
+  if(this.passwordChange) {this.form.enable()}
+  else (this.form.disable())
+  this.statusMessage = null;
 }
 
 }
