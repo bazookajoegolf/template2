@@ -8,14 +8,14 @@ import { CustomMaterialModule } from './assets/materialmodules';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { ResetComponent } from './reset/reset.component';
-import { ProfileComponent } from './profile/profile.component';
+import { LoginComponent } from './_components/profile/login/login.component';
+import { HomeComponent } from './_components/profile/home/home.component';
+import { ResetComponent } from './_components/profile/reset/reset.component';
+import { ProfileComponent } from './_components/profile/profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CreateProfileComponent } from './create-profile/create-profile.component';
-import { NewuserComponent } from './newuser/newuser.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
+import { CreateProfileComponent } from './_components/profile/create-profile/create-profile.component';
+import { NewuserComponent } from './_components/profile/newuser/newuser.component';
+import { ChangePasswordComponent } from './_components/profile/change-password/change-password.component';
 
 @NgModule({
   declarations: [

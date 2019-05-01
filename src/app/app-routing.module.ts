@@ -1,10 +1,10 @@
-import { ChangePasswordComponent } from './change-password/change-password.component';
-import { NewuserComponent } from './newuser/newuser.component';
-import { CreateProfileComponent } from './create-profile/create-profile.component';
-import { LoginComponent } from './login/login.component';
-import { ProfileComponent } from './profile/profile.component';
-import { ResetComponent } from './reset/reset.component';
-import { HomeComponent } from './home/home.component';
+import { ChangePasswordComponent } from './_components/profile/change-password/change-password.component';
+import { NewuserComponent } from './_components/profile/newuser/newuser.component';
+import { CreateProfileComponent } from './_components/profile/create-profile/create-profile.component';
+import { LoginComponent } from './_components/profile/login/login.component';
+import { ProfileComponent } from './_components/profile/profile/profile.component';
+import { ResetComponent } from './_components/profile/reset/reset.component';
+import { HomeComponent } from './_components/profile/home/home.component';
 
 
 import { NgModule } from '@angular/core';

@@ -1,5 +1,5 @@
-import { LoginService } from './../services/login.service';
-import { MatchPassword } from './../validators/password-validator';
+import { LoginService } from '../../../services/login.service';
+import { MatchPassword } from '../../../validators/password-validator';
 import { Component, OnInit } from '@angular/core';
 import {FormControl,FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';

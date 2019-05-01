@@ -1,9 +1,10 @@
-import { User } from './../models/user';
-import { LoginService } from './../services/login.service';
+import { User } from '../../../models/user';
+import { LoginService } from '../../../services/login.service';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {FormControl,FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import { catchError, map, tap } from 'rxjs/operators';
 
 
 
@@ -50,8 +51,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       } 
       
     },(error) => {
-       this.statusMessage = error.error;
-       console.log(error.error);
+       this.statusMessage = error.error.message;
+
        setTimeout(()=>{
         this.router.navigate(['login']);
     },2000);
@@ -84,27 +85,51 @@ get p() {
 // left off here... try .pipe .catchError instead of subscribe  (error)
 
         this.signup.updateProfile(this.id, post)
-            .subscribe(response => {
+            .pipe(
+                tap(_ => console.log("tapping")) ,
+                catchError( err => { throw err.error.message})
+                         
+            )
+            .subscribe (
+                response => {
                 this.statusMessage = "Request Sent Successfully";
-                localStorage.setItem('token', response.token);
+                 localStorage.setItem('token', response.token);
                 // update the user object.
                 setTimeout(() => {
                     this.router.navigate(['profile']);
-                    this.form.patchValue({'email' : this.user.email});
-                    this.form.patchValue({'name' : this.user.name});
+                    this.form.patchValue({'email' : response.user.email});
+                    this.form.patchValue({'name' : response.user.name});
                     this.editMode = false;
                     this.form.disable();
                     this.statusMessage = null;
                 }, 2000);
-            },
-                (error) => {
-                    console.log("This is the error handler" + error.error.message);
-                    { this.statusMessage = error.error.message }
-                }
+            } ,
+               err => this.statusMessage = err
             );
 
     }
 
+//     this.signup.updateProfile(this.id, post)
+//     .subscribe(response => {
+//         this.statusMessage = "Request Sent Successfully";
+//         localStorage.setItem('token', response.token);
+//         // update the user object.
+//         setTimeout(() => {
+//             this.router.navigate(['profile']);
+//             this.form.patchValue({'email' : this.user.email});
+//             this.form.patchValue({'name' : this.user.name});
+//             this.editMode = false;
+//             this.form.disable();
+//             this.statusMessage = null;
+//         }, 2000);
+//     },
+//         (error) => {
+//             console.log("This is the error handler" + error.error.message);
+//             { this.statusMessage = error.error.message }
+//         }
+//     );
+
+// }
 
 
  cancelUpdate() {
