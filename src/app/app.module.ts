@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProfileComponent } from './_components/profile/create-profile/create-profile.component';
 import { NewuserComponent } from './_components/profile/newuser/newuser.component';
 import { ChangePasswordComponent } from './_components/profile/change-password/change-password.component';
+import { StatusComponent } from './_components/general/status/status.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ChangePasswordComponent } from './_components/profile/change-password/c
     ProfileComponent,
     CreateProfileComponent,
     NewuserComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    StatusComponent
   ],
   imports: [
     BrowserModule,

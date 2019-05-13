@@ -1,0 +1,14 @@
+
+
+.status {
+    background-color:rgb(8, 36, 8);
+    color:white;
+    line-height: 14px;
+    font-size: 14px;
+    width: 30%;
+    height: 12px;
+    padding: 10px;
+    margin: 8px auto;
+    opacity: .4;
+    border-radius: 3px;
+}
