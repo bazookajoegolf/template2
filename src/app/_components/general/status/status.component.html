@@ -1,1 +1,5 @@
-<div class="status">{{status.message}}</div>
+<div>
+<div *ngFor= "let alert of alerts" class="{{cssClass(alert)}} alert-dismissable status">
+    {{alert.message}}
+</div>
+</div>

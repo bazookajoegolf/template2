@@ -1,7 +1,6 @@
 
 
 .status {
-    background-color:rgb(8, 36, 8);
     color:white;
     line-height: 14px;
     font-size: 14px;
@@ -11,4 +10,24 @@
     margin: 8px auto;
     opacity: .4;
     border-radius: 3px;
+}
+
+.alert-success {
+    background-color: #28a745;
+}
+
+.alert-danger {
+    background-color: #dc3545;
+}
+
+.alert-info {
+    background-color: #17a2b8;
+}
+
+.alert-warning {
+    background-color: #ffc107;
+}
+
+.alert-primary {
+    background-color: #007bff;
 }

@@ -1,4 +1,5 @@
 
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
@@ -17,6 +18,8 @@ import { CreateProfileComponent } from './_components/profile/create-profile/cre
 import { NewuserComponent } from './_components/profile/newuser/newuser.component';
 import { ChangePasswordComponent } from './_components/profile/change-password/change-password.component';
 import { StatusComponent } from './_components/general/status/status.component';
+
+//import { AlertService } from './services/alert.service';
 
 @NgModule({
   declarations: [

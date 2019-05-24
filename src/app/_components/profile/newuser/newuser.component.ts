@@ -1,3 +1,4 @@
+import { AlertService } from './../../../services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import {FormControl,FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -12,8 +13,8 @@ import { LoginService } from '../../../services/login.service';
 export class NewuserComponent implements OnInit {
 
   form:FormGroup ;
-  statusMessage = null;
-  constructor(private signup : LoginService, private router:Router) { }
+  //statusMessage = null;
+  constructor(private signup : LoginService, private router:Router, private alert: AlertService) { }
 
   ngOnInit() :void {  
   this.form = new FormGroup({
@@ -32,14 +33,14 @@ get f() {
     }
      this.signup.confirm(post)
     .subscribe(response =>{
-        this.statusMessage= "Request Sent Successfully";
+        this.alert.success("Request Sent Successfully");
         setTimeout(()=>{
             this.router.navigate(['login']);
         },3000);
       },
       (error) => {
           console.log(error);
-           { this.statusMessage = error.error}
+           { this.alert.error( error.error);}
       
       }
       );

@@ -1,3 +1,4 @@
+import { AlertService } from './../../../services/alert.service';
 import { User } from '../../../models/user';
 import { LoginService } from '../../../services/login.service';
 
@@ -5,6 +6,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {FormControl,FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import { catchError, map, tap } from 'rxjs/operators';
+
 
 
 
@@ -16,13 +18,14 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class ProfileComponent implements OnInit, OnDestroy {
   form ;
   user :User;
-  statusMessage = null;
+ // statusMessage = null;
   editMode = false;
   id : string;
   exp : Date;
 
+
   
-  constructor(private signup : LoginService, private router:Router) { }
+  constructor(private signup : LoginService, private router:Router, private alert : AlertService) { }
 
   ngOnInit() :void {  
 
@@ -49,12 +52,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.form.disable();
       this.id = profile._id;
       } 
+     // this.alert.success("Success");
       
     },(error) => {
-       this.statusMessage = error.error.message;
+       this.alert.error(error.error.message);
 
        setTimeout(()=>{
-        this.router.navigate(['login']);
+         this.alert.clear();
+         this.router.navigate(['login']);
     },2000);
 
     });
@@ -92,7 +97,7 @@ get p() {
             )
             .subscribe (
                 response => {
-                this.statusMessage = "Request Sent Successfully";
+                this.alert.success("Request Sent Successfully");
                  localStorage.setItem('token', response.token);
                 // update the user object.
                 setTimeout(() => {
@@ -101,10 +106,10 @@ get p() {
                     this.form.patchValue({'name' : response.user.name});
                     this.editMode = false;
                     this.form.disable();
-                    this.statusMessage = null;
+                    this.alert.clear();
                 }, 2000);
             } ,
-               err => this.statusMessage = err
+               err => this.alert.error(err) 
             );
 
     }
@@ -144,7 +149,7 @@ get p() {
   this.editMode = false;
   if(this.editMode) {this.form.enable()}
   else (this.form.disable())
-  this.statusMessage = null;
+  this.alert.clear();
 }
 
  onUpdate() {
@@ -152,7 +157,7 @@ get p() {
     this.form.patchValue({'oldpassword' : ""});
    if(this.editMode) {this.form.enable()}
    else {this.form.disable()}
-   this.statusMessage = null;
+   this.alert.clear();
  }
  onPasswordUpdate() {
     this.router.navigate(['changepassword']);

@@ -1,3 +1,4 @@
+import { AlertService } from './../../../services/alert.service';
 import { LoginService } from '../../../services/login.service';
 import { MatchPassword } from '../../../validators/password-validator';
 import { Component, OnInit } from '@angular/core';
@@ -14,8 +15,8 @@ import {Router} from '@angular/router';
 })
 export class CreateProfileComponent implements OnInit {
   form ;
-  statusMessage = null;
-  constructor(private signup : LoginService, private router:Router) { }
+  //statusMessage = null;
+  constructor(private signup : LoginService, private router:Router, private alert : AlertService) { }
 
   ngOnInit() :void {  
   this.form = new FormGroup({
@@ -38,13 +39,13 @@ export class CreateProfileComponent implements OnInit {
     }
     this.signup.signup(post)
     .subscribe(response =>{
-        this.statusMessage= "Request Sent Successfully";
+        this.alert.success("Request Sent Successfully");
         setTimeout(()=>{
             this.router.navigate(['validateuser']);
         },3000);
       },
       (error) => {
-        if(error.status === 409) { this.statusMessage = error.error}
+        if(error.status === 409) { this.alert.error(error.error);}
       }
       );
 

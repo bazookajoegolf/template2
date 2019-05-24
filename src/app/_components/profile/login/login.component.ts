@@ -1,9 +1,12 @@
 
+
+
 import { Component, OnInit } from '@angular/core';
 import {FormControl,FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
 import { LoginService } from '../../../services/login.service';
+import { AlertService } from './../../../services/alert.service';
 import {map} from 'rxjs/operators';
 
 
@@ -14,8 +17,8 @@ import {map} from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
   form:FormGroup ;
-  statusMessage = null;
-  constructor(private signup : LoginService, private router:Router) { }
+  //statusMessage = null;
+  constructor(private signup : LoginService, private router:Router, private alert : AlertService) { }
 
   ngOnInit() :void {  
   this.form = new FormGroup({
@@ -38,7 +41,7 @@ get f() {
     .subscribe(response =>{
 
       if(response.token && response) {
-        this.statusMessage= "Successfully Logged in!";
+        this.alert.success( "Successfully Logged in!");
        
        localStorage.setItem('token', response.token);
       }  
@@ -47,8 +50,7 @@ get f() {
         },3000);
       },
       (error) => {
-         console.log(error);
-          { this.statusMessage = error.error.message}
+          this.alert.error(error.error.message);
       
       }
       );

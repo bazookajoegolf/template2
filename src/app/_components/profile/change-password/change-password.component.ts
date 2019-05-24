@@ -1,3 +1,4 @@
+import { AlertService } from './../../../services/alert.service';
 import { User } from '../../../models/user';
 import { LoginService } from '../../../services/login.service';
 import { MatchPassword } from '../../../validators/password-validator';
@@ -14,11 +15,11 @@ export class ChangePasswordComponent implements OnInit {
 
   form ;
   user :User;
-  statusMessage = null;
+  //statusMessage = null;
   id : string;
   exp : Date;
 
-  constructor(private signup : LoginService, private router:Router) { }
+  constructor(private signup : LoginService, private router:Router, private alert : AlertService) { }
 
   ngOnInit() {
 
@@ -41,8 +42,7 @@ export class ChangePasswordComponent implements OnInit {
       } 
       
     },(error) => {
-       this.statusMessage = error.error;
-       console.log(error.error);
+       this.alert.error(error.error);
        setTimeout(()=>{
         this.router.navigate(['login']);
     },2000);
@@ -71,22 +71,23 @@ export class ChangePasswordComponent implements OnInit {
     }
     this.signup.updateProfile(this.id, post)
         .subscribe(response => {
-            this.statusMessage = "Request Sent Successfully";
+            this.alert.success("Request Sent Successfully");
             // update the user object.
             setTimeout(() => {
                 this.router.navigate(['profile']);
             }, 2000);
         },
             (error) => {
-                console.log("This is the error handler" + error.error.message);
-                { this.statusMessage = error.error.message }
+                this.alert.error(error.error.message);
             }
         );
 
 }
 
 cancelUpdate() {
+  this.alert.clear();
   this.router.navigate(['profile']);
+  
 }
 
 }
