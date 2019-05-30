@@ -81,6 +81,18 @@ export class LoginService {
     return !isExpired;
   }
 
+  isAdmin() {
+    const token = localStorage.getItem('token');
+    if(!token) return false;
+
+    let jwtHelper = new JwtHelperService();
+    const decrptedValue = jwtHelper.decodeToken(token);
+    const isExpired = jwtHelper.isTokenExpired(token);
+    
+    if(decrptedValue.isadmin && !isExpired) return true;
+    else return false;
+  }
+
   get CurrentUser() {
     let token = localStorage.getItem('token');
     if(!token) return null;

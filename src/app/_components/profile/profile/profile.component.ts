@@ -87,7 +87,6 @@ get p() {
             oldpassword: this.form.value.oldpassword
         }
 
-// left off here... try .pipe .catchError instead of subscribe  (error)
 
         this.signup.updateProfile(this.id, post)
             .pipe(

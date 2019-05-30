@@ -18,6 +18,7 @@ import { CreateProfileComponent } from './_components/profile/create-profile/cre
 import { NewuserComponent } from './_components/profile/newuser/newuser.component';
 import { ChangePasswordComponent } from './_components/profile/change-password/change-password.component';
 import { StatusComponent } from './_components/general/status/status.component';
+import { AdminComponent } from './_components/profile/admin/admin.component';
 
 //import { AlertService } from './services/alert.service';
 
@@ -31,7 +32,8 @@ import { StatusComponent } from './_components/general/status/status.component';
     CreateProfileComponent,
     NewuserComponent,
     ChangePasswordComponent,
-    StatusComponent
+    StatusComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
