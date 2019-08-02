@@ -10,6 +10,9 @@ import { ProfileComponent } from './_components/profile/profile/profile.componen
 import { ResetComponent } from './_components/profile/reset/reset.component';
 import { HomeComponent } from './_components/profile/home/home.component';
 
+import {CoursesComponent} from './_components/admin/courses/courses.component';
+import {AdminusersComponent}  from './_components/admin/adminusers/adminusers.component';
+import {UsersComponent}  from './_components/admin/users/users.component';
 
 
 import { NgModule } from '@angular/core';
@@ -26,6 +29,9 @@ const routes: Routes = [  { path: '', component: HomeComponent },
 {path: 'admin' , component:AdminComponent , canActivate: [ AdminGuard]},
 {path:'validateuser/:id', component:NewuserComponent},
 {path:'validateuser', component:NewuserComponent},
+{path:'users', component:UsersComponent, canActivate: [AdminGuard]},
+{path:'admincourses', component:CoursesComponent, canActivate: [AdminGuard]},
+{path:'adminusers', component:AdminusersComponent, canActivate: [AdminGuard]},
 { path: '', redirectTo: '/', pathMatch: 'full'}];
 
 @NgModule({

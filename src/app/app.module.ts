@@ -19,6 +19,11 @@ import { NewuserComponent } from './_components/profile/newuser/newuser.componen
 import { ChangePasswordComponent } from './_components/profile/change-password/change-password.component';
 import { StatusComponent } from './_components/general/status/status.component';
 import { AdminComponent } from './_components/profile/admin/admin.component';
+import { CoursesComponent } from './_components/admin/courses/courses.component';
+import { UsersComponent } from './_components/admin/users/users.component';
+
+import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { AdminusersComponent } from './_components/admin/adminusers/adminusers.component';
 
 //import { AlertService } from './services/alert.service';
 
@@ -33,7 +38,11 @@ import { AdminComponent } from './_components/profile/admin/admin.component';
     NewuserComponent,
     ChangePasswordComponent,
     StatusComponent,
-    AdminComponent
+    AdminComponent,
+    CoursesComponent,
+    UsersComponent,
+    AdminusersComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -42,7 +51,10 @@ import { AdminComponent } from './_components/profile/admin/admin.component';
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    CustomMaterialModule
+    CustomMaterialModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
