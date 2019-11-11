@@ -20,7 +20,8 @@ import { ChangePasswordComponent } from './_components/profile/change-password/c
 import { StatusComponent } from './_components/general/status/status.component';
 import { AdminComponent } from './_components/profile/admin/admin.component';
 import { CoursesComponent } from './_components/admin/courses/courses.component';
-import { UsersComponent } from './_components/admin/users/users.component';
+import { UsersComponent} from './_components/admin/users/users.component';
+import {UserEditDialog} from './_components/admin/users/usereditdialog.component';
 
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { AdminusersComponent } from './_components/admin/adminusers/adminusers.component';
@@ -40,6 +41,7 @@ import { AdminusersComponent } from './_components/admin/adminusers/adminusers.c
     StatusComponent,
     AdminComponent,
     CoursesComponent,
+    UserEditDialog,
     UsersComponent,
     AdminusersComponent
     
@@ -55,6 +57,9 @@ import { AdminusersComponent } from './_components/admin/adminusers/adminusers.c
     MatTableModule,
     MatPaginatorModule,
     MatSortModule
+  ],
+  entryComponents:[
+    UserEditDialog
   ],
   providers: [],
   bootstrap: [AppComponent]

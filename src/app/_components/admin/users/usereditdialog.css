@@ -1,0 +1,16 @@
+
+.mat-dialog-title {
+    text-align: center;
+    color:#5271a3;
+}
+
+
+button {
+    display: inline-flex;
+    margin: auto;
+    color: white;
+}
+
+.mat-form-field {
+    display: block;
+}

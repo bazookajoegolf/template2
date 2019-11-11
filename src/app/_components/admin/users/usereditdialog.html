@@ -1,0 +1,32 @@
+<div class="dialog-frame">
+
+  <form action="post">
+    <h2 mat-dialog-title>{{action}} User </h2>
+    <mat-form-field>
+      <input matInput placeholder="Name" type="text" spellcheck="false" name = "name" [(ngModel)]=local_data.editUser.name>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Email" type="text" name = "email" [(ngModel)]=data.editUser.email>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Password" type="password" name="password" [(ngModel)]=data.editUser.password>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Administrator" type="text" name="isadmin" [(ngModel)]=data.editUser.isadmin>
+    </mat-form-field>
+
+
+
+    <div mat-dialog-actions>
+      <button *ngIf="action =='Add'" mat-raised-button style="background-color:rgb(33, 192, 166);"
+        (click)="doActionClick('add')">Add User</button>
+      <button *ngIf="action =='Edit'" mat-raised-button style="background-color:#357;"
+        (click)="doActionClick('update')">Update</button>
+      <button *ngIf="action =='Delete'" mat-raised-button style="background-color:rgb(105, 8, 8)"
+        (click)="doActionClick('delete')">Delete</button>
+      <button mat-raised-button style="background-color:rgb(108, 109, 645);"
+        (click)="doActionClick('close')">Close</button>
+
+    </div>
+  </form>
+</div>

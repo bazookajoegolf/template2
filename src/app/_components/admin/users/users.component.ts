@@ -2,13 +2,16 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { merge, Observable, of as observableOf } from 'rxjs';
 
 import { User } from './../../../models/user';
-import { Component, ViewChild,AfterViewInit } from '@angular/core';
+import { Component, ViewChild,AfterViewInit, Inject } from '@angular/core';
 import { AlertService } from './../../../services/alert.service';
 import {Router} from '@angular/router';
 import {AdminusersService} from '../../../services/adminusers.service';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
+import {UserEditDialog} from '../users/usereditdialog.component';
 
 
 
@@ -33,11 +36,13 @@ export interface UserProperties {
 })
 export class UsersComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['name','email','isadmin','createDate', 'lastLogin'];
+  displayedColumns: string[] = ['name','email','isadmin','createDate', 'lastLogin','edit'];
   //users = [];
 
   users = new MatTableDataSource<UserProperties>();
   data: UserProperties;
+  editUsers: UserProperties;
+  value:string;
 
 
 
@@ -49,7 +54,7 @@ export class UsersComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private adminusers : AdminusersService, private router:Router, private alert : AlertService) { }
+  constructor(private adminusers : AdminusersService, private router:Router, private alert : AlertService, public dialog: MatDialog) { }
 
   ngAfterViewInit() {
     if(!localStorage.getItem('token')) { this.router.navigate(['login']); }
@@ -106,4 +111,36 @@ applyFilter(filterValue: string) {
    
 }
 
+
+openDialog(action, row) : void {
+
+  row.action = action;
+  const dialogRef = this.dialog.open(UserEditDialog, {
+    data: {editUser: row},
+    backdropClass : 'baz-test'
+  
+  });
+
+  dialogRef.addPanelClass('baz-test');
+
+  dialogRef.afterClosed().subscribe(result => {
+    if(result.event =='add') {
+      this.addRowData(result.data);    
+    } else if (result.event=='update'){
+      this.updateRowData(result.data);
+    } else if (result.event=='delete') {
+      this.deleteRowData(result.data);
+    } else {console.log("console.closed")};
+  });
 }
+
+
+  addRowData(rowData) {}
+
+  updateRowData(rowData) {}
+
+  deleteRowData(rowData) {}
+
+
+}
+

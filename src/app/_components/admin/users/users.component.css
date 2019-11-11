@@ -7,3 +7,31 @@ table {
     text-align: center;
     font-size: .9em;
 }
+
+.action-link {
+    cursor: pointer;
+}
+
+a:hover {
+    color : crimson;
+}
+
+
+.filter-label {
+    font-size: 20px;
+}
+
+.filter-input {
+ min-width: 1500px;
+    
+  
+}
+
+::ng-deep .mat-sort-header-button {
+    justify-content: flex-end;
+    margin-left: 0px;
+}
+
+::ng-deep .mat-cell {
+    text-align: left;
+}
