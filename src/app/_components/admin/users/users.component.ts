@@ -8,8 +8,8 @@ import {Router} from '@angular/router';
 import {AdminusersService} from '../../../services/adminusers.service';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import {UserEditDialog} from '../users/usereditdialog.component';
 
@@ -50,8 +50,8 @@ export class UsersComponent implements AfterViewInit {
   pageLength = 100;
   isLoadingResults = true;
   
-  @ViewChild(MatPaginator) paginator : MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator : MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
 
   constructor(private adminusers : AdminusersService, private router:Router, private alert : AlertService, public dialog: MatDialog) { }

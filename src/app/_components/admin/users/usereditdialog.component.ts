@@ -1,6 +1,6 @@
 import { Component, Inject, Optional } from '@angular/core';
 
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AlertService } from './../../../services/alert.service';
 import {Router} from '@angular/router';
 import {AdminusersService} from '../../../services/adminusers.service';

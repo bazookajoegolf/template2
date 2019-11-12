@@ -23,7 +23,9 @@ import { CoursesComponent } from './_components/admin/courses/courses.component'
 import { UsersComponent} from './_components/admin/users/users.component';
 import {UserEditDialog} from './_components/admin/users/usereditdialog.component';
 
-import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { AdminusersComponent } from './_components/admin/adminusers/adminusers.component';
 
 //import { AlertService } from './services/alert.service';

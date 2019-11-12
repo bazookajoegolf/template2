@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { AdminusersDataSource } from './adminusers-datasource';
 
 @Component({
@@ -8,8 +9,8 @@ import { AdminusersDataSource } from './adminusers-datasource';
   styleUrls: ['./adminusers.component.css']
 })
 export class AdminusersComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   dataSource: AdminusersDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
