@@ -1,7 +1,10 @@
+import { SnackstatusComponent } from './../snackstatus/snackstatus.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlertService } from './../../../services/alert.service';
 import { Alert, AlertType } from './../../../models/alert';
 import { Component, OnInit } from '@angular/core';
 import {Status} from '../../../models/status';
+
 
 
 
@@ -20,7 +23,7 @@ export class StatusComponent implements OnInit {
 
   alerts: Alert[];
 
-  constructor(private alertService : AlertService) { }
+  constructor(private alertService : AlertService, private snackBar : MatSnackBar) { }
 
   ngOnInit() {
     
@@ -31,6 +34,18 @@ export class StatusComponent implements OnInit {
       }
 
       this.alerts.push(alert);
+      if (alert.type==0) {
+          this.snackBar.open(alert.message, 'Close',
+           {duration: 2000,
+            panelClass: 'snack-success'
+          });
+      } else if (alert.type==1){
+        this.snackBar.open(alert.message, 'Close',
+           {duration: 2000,
+            panelClass: 'snack-error'
+          });
+      }
+     
     });
   }
 

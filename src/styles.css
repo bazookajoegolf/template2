@@ -34,3 +34,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: rgba(93, 126, 93, 0.363)
 }
 
+.snack-success {
+    color : #333;
+    text-align: center;
+    background:white;
+    border: rgb(2, 128, 19) 4px solid;
+    
+}
+
+.snack-error {
+    color : #333;
+    text-align: center;
+    background: white;
+    border: rgb(175, 5, 5) 4px solid;
+    
+}
+
+

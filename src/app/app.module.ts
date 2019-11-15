@@ -27,6 +27,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { AdminusersComponent } from './_components/admin/adminusers/adminusers.component';
+import { SnackstatusComponent } from './_components/general/snackstatus/snackstatus.component';
 
 //import { AlertService } from './services/alert.service';
 
@@ -45,7 +46,8 @@ import { AdminusersComponent } from './_components/admin/adminusers/adminusers.c
     CoursesComponent,
     UserEditDialog,
     UsersComponent,
-    AdminusersComponent
+    AdminusersComponent,
+    SnackstatusComponent
     
   ],
   imports: [
