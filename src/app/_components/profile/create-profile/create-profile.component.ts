@@ -14,7 +14,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./create-profile.component.css']
 })
 export class CreateProfileComponent implements OnInit {
-  form ;
+  form: FormGroup ;
   //statusMessage = null;
   constructor(private signup : LoginService, private router:Router, private alert : AlertService) { }
 
@@ -35,7 +35,11 @@ export class CreateProfileComponent implements OnInit {
       name : this.form.value.name,
       email : this.form.value.email,
       password : this.form.value.password,
-      isadmin : "false"
+      isadmin : "false",
+      status : "Disabled",
+      roles : ['User'],
+      notes : " "
+
     }
     this.signup.signup(post)
     .subscribe(response =>{

@@ -1,22 +1,22 @@
 <div class="dialog-frame">
 
-  <form action="post">
+  <form [formGroup]= "form" (ngSubmit)="onSubmit()">
     <h2 mat-dialog-title>{{action}} User </h2>
-    <mat-form-field>
-      <input matInput placeholder="Name" type="text" spellcheck="false" name = "name" [(ngModel)]=local_data.editUser.name>
+    <h4> errors : {{f.email?.errors | json}} </h4>
+     <mat-form-field>
+      <input matInput placeholder="Name" type="text" spellcheck="false" name = "name" formControlName="name">
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Email" type="text" name = "email" [(ngModel)]=data.editUser.email>
+      <input matInput placeholder="email" #email (blur)="checkUnique(email.value)" type="email" spellcheck="false" name="email"  formControlName="email" >
+      <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">An Email address is Required</mat-error>
+      <mat-error *ngIf="f.email.errors?.email && (f.email.dirty )">Name must be valid e-mail address</mat-error> 
+      <mat-error *ngIf="f.email.errors?.uniqueEmail && (f.email.dirty)">Name must be a unique e-mail address</mat-error> 
+    
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Password" type="password" name="password" [(ngModel)]=data.editUser.password>
+      <input matInput placeholder="Password" type="password" spellcheck="false" name = "password" formControlName="password">
     </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Administrator" type="text" name="isadmin" [(ngModel)]=data.editUser.isadmin>
-    </mat-form-field>
-
-
-
+  
     <div mat-dialog-actions>
       <button *ngIf="action =='Add'" mat-raised-button style="background-color:rgb(33, 192, 166);"
         (click)="doActionClick('add')">Add User</button>

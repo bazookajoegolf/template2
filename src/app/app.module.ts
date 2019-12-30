@@ -28,6 +28,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { AdminusersComponent } from './_components/admin/adminusers/adminusers.component';
 import { SnackstatusComponent } from './_components/general/snackstatus/snackstatus.component';
+import { UniqueEmailValidatorDirective } from './shared/unique-email-validator.directive';
 
 //import { AlertService } from './services/alert.service';
 
@@ -47,7 +48,8 @@ import { SnackstatusComponent } from './_components/general/snackstatus/snacksta
     UserEditDialog,
     UsersComponent,
     AdminusersComponent,
-    SnackstatusComponent
+    SnackstatusComponent,
+    UniqueEmailValidatorDirective
     
   ],
   imports: [

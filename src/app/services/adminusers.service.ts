@@ -39,6 +39,20 @@ export class AdminusersService {
     return this.http.get<any>(this.hostserver, Options)
   }
 
+  adminGetEmailAddress(email) {
+    let myToken = localStorage.getItem('token') || " ";
+ 
+    let Options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json' ,
+        'x-auth-token' : myToken
+      })
+    };
+
+  //  return this.http.get<any>(this.hostserver+'/me', Options);
+    return this.http.get<any>(this.hostserver + email, Options)
+  }
+
   adminGetSortedUsers(a,b,c,d) {
     let myToken = localStorage.getItem('token') || " ";
     let query = `?sort=${a}&order=${b}&pagelength=${c}&page=${d}`;
