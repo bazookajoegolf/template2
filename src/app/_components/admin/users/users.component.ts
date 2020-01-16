@@ -2,28 +2,28 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { merge, Observable, of as observableOf } from 'rxjs';
 
 import { User } from './../../../models/user';
-import { Component, ViewChild,AfterViewInit, Inject } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, Inject, OnInit } from '@angular/core';
 import { AlertService } from './../../../services/alert.service';
-import {Router} from '@angular/router';
-import {AdminusersService} from '../../../services/adminusers.service';
-import {MatSort} from '@angular/material/sort';
-import {MatPaginator} from '@angular/material/paginator';
+import { Router } from '@angular/router';
+import { AdminusersService } from '../../../services/adminusers.service';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-import {UserEditDialog} from '../users/usereditdialog.component';
-
-
-
+import { FormBuilder, FormControl, FormGroup, Validators, AsyncValidator } from '@angular/forms';
 
 
 export interface UserProperties {
 
+  id: string;
   name: string;
   email: string;
   isadmin: string;
   createDate: Date;
   lastLogin: Date;
+  status: string;
+  roles: [];
+  notes: string;
 }
 
 
@@ -34,48 +34,75 @@ export interface UserProperties {
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent implements AfterViewInit {
+export class UsersComponent implements AfterViewInit, OnInit {
 
-  displayedColumns: string[] = ['name','email','isadmin','createDate', 'lastLogin','edit'];
+  displayedColumns: string[] = ['name', 'email', 'Status', 'isadmin', 'createDate', 'lastLogin', 'edit'];
   //users = [];
 
   users = new MatTableDataSource<UserProperties>();
   data: UserProperties;
   editUsers: UserProperties;
-  value:string;
+  value: string;
 
+  opened = false;
 
+  form: FormGroup;
+  resetPasswordForm: FormGroup;
+  action: string;
+  originalEmail: string;
+  okEmail: boolean;
 
   resultsLength = 0;
   pageLength = 100;
   isLoadingResults = true;
-  
-  @ViewChild(MatPaginator, {static: false}) paginator : MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
 
-  constructor(private adminusers : AdminusersService, private router:Router, private alert : AlertService, public dialog: MatDialog) { }
+  constructor(private adminusers: AdminusersService, private router: Router,
+    private alert: AlertService, public dialog: MatDialog, private fb: FormBuilder) { }
+
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      id: [],
+      email: ['',
+        [Validators.required, Validators.email]],
+      name: ['',
+        [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      password: ['', [Validators.required, Validators.minLength(5)]],
+      notes: [''],
+      status: ['']
+
+    });
+
+    this.resetPasswordForm = this.fb.group({
+      password: ['',
+        [Validators.required, Validators.minLength(5)]
+      ]
+    });
+
+
+  }
 
   ngAfterViewInit() {
-    if(!localStorage.getItem('token')) { this.router.navigate(['login']); }
+    if (!localStorage.getItem('token')) { this.router.navigate(['login']); }
 
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     this.users.paginator = this.paginator;
 
-  
-
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
-        switchMap( () => {
+        switchMap(() => {
           this.isLoadingResults = true;
-         // return this.adminusers.adminGetSortedUsers(this.sort.active, this.sort.direction, this.paginator.pageSize, this.paginator.pageIndex)
-         return this.adminusers.adminGetSortedUsers(this.sort.active, this.sort.direction, 1000, 0)
+          // return this.adminusers.adminGetSortedUsers(this.sort.active, this.sort.direction, this.paginator.pageSize, this.paginator.pageIndex)
+          return this.adminusers.adminGetSortedUsers(this.sort.active, this.sort.direction, 1000, 0)
         }),
-        map( data => {
+        map(data => {
           this.isLoadingResults = false;
           this.resultsLength = data.totalUsers;
-         // console.log("data count " + data[1] );
+          // console.log("data count " + data[1] );
           return data;
         }),
         catchError(() => {
@@ -84,62 +111,88 @@ export class UsersComponent implements AfterViewInit {
         })
       ).subscribe(data => this.users.data = data.users);
 
+  }
+
+  applyFilter(filterValue: string) {
+
+    this.users.filter = filterValue.trim().toLocaleLowerCase();
+    //console.log(this.paginator);
+    //console.log(this.users.paginator.pageSize);
+
+  }
+
+  get f() {
+    return this.form.controls
+  };
+
+  get p() {
+    return this.resetPasswordForm.controls
+  }
+
+  onSubmit() {
+    console.log("submitted");
+  }
+
+  onPasswordSubmit() {
+    console.log("Submitting Password Change");
+  }
+
+  onDelete() {
+    console.log("I'm deleting " + this.form.get('id').value);
+  }
+
+  checkUnique() {
+
+    console.log("Email address: " + this.form.get('email').value);
+    if (this.form.get('email').value === this.originalEmail && this.action === "edit") {
+    } else {
+      const isUnique = this.adminusers.adminGetEmailAddress(this.form.get('email').value)
+        .pipe(
+          map(res => {
+
+            return res.length ? true : false;
+          })
+        );
+      isUnique.subscribe(a => {
+        this.okEmail = a;
+        if (a) {
+          this.form.controls['email'].setErrors({ 'UniqueEmail': a });
+        }
+        // console.log(this.form);
+
+      });
+    }
+  }
 
 
+  displayOverlay(action: string, data, $event) {
+    this.opened = true;
+    this.action = action;
+    this.form.reset();
+    this.resetPasswordForm.reset();
+    if (data) {
+      this.originalEmail = data.email;
+      this.okEmail = true;
+    }
+    else {
+      this.originalEmail = "";
+      this.okEmail = false;
+    }
+    $event.stopPropagation();
+    if (data) {
+      this.form.setValue({
+        name: data.name, email: data.email, password: "11111", status: data.status, id: data._id,
+        notes: data.notes || ""
+      });
 
-  //   this.adminusers.adminGetSortedUsers('name', 'asc', 25, 1)
-  //   .subscribe((profile)=>{
-  //       if (profile) {
-          
-  //        this.users = profile;
-  //        console.log(" I'm here !");
-  //       }
-  //   // this.alert.success("Success");
-      
-  //   },(error) => {
-  //      this.alert.error(error.error.message);
-  //      console.log(error.error.message);
+    }
+  }
 
-  // });
-}
+  addRowData(rowData) { }
 
-applyFilter(filterValue: string) {
-  
-   this.users.filter = filterValue.trim().toLocaleLowerCase();
-   //console.log(this.paginator);
-   //console.log(this.users.paginator.pageSize);
-   
-}
+  updateRowData(rowData) { }
 
-
-openDialog(action, row) : void {
-
-  row.action = action;
-  const dialogRef = this.dialog.open(UserEditDialog, {
-    data: {editUser: row},
-    backdropClass : 'baz-test'
-  
-  });
-
-  dialogRef.addPanelClass('baz-test');
-
-  dialogRef.afterClosed().subscribe(result => {
-    if(result.event =='add') {
-      this.addRowData(result.data);    
-    } else if (result.event=='update'){
-      this.updateRowData(result.data);
-    } else if (result.event=='delete') {
-      this.deleteRowData(result.data);
-    } else {console.log("console.closed")};
-  });
-}
-
-
-  addRowData(rowData) {}
-
-  updateRowData(rowData) {}
-
-  deleteRowData(rowData) {}
+  deleteRowData(rowData) { }
 
 
 }

@@ -25,6 +25,21 @@ export class AdminusersService {
    
   }
 
+
+  adminDeleteUser(id) {
+    let myToken = localStorage.getItem('token') || " ";
+ 
+    let Options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json' ,
+        'x-auth-token' : myToken
+      })
+    };
+
+  //  return this.http.get<any>(this.hostserver+'/me', Options);
+    return this.http.delete<any>(this.hostserver + id, Options)
+  }
+
   adminGetUsers() {
     let myToken = localStorage.getItem('token') || " ";
  
@@ -41,7 +56,7 @@ export class AdminusersService {
 
   adminGetEmailAddress(email) {
     let myToken = localStorage.getItem('token') || " ";
- 
+    
     let Options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json' ,

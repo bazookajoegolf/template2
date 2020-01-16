@@ -3,6 +3,13 @@ table {
     margin: auto;
 }
 
+.main-header {
+    font-size: 2.5em;
+    color:#111;
+    text-align: left;
+}
+
+
 .mat-header-cell {
     text-align: center;
     font-size: .9em;
@@ -18,7 +25,11 @@ a:hover {
 
 
 .filter-label {
-    font-size: 20px;
+    font-size: 18px;
+}
+
+.filter-label::before {
+    content: '\1F50D'
 }
 
 .filter-input {
@@ -34,4 +45,67 @@ a:hover {
 
 ::ng-deep .mat-cell {
     text-align: left;
+}
+
+
+mat-sidenav-container {
+    height : 100%;
+}
+
+mat-sidenav, mat-sidenav-content {
+    padding-top : 5px;
+}
+
+mat-sidenav {
+    width: 35%;
+    margin-top: 0px;
+  
+    
+}
+
+.mat-dialog-title {
+    text-align: center;
+    color:#5271a3;
+}
+
+
+button {
+    display: inline-flex;
+    margin: auto;
+    color: rgba(17, 5, 5, 1);
+}
+
+.mat-form-field {
+    display: block;
+}
+
+.header-image {
+    background-image: url("../../../../assets/images/batman-icon.png");
+    background-size: cover;
+}
+
+mat-card{
+    margin-left : 5%;
+}
+
+mat-checkbox {
+    margin-left : 75%;
+    margin-right: 25%;
+}
+
+mat-card-actions {
+
+    margin-top : 20px;
+}
+
+#pw-input {
+    display: inline-block;
+    width: 50px;
+    padding-top : 30px;
+}
+
+#pw-btn {
+    display: inline-block;
+   
+
 }
