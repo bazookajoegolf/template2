@@ -88,10 +88,6 @@ mat-card{
     margin-left : 5%;
 }
 
-mat-checkbox {
-    margin-left : 75%;
-    margin-right: 25%;
-}
 
 mat-card-actions {
 
@@ -106,6 +102,23 @@ mat-card-actions {
 
 #pw-btn {
     display: inline-block;
-   
 
+}
+
+.button-section {
+    display: inline-block;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+    padding: 5px 10px;
+}
+
+#chk-disable {
+    display: flex;
+    float: right;
+}
+
+#chk-administrator {
+    display: flex;
+    float: left;
 }

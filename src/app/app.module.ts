@@ -29,6 +29,7 @@ import { MatTableModule } from '@angular/material/table';
 import { AdminusersComponent } from './_components/admin/adminusers/adminusers.component';
 import { SnackstatusComponent } from './_components/general/snackstatus/snackstatus.component';
 import { UniqueEmailValidatorDirective } from './shared/unique-email-validator.directive';
+import { BoolToTextPipe } from './shared/bool-to-text.pipe';
 
 //import { AlertService } from './services/alert.service';
 
@@ -49,7 +50,8 @@ import { UniqueEmailValidatorDirective } from './shared/unique-email-validator.d
     UsersComponent,
     AdminusersComponent,
     SnackstatusComponent,
-    UniqueEmailValidatorDirective
+    UniqueEmailValidatorDirective,
+    BoolToTextPipe
     
   ],
   imports: [

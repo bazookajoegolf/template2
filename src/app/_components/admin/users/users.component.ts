@@ -1,8 +1,8 @@
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { merge, Observable, of as observableOf } from 'rxjs';
+import { merge, Observable, of as observableOf, throwError } from 'rxjs';
 
 import { User } from './../../../models/user';
-import { Component, ViewChild, AfterViewInit, Inject, OnInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, Inject, OnInit, ElementRef } from '@angular/core';
 import { AlertService } from './../../../services/alert.service';
 import { Router } from '@angular/router';
 import { AdminusersService } from '../../../services/adminusers.service';
@@ -10,7 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormControl, FormGroup, Validators, AsyncValidator } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, AsyncValidator, ValidationErrors } from '@angular/forms';
 
 
 export interface UserProperties {
@@ -18,7 +18,7 @@ export interface UserProperties {
   id: string;
   name: string;
   email: string;
-  isadmin: string;
+  isadmin: boolean;
   createDate: Date;
   lastLogin: Date;
   status: string;
@@ -46,6 +46,11 @@ export class UsersComponent implements AfterViewInit, OnInit {
 
   opened = false;
 
+  chkEnabled = false;
+  delStatus = true;
+  disableCheck:boolean;
+  userIndex: number;
+
   form: FormGroup;
   resetPasswordForm: FormGroup;
   action: string;
@@ -71,6 +76,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
       name: ['',
         [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       password: ['', [Validators.required, Validators.minLength(5)]],
+      isadmin: [''],
       notes: [''],
       status: ['']
 
@@ -87,6 +93,12 @@ export class UsersComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     if (!localStorage.getItem('token')) { this.router.navigate(['login']); }
+    this.getData();
+
+
+  }
+
+  getData() {
 
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     this.users.paginator = this.paginator;
@@ -111,14 +123,21 @@ export class UsersComponent implements AfterViewInit, OnInit {
         })
       ).subscribe(data => this.users.data = data.users);
 
+
+  }
+
+  // clearCheck() {
+  //   console.log("cleared");
+  // }
+
+  formReset() {
+    this.chkEnabled = true;
+    this.delStatus = true;
   }
 
   applyFilter(filterValue: string) {
 
     this.users.filter = filterValue.trim().toLocaleLowerCase();
-    //console.log(this.paginator);
-    //console.log(this.users.paginator.pageSize);
-
   }
 
   get f() {
@@ -130,7 +149,38 @@ export class UsersComponent implements AfterViewInit, OnInit {
   }
 
   onSubmit() {
-    console.log("submitted");
+    const post = {
+      name : this.form.value.name,
+      email : this.form.value.email,
+      password : this.form.value.password,
+      isadmin : this.form.value.isadmin ? true : false,
+      status : this.form.value.status ? "Enabled" : "Disabled",
+      roles : ['User'],
+      notes : this.form.value.notes
+    }
+    if(this.action==='new') {
+      
+      this.adminusers.adminCreateNewUser(post)
+      .subscribe(response =>{
+          this.alert.success("User Created Successfully");
+          setTimeout(()=>{
+              this.opened=!this.opened;
+          },3000);
+        },
+        (error) => {
+          if(error) { this.alert.error(error.error);}
+        }
+        );
+      console.log("New user: " + JSON.stringify( post));}
+
+    else {
+      const _id = this.form.value.id
+      console.log("Modified user: "+ _id + "   " + JSON.stringify(post));
+    }
+
+
+
+
   }
 
   onPasswordSubmit() {
@@ -138,12 +188,31 @@ export class UsersComponent implements AfterViewInit, OnInit {
   }
 
   onDelete() {
-    console.log("I'm deleting " + this.form.get('id').value);
+
+    this.adminusers.adminDeleteUser(this.form.get('id').value)
+      .subscribe(response => {
+        this.alert.success(response.message);
+        setTimeout(() => {
+          this.opened = false;
+          // this.users.data.splice(this.userIndex , 1);
+          // console.log(this.users.data);
+          this.getData();
+          this.action = "";
+          this.form.reset();
+        }, 2000);
+      },
+        (error) => this.alert.error(error.error.message));
+  }
+
+  onCheck() {
+
+    this.delStatus = !this.delStatus;
+
   }
 
   checkUnique() {
 
-    console.log("Email address: " + this.form.get('email').value);
+   // console.log("Email address: " + this.form.get('email').value);
     if (this.form.get('email').value === this.originalEmail && this.action === "edit") {
     } else {
       const isUnique = this.adminusers.adminGetEmailAddress(this.form.get('email').value)
@@ -164,14 +233,23 @@ export class UsersComponent implements AfterViewInit, OnInit {
     }
   }
 
+  displayOverlay(action: string, adata, $event, index) {
 
-  displayOverlay(action: string, data, $event) {
+    this.formReset();
+
+    this.chkEnabled = false;
+    this.delStatus = true;
+    this.action = "";
+    this.form.reset();
+   
     this.opened = true;
     this.action = action;
-    this.form.reset();
+    
+    this.userIndex = index;
+    
     this.resetPasswordForm.reset();
-    if (data) {
-      this.originalEmail = data.email;
+    if (adata) {
+      this.originalEmail = adata.email;
       this.okEmail = true;
     }
     else {
@@ -179,13 +257,18 @@ export class UsersComponent implements AfterViewInit, OnInit {
       this.okEmail = false;
     }
     $event.stopPropagation();
-    if (data) {
+    if (adata) {
+      let x:boolean;
+      if (adata.status==="Enabled") {x=false} else {x=true}
       this.form.setValue({
-        name: data.name, email: data.email, password: "11111", status: data.status, id: data._id,
-        notes: data.notes || ""
+        name: adata.name, email: adata.email, password: "11111", status: x, isadmin: adata.isadmin, id: adata._id,
+        notes: adata.notes || ""
       });
+      this.userIndex = index;
+     // if (adata.status == "Enabled") { this.disableCheck = false } else { this.disableCheck = true; }
 
     }
+
   }
 
   addRowData(rowData) { }

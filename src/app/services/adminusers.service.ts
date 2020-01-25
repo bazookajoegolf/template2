@@ -54,6 +54,19 @@ export class AdminusersService {
     return this.http.get<any>(this.hostserver, Options)
   }
 
+  adminCreateNewUser(post) {
+    let myToken = localStorage.getItem('token') || " ";
+
+    let Options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json' ,
+        'x-auth-token' : myToken
+      })
+    };
+
+    return this.http.post(this.hostserver+'/', post, this.httpOptions);
+  }
+
   adminGetEmailAddress(email) {
     let myToken = localStorage.getItem('token') || " ";
     
