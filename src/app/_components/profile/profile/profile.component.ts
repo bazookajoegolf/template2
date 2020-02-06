@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       email : new FormControl('',[Validators.required, Validators.email]),
       name : new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
+      gender : new FormControl ('',[Validators.required]),
       oldpassword: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
     });
         
@@ -49,6 +50,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.form.patchValue({'email' : profile.email});
       this.form.patchValue({'name' : profile.name});
       this.form.patchValue({'password' : "*****"});
+      this.form.patchValue({'gender' : profile.gender})
       this.form.disable();
       this.id = profile._id;
       } 
@@ -84,7 +86,8 @@ get p() {
         const post = {
             name: this.form.value.name,
             email: this.form.value.email,
-            oldpassword: this.form.value.oldpassword
+            oldpassword: this.form.value.oldpassword,
+            gender : this.form.value.gender
         }
 
 

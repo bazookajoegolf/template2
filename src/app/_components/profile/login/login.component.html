@@ -1,29 +1,31 @@
-<form  [formGroup]= "form" (ngSubmit)="onSubmit()" class="create-user">
- 
-    <div>
-    </div>
-    <h2>Login</h2>
-      <mat-form-field >
-      <input matInput
-             id="email"
-             type="text"
-             placeholder="Email Adress" required
-             formControlName="email">
-      <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">Please enter your email address</mat-error>
-  
-      </mat-form-field>
-      <div>
-      <mat-form-field >
-          <input matInput
-                 id="password"
-                 type="password"
-                 placeholder="Password" required
-                 formControlName="password">
-          <mat-error *ngIf="f.password.errors?.required && (f.email.dirty || f.email.invalid)">Please enter your email address</mat-error>
-      
-          </mat-form-field>
-        </div>
+
+
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="create-user">
+  <mat-card>
   <div>
-  <button id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid" >Submit</button>
   </div>
-    </form>
+  <mat-card-title>Login</mat-card-title> 
+  <mat-form-field>
+    <input matInput id="email" type="text" placeholder="Email Address" required formControlName="email">
+    <mat-icon matPrefix>email</mat-icon>
+    <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">Please enter your email address
+    </mat-error>
+    <mat-error *ngIf="f.email.errors?.email && (f.email.dirty || f.email.invalid)">Please enter a Valid email address
+    </mat-error>
+
+  </mat-form-field>
+  <div>
+    <mat-form-field>
+      <input matInput id="password" type="password" placeholder="Password" required formControlName="password">
+      <mat-icon matPrefix>lock</mat-icon>
+    </mat-form-field>
+  </div>
+  <div>
+    <button id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
+  </div>
+  <div id="resetlink">
+    <a routerLink="/reset"><button mat-button>Reset Password*</button></a>
+  </div>
+</mat-card>
+</form>

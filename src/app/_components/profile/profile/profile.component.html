@@ -31,6 +31,11 @@
                 <mat-error *ngIf="f.email.errors?.email && (f.email.dirty || f.email.invalid)">Name must be valid e-mail address</mat-error> 
                
         </mat-form-field>
+        <mat-radio-group aria-label="Enter Gender" id="gender" formControlName="gender">
+          <mat-radio-button color="primary" value="Female">Female</mat-radio-button>
+          <mat-radio-button color="accent" value="Male">Male</mat-radio-button>
+          <mat-error *ngIf="f.gender.errors?.required && (f.gender.dirty)">Gender Required</mat-error>
+        </mat-radio-group>
       </div>
 
       <div>

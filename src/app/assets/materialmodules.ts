@@ -13,6 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCardModule} from '@angular/material/card';
+import {MatRadioModule} from '@angular/material/radio'
 
 
 
@@ -20,8 +21,10 @@ import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   imports: [MatButtonModule, MatCheckboxModule,MatToolbarModule, MatMenuModule,MatFormFieldModule,MatCardModule, 
-            MatInputModule, MatListModule,MatTableModule,MatDialogModule, MatGridListModule, MatIconModule,MatSnackBarModule,MatSidenavModule],
+            MatInputModule, MatListModule,MatTableModule,MatDialogModule, MatGridListModule, MatIconModule,
+            MatSnackBarModule,MatSidenavModule,MatRadioModule],
   exports: [MatButtonModule, MatCheckboxModule,MatToolbarModule, MatMenuModule,MatFormFieldModule, MatCardModule,
-            MatInputModule, MatListModule,MatTableModule,MatDialogModule, MatGridListModule, MatIconModule,MatSnackBarModule,MatSidenavModule],
+            MatInputModule, MatListModule,MatTableModule,MatDialogModule, MatGridListModule, MatIconModule,
+            MatSnackBarModule,MatSidenavModule,MatRadioModule],
 })
 export class CustomMaterialModule { }

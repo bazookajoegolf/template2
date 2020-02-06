@@ -29,3 +29,9 @@
 .ro-text {
     color: brown;
 }
+
+.mat-radio-button {
+    margin: 16px;
+    font-size : 14px;
+
+}

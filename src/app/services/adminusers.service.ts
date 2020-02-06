@@ -40,6 +40,32 @@ export class AdminusersService {
     return this.http.delete<any>(this.hostserver + id, Options)
   }
 
+  adminUpdateUser(id, post) {
+    let myToken = localStorage.getItem('token') || " ";
+ 
+    let Options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json' ,
+        'x-auth-token' : myToken
+      })
+    };
+    return this.http.put<any>(this.hostserver + id, post, Options);
+
+  }
+
+  adminUpdateUserPassword(id, post) {
+    let myToken = localStorage.getItem('token') || " ";
+ 
+    let Options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json' ,
+        'x-auth-token' : myToken
+      })
+    };
+    return this.http.put<any>(this.hostserver + "pw/" + id, post, Options);
+
+  }
+
   adminGetUsers() {
     let myToken = localStorage.getItem('token') || " ";
  
@@ -64,7 +90,7 @@ export class AdminusersService {
       })
     };
 
-    return this.http.post(this.hostserver+'/', post, this.httpOptions);
+    return this.http.post(this.hostserver, post, Options);
   }
 
   adminGetEmailAddress(email) {

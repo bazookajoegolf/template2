@@ -22,6 +22,7 @@ export interface UserProperties {
   createDate: Date;
   lastLogin: Date;
   status: string;
+  gender: string;
   roles: [];
   notes: string;
 }
@@ -36,7 +37,7 @@ export interface UserProperties {
 })
 export class UsersComponent implements AfterViewInit, OnInit {
 
-  displayedColumns: string[] = ['name', 'email', 'Status', 'isadmin', 'createDate', 'lastLogin', 'edit'];
+  displayedColumns: string[] = ['name', 'email', 'Status','gender', 'isadmin', 'createDate', 'lastLogin', 'edit'];
   //users = [];
 
   users = new MatTableDataSource<UserProperties>();
@@ -74,17 +75,18 @@ export class UsersComponent implements AfterViewInit, OnInit {
       email: ['',
         [Validators.required, Validators.email]],
       name: ['',
-        [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+        [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
       password: ['', [Validators.required, Validators.minLength(5)]],
       isadmin: [''],
       notes: [''],
-      status: ['']
+      status: [''],
+      gender: ['', [Validators.required]]
 
     });
 
     this.resetPasswordForm = this.fb.group({
       password: ['',
-        [Validators.required, Validators.minLength(5)]
+        [Validators.required, Validators.minLength(5),Validators.maxLength(100)]
       ]
     });
 
@@ -154,9 +156,10 @@ export class UsersComponent implements AfterViewInit, OnInit {
       email : this.form.value.email,
       password : this.form.value.password,
       isadmin : this.form.value.isadmin ? true : false,
-      status : this.form.value.status ? "Enabled" : "Disabled",
+      status : this.form.value.status ? "Disabled" : "Enabled",
+      gender : this.form.value.gender,
       roles : ['User'],
-      notes : this.form.value.notes
+      notes : this.form.value.notes ? this.form.value.notes : " "
     }
     if(this.action==='new') {
       
@@ -165,17 +168,35 @@ export class UsersComponent implements AfterViewInit, OnInit {
           this.alert.success("User Created Successfully");
           setTimeout(()=>{
               this.opened=!this.opened;
-          },3000);
+              this.getData();
+              this.action = "";
+              this.form.reset();
+          },2000);
         },
         (error) => {
-          if(error) { this.alert.error(error.error);}
+          if(error) { this.alert.error(error.error.message);}
         }
         );
-      console.log("New user: " + JSON.stringify( post));}
+     // console.log("New user: " + JSON.stringify( post));
+    }
 
     else {
-      const _id = this.form.value.id
-      console.log("Modified user: "+ _id + "   " + JSON.stringify(post));
+      const _id = this.form.value.id;
+
+      this.adminusers.adminUpdateUser(_id, post)
+      .subscribe(response => {
+        this.alert.success(response.message);
+        setTimeout(() => {
+          this.opened = false;
+          // this.users.data.splice(this.userIndex , 1);
+          // console.log(this.users.data);
+          this.getData();
+          this.action = "";
+          this.form.reset();
+        }, 2000);
+      },
+        (error) => this.alert.error(error.error.message));
+      //console.log("Modified user: "+ _id + "   " + JSON.stringify(post));
     }
 
 
@@ -184,6 +205,23 @@ export class UsersComponent implements AfterViewInit, OnInit {
   }
 
   onPasswordSubmit() {
+    const _id = this.form.value.id;
+
+    const post = {
+      password : this.resetPasswordForm.value.password
+    }
+
+    this.adminusers.adminUpdateUserPassword(_id, post)
+    .subscribe(response => {
+      this.alert.success(response.message);
+      setTimeout(() => {
+        this.opened = false;
+      //  this.getData();
+        this.action = "";
+        this.form.reset();
+      }, 2000);
+    },
+      (error) => this.alert.error(error.error.message));
     console.log("Submitting Password Change");
   }
 
@@ -235,12 +273,15 @@ export class UsersComponent implements AfterViewInit, OnInit {
 
   displayOverlay(action: string, adata, $event, index) {
 
+    this.form.reset();
+    this.resetPasswordForm.reset();
+   // console.log(this.form);
     this.formReset();
 
     this.chkEnabled = false;
     this.delStatus = true;
     this.action = "";
-    this.form.reset();
+
    
     this.opened = true;
     this.action = action;
@@ -261,8 +302,8 @@ export class UsersComponent implements AfterViewInit, OnInit {
       let x:boolean;
       if (adata.status==="Enabled") {x=false} else {x=true}
       this.form.setValue({
-        name: adata.name, email: adata.email, password: "11111", status: x, isadmin: adata.isadmin, id: adata._id,
-        notes: adata.notes || ""
+        name: adata.name, email: adata.email, password: "11111", status: x, gender : adata.gender, isadmin: adata.isadmin, id: adata._id,
+        notes: adata.notes || " "
       });
       this.userIndex = index;
      // if (adata.status == "Enabled") { this.disableCheck = false } else { this.disableCheck = true; }

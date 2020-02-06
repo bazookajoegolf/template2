@@ -1,0 +1,31 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="create-user">
+
+  <h3>Enter your Confirmation code to Reset your Password:</h3>
+  <mat-form-field>
+    <input matInput id="email" type="text" placeholder="Email Adress" required formControlName="email">
+    <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">Please enter your email address
+    </mat-error>
+    <mat-error *ngIf="f.email.errors?.email && (f.email.dirty || f.email.invalid)">Please enter a Valid email address
+    </mat-error>
+
+  </mat-form-field>
+
+    <mat-form-field>
+      <input matInput id="newpassword" type="password" placeholder="New Password" required
+        formControlName="newpassword">
+      <mat-error *ngIf="f.newpassword.errors?.required && (f.newpassword.dirty || f.newpassword.invalid)">Please enter Password
+      </mat-error>
+      <mat-error *ngIf="f.newpassword.errors?.minlength && (f.newpassword.dirty || f.newpassword.invalid)">Password must be 5 characters
+    </mat-error>
+
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput id="confirmid" type="text" [value]="confirmationNumber" placeholder="Confirmation ID:" required formControlName="confirmid">
+      <mat-error *ngIf="f.confirmid.errors?.required && (f.confirmid.dirty || f.confirmid.invalid)">Please enter your
+        confirmation Code:</mat-error>
+    </mat-form-field>
+    <div>
+      <button id="submit-button" mat-raised-button color="primary" type="submit"
+        [disabled]="!form.valid">Submit</button>
+    </div>
+</form>

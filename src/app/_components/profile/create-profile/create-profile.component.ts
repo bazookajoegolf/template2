@@ -22,6 +22,7 @@ export class CreateProfileComponent implements OnInit {
   this.form = new FormGroup({
   email : new FormControl('',[Validators.required, Validators.email]),
   name : new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
+  gender : new FormControl ('',[Validators.required]),
   password : new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
   confirmpassword : new FormControl('',[Validators.required])
   },{validators: MatchPassword.match});
@@ -37,10 +38,12 @@ export class CreateProfileComponent implements OnInit {
       password : this.form.value.password,
       isadmin : "false",
       status : "Disabled",
+      gender : this.form.value.gender,
       roles : ['User'],
       notes : " "
 
     }
+    console.log(post);
     this.signup.signup(post)
     .subscribe(response =>{
         this.alert.success("Request Sent Successfully");
@@ -52,7 +55,7 @@ export class CreateProfileComponent implements OnInit {
         if(error.status === 409) { this.alert.error(error.error);}
       }
       );
-
+     
  }
 
 }

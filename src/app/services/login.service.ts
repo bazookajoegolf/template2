@@ -15,7 +15,7 @@ export class LoginService {
  // hostserver= "http://"+ environment.backendhost;
  hostserver = environment.backendhost + "/api/users"
  authserver = environment.backendhost + "/api/auth"
- // hostserver="http://localhost:3000/api/users";
+ resetserver=  environment.backendhost + "/api/reset";
  token = localStorage.getItem('token') || " ";
  
    httpOptions = {
@@ -113,6 +113,14 @@ export class LoginService {
   signup(input) {
     return this.http.post(this.hostserver ,input, this.httpOptions)
 
+  }
+
+  reset(input) {
+    return this.http.post(this.resetserver, input, this.httpOptions )
+  }
+
+  resetConfirm(id,input) {
+    return this.http.post(this.resetserver + '/'+ id, input, this.httpOptions )
   }
 
 

@@ -1,0 +1,29 @@
+mat-form-field {
+    margin-bottom: 20px;
+    min-width: 400px;
+}
+
+#resetlink > a {
+    font-size : 10px;
+    color: #333;
+    background-color: rgb(215, 218, 248);
+    padding: 10px;
+}
+
+#resetlink {
+    margin : 20px;
+}
+
+mat-icon {
+      padding-right: 15px;
+      color: rgb(6, 69, 99);
+      font-size: 18px !important;
+      
+}
+
+mat-card {
+
+    width: 500px;
+    margin: auto;
+    background-color: rgb(233, 220, 220);
+}

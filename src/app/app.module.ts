@@ -30,6 +30,8 @@ import { AdminusersComponent } from './_components/admin/adminusers/adminusers.c
 import { SnackstatusComponent } from './_components/general/snackstatus/snackstatus.component';
 import { UniqueEmailValidatorDirective } from './shared/unique-email-validator.directive';
 import { BoolToTextPipe } from './shared/bool-to-text.pipe';
+import { ResetAckComponent } from './_components/profile/reset/reset-ack/reset-ack.component';
+import { SettingsComponent } from './_components/admin/settings/settings.component';
 
 //import { AlertService } from './services/alert.service';
 
@@ -51,7 +53,9 @@ import { BoolToTextPipe } from './shared/bool-to-text.pipe';
     AdminusersComponent,
     SnackstatusComponent,
     UniqueEmailValidatorDirective,
-    BoolToTextPipe
+    BoolToTextPipe,
+    ResetAckComponent,
+    SettingsComponent
     
   ],
   imports: [
