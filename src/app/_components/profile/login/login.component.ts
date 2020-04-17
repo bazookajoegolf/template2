@@ -25,6 +25,18 @@ export class LoginComponent implements OnInit {
     email : new FormControl('',[Validators.required,Validators.email]),
     password : new FormControl('',[])
   });
+
+  this.signup.getSettings()
+  .subscribe(response =>{
+    if(response) {
+      localStorage.setItem('minpassword', response.minpassword);
+      localStorage.setItem('maxpassword', response.maxpassword);
+      localStorage.setItem('minname', response.minname);
+      localStorage.setItem('maxname', response.maxname);
+    }
+  });
+
+
 }
 
 get f() {
@@ -41,6 +53,7 @@ get f() {
     .subscribe(response =>{
 
       if(response.token && response) {
+        console.log(response.minpassword);
         this.alert.success( "Successfully Logged in!");
        
        localStorage.setItem('token', response.token);

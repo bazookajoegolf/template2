@@ -15,10 +15,12 @@ export class ResetAckComponent implements OnInit {
 
   form:FormGroup ;
   confirmationNumber: string;
+
   //statusMessage = null;
   constructor(private signup : LoginService, private router:Router, private alert: AlertService) { }
 
   ngOnInit() :void {  
+ 
   this.form = new FormGroup({
     email : new FormControl('',[Validators.required, Validators.email]),
     newpassword : new FormControl('',[Validators.required, Validators.minLength(5)]),

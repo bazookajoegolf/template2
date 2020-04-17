@@ -29,6 +29,10 @@ export class LoginService {
   constructor(private http: HttpClient) { 
     
   }
+
+  getSettings() {
+     return this.http.get<any>(this.authserver + '/settings', this.httpOptions);
+  }
   getProfile() {
     let myToken = localStorage.getItem('token') || " ";
  

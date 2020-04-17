@@ -1,110 +1,133 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="create-user">
 
-  <div>
-  </div>
   <h2>Admin Settings</h2>
-  <div>
-    <mat-form-field>
-      <input matInput id="minpassword" type="text" placeholder="Min Password Length" required formControlName="minpassword">
-      <mat-error *ngIf="f.minpassword.errors?.required && (f.minpassword.dirty || f.minpassword.invalid)">
-        Enter a Minimum Password Length
-      </mat-error>
+  <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1%">
+    <div fxFlex="5%"></div>
+    <div fxFlex="45%">
+      <mat-card class="mat-elevation-z12">
+        <mat-form-field>
+          <input matInput id="minpassword" type="text" required formControlName="minpassword">
+          <mat-placeholder class="ph">Minimum Password Length </mat-placeholder>
+          <mat-error *ngIf="f.minpassword.errors?.required && (f.minpassword.dirty || f.minpassword.invalid)">
+            Enter a Minimum Password Length
+          </mat-error>
+          <mat-error
+            *ngIf="(f.minpassword.errors?.min || f.minpassword.errors?.max) && (f.minpassword.dirty || f.minpassword.invalid)">
+            Min 1 : Max 15
+          </mat-error>
+          <mat-error *ngIf="(f.minpassword.errors?.pattern) && (f.minpassword.dirty || f.minpassword.invalid)">
+            Numbers Only
+          </mat-error>
+        </mat-form-field>
 
-    </mat-form-field>
+        <mat-form-field>
+          <input matInput id="maxpassword" type="test" required formControlName="maxpassword">
+          <mat-placeholder class="ph">Maximum Password Length </mat-placeholder>
+          <mat-error *ngIf="f.maxpassword.errors?.required && (f.maxpassword.dirty || f.maxpassword.invalid)">
+            Enter a Maximum Password Length
+          </mat-error>
+          <mat-error
+            *ngIf="(f.maxpassword.errors?.min || f.maxpassword.errors?.max) && (f.maxpassword.dirty || f.maxpassword.invalid)">
+            Min 2 : Max 30
+          </mat-error>
+          <mat-error
+            *ngIf="(f.maxpassword?.value < f.minpassword?.value)  && (f.maxpassword.dirty || f.maxpassword.invalid)">
+            Max Password Length must be greater than Min
+          </mat-error>
+          <mat-error *ngIf="(f.minpassword.errors?.pattern) && (f.minpassword.dirty || f.minpassword.invalid)">
+            Numbers Only
+          </mat-error>
+
+
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput id="minname" type="text" required formControlName="minname">
+          <mat-placeholder class="ph">Minimum Name Length </mat-placeholder>
+          <mat-error *ngIf="f.minname.errors?.required && (f.minname.dirty || f.minname.invalid)">
+            Enter a Minimum Name
+          </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput id="maxname" type="text" required formControlName="maxname">
+          <mat-placeholder class="ph">Maximum Name Length </mat-placeholder>
+          <mat-error *ngIf="f.maxname.errors?.required && (f.maxname.dirty || f.maxname.invalid)">
+            Enter a Maximum Name
+          </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput id="maxnotes" type="text" required formControlName="maxnotes">
+          <mat-placeholder class="ph">Maximum Note Length </mat-placeholder>
+          <mat-error *ngIf="f.maxnotes.errors?.required && (f.maxnotes.dirty || f.maxnotes.invalid)">
+            Maximum Notes Length
+          </mat-error>
+
+        </mat-form-field>
+
+      </mat-card>
+    </div>
+
+    <div fxFlex="45%">
+      <mat-card class="mat-elevation-z12">
+        <mat-form-field>
+          <input matInput id="newusertoken" type="text" required formControlName="newusertoken">
+          <mat-placeholder class="ph">NewUser Token in Hours </mat-placeholder>
+          <mat-error *ngIf="f.newusertoken.errors?.required && (f.newusertoken.dirty || f.newusertoken.invalid)">
+            Hours a newuser Token in hours
+          </mat-error>
+
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput id="usertoken" type="text" required formControlName="usertoken">
+          <mat-placeholder class="ph">User Token in Hours</mat-placeholder>
+          <mat-error *ngIf="f.usertoken.errors?.required && (f.usertoken.dirty || f.usertoken.invalid)">
+            Hours a user Token in hours
+          </mat-error>
+
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput id="admintoken" type="text" required formControlName="admintoken">
+          <mat-placeholder class="ph">Administrator Token Length</mat-placeholder>
+          <mat-error *ngIf="f.admintoken.errors?.required && (f.admintoken.dirty || f.admintoken.invalid)">
+            Hours an Administrator Token in Hours
+          </mat-error>
+
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput id="smtphost" type="text" required formControlName="smtphost">
+          <mat-placeholder class="ph">SMTP Host</mat-placeholder>
+          <mat-error *ngIf="f.smtphost.errors?.required && (f.smtphost.dirty || f.smtphost.invalid)">
+            SMTP Host
+          </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput id="smtpsendas" type="text" required formControlName="smtpsendas">
+          <mat-placeholder class="ph">SMTP Send As</mat-placeholder>
+          <mat-error *ngIf="f.smtpsendas.errors?.required && (f.smtpsendas.dirty || f.smtpsendas.invalid)">
+            SMTP Send As
+          </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput id="smtpsentto" type="text" required formControlName="smtpsentto">
+          <mat-placeholder class="ph">SMTP Send To</mat-placeholder>
+          <mat-error *ngIf="f.smtpsentto.errors?.required && (f.smtpsentto.dirty || f.smtpsentto.invalid)">
+            SMTP Send To
+          </mat-error>
+
+        </mat-form-field>
+      </mat-card>
+    </div>
+    <div fxFlex="5%"></div>
   </div>
-  <div>
-    <mat-form-field>
-      <input matInput id="maxpassword" type="test" placeholder="Max Password Length" required formControlName="maxpassword">
-       <mat-error *ngIf="f.maxpassword.errors?.required && (f.maxpassword.dirty || f.maxpassword.invalid)">
-         Enter a Maximum Password Length
-      </mat-error>
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <input matInput id="minname" type="text" placeholder="Min Name Length" required formControlName="minname">
-      <mat-error *ngIf="f.minname.errors?.required && (f.minname.dirty || f.minname.invalid)">
-        Enter a Minimum Name
-      </mat-error>
-
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <input matInput id="maxname" type="text" placeholder="Max Name Length" required formControlName="maxname">
-      <mat-error *ngIf="f.maxname.errors?.required && (f.maxname.dirty || f.maxname.invalid)">
-        Enter a Maximum Name
-      </mat-error>
-
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <input matInput id="maxnotes" type="text" placeholder="Max Notes Length" required formControlName="maxnotes">
-      <mat-error *ngIf="f.maxnotes.errors?.required && (f.maxnotes.dirty || f.maxnotes.invalid)">
-        Maximum Notes Length
-      </mat-error>
-
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <input matInput id="newusertoken" type="text" placeholder="NewUser Token in Hours" required formControlName="newusertoken">
-      <mat-error *ngIf="f.newusertoken.errors?.required && (f.newusertoken.dirty || f.newusertoken.invalid)">
-        Hours a newuser Token in hours
-      </mat-error>
-
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <input matInput id="usertoken" type="text" placeholder="User Token in Hours" required formControlName="usertoken">
-      <mat-error *ngIf="f.usertoken.errors?.required && (f.usertoken.dirty || f.usertoken.invalid)">
-        Hours a user Token in hours
-      </mat-error>
-
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <input matInput id="admintoken" type="text" placeholder="Administrator Token Length" required formControlName="admintoken">
-      <mat-error *ngIf="f.admintoken.errors?.required && (f.admintoken.dirty || f.admintoken.invalid)">
-        Hours an Administrator Token in Hours
-      </mat-error>
-
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <input matInput id="smtphost" type="text" placeholder="SMTP Host" required formControlName="smtphost">
-      <mat-error *ngIf="f.smtphost.errors?.required && (f.smtphost.dirty || f.smtphost.invalid)">
-        SMTP Host
-      </mat-error>
-
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <input matInput id="smtpsendas" type="text" placeholder="SMTP Send As" required formControlName="smtpsendas">
-      <mat-error *ngIf="f.smtpsendas.errors?.required && (f.smtpsendas.dirty || f.smtpsendas.invalid)">
-        SMTP Send As
-      </mat-error>
-
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field>
-      <input matInput id="smtpsentto" type="text" placeholder="SMTP Send To" required formControlName="smtpsentto">
-      <mat-error *ngIf="f.smtpsentto.errors?.required && (f.smtpsentto.dirty || f.smtpsentto.invalid)">
-        SMTP Send To
-      </mat-error>
-
-    </mat-form-field>
-  </div>
-
-  <div>
-    <button id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
+  <div class="zbtn">
+    <button mat-raised-button id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
   </div>
 
 </form>

@@ -19,14 +19,14 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      minpassword: new FormControl('', [Validators.required]),
-      maxpassword: new FormControl('', [Validators.required]),
-      minname:     new FormControl('', [Validators.required]),
-      maxname:     new FormControl('', [Validators.required]),
-      maxnotes:    new FormControl('', [Validators.required]),
-      newusertoken: new FormControl('', [Validators.required]),
-      usertoken:   new FormControl('', [Validators.required]),
-      admintoken:  new FormControl('', [Validators.required]),
+      minpassword: new FormControl('', [Validators.required, Validators.min(1), Validators.max(15), Validators.pattern('^[0-9]*$')]),
+      maxpassword: new FormControl('', [Validators.required, Validators.min(2), Validators.max(30), Validators.pattern('^[0-9]*$')]),
+      minname:     new FormControl('', [Validators.required, Validators.min(3), Validators.max(50), Validators.pattern('^[0-9]*$')]),
+      maxname:     new FormControl('', [Validators.required, Validators.min(4), Validators.max(50), Validators.pattern('^[0-9]*$')]),
+      maxnotes:    new FormControl('', [Validators.required, Validators.min(50), Validators.max(2000), Validators.pattern('^[0-9]*$')]),
+      newusertoken: new FormControl('',[Validators.required, Validators.min(1), Validators.max(24), Validators.pattern('^[0-9]*$')]),
+      usertoken:   new FormControl('', [Validators.required, Validators.min(1), Validators.max(48), Validators.pattern('^[0-9]*$')]),
+      admintoken:  new FormControl('', [Validators.required, Validators.min(1), Validators.max(48), Validators.pattern('^[0-9]*$')]),
       smtphost:    new FormControl('', [Validators.required]),
       smtpsendas:  new FormControl('', [Validators.required]),
       smtpsentto:  new FormControl('', [Validators.required])

@@ -116,6 +116,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
         map(data => {
           this.isLoadingResults = false;
           this.resultsLength = data.totalUsers;
+          console.log("The min password length is: " + data.minpassword);
           // console.log("data count " + data[1] );
           return data;
         }),

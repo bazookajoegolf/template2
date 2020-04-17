@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 import { CustomMaterialModule } from './assets/materialmodules';
 
@@ -68,7 +69,8 @@ import { SettingsComponent } from './_components/admin/settings/settings.compone
     CustomMaterialModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    FlexLayoutModule
   ],
   entryComponents:[
     UserEditDialog
