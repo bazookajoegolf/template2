@@ -62,8 +62,8 @@ export class UsersComponent implements AfterViewInit, OnInit {
   pageLength = 100;
   isLoadingResults = true;
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
 
   constructor(private adminusers: AdminusersService, private router: Router,

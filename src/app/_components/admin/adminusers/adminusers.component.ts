@@ -9,8 +9,8 @@ import { AdminusersDataSource } from './adminusers-datasource';
   styleUrls: ['./adminusers.component.css']
 })
 export class AdminusersComponent implements OnInit {
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   dataSource: AdminusersDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
