@@ -15,6 +15,8 @@ export class AppComponent {
   isLoggedIn : boolean;
   isAdmin : boolean;
 
+  //this is a change
+
   constructor(private login: LoginService, private alert: AlertService, private router: Router) {
     this.isLoggedIn = login.isLoggedIn();
     this.isAdmin = login.isAdmin();
