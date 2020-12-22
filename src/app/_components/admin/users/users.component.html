@@ -103,7 +103,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="email" (blur)="checkUnique($event.target.value)" type="email"
+            <input matInput placeholder="email" (blur)="checkUnique()" type="email"
               spellcheck="false" name="email" formControlName="email">
             <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">An Email address is
               Required</mat-error>

@@ -12,8 +12,16 @@ import { AlertService } from './services/alert.service';
 })
 export class AppComponent {
   title = 'Login Template';
+  isLoggedIn : boolean;
+  isAdmin : boolean;
 
-  constructor(private login: LoginService, private alert: AlertService, private router: Router) {}
+  constructor(private login: LoginService, private alert: AlertService, private router: Router) {
+    this.isLoggedIn = login.isLoggedIn();
+    this.isAdmin = login.isAdmin();
+  }
+  
+  
+  
   signout() {
     this.login.signout();
     this.router.navigate(['/']);
