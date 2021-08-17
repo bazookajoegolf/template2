@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ResetAckComponent } from './reset-ack.component';
 
@@ -6,7 +6,7 @@ describe('ResetAckComponent', () => {
   let component: ResetAckComponent;
   let fixture: ComponentFixture<ResetAckComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ResetAckComponent ]
     })
