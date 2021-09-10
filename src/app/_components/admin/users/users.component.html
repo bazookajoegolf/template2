@@ -3,10 +3,9 @@
     <div id="base">
 
       <mat-label class="main-header">User Management</mat-label>
-      <mat-grid-list cols="12" rowHeight="80px">
-
-        <mat-grid-tile [colspan]="6">
-          <mat-form-field>
+         <div>
+          <div class="main-search" id="searchfield">
+            <mat-form-field >
             <mat-label class="filter-label"> Search:</mat-label>
             <input class="filter-input" matInput type="text" (keyup)="applyFilter($event.target.value)"
               [(ngModel)]="value" placeholder="Enter Search Value">
@@ -15,12 +14,13 @@
               <mat-icon>clear</mat-icon>
             </button>
           </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="6">
-          <button mat-raised-button color="primary" (click)="displayOverlay('new',null, $event, null)">New
-            Account</button>
-        </mat-grid-tile>
-      </mat-grid-list>
+          </div>
+          <div class="main-search">
+            <button mat-raised-button color="primary" (click)="displayOverlay('new',null, $event, null)">New
+              Account</button>
+          </div>
+        </div>
+
 
 
       <div class="mat-elevation-z8">

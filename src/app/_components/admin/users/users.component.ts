@@ -163,7 +163,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
       notes : this.form.value.notes ? this.form.value.notes : " "
     }
     if(this.action==='new') {
-      
+      console.log(post);
       this.adminusers.adminCreateNewUser(post)
       .subscribe(response =>{
           this.alert.success("User Created Successfully");

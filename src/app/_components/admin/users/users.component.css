@@ -76,9 +76,6 @@ button {
     color: rgba(17, 5, 5, 1);
 }
 
-.mat-form-field {
-    display: block;
-}
 
 .header-image {
     background-image: url("../../../../assets/images/batman-icon.png");
@@ -130,4 +127,13 @@ mat-radio-button {
 
 #base {
     min-height: calc(100vw * .45);
+}
+
+.main-search {
+    display: inline-block;
+}
+
+#searchfield {
+
+    padding-right: 20%;
 }
