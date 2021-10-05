@@ -2,3 +2,45 @@
 table {
     width: 90%;
 }
+
+.mat-form-field {
+    width : 500px;
+    display: block;
+}
+
+.chk-box {
+    display: flex;
+    align-items: center;
+
+}
+
+.course-group {
+    
+    margin: 0 140px;
+    width: 80%;
+}
+.mat-checkbox {
+    margin : 10px 0px;
+}
+
+.div-section {
+    display: block;
+}
+
+#description {
+    height: 150px;
+}
+
+::ng-deep mat-grid-tile-content {
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+}
+
+.mat-accordion {
+    width: 90%;
+}
+
+input[disabled] , textarea[disabled] {
+    color: darkslateblue;
+}
+

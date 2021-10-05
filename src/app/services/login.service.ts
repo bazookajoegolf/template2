@@ -16,6 +16,7 @@ export class LoginService {
  hostserver = environment.backendhost + "/api/users"
  authserver = environment.backendhost + "/api/auth"
  resetserver=  environment.backendhost + "/api/reset";
+
  token = localStorage.getItem('token') || " ";
  
    httpOptions = {

@@ -27,6 +27,7 @@ import {UserEditDialog} from './_components/admin/users/usereditdialog.component
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { AdminusersComponent } from './_components/admin/adminusers/adminusers.component';
 import { SnackstatusComponent } from './_components/general/snackstatus/snackstatus.component';
 import { UniqueEmailValidatorDirective } from './shared/unique-email-validator.directive';
@@ -68,6 +69,7 @@ import { SettingsComponent } from './_components/admin/settings/settings.compone
     BrowserAnimationsModule,
     CustomMaterialModule,
     MatTableModule,
+    MatExpansionModule,
     MatPaginatorModule,
     MatSortModule,
     FlexLayoutModule
