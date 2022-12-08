@@ -3,8 +3,13 @@ table {
     width: 90%;
 }
 
+button {
+    margin: 5px;
+}
+
+
 .mat-form-field {
-    width : 500px;
+    width : 600px;
     display: block;
 }
 
@@ -41,6 +46,9 @@ table {
 }
 
 input[disabled] , textarea[disabled] {
-    color: darkslateblue;
+    color:rgb(58, 41, 8);
 }
 
+.mat-button-raised {
+    margin: 5px;
+}

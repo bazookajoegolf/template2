@@ -2,7 +2,7 @@ import { AlertService } from './../../../services/alert.service';
 import { LoginService } from '../../../services/login.service';
 import { MatchPassword } from '../../../validators/password-validator';
 import { Component, OnInit } from '@angular/core';
-import {FormControl,FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl,UntypedFormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
 
@@ -14,17 +14,17 @@ import {Router} from '@angular/router';
   styleUrls: ['./create-profile.component.css']
 })
 export class CreateProfileComponent implements OnInit {
-  form: FormGroup ;
+  form: UntypedFormGroup ;
   //statusMessage = null;
   constructor(private signup : LoginService, private router:Router, private alert : AlertService) { }
 
   ngOnInit() :void {  
-  this.form = new FormGroup({
-  email : new FormControl('',[Validators.required, Validators.email]),
-  name : new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
-  gender : new FormControl ('',[Validators.required]),
-  password : new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
-  confirmpassword : new FormControl('',[Validators.required])
+  this.form = new UntypedFormGroup({
+  email : new UntypedFormControl('',[Validators.required, Validators.email]),
+  name : new UntypedFormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
+  gender : new UntypedFormControl ('',[Validators.required]),
+  password : new UntypedFormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
+  confirmpassword : new UntypedFormControl('',[Validators.required])
   },{validators: MatchPassword.match});
 }
   get f() {

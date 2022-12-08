@@ -1,0 +1,15 @@
+.scorecard > tr > td > input {
+    border-color: rgb(73, 17, 17);
+    width: 32px;
+   
+ 
+}
+
+.mat-accordion {
+    width: 90%;
+}
+
+table {
+
+   width: 600px;
+}

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FlexLayoutModule} from '@angular/flex-layout';
+
 
 import { CustomMaterialModule } from './assets/materialmodules';
 
@@ -34,50 +34,46 @@ import { UniqueEmailValidatorDirective } from './shared/unique-email-validator.d
 import { BoolToTextPipe } from './shared/bool-to-text.pipe';
 import { ResetAckComponent } from './_components/profile/reset/reset-ack/reset-ack.component';
 import { SettingsComponent } from './_components/admin/settings/settings.component';
-
-//import { AlertService } from './services/alert.service';
+import { TeesComponent } from './_components/admin/tees/tees.component';
+import { AlertService } from './services/alert.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    HomeComponent,
-    ResetComponent,
-    ProfileComponent,
-    CreateProfileComponent,
-    NewuserComponent,
-    ChangePasswordComponent,
-    StatusComponent,
-    AdminComponent,
-    CoursesComponent,
-    UserEditDialog,
-    UsersComponent,
-    AdminusersComponent,
-    SnackstatusComponent,
-    UniqueEmailValidatorDirective,
-    BoolToTextPipe,
-    ResetAckComponent,
-    SettingsComponent
-    
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    CustomMaterialModule,
-    MatTableModule,
-    MatExpansionModule,
-    MatPaginatorModule,
-    MatSortModule,
-    FlexLayoutModule
-  ],
-  entryComponents:[
-    UserEditDialog
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        HomeComponent,
+        ResetComponent,
+        ProfileComponent,
+        CreateProfileComponent,
+        NewuserComponent,
+        ChangePasswordComponent,
+        StatusComponent,
+        AdminComponent,
+        CoursesComponent,
+        UserEditDialog,
+        UsersComponent,
+        AdminusersComponent,
+        SnackstatusComponent,
+        UniqueEmailValidatorDirective,
+        BoolToTextPipe,
+        ResetAckComponent,
+        SettingsComponent,
+        TeesComponent
+    ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        CustomMaterialModule,
+        MatTableModule,
+        MatExpansionModule,
+        MatPaginatorModule,
+        MatSortModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

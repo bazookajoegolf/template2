@@ -3,7 +3,7 @@ import { User } from '../../../models/user';
 import { LoginService } from '../../../services/login.service';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {FormControl,FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl,UntypedFormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import { catchError, map, tap } from 'rxjs/operators';
 
@@ -31,11 +31,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     if(!localStorage.getItem('token')) { this.router.navigate(['login']); }
         
-    this.form = new FormGroup({
-      email : new FormControl('',[Validators.required, Validators.email]),
-      name : new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
-      gender : new FormControl ('',[Validators.required]),
-      oldpassword: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
+    this.form = new UntypedFormGroup({
+      email : new UntypedFormControl('',[Validators.required, Validators.email]),
+      name : new UntypedFormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
+      gender : new UntypedFormControl ('',[Validators.required]),
+      oldpassword: new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
     });
         
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { SettingsService } from '../../../services/settings.service';
@@ -13,23 +13,23 @@ import { AlertService } from './../../../services/alert.service';
 })
 export class SettingsComponent implements OnInit {
   id;
-  form: FormGroup;
+  form: UntypedFormGroup;
   //statusMessage = null;
   constructor(private settings: SettingsService, private router: Router, private alert: AlertService) { }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      minpassword: new FormControl('', [Validators.required, Validators.min(1), Validators.max(15), Validators.pattern('^[0-9]*$')]),
-      maxpassword: new FormControl('', [Validators.required, Validators.min(2), Validators.max(30), Validators.pattern('^[0-9]*$')]),
-      minname:     new FormControl('', [Validators.required, Validators.min(3), Validators.max(50), Validators.pattern('^[0-9]*$')]),
-      maxname:     new FormControl('', [Validators.required, Validators.min(4), Validators.max(50), Validators.pattern('^[0-9]*$')]),
-      maxnotes:    new FormControl('', [Validators.required, Validators.min(50), Validators.max(2000), Validators.pattern('^[0-9]*$')]),
-      newusertoken: new FormControl('',[Validators.required, Validators.min(1), Validators.max(24), Validators.pattern('^[0-9]*$')]),
-      usertoken:   new FormControl('', [Validators.required, Validators.min(1), Validators.max(48), Validators.pattern('^[0-9]*$')]),
-      admintoken:  new FormControl('', [Validators.required, Validators.min(1), Validators.max(48), Validators.pattern('^[0-9]*$')]),
-      smtphost:    new FormControl('', [Validators.required]),
-      smtpsendas:  new FormControl('', [Validators.required]),
-      smtpsentto:  new FormControl('', [Validators.required])
+    this.form = new UntypedFormGroup({
+      minpassword: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(15), Validators.pattern('^[0-9]*$')]),
+      maxpassword: new UntypedFormControl('', [Validators.required, Validators.min(2), Validators.max(30), Validators.pattern('^[0-9]*$')]),
+      minname:     new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(50), Validators.pattern('^[0-9]*$')]),
+      maxname:     new UntypedFormControl('', [Validators.required, Validators.min(4), Validators.max(50), Validators.pattern('^[0-9]*$')]),
+      maxnotes:    new UntypedFormControl('', [Validators.required, Validators.min(50), Validators.max(2000), Validators.pattern('^[0-9]*$')]),
+      newusertoken: new UntypedFormControl('',[Validators.required, Validators.min(1), Validators.max(24), Validators.pattern('^[0-9]*$')]),
+      usertoken:   new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(48), Validators.pattern('^[0-9]*$')]),
+      admintoken:  new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(48), Validators.pattern('^[0-9]*$')]),
+      smtphost:    new UntypedFormControl('', [Validators.required]),
+      smtpsendas:  new UntypedFormControl('', [Validators.required]),
+      smtpsentto:  new UntypedFormControl('', [Validators.required])
     });
 
     this.settings.getSettings()

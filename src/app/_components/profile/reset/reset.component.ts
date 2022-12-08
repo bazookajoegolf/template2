@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {FormControl,FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl,UntypedFormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
 import { LoginService } from '../../../services/login.service';
@@ -13,12 +13,12 @@ import { AlertService } from './../../../services/alert.service';
 })
 export class ResetComponent implements OnInit {
 
-  form:FormGroup ;
+  form:UntypedFormGroup ;
   constructor(private signup : LoginService, private router:Router, private alert : AlertService) { }
 
   ngOnInit() :void {  
-    this.form = new FormGroup({
-      email : new FormControl('',[Validators.required,Validators.email])
+    this.form = new UntypedFormGroup({
+      email : new UntypedFormControl('',[Validators.required,Validators.email])
     });
   }
 

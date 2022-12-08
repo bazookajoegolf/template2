@@ -2,7 +2,7 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import {FormControl,FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl,UntypedFormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
 import { LoginService } from '../../../services/login.service';
@@ -16,14 +16,14 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  form:FormGroup ;
+  form:UntypedFormGroup ;
   //statusMessage = null;
   constructor(private signup : LoginService, private router:Router, private alert : AlertService) { }
 
   ngOnInit() :void {  
-  this.form = new FormGroup({
-    email : new FormControl('',[Validators.required,Validators.email]),
-    password : new FormControl('',[])
+  this.form = new UntypedFormGroup({
+    email : new UntypedFormControl('',[Validators.required,Validators.email]),
+    password : new UntypedFormControl('',[])
   });
 
   this.signup.getSettings()
@@ -49,9 +49,10 @@ get f() {
       email : this.form.value.email,
       password : this.form.value.password
     }
+    console.log("trying to sign in " + post.email + "  " + post.password);
      this.signup.signin(post)
     .subscribe(response =>{
-
+      console.log("the response " + response);
       if(response.token && response) {
         console.log(response.minpassword);
         this.alert.success( "Successfully Logged in!");
@@ -63,6 +64,7 @@ get f() {
         },3000);
       },
       (error) => {
+          console.log("getting an error trying to log in " + error.error.message);
           this.alert.error(error.error.message);
       
       }

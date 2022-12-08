@@ -10,7 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormControl, FormGroup, Validators, AsyncValidator, ValidationErrors } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators, AsyncValidator, ValidationErrors } from '@angular/forms';
 
 
 export interface UserProperties {
@@ -52,8 +52,8 @@ export class UsersComponent implements AfterViewInit, OnInit {
   disableCheck:boolean;
   userIndex: number;
 
-  form: FormGroup;
-  resetPasswordForm: FormGroup;
+  form: UntypedFormGroup;
+  resetPasswordForm: UntypedFormGroup;
   action: string;
   originalEmail: string;
   okEmail: boolean;
@@ -67,7 +67,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
 
 
   constructor(private adminusers: AdminusersService, private router: Router,
-    private alert: AlertService, public dialog: MatDialog, private fb: FormBuilder) { }
+    private alert: AlertService, public dialog: MatDialog, private fb: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({

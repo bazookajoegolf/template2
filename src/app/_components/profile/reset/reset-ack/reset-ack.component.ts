@@ -1,7 +1,7 @@
 
 import { AlertService } from './../../../../services/alert.service';
 import { Component, OnInit } from '@angular/core';
-import {FormControl,FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl,UntypedFormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
 import { LoginService } from '../../../../services/login.service';
@@ -13,7 +13,7 @@ import { LoginService } from '../../../../services/login.service';
 })
 export class ResetAckComponent implements OnInit {
 
-  form:FormGroup ;
+  form:UntypedFormGroup ;
   confirmationNumber: string;
 
   //statusMessage = null;
@@ -21,10 +21,10 @@ export class ResetAckComponent implements OnInit {
 
   ngOnInit() :void {  
  
-  this.form = new FormGroup({
-    email : new FormControl('',[Validators.required, Validators.email]),
-    newpassword : new FormControl('',[Validators.required, Validators.minLength(5)]),
-    confirmid : new FormControl('',[Validators.required])
+  this.form = new UntypedFormGroup({
+    email : new UntypedFormControl('',[Validators.required, Validators.email]),
+    newpassword : new UntypedFormControl('',[Validators.required, Validators.minLength(5)]),
+    confirmid : new UntypedFormControl('',[Validators.required])
   });
 
   this.confirmationNumber = this.router.url.slice(11,50).trim();

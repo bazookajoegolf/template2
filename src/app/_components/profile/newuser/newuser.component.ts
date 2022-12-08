@@ -1,6 +1,6 @@
 import { AlertService } from './../../../services/alert.service';
 import { Component, OnInit } from '@angular/core';
-import {FormControl,FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl,UntypedFormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
 import { LoginService } from '../../../services/login.service';
@@ -12,13 +12,13 @@ import { LoginService } from '../../../services/login.service';
 })
 export class NewuserComponent implements OnInit {
 
-  form:FormGroup ;
+  form:UntypedFormGroup ;
   //statusMessage = null;
   constructor(private signup : LoginService, private router:Router, private alert: AlertService) { }
 
   ngOnInit() :void {  
-  this.form = new FormGroup({
-    confirmid : new FormControl('',[Validators.required])
+  this.form = new UntypedFormGroup({
+    confirmid : new UntypedFormControl('',[Validators.required])
   });
 }
 

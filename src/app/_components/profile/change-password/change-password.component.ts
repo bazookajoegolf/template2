@@ -3,7 +3,7 @@ import { User } from '../../../models/user';
 import { LoginService } from '../../../services/login.service';
 import { MatchPassword } from '../../../validators/password-validator';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {FormControl,FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl,UntypedFormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
 @Component({
@@ -25,11 +25,11 @@ export class ChangePasswordComponent implements OnInit {
 
     if(!localStorage.getItem('token')) { this.router.navigate(['login']); }
         
-      this.form = new FormGroup({
-          name : new FormControl ({value : '', disabled : true}),
-          oldpassword: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
-          password: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
-          confirmpassword: new FormControl('', [Validators.required])
+      this.form = new UntypedFormGroup({
+          name : new UntypedFormControl ({value : '', disabled : true}),
+          oldpassword: new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
+          password: new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
+          confirmpassword: new UntypedFormControl('', [Validators.required])
       }, { validators: MatchPassword.match });
 
 

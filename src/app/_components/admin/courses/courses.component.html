@@ -1,10 +1,11 @@
+<div>
 <h3>Course Administration</h3>
 
-<mat-grid-list cols="2">
+<mat-grid-list cols="2" rowHeight= "700px">
   <mat-grid-tile>
    
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-<div class="course-group">
+<div >
   <mat-form-field id="courseDropDown"  appearance="fill">
     <mat-label >Course</mat-label>
     <select  matNativeControl #dd (change)="selectCourse($event)">
@@ -50,45 +51,25 @@
  
 </div>
 <div>
-  <button mat-button (click)="onNew()"id="btn-new"   *ngIf="form.disabled">New</button>
+  <button mat-raised-button color="primary" (click)="onNew()"id="btn-new"   *ngIf="form.disabled">New</button>
 
-  <button mat-button id="btn-edit" (click)="onEdit()"   *ngIf="form.disabled && name" >Edit</button>
+  <button mat-raised-button color="accent" id="btn-edit" (click)="onEdit()"   *ngIf="form.disabled && name" >Edit</button>
 
-  <button mat-button id="btn-delete" (click)="onDelete()"   *ngIf="form.disabled && name" >Delete</button>
+  <button mat-raised-button color="warn"  id="btn-delete" (click)="onDelete()"   *ngIf="form.disabled && name" >Delete</button>
 
-  <button mat-button id="btn-cancel" (click)="onCancel()"  *ngIf="!form.disabled">Cancel</button>
+  <button mat-raised-button color="accent"  id="btn-cancel" (click)="onCancel()"  *ngIf="!form.disabled">Cancel</button>
 
-  <button mat-button id="btn-save"  type="submit" *ngIf="!form.disabled">Save</button>
+  <button mat-raised-button color="primary" id="btn-save"  type="submit" *ngIf="!form.disabled">Save</button>
 </div>
 </div>
 </form>
 </mat-grid-tile>
 <mat-grid-tile>
-  <mat-accordion>
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Tees
-        </mat-panel-title>
-
-      </mat-expansion-panel-header>
-      </mat-expansion-panel>
-    <mat-expansion-panel (opened)="panelOpenState = true"
-                         (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Black Tee
-        </mat-panel-title>
-        <mat-panel-description>
-          {{panelOpenState ? 'open' : 'closed'}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>This is where the holes, yardage, handicap, slopes, ratings etc. go</p>
-    </mat-expansion-panel>
-  </mat-accordion>
+  <app-tees></app-tees>
   
 </mat-grid-tile>
 
 </mat-grid-list>
 
-<p>{{id}}</p>
+
+</div>

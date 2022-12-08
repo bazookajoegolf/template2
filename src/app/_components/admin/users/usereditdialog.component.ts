@@ -3,7 +3,7 @@ import { AdminusersService } from './../../../services/adminusers.service';
 import { Component, Inject, Optional, OnInit } from '@angular/core';
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormControl, FormGroup, Validators, AsyncValidator } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators, AsyncValidator } from '@angular/forms';
 
 import { UniqueEmailValidator } from './../../../shared/unique-email-validator.directive';
 
@@ -25,13 +25,13 @@ export interface UserProperties {
   styleUrls: ['./usereditdialog.css']
 })
 export class UserEditDialog implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   action: string;
   local_data: any;
 
   constructor(
  
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private adminusersService: AdminusersService,
     public dialogRef: MatDialogRef<UserEditDialog>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: UserProperties

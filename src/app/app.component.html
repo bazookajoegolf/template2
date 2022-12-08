@@ -1,7 +1,5 @@
 <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+
   <mat-toolbar color="primary">
     <a routerLink="/"><button color="accent" mat-button md-raised-button>Home</button></a>
     <a *ngIf="!login.isLoggedIn()" routerLink="/login"><button color="accent" mat-button>Login</button></a>

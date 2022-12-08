@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { TeesComponent } from '../tees/tees.component';
 
 import { CoursesService } from '../../../services/courses.service';
 import { AlertService } from './../../../services/alert.service';
@@ -28,7 +30,7 @@ export class CoursesComponent implements OnInit {
   panelOpenState = false;
   name;
   id;
-  form: FormGroup;
+  form: UntypedFormGroup;
   course: Course[];
   editMode:boolean = false;
 
@@ -37,14 +39,14 @@ export class CoursesComponent implements OnInit {
   constructor(private courses: CoursesService, private router: Router, private alert: AlertService) { }
 
   ngOnInit() {
-    this.form = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.min(2), Validators.max(50)]),
-      address: new FormControl('', []),
-      city: new FormControl('', [Validators.required, Validators.min(3), Validators.max(50)]),
-      url: new FormControl('', []),
-      createDate: new FormControl('', [Validators.required]),
-      active: new FormControl('', [Validators.required]),
-      description: new FormControl('', []),
+    this.form = new UntypedFormGroup({
+      name: new UntypedFormControl('', [Validators.required, Validators.min(2), Validators.max(50)]),
+      address: new UntypedFormControl('', []),
+      city: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(50)]),
+      url: new UntypedFormControl('', []),
+      createDate: new UntypedFormControl('', [Validators.required]),
+      active: new UntypedFormControl('', [Validators.required]),
+      description: new UntypedFormControl('', []),
 
     });
     this.form.disable();
@@ -101,6 +103,19 @@ export class CoursesComponent implements OnInit {
 
   onDelete() {
     this.editMode=false;
+    console.log(this.id);
+    this.courses.deleteCourse(this.id)
+    .subscribe(response => {
+      this.alert.success("Course deleted");
+      this.form.disable();
+      this.editMode=false;
+      this.getCourses();
+    },
+      (error) => {
+        this.alert.error(error.error.message);
+
+      }
+    );
     //this.form.enable();
 
     // console.log(this.dd.nativeElement.innerText);
@@ -130,6 +145,7 @@ export class CoursesComponent implements OnInit {
         this.alert.success("Settings Saved!");
         this.form.disable();
         this.editMode=false;
+        this.getCourses();
       },
         (error) => {
           this.alert.error(error.error.message);
@@ -142,6 +158,9 @@ export class CoursesComponent implements OnInit {
       this.courses.saveCourse(post)
       .subscribe(response => {
         this.alert.success("Settings Saved!");
+        this.form.disable();
+        this.editMode=false;
+        this.getCourses();
 
       },
         (error) => {
