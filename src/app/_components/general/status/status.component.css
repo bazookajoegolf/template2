@@ -31,3 +31,8 @@
 .alert-primary {
     background-color: #007bff;
 }
+
+#maindiv {
+    min-height: 12px;
+    font-size: large;
+}

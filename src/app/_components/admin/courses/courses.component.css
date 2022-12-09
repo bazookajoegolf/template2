@@ -8,7 +8,7 @@ button {
 }
 
 
-.mat-form-field {
+.mat-mdc-form-field {
     width : 600px;
     display: block;
 }
@@ -24,7 +24,7 @@ button {
     margin: 0 140px;
     width: 80%;
 }
-.mat-checkbox {
+.mat-mdc-checkbox {
     margin : 10px 0px;
 }
 
@@ -49,6 +49,7 @@ input[disabled] , textarea[disabled] {
     color:rgb(58, 41, 8);
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
 .mat-button-raised {
     margin: 5px;
 }

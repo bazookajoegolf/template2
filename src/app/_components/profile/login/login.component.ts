@@ -18,6 +18,7 @@ import {map} from 'rxjs/operators';
 export class LoginComponent implements OnInit {
   form:UntypedFormGroup ;
   //statusMessage = null;
+  options = {autoClose: true, keepAfterrouteChange: false};
   constructor(private signup : LoginService, private router:Router, private alert : AlertService) { }
 
   ngOnInit() :void {  
@@ -49,7 +50,7 @@ get f() {
       email : this.form.value.email,
       password : this.form.value.password
     }
-    console.log("trying to sign in " + post.email + "  " + post.password);
+    //console.log("trying to sign in " + post.email + "  " + post.password);
      this.signup.signin(post)
     .subscribe(response =>{
       console.log("the response " + response);
@@ -65,6 +66,7 @@ get f() {
       },
       (error) => {
           console.log("getting an error trying to log in " + error.error.message);
+          console.log(this.alert);
           this.alert.error(error.error.message);
       
       }

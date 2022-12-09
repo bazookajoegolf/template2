@@ -1,5 +1,3 @@
-<!-- <div>
-<div *ngFor= "let alert of alerts" class="{{cssClass(alert)}} alert-dismissable status">
-    {{alert.message}}
+<div id="maindiv" *ngFor="let alert of alerts" class="{{cssClass(alert)}}">
+    <div [innerHTML]="alert.message"></div>
 </div>
-</div> -->

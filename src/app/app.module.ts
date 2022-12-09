@@ -72,6 +72,7 @@ import { AlertService } from './services/alert.service';
         MatExpansionModule,
         MatPaginatorModule,
         MatSortModule
+       
     ],
     providers: [],
     bootstrap: [AppComponent]

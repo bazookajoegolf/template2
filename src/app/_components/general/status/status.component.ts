@@ -1,9 +1,10 @@
-import { SnackstatusComponent } from './../snackstatus/snackstatus.component';
+import { Router, NavigationStart } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlertService } from './../../../services/alert.service';
 import { Alert, AlertType } from './../../../models/alert';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import {Status} from '../../../models/status';
+import { Subscription } from 'rxjs';
 
 
 
@@ -15,54 +16,92 @@ import {Status} from '../../../models/status';
 })
 export class StatusComponent implements OnInit {
 
-  status:Status = {
-    level : "primary",
-    message : "All Okay"
-    
-  }; 
+  @Input() id = 'default-alert';
+  @Input() fade = true;
 
-  alerts: Alert[];
+  alerts: Alert[] = [];
 
-  constructor(private alertService : AlertService, private snackBar : MatSnackBar) { }
+  alertSubscription!: Subscription;
+  routeSubscription!: Subscription;
 
+  constructor(private router : Router, private alertService : AlertService, private snackBar : MatSnackBar) { }
   ngOnInit() {
-    
-    this.alertService.getAlert().subscribe((alert: Alert) =>{
-      if(!alert) {
-         this.alerts = [];
-         return;
-      }
+    // subscribe to new alert notifications
+    this.alertSubscription = this.alertService.onAlert(this.id)
+        .subscribe(alert => {
+            // clear alerts when an empty alert is received
+            if (!alert.message) {
+                // filter out alerts without 'keepAfterRouteChange' flag
+                this.alerts = this.alerts.filter(x => x.keepAfterRouteChange);
 
-      this.alerts.push(alert);
-      if (alert.type==0) {
-          this.snackBar.open(alert.message, 'Close',
-           {duration: 2000,
-            panelClass: 'snack-success'
-          });
-      } else if (alert.type==1){
-        this.snackBar.open(alert.message, 'Close',
-           {duration: 2000,
-            panelClass: 'snack-error'
-          });
-      }
-     
+                // remove 'keepAfterRouteChange' flag on the rest
+                this.alerts.forEach(x => delete x.keepAfterRouteChange);
+                return;
+            }
+
+            // add alert to array
+            this.alerts = [];
+            this.alerts.push(alert);
+            this.snackBar.open(alert.message, 'Close',
+            {duration: 2000,
+             panelClass: 'snack-success'
+           });
+
+            // auto close alert if required
+            if (alert.autoClose) {
+                setTimeout(() => this.removeAlert(alert), 3000);
+            }
+       });
+
+    // clear alerts on location change
+    this.routeSubscription = this.router.events.subscribe(event => {
+        if (event instanceof NavigationStart) {
+            this.alertService.clear(this.id);
+        }
     });
-  }
+}
 
-  removeAlert(alert: Alert) {
-    this.alerts = this.alerts.filter( x => x !== alert);
-  }
+ngOnDestroy() {
+    // unsubscribe to avoid memory leaks
+    this.alertSubscription.unsubscribe();
+    this.routeSubscription.unsubscribe();
+}
 
-  cssClass(alert : Alert) {
-    if (!alert) {return}
+removeAlert(alert: Alert) {
+    // check if already removed to prevent error on auto close
+    if (!this.alerts.includes(alert)) return;
 
-    switch(alert.type) {
-      case AlertType.Success: return 'alert alert-success';
-      case AlertType.Error: return 'alert alert-danger';
-      case AlertType.Info: return 'alert alert-info';
-      case AlertType.Warning: return 'alert alert-warning';
+    // fade out alert if this.fade === true
+    const timeout = this.fade ? 250 : 0;
+    alert.fade = this.fade;
 
+    setTimeout(() => {
+        // filter alert out of array
+        this.alerts = this.alerts.filter(x => x !== alert);
+    }, timeout);
+}
+
+cssClass(alert: Alert) {
+    if (!alert) return;
+
+    const classes = ['alert', 'alert-dismissible'];
+            
+    const alertTypeClass = {
+        [AlertType.Success]: 'alert-success',
+        [AlertType.Error]: 'alert-danger',
+        [AlertType.Info]: 'alert-info',
+        [AlertType.Warning]: 'alert-warning'
     }
-  }
+
+    if (alert.type !== undefined) {
+        classes.push(alertTypeClass[alert.type]);
+    }
+
+    if (alert.fade) {
+        classes.push('fade');
+    }
+
+    return classes.join(' ');
+}
 
 }

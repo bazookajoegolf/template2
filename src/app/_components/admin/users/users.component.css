@@ -10,7 +10,7 @@ table {
 }
 
 
-.mat-header-cell {
+.mat-mdc-header-cell {
     text-align: center;
     font-size: .9em;
 }
@@ -43,7 +43,7 @@ a:hover {
     margin-left: 0px;
 }
 
-::ng-deep .mat-cell {
+::ng-deep .mat-mdc-cell {
     text-align: left;
 }
 
@@ -64,7 +64,7 @@ mat-sidenav {
 }
 
 
-.mat-dialog-title {
+.mat-mdc-dialog-title {
     text-align: center;
     color:#5271a3;
 }
@@ -82,11 +82,13 @@ button {
     background-size: cover;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card{
     margin-left : 5%;
 }
 
 
+/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card-actions {
 
     margin-top : 20px;
@@ -122,6 +124,7 @@ mat-card-actions {
     float: left;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version. */
 mat-radio-button {
     margin: 2px 10px;
 }
