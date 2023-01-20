@@ -8,7 +8,7 @@ import { LoginService } from '../../../services/login.service';
 @Component({
   selector: 'newuser',
   templateUrl: './newuser.component.html',
-  styleUrls: ['./newuser.component.css']
+  styleUrls: ['./newuser.component.css','../../../assets/css/bkgd.css']
 })
 export class NewuserComponent implements OnInit {
 

@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.css']
+  styleUrls: ['./change-password.component.css','../../../assets/css/bkgd.css']
 })
 export class ChangePasswordComponent implements OnInit {
 
@@ -39,7 +39,7 @@ export class ChangePasswordComponent implements OnInit {
       this.form.patchValue({'name' : profile.name});
       this.user = profile;
       this.id = profile._id;
-      } 
+     } 
       
     },(error) => {
        this.alert.error(error.error);
@@ -63,11 +63,15 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit() {
+    var x = new Date();
+    console.log(x.getTime());
     const post = {
         oldpassword: this.form.value.oldpassword,
         password: this.form.value.password,
         name : this.user.name,
-        email : this.user.email
+        email : this.user.email,
+        gender : this.user.gender
+       
     }
     this.signup.updateProfile(this.id, post)
         .subscribe(response => {

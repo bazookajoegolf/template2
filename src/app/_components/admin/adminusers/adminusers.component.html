@@ -1,5 +1,6 @@
-<div class="mat-elevation-z8">
-  <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+<mat-card>
+<div>
+  <table style="max-width: 80%;" mat-table [dataSource]="dataSource" matSort aria-label="Elements">
     <!-- Id Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
@@ -23,3 +24,4 @@
       [pageSizeOptions]="[25, 50, 100, 250]">
   </mat-paginator>
 </div>
+</mat-card>

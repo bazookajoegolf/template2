@@ -1,10 +1,10 @@
 <div style="text-align:center">
 
   <mat-toolbar color="primary">
-    <a routerLink="/"><button color="accent" mat-button md-raised-button>Home</button></a>
-    <a *ngIf="!login.isLoggedIn()" routerLink="/login"><button color="accent" mat-button>Login</button></a>
-    <a *ngIf="!login.isLoggedIn()"routerLink="/newuser"><button color="accent" mat-button>SignUp</button></a>
-    <a *ngIf="login.isLoggedIn() && login.CurrentUser.isadmin"><button color="accent" mat-button 
+    <a routerLink="/"><button  mat-button >Home</button></a>
+    <a *ngIf="!login.isLoggedIn()" routerLink="/login"><button  mat-button >Login</button></a>
+    <a *ngIf="!login.isLoggedIn()"routerLink="/newuser"><button  mat-button>SignUp</button></a>
+    <a *ngIf="login.isLoggedIn() && login.CurrentUser.isadmin"><button  mat-button 
              [matMenuTriggerFor]="adminmenu">Admin</button></a>
              <mat-menu #adminmenu="matMenu" xPosition="after">
                <a routerLink="/users" ><button mat-menu-item>User Admin</button></a>
@@ -13,8 +13,8 @@
                <button mat-menu-item>Other Admin</button>
              </mat-menu>
 
-    <a *ngIf="login.isLoggedIn()" routerLink="/profile"><button color="accent" mat-button>Profile</button></a>
-    <a *ngIf="login.isLoggedIn()" (click)="signout()"><button color="accent" mat-button>Logout</button></a>
+    <a *ngIf="login.isLoggedIn()" routerLink="/profile"><button mat-button>Profile</button></a>
+    <a *ngIf="login.isLoggedIn()" (click)="signout()"><button  mat-button>Logout</button></a>
     <span *ngIf="login.isLoggedIn()" class="currentuser">{{login.CurrentUser.name}}</span>
   </mat-toolbar>
   <div style="height : 40px">

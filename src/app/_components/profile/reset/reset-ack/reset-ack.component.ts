@@ -9,7 +9,7 @@ import { LoginService } from '../../../../services/login.service';
 @Component({
   selector: 'app-reset-ack',
   templateUrl: './reset-ack.component.html',
-  styleUrls: ['./reset-ack.component.css']
+  styleUrls: ['./reset-ack.component.css' ,'../../../../assets/css/bkgd.css']
 })
 export class ResetAckComponent implements OnInit {
 

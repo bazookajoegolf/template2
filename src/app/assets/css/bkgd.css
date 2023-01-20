@@ -1,0 +1,66 @@
+mat-form-field {
+    margin-bottom: 20px;
+    min-width: 400px;
+    height: 70px;
+}
+
+mat-card-title {
+    background-color: #125b84;
+    color:antiquewhite;
+    margin-bottom: 25px;
+}
+
+.bkgd {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.txtTitle {
+    font-size:24px;
+    margin-bottom: 30px;
+}
+.bkgd::before {
+    content:"";
+    background-image: url("../img/golfbkgrnd.jpeg");
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    top: 0;
+    bottom: 0;
+    right:0;
+    left:0;
+    opacity: .4;
+}
+
+
+#resetlink {
+    margin : 20px;
+}
+
+mat-icon {
+      padding-right: 15px;
+      color: #659dbd;
+      font-size: 18px !important;
+      
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
+mat-card {
+
+    width: 500px;
+   
+
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
+mat-card-title {
+
+    padding-top: 25px;
+    padding-bottom: 30px;
+    font-size: 26px;
+}
+
+a {
+    text-decoration: none;
+}

@@ -1,20 +1,4 @@
-.create-user {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    margin-top: 50px;
-    width: 50%;
 
-}
-
-.create-user > * {
-    width: 100%;
-}
-#submit-button {
-    width:30%;
-    margin: auto;
-    
-}
 
 .mat-mdc-radio-button {
     margin: 16px;

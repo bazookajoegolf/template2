@@ -1,51 +1,34 @@
-
+<div class="bkgd">
 <form  [formGroup]= "form" (ngSubmit)="onSubmit()" class="create-user">
-        <h1 *ngIf="editMode" class="top-header"> Update Profile</h1>
-        <h1 *ngIf="!editMode" class="top-header"> User Profile</h1>
+  <mat-card appearance="outlined" class= "mat-elevation-z8"color="warn">
+   <div>
+    <mat-card-title *ngIf="editMode" class= "mat-text-accent">Update Profile</mat-card-title>
+    <mat-card-title *ngIf="!editMode" class= "mat-text-accent">User Profile</mat-card-title>  
+   </div>
         <div>
 
-        </div>
-        <div>
-          <mat-form-field  class="fields" >
-          <input 
-                 class="ro-text"
-                 matInput
-                 id="name"
-                 type="text"
-                 formControlName="name"
-                 placeholder="Name">
+         <mat-form-field >
+          <input matInput id="name" type="text" formControlName="name" placeholder="Name">
           <mat-error *ngIf="f.name.errors?.required && (f.name.dirty || f.name.invalid) && editMode">A Name is Required</mat-error>
           <mat-error *ngIf="f.name.errors?.minlength && (f.name.dirty || f.name.invalid)  && editMode">Name must be 5 characters</mat-error> 
           <mat-error *ngIf="f.name.errors?.maxlength && (f.name.dirty || f.name.invalid)  && editMode">Name must not exceed 15 characters</mat-error> 
           </mat-form-field>
-        </div>
-        <div>
-        <mat-form-field class="fields">
-          <input matInput 
-                class="ro-text"
-                id="email"
-                type="text" 
-                formControlName="email"
-                placeholder="E-Mail Address">
+
+        <mat-form-field >
+          <input matInput id="email" type="text" formControlName="email" placeholder="E-Mail Address">
                 <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">An Email address is Required</mat-error>
                 <mat-error *ngIf="f.email.errors?.email && (f.email.dirty || f.email.invalid)">Name must be valid e-mail address</mat-error> 
                
         </mat-form-field>
+
         <mat-radio-group aria-label="Enter Gender" id="gender" formControlName="gender">
           <mat-radio-button color="primary" value="Female">Female</mat-radio-button>
           <mat-radio-button color="accent" value="Male">Male</mat-radio-button>
           <mat-error *ngIf="f.gender.errors?.required && (f.gender.dirty)">Gender Required</mat-error>
         </mat-radio-group>
-      </div>
 
-      <div>
-            <mat-form-field *ngIf="editMode"class="fields">
-              <input matInput 
-                     class="ro-text" 
-                     id="oldpassword" 
-                     type="password" 
-                     placeholder="Password"
-                     formControlName="oldpassword">
+        <mat-form-field *ngIf="editMode"class="fields">
+              <input matInput id="oldpassword" type="password" placeholder="Password"  formControlName="oldpassword">
              <mat-error *ngIf="f.oldpassword.errors?.required && (f.oldpassword.dirty || f.oldpassword.invalid)">Password
                 is Required</mat-error>
               <mat-error *ngIf="f.oldpassword.errors?.minlength && (f.oldpassword.dirty || f.oldpassword.invalid)">Password
@@ -53,16 +36,20 @@
       
             </mat-form-field>
           </div>
-    
-        <button  *ngIf="editMode || passwordChange" id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid" >Submit</button>
-        <button (click)="cancelUpdate()" *ngIf="editMode || passwordChange" class="inline-buttons" mat-raised-button color="primary" >Cancel</button>
-      </form>
-      <div class="inline-buttons" >
-      <button (click)="onUpdate()" *ngIf="!editMode && !passwordChange" class="inline-buttons" mat-raised-button color="primary"  >Update Profile</button>
-    </div>
-    <div class="inline-buttons" >
-        <button (click)="onPasswordUpdate()" *ngIf="!editMode && !passwordChange" class="inline-buttons" mat-raised-button color="primary"  >Update Password</button>
+      <div>
+        <button class="inline-buttons" *ngIf="editMode || passwordChange" id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid" >Submit</button>
+
+        <button class="inline-buttons" (click)="cancelUpdate()" *ngIf="editMode || passwordChange" class="inline-buttons" mat-raised-button color="primary" >Cancel</button>
       </div>
 
-      
+
+
+     <div >
+      <button class="inline-buttons" (click)="onUpdate()" *ngIf="!editMode && !passwordChange"  mat-raised-button color="primary"  >Update Profile</button>
+      <button class="inline-buttons" (click)="onPasswordUpdate()" *ngIf="!editMode && !passwordChange"  mat-raised-button color="primary"  >Update Password</button>
+      </div>
+    </mat-card>
+  </form>
+
+    </div>    
       

@@ -1,8 +1,12 @@
+
+<div class="bkgd">
 <form  [formGroup]= "form" (ngSubmit)="onSubmit()" class="create-user">
- 
-  <div>
+  <mat-card appearance="outlined" class= "mat-elevation-z8"color="warn">
+    <div>
+    
+    <mat-card-title class= "mat-text-accent">Enter Confirmation code:</mat-card-title> 
   </div>
-  <h2>Enter your Confirmation code you received in your Email Account:</h2>
+<div>
     <mat-form-field >
     <input matInput
            id="confirmid"
@@ -12,7 +16,15 @@
     <mat-error *ngIf="f.confirmid.errors?.required && (f.confirmid.dirty || f.confirmid.invalid)">Please enter your confirmation Code:</mat-error>
 
     </mat-form-field>
-<div>
-<button id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid" >Submit</button>
 </div>
+<div>
+
+  <div>
+<button style="margin-top:20px; margin-bottom:20px;"
+    id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid" >Submit
+</button>
+</div>
+</div>
+</mat-card> 
   </form>
+</div>

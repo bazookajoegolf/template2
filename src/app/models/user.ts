@@ -7,6 +7,7 @@ export class User {
       public password: string,
       public isAdmin?: boolean,
       public id?: number,
+      public gender?:boolean
 
   ) {}
 }

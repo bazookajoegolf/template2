@@ -9,7 +9,7 @@ import { AlertService } from './../../../services/alert.service';
 @Component({
   selector: 'app-reset',
   templateUrl: './reset.component.html',
-  styleUrls: ['./reset.component.css']
+  styleUrls: ['./reset.component.css','../../../assets/css/bkgd.css']
 })
 export class ResetComponent implements OnInit {
 

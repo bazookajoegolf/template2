@@ -1,8 +1,11 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="create-user">
+<div class="bkgd">
 
-  <div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="create-user">
+  <mat-card appearance="outlined" class= "mat-elevation-z8"color="warn">
+    <div>
+    <mat-card-title class= "mat-text-accent">Password Reset</mat-card-title> 
   </div>
-  <h3>Password Reset</h3>
+  <div>
   <mat-form-field>
     <input matInput id="email" type="text" placeholder="Email Address" required formControlName="email">
     <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">Please enter your email address
@@ -11,7 +14,11 @@
     </mat-error>
 
   </mat-form-field>
-  <div>
-    <button id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
+</div>
+  <div style="padding-bottom: 20px;">
+    <button id="submit-button"  mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
   </div>
+  </mat-card>
  </form>
+</div>
+

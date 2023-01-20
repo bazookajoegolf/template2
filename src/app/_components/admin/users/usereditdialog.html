@@ -3,9 +3,11 @@
   <form [formGroup]= "form" (ngSubmit)="onSubmit()">
     <h2 mat-dialog-title>{{action}} User </h2>
     <h4> errors : {{f.email?.errors | json}} </h4>
-     <mat-form-field>
+    <div>
+     <mat-mdc-form-field>
       <input matInput placeholder="Name" type="text" spellcheck="false" name = "name" formControlName="name">
-    </mat-form-field>
+    </mat-mdc-form-field>
+  </div>
     <mat-form-field>
       <input matInput placeholder="email" #email (blur)="checkUnique(email.value)" type="email" spellcheck="false" name="email"  formControlName="email" >
       <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">An Email address is Required</mat-error>
@@ -18,7 +20,7 @@
     </mat-form-field>
   
     <div mat-dialog-actions>
-      <button *ngIf="action =='Add'" mat-raised-button style="background-color:rgb(33, 192, 166);"
+      <button *ngIf="action =='Add'" mat-raised-button style="background-color:rgb(33, 192, 166) ; padding-right : 15px;"
         (click)="doActionClick('add')">Add User</button>
       <button *ngIf="action =='Edit'" mat-raised-button style="background-color:#357;"
         (click)="doActionClick('update')">Update</button>

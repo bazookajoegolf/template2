@@ -1,9 +1,11 @@
 
-
+<div class="bkgd">
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="create-user">
-
-  <h3>Enter your Confirmation code to Reset your Password:</h3>
+  <mat-card appearance="outlined" class= "mat-elevation-z8"color="warn">
+  <div>
+    <mat-card-title class= "mat-text-accent">Enter Confirmation code to Reset Password:</mat-card-title>
+  </div>
   <mat-form-field>
     <input matInput id="email" type="text" placeholder="Email Adress" required formControlName="email">
     <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">Please enter your email address
@@ -28,7 +30,12 @@
         confirmation Code:</mat-error>
     </mat-form-field>
     <div>
+      <div style="padding-bottom: 20px;">
       <button id="submit-button" mat-raised-button color="primary" type="submit"
         [disabled]="!form.valid">Submit</button>
+      </div>
     </div>
+  </mat-card>
 </form>
+
+</div>
