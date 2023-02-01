@@ -3,11 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-<<<<<<< HEAD
     "start": "ng serve --host 10.27.109.174 --disable-host-check --watch",
-=======
-    "start": "ng serve --host 10.0.0.145 --disable-host-check",
->>>>>>> 6ba2f63a132e34b716946e103bfcb6dc1308fa15
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
