@@ -36,10 +36,22 @@
       
             </mat-form-field>
           </div>
+<<<<<<< HEAD
       <div>
         <button class="inline-buttons" *ngIf="editMode || passwordChange" id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid" >Submit</button>
 
         <button class="inline-buttons" (click)="cancelUpdate()" *ngIf="editMode || passwordChange" class="inline-buttons" mat-raised-button color="primary" >Cancel</button>
+=======
+    
+        <button  *ngIf="editMode" id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid" >Submit</button>
+        <button (click)="cancelUpdate()" *ngIf="editMode " class="inline-buttons" mat-raised-button color="primary" >Cancel</button>
+      </form>
+      <div class="inline-buttons" >
+      <button (click)="onUpdate()" *ngIf="!editMode " class="inline-buttons" mat-raised-button color="primary"  >Update Profile</button>
+    </div>
+    <div class="inline-buttons" >
+        <button (click)="onPasswordUpdate()" *ngIf="!editMode " class="inline-buttons" mat-raised-button color="primary"  >Update Password</button>
+>>>>>>> 6ba2f63a132e34b716946e103bfcb6dc1308fa15
       </div>
 
 

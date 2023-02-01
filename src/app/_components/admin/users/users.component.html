@@ -91,6 +91,7 @@
       </mat-card-header>
       <mat-card-content>
         <form [formGroup]="form" #fm="ngForm" (ngSubmit)="onSubmit()">
+<<<<<<< HEAD
           <div>
             <mat-form-field>
               <input matInput placeholder="Name" type="text" spellcheck="false" name="name" formControlName="name">
@@ -103,6 +104,28 @@
                 characters
               </mat-error>
             </mat-form-field>
+=======
+          <mat-form-field>
+            <input matInput placeholder="Name" type="text" spellcheck="false" name="name" formControlName="name">
+            <mat-error *ngIf="f.name.errors?.required && (f.name.dirty || f.name.invalid)">A Name is Required
+            </mat-error>
+            <mat-error *ngIf="f.name.errors?.minlength && (f.name.dirty || f.name.invalid)">Name must be more than 5
+              characters
+            </mat-error>
+            <mat-error *ngIf="f.name.errors?.maxlength && (f.name.dirty || f.name.invalid)">Name must be less than 50
+              characters
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="email" (blur)="checkUnique()" type="email"
+              spellcheck="false" name="email" formControlName="email">
+            <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">An Email address is
+              Required</mat-error>
+            <mat-error *ngIf="f.email.errors?.email && (f.email.dirty )">Name must be valid e-mail address</mat-error>
+            <mat-error *ngIf="okEmail">E-mail address already has an Account
+            </mat-error>
+          </mat-form-field>
+>>>>>>> 6ba2f63a132e34b716946e103bfcb6dc1308fa15
 
             <mat-form-field>
               <input matInput placeholder="email" (blur)="checkUnique($event.target.value)" type="email"
