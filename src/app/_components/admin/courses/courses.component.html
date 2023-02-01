@@ -32,44 +32,47 @@
               <input matInput type="text" id="city" formControlName="city">
             </mat-form-field>
           </div>
-          <div>
-            <mat-form-field>
-              <mat-label>Website: </mat-label>
-              <input matInput type="text" id="url" formControlName="url">
-            </mat-form-field>
-          </div>
-          <div>
-
-            <mat-checkbox class="chk-box" id="active" formControlName="active">Active: </mat-checkbox>
-
-          </div>
-          <div>
-            <mat-form-field>
-              <mat-label>Description: </mat-label>
-              <textarea matInput type="text" id="description" formControlName="description"></textarea>
-            </mat-form-field>
-
-          </div>
-          <div>
-            <button mat-raised-button color="primary" (click)="onNew()" id="btn-new" *ngIf="form.disabled">New</button>
-
-            <button mat-raised-button color="accent" id="btn-edit" (click)="onEdit()"
-              *ngIf="form.disabled && name">Edit</button>
-
-            <button mat-raised-button color="warn" id="btn-delete" (click)="onDelete()"
-              *ngIf="form.disabled && name">Delete</button>
-
-            <button mat-raised-button color="accent" id="btn-cancel" (click)="onCancel()"
-              *ngIf="!form.disabled">Cancel</button>
-
-            <button mat-raised-button color="primary" id="btn-save" type="submit" *ngIf="!form.disabled">Save</button>
-          </div>
-        </div>
-      </form>
     </mat-grid-tile>
+    <mat-grid-tile>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Website: </mat-label>
+          <input matInput type="text" id="url" formControlName="url">
+        </mat-form-field>
+      </div>
+      <div>
+
+        <mat-checkbox class="chk-box" id="active" formControlName="active">Active: </mat-checkbox>
+
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Description: </mat-label>
+          <textarea matInput type="text" id="description" formControlName="description"></textarea>
+        </mat-form-field>
+
+      </div>
+      <div>
+        <button mat-raised-button color="primary" (click)="onNew()" id="btn-new" *ngIf="form.disabled">New</button>
+
+        <button mat-raised-button color="accent" id="btn-edit" (click)="onEdit()"
+          *ngIf="form.disabled && name">Edit</button>
+
+        <button mat-raised-button color="warn" id="btn-delete" (click)="onDelete()"
+          *ngIf="form.disabled && name">Delete</button>
+
+        <button mat-raised-button color="accent" id="btn-cancel" (click)="onCancel()"
+          *ngIf="!form.disabled">Cancel</button>
+
+        <button mat-raised-button color="primary" id="btn-save" type="submit" *ngIf="!form.disabled">Save</button>
+      </div>
+</div>
+</form>
+</mat-grid-tile>
 
 
-  </mat-grid-list>
+</mat-grid-list>
 
 
 </div>
