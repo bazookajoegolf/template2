@@ -1,13 +1,16 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="create-user">
+<div class="maindiv">
+  <div class="title">
+    <h3>Admin Settings</h3>
+  </div>
 
-  <h2>Admin Settings</h2>
-  <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1%">
-    <div fxFlex="5%"></div>
-    <div fxFlex="45%">
-      <mat-card appearance="outlined" class="mat-elevation-z12">
-        <mat-form-field>
+  <form [formGroup]=" form" (ngSubmit)="onSubmit()" class="half-bkgd">
+
+
+    <mat-card appearance="outlined" class="mat-elevation-z8">
+      <div>
+        <mat-form-field class="inputtop">
           <input matInput id="minpassword" type="text" required formControlName="minpassword">
-          <mat-placeholder class="ph">Minimum Password Length </mat-placeholder>
+          <mat-label>Minimum Password Length </mat-label>
           <mat-error *ngIf="f.minpassword.errors?.required && (f.minpassword.dirty || f.minpassword.invalid)">
             Enter a Minimum Password Length
           </mat-error>
@@ -22,7 +25,7 @@
 
         <mat-form-field>
           <input matInput id="maxpassword" type="test" required formControlName="maxpassword">
-          <mat-placeholder class="ph">Maximum Password Length </mat-placeholder>
+          <mat-label>Maximum Password Length</mat-label>
           <mat-error *ngIf="f.maxpassword.errors?.required && (f.maxpassword.dirty || f.maxpassword.invalid)">
             Enter a Maximum Password Length
           </mat-error>
@@ -42,7 +45,7 @@
         </mat-form-field>
         <mat-form-field>
           <input matInput id="minname" type="text" required formControlName="minname">
-          <mat-placeholder class="ph">Minimum Name Length </mat-placeholder>
+          <mat-label>Minimum Name Length </mat-label>
           <mat-error *ngIf="f.minname.errors?.required && (f.minname.dirty || f.minname.invalid)">
             Enter a Minimum Name
           </mat-error>
@@ -51,30 +54,27 @@
 
         <mat-form-field>
           <input matInput id="maxname" type="text" required formControlName="maxname">
-          <mat-placeholder class="ph">Maximum Name Length </mat-placeholder>
+          <mat-label>Maximum Name Length </mat-label>
           <mat-error *ngIf="f.maxname.errors?.required && (f.maxname.dirty || f.maxname.invalid)">
             Enter a Maximum Name
           </mat-error>
 
         </mat-form-field>
-
-        <mat-form-field>
+      </div>
+    </mat-card>
+    <mat-card appearance="outlined" class="mat-elevation-z8">
+      <div>
+        <mat-form-field class="inputtop">
           <input matInput id="maxnotes" type="text" required formControlName="maxnotes">
-          <mat-placeholder class="ph">Maximum Note Length </mat-placeholder>
+          <mat-label>Maximum Note Length </mat-label>
           <mat-error *ngIf="f.maxnotes.errors?.required && (f.maxnotes.dirty || f.maxnotes.invalid)">
             Maximum Notes Length
           </mat-error>
 
         </mat-form-field>
-
-      </mat-card>
-    </div>
-
-    <div fxFlex="45%">
-      <mat-card appearance="outlined" class="mat-elevation-z12">
         <mat-form-field>
           <input matInput id="newusertoken" type="text" required formControlName="newusertoken">
-          <mat-placeholder class="ph">NewUser Token in Hours </mat-placeholder>
+          <mat-label>NewUser Token in Hours </mat-label>
           <mat-error *ngIf="f.newusertoken.errors?.required && (f.newusertoken.dirty || f.newusertoken.invalid)">
             Hours a newuser Token in hours
           </mat-error>
@@ -82,7 +82,7 @@
         </mat-form-field>
         <mat-form-field>
           <input matInput id="usertoken" type="text" required formControlName="usertoken">
-          <mat-placeholder class="ph">User Token in Hours</mat-placeholder>
+          <mat-label>User Token in Hours</mat-label>
           <mat-error *ngIf="f.usertoken.errors?.required && (f.usertoken.dirty || f.usertoken.invalid)">
             Hours a user Token in hours
           </mat-error>
@@ -90,15 +90,19 @@
         </mat-form-field>
         <mat-form-field>
           <input matInput id="admintoken" type="text" required formControlName="admintoken">
-          <mat-placeholder class="ph">Administrator Token Length</mat-placeholder>
+          <mat-label>Administrator Token Length</mat-label>
           <mat-error *ngIf="f.admintoken.errors?.required && (f.admintoken.dirty || f.admintoken.invalid)">
             Hours an Administrator Token in Hours
           </mat-error>
 
         </mat-form-field>
-        <mat-form-field>
+      </div>
+    </mat-card>
+    <mat-card appearance="outlined" class="mat-elevation-z8">
+      <div>
+        <mat-form-field class="inputtop">
           <input matInput id="smtphost" type="text" required formControlName="smtphost">
-          <mat-placeholder class="ph">SMTP Host</mat-placeholder>
+          <mat-label>SMTP Host</mat-label>
           <mat-error *ngIf="f.smtphost.errors?.required && (f.smtphost.dirty || f.smtphost.invalid)">
             SMTP Host
           </mat-error>
@@ -107,7 +111,7 @@
 
         <mat-form-field>
           <input matInput id="smtpsendas" type="text" required formControlName="smtpsendas">
-          <mat-placeholder class="ph">SMTP Send As</mat-placeholder>
+          <mat-label>SMTP Send As</mat-label>
           <mat-error *ngIf="f.smtpsendas.errors?.required && (f.smtpsendas.dirty || f.smtpsendas.invalid)">
             SMTP Send As
           </mat-error>
@@ -116,18 +120,23 @@
 
         <mat-form-field>
           <input matInput id="smtpsentto" type="text" required formControlName="smtpsentto">
-          <mat-placeholder class="ph">SMTP Send To</mat-placeholder>
+          <mat-label>SMTP Send To</mat-label>
           <mat-error *ngIf="f.smtpsentto.errors?.required && (f.smtpsentto.dirty || f.smtpsentto.invalid)">
             SMTP Send To
           </mat-error>
 
         </mat-form-field>
-      </mat-card>
-    </div>
-    <div fxFlex="5%"></div>
-  </div>
-  <div class="zbtn">
-    <button mat-raised-button id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
-  </div>
 
-</form>
+      </div>
+
+    </mat-card>
+
+    <div id="bt">
+      <button mat-raised-button color=primary id="submit-button" type="submit" [disabled]="!form.valid">Submit
+      </button>
+    </div>
+
+  </form>
+
+
+</div>

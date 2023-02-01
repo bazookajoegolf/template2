@@ -1,8 +1,13 @@
 .scorecard > tr > td > input {
-    border-color: rgb(73, 17, 17);
+    border-color: lightgray;
+    border-radius: 5px;
     width: 32px;
    
  
+}
+
+.header-color1 {
+    background-color: rgb(233, 233, 234);
 }
 
 .mat-accordion {

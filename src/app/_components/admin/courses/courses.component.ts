@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { TeesComponent } from '../tees/tees.component';
+
 
 import { CoursesService } from '../../../services/courses.service';
 import { AlertService } from './../../../services/alert.service';

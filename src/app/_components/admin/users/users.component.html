@@ -3,9 +3,9 @@
     <div id="base">
 
       <mat-label class="main-header">User Management</mat-label>
-         <div>
-          <div class="main-search" id="searchfield">
-            <mat-form-field >
+      <div>
+        <div class="main-search" id="searchfield">
+          <mat-form-field>
             <mat-label class="filter-label"> Search:</mat-label>
             <input class="filter-input" matInput type="text" (keyup)="applyFilter($event.target.value)"
               [(ngModel)]="value" placeholder="Enter Search Value">
@@ -14,12 +14,12 @@
               <mat-icon>clear</mat-icon>
             </button>
           </mat-form-field>
-          </div>
-          <div class="main-search">
-            <button mat-raised-button color="primary" (click)="displayOverlay('new',null, $event, null)">New
-              Account</button>
-          </div>
         </div>
+        <div class="main-search">
+          <button mat-raised-button color="primary" (click)="displayOverlay('new',null, $event, null)">New
+            Account</button>
+        </div>
+      </div>
 
 
 
@@ -70,63 +70,72 @@
         </table>
       </div>
 
-        <mat-paginator [length]="resultsLength" [pageSizeOptions]="[10,25,100]" showFirstLastButtons></mat-paginator>
+      <mat-paginator [length]="resultsLength" [pageSizeOptions]="[10,25,100]" showFirstLastButtons></mat-paginator>
 
     </div>
 
 
 
   </mat-sidenav-content>
-  <mat-sidenav position="end"  [(opened)]="opened">
+  <mat-sidenav position="end" [(opened)]="opened">
 
-    <mat-card appearance="outlined">
+    <mat-card appearance="outlined" class="sixteenheight">
       <mat-card-header>
         <div mat-card-avatar class="header-image"></div>
         <mat-card-title>
           User Settings
         </mat-card-title>
         <mat-card-subtitle>
-          New User
+          New User...correct if new or not
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <form [formGroup]="form" #fm="ngForm" (ngSubmit)="onSubmit()">
-          <mat-form-field>
-            <input matInput placeholder="Name" type="text" spellcheck="false" name="name" formControlName="name">
-            <mat-error *ngIf="f.name.errors?.required && (f.name.dirty || f.name.invalid)">A Name is Required
-            </mat-error>
-            <mat-error *ngIf="f.name.errors?.minlength && (f.name.dirty || f.name.invalid)">Name must be more than 5
-              characters
-            </mat-error>
-            <mat-error *ngIf="f.name.errors?.maxlength && (f.name.dirty || f.name.invalid)">Name must be less than 50
-              characters
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="email" (blur)="checkUnique($event.target.value)" type="email"
-              spellcheck="false" name="email" formControlName="email">
-            <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">An Email address is
-              Required</mat-error>
-            <mat-error *ngIf="f.email.errors?.email && (f.email.dirty )">Name must be valid e-mail address</mat-error>
-            <mat-error *ngIf="okEmail">E-mail address already has an Account
-            </mat-error>
-          </mat-form-field>
+          <div>
+            <mat-form-field>
+              <input matInput placeholder="Name" type="text" spellcheck="false" name="name" formControlName="name">
+              <mat-error *ngIf="f.name.errors?.required && (f.name.dirty || f.name.invalid)">A Name is Required
+              </mat-error>
+              <mat-error *ngIf="f.name.errors?.minlength && (f.name.dirty || f.name.invalid)">Name must be more than 5
+                characters
+              </mat-error>
+              <mat-error *ngIf="f.name.errors?.maxlength && (f.name.dirty || f.name.invalid)">Name must be less than 50
+                characters
+              </mat-error>
+            </mat-form-field>
 
-          <mat-form-field *ngIf="action ==='new'">
-            <input matInput placeholder="Password" type="password" spellcheck="false" name="password"
-              formControlName="password">
-            <mat-error *ngIf="f.password.errors?.required && (f.password.dirty || f.password.invalid)">A Password is
-              Required
-            </mat-error>
-            <mat-error *ngIf="f.password.errors?.minlength && (f.password.dirty || f.password.invalid)">Password must be
-              more than 5
-              characters
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <textarea matInput placeholder="Notes" type="text" rows=10 spellcheck="false" name="notes"
+            <mat-form-field>
+              <input matInput placeholder="email" (blur)="checkUnique($event.target.value)" type="email"
+                spellcheck="false" name="email" formControlName="email">
+              <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">An Email address is
+                Required</mat-error>
+              <mat-error *ngIf="f.email.errors?.email && (f.email.dirty )">Name must be valid e-mail address</mat-error>
+              <mat-error *ngIf="okEmail">E-mail address already has an Account
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+
+          <mat-form-field class="inputninety">
+            <textarea matInput placeholder="Notes" type="text" rows=6 cols=500 spellcheck="false" name="notes"
               formControlName="notes"></textarea>
           </mat-form-field>
+
+
+          <div>
+            <mat-form-field *ngIf="action ==='new'" class="inputninety ">
+              <input matInput placeholder="Password" type="password" spellcheck="false" name="password"
+                formControlName="password">
+              <mat-error *ngIf="f.password.errors?.required && (f.password.dirty || f.password.invalid)">A Password is
+                Required
+              </mat-error>
+              <mat-error *ngIf="f.password.errors?.minlength && (f.password.dirty || f.password.invalid)">Password must
+                be
+                more than 5
+                characters
+              </mat-error>
+            </mat-form-field>
+          </div>
 
           <mat-checkbox id="chk-administrator" formControlName="isadmin">Administrator</mat-checkbox>
           <mat-checkbox id="chk-disable" formControlName="status">Disabled</mat-checkbox>
@@ -151,17 +160,19 @@
         <h2>{{disableCheck}}</h2>
         <div *ngIf="action ==='edit'">
           <form [formGroup]="resetPasswordForm" (ngSubmit)="onPasswordSubmit()">
-            <mat-form-field>
-              <input matInput id="pw-input" placeholder="Password" type="password" formControlName="password">
-              <mat-error *ngIf="p.password.errors?.required && (p.password.dirty || p.password.invalid)">A password is
-                Required
-              </mat-error>
-              <mat-error *ngIf="p.password.errors?.minlength && (p.password.dirty || p.password.invalid)">Password must
-                be
-                more than 5 characters
-              </mat-error>
-            </mat-form-field>
-
+            <div>
+              <mat-form-field class="inputninety" style="line-height:16px">
+                <input matInput id="pw-input" placeholder="Password" type="password" formControlName="password">
+                <mat-error *ngIf="p.password.errors?.required && (p.password.dirty || p.password.invalid)">A password is
+                  Required
+                </mat-error>
+                <mat-error *ngIf="p.password.errors?.minlength && (p.password.dirty || p.password.invalid)">Password
+                  must
+                  be
+                  more than 5 characters
+                </mat-error>
+              </mat-form-field>
+            </div>
             <button id="pw-btn" mat-button mat-raised-button
               style="background-color:rgb(105, 8, 8); color: white">Update
               Password</button>

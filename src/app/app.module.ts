@@ -36,6 +36,8 @@ import { ResetAckComponent } from './_components/profile/reset/reset-ack/reset-a
 import { SettingsComponent } from './_components/admin/settings/settings.component';
 import { TeesComponent } from './_components/admin/tees/tees.component';
 import { AlertService } from './services/alert.service';
+import { CourseAdminComponent } from './_components/admin/courseadmin/courseadmin.component';
+
 
 @NgModule({
     declarations: [
@@ -58,7 +60,8 @@ import { AlertService } from './services/alert.service';
         BoolToTextPipe,
         ResetAckComponent,
         SettingsComponent,
-        TeesComponent
+        TeesComponent,
+        CourseAdminComponent
     ],
     imports: [
         BrowserModule,

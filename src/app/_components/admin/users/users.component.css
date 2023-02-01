@@ -3,6 +3,7 @@ table {
     margin: auto;
 }
 
+
 .main-header {
     font-size: 2.5em;
     color:#111;
@@ -63,6 +64,10 @@ mat-sidenav {
    
 }
 
+mat-form-field {
+    padding-right: 10px;
+}
+
 
 .mat-mdc-dialog-title {
     text-align: center;
@@ -70,11 +75,6 @@ mat-sidenav {
 }
 
 
-button {
-    display: inline-flex;
-    margin: auto;
-    color: rgba(17, 5, 5, 1);
-}
 
 
 .header-image {
@@ -94,11 +94,7 @@ mat-card-actions {
     margin-top : 20px;
 }
 
-#pw-input {
-    display: inline-block;
-    width: 50px;
-    padding-top : 30px;
-}
+
 
 #pw-btn {
     display: inline-block;
@@ -106,12 +102,20 @@ mat-card-actions {
 
 }
 
-.button-section {
+.inputninety {
+    width: 90%;
+}
+.sixteenheight {
+    font-size: 16px;
+}
+
+
+mat-card-actions {
     display: inline-block;
     align-content: center;
     align-items: center;
     height: 60px;
-    padding: 5px 10px;
+    padding:10px;
 }
 
 #chk-disable {

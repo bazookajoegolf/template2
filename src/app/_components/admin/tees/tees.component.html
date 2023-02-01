@@ -1,8 +1,7 @@
-
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-<mat-accordion>
-    <mat-expansion-panel >
+  <mat-accordion>
+    <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           New Tee
@@ -11,7 +10,7 @@
       </mat-expansion-panel-header>
       <div>
         <table class="scorecard">
-          <tr>
+          <tr class="header-color1">
             <th>Hole</th>
             <th>1</th>
             <th>2</th>
@@ -24,9 +23,9 @@
             <th>9</th>
           </tr>
           <tr>
-            <th>Par</th>
+            <th class="header-color1">Par</th>
             <td>
-               <input type="text" id="par1" formControlName="par1" >
+              <input type="text" id="par1" formControlName="par1">
             </td>
             <td><input type="text"></td>
             <td><input type="text"></td>
@@ -40,7 +39,7 @@
 
           </tr>
           <tr>
-            <th>Yardage</th>
+            <th class="header-color1">Yardage</th>
             <td><input type="text"></td>
             <td><input type="text"></td>
             <td><input type="text"></td>
@@ -53,7 +52,7 @@
 
           </tr>
           <tr style="height:18px"></tr>
-          <tr>
+          <tr class="header-color1">
             <th>Hole</th>
             <th>10</th>
             <th>11</th>
@@ -66,7 +65,7 @@
             <th>18</th>
           </tr>
           <tr>
-            <th>Par</th>
+            <th class="header-color1">Par</th>
             <td><input type="text"></td>
             <td><input type="text"></td>
             <td><input type="text"></td>
@@ -78,7 +77,7 @@
             <td><input type="text"></td>
           </tr>
           <tr>
-            <th>Yardage</th>
+            <th class="header-color1">Yardage</th>
             <td><input type="text"></td>
             <td><input type="text"></td>
             <td><input type="text"></td>
@@ -91,7 +90,7 @@
           </tr>
 
 
-        </table> 
+        </table>
         <table>
           <tr>
             <th>Par</th>
@@ -103,11 +102,10 @@
         <table>
           <button mat-raised-button color="primary">Save</button>
         </table>
-        
+
       </div>
-      </mat-expansion-panel>
-    <mat-expansion-panel (opened)="panelOpenState = true"
-                         (closed)="panelOpenState = false">
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
           Black Tee
