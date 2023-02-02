@@ -1,22 +1,3 @@
-.title {
-    display: block;
-    background-color: #125b84;
-    color:antiquewhite;
-  
-    margin: auto;
-    padding-bottom: 30px;
-    width: 90%;
-    height: 87px;
-    line-height: 32px;
-    text-align: bottom;
-    font-size: 26px;
-    font-weight: 500;
-    align-content: center;
-}
-
-h3 {
-    line-height:87px;
-}
 
 .maindiv {
     align-content: center;

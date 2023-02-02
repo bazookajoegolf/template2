@@ -13,6 +13,14 @@ button {
     display: block;
 }
 
+mat-card {
+
+    width: 40%;
+    margin:40px;
+}
+
+
+
 .chk-box {
     display: flex;
     align-items: center;
@@ -28,9 +36,7 @@ button {
     margin : 10px 0px;
 }
 
-.div-section {
-    display: block;
-}
+
 
 #description {
     height: 150px;
@@ -52,4 +58,40 @@ input[disabled] , textarea[disabled] {
 /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
 .mat-button-raised {
     margin: 5px;
+}
+
+#half-bkgd {
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+
+
+.flex-parent-element {
+    display: flex;
+    margin-left:5%;
+    margin-right:5%;
+    margin-top: 25px;
+
+    align-content: space-between;
+    justify-content: center;   
+    border: 2px solid gray; 
+}
+
+
+
+.flex-child-element {
+    flex:0;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top:20px;
+    margin-bottom: 15px;
+}
+
+
+.blk-button {
+    display:block;
+    margin-top:40px;
 }

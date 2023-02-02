@@ -24,7 +24,7 @@ interface Course {
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.css']
+  styleUrls: ['./courses.component.css','./../../../assets/css/bkgd.css']
 })
 export class CoursesComponent implements OnInit {
   panelOpenState = false;
