@@ -1,27 +1,31 @@
 <div class="dialog-frame">
 
-  <form [formGroup]= "form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <h2 mat-dialog-title>{{action}} User </h2>
     <h4> errors : {{f.email?.errors | json}} </h4>
     <div>
-     <mat-mdc-form-field>
-      <input matInput placeholder="Name" type="text" spellcheck="false" name = "name" formControlName="name">
-    </mat-mdc-form-field>
-  </div>
+      <mat-form-field>
+        <input matInput placeholder="Name" type="text" spellcheck="false" name="name" formControlName="name">
+      </mat-form-field>
+    </div>
     <mat-form-field>
-      <input matInput placeholder="email" #email (blur)="checkUnique(email.value)" type="email" spellcheck="false" name="email"  formControlName="email" >
-      <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">An Email address is Required</mat-error>
-      <mat-error *ngIf="f.email.errors?.email && (f.email.dirty )">Name must be valid e-mail address</mat-error> 
-      <mat-error *ngIf="f.email.errors?.uniqueEmail && (f.email.dirty)">Name must be a unique e-mail address</mat-error> 
-    
+      <input matInput placeholder="email" #email (blur)="checkUnique(email.value)" type="email" spellcheck="false"
+        name="email" formControlName="email">
+      <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">An Email address is Required
+      </mat-error>
+      <mat-error *ngIf="f.email.errors?.email && (f.email.dirty )">Name must be valid e-mail address</mat-error>
+      <mat-error *ngIf="f.email.errors?.uniqueEmail && (f.email.dirty)">Name must be a unique e-mail address</mat-error>
+
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Password" type="password" spellcheck="false" name = "password" formControlName="password">
+      <input matInput placeholder="Password" type="password" spellcheck="false" name="password"
+        formControlName="password">
     </mat-form-field>
-  
+
     <div mat-dialog-actions>
-      <button *ngIf="action =='Add'" mat-raised-button style="background-color:rgb(33, 192, 166) ; padding-right : 15px;"
-        (click)="doActionClick('add')">Add User</button>
+      <button *ngIf="action =='Add'" mat-raised-button
+        style="background-color:rgb(33, 192, 166) ; padding-right : 15px;" (click)="doActionClick('add')">Add
+        User</button>
       <button *ngIf="action =='Edit'" mat-raised-button style="background-color:#357;"
         (click)="doActionClick('update')">Update</button>
       <button *ngIf="action =='Delete'" mat-raised-button style="background-color:rgb(105, 8, 8)"

@@ -53,7 +53,7 @@ get f() {
     //console.log("trying to sign in " + post.email + "  " + post.password);
      this.signup.signin(post)
     .subscribe(response =>{
-      console.log("the response " + response);
+     
       if(response.token && response) {
         console.log(response.minpassword);
         this.alert.success( "Successfully Logged in!");
@@ -62,7 +62,7 @@ get f() {
       }  
         setTimeout(()=>{
             this.router.navigate(['/']);
-        },3000);
+        },2500);
       },
       (error) => {
           console.log("getting an error trying to log in " + error.error.message);

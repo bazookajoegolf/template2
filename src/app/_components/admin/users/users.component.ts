@@ -249,7 +249,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
 
   }
 
-  checkUnique() {
+  checkUnique(a) {
 
    // console.log("Email address: " + this.form.get('email').value);
     if (this.form.get('email').value === this.originalEmail && this.action === "edit") {

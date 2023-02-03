@@ -28,7 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { AdminusersComponent } from './_components/admin/adminusers/adminusers.component';
+//import { AdminusersComponent } from './_components/admin/adminusers/adminusers.component';
 import { SnackstatusComponent } from './_components/general/snackstatus/snackstatus.component';
 import { UniqueEmailValidatorDirective } from './shared/unique-email-validator.directive';
 import { BoolToTextPipe } from './shared/bool-to-text.pipe';
@@ -54,7 +54,7 @@ import { CourseAdminComponent } from './_components/admin/courseadmin/courseadmi
         CoursesComponent,
         UserEditDialog,
         UsersComponent,
-        AdminusersComponent,
+  //      AdminusersComponent,
         SnackstatusComponent,
         UniqueEmailValidatorDirective,
         BoolToTextPipe,

@@ -13,6 +13,7 @@ import { AlertService } from './../../../services/alert.service';
 export class TeesComponent implements OnInit {
 
   form:UntypedFormGroup;
+  panelOpenState = false;
 
   constructor(private courses: CoursesService, private alert: AlertService) { }
 

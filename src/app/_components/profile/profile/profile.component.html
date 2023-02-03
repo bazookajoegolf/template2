@@ -42,20 +42,20 @@
         </mat-form-field>
       </div>
       <div>
-        <button class="inline-buttons" *ngIf="editMode || passwordChange" id="submit-button" mat-raised-button
-          color="primary" type="submit" [disabled]="!form.valid">Submit</button>
-
-        <button class="inline-buttons" (click)="cancelUpdate()" *ngIf="editMode || passwordChange"
-          class="inline-buttons" mat-raised-button color="primary">Cancel</button>
+        <!-- <button class="inline-buttons" *ngIf="editMode || passwordChange" id="submit-button" mat-raised-button -->
+        <button class="inline-buttons" *ngIf="editMode" id="submit-button" mat-raised-button color="primary"
+          type="submit" [disabled]="!form.valid">Submit</button>
+        <!-- <button class="inline-buttons" (click)="cancelUpdate()" *ngIf="editMode || passwordChange" -->
+        <button class="inline-buttons" (click)="cancelUpdate()" *ngIf="editMode" class=" inline-buttons"
+          mat-raised-button color="primary">Cancel</button>
       </div>
-
-
-
       <div>
-        <button class="inline-buttons" (click)="onUpdate()" *ngIf="!editMode && !passwordChange" mat-raised-button
-          color="primary">Update Profile</button>
-        <button class="inline-buttons" (click)="onPasswordUpdate()" *ngIf="!editMode && !passwordChange"
-          mat-raised-button color="primary">Update Password</button>
+        <!-- <button class="inline-buttons" (click)="onUpdate()" *ngIf="!editMode && !passwordChange" mat-raised-button  -->
+        <button class="inline-buttons" (click)="onUpdate()" *ngIf="!editMode" mat-raised-button color="primary">Update
+          Profile</button>
+        <!-- <button class="inline-buttons" (click)="onPasswordUpdate()" *ngIf="!editMode && !passwordChange"   -->
+        <button class="inline-buttons" (click)="onPasswordUpdate()" *ngIf="!editMode" mat-raised-button
+          color="primary">Update Password</button>
       </div>
     </mat-card>
   </form>

@@ -1,6 +1,6 @@
 
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { LoginService } from './services/login.service';
 import { AlertService } from './services/alert.service';
 
@@ -10,18 +10,25 @@ import { AlertService } from './services/alert.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Login Template';
   isLoggedIn : boolean;
   isAdmin : boolean;
+  userName : string = "";
 
   //this is a change
 
-  constructor(private login: LoginService, private alert: AlertService, private router: Router) {
-    this.isLoggedIn = login.isLoggedIn();
-    this.isAdmin = login.isAdmin();
+  constructor(public login: LoginService, private alert: AlertService, private router: Router) {
+
   }
-  
+  ngOnInit() :void {  
+    this.isLoggedIn = this.login.isLoggedIn();
+    this.isAdmin = this.login.isAdmin();
+    //this.userName = this.login.CurrentUser;
+    console.log("are you logged in: " + this.isLoggedIn);
+    
+    }
+        
   
   
   signout() {
