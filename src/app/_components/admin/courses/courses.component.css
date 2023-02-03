@@ -78,6 +78,7 @@ input[disabled] , textarea[disabled] {
     align-content: space-between;
     justify-content: center;   
     border: 2px solid gray; 
+  
 }
 
 
@@ -88,6 +89,7 @@ input[disabled] , textarea[disabled] {
     margin-right: 20px;
     margin-top:20px;
     margin-bottom: 15px;
+    font-size: 12px;
 }
 
 
@@ -95,3 +97,4 @@ input[disabled] , textarea[disabled] {
     display:block;
     margin-top:40px;
 }
+
