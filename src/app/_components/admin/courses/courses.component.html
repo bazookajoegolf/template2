@@ -1,70 +1,99 @@
 <div>
   <div class="maindiv">
-    <div class="title">
+    <!-- <div class="title">
       <h3>Course Administration</h3>
-    </div>
+    </div> -->
   </div>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
 
+
     <div class="flex-parent-element">
-      <div class="flex-child-element">
-        <mat-form-field id="courseDropDown" appearance="outline">
+
+      <table>
+        <tr id="headerrow">
+          <th style="font-weight:500; text-align: left;">Course: {{name}}</th>
+          <th style="text-align: left;">
+            <mat-icon matTooltip="New" (click)="onNew()" id="btn-new" *ngIf="form.disabled">open_in_new</mat-icon>
+            <mat-icon matTooltip="Save" id="btn-save" type="submit" (click)="onSubmit()" *ngIf="!form.disabled">save
+            </mat-icon>
+            <mat-icon matTooltip="Edit" id="btn-edit" (click)="onEdit()" *ngIf="form.disabled && name">edit</mat-icon>
+            <mat-icon matTooltip="Cancel" id="btn-cancel" (click)="onCancel()" *ngIf="!form.disabled">cancel</mat-icon>
+            <mat-icon matTooltip="Delete" id="btn-delete" (click)="onDelete()" *ngIf="form.disabled && name">delete
+            </mat-icon>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Name: </mat-label>
+              <input matInput type="text" id="name" formControlName="name">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Website: </mat-label>
+              <input matInput type="text" id="url" formControlName="url">
+              <!-- <mat-hint align="end">Enter link to Website</mat-hint> -->
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Address: </mat-label>
+              <input matInput type="text" id="address" formControlName="address">
+            </mat-form-field>
+
+          </td>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>City: </mat-label>
+              <input matInput type="text" id="city" formControlName="city">
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div id="radioCountry">
+              <mat-radio-group aria-label="Enter Gender" id="country" formControlName="country">
+                <mat-radio-button color="primary" value="canada">Canada</mat-radio-button>
+                <mat-radio-button color="accent" value="usa">U.S.A.</mat-radio-button>
+                <mat-radio-button color="accent" value="other">Other</mat-radio-button>
+                <!-- <mat-error *ngIf="f.gender.errors?.required && (f.gender.dirty)">Gender Required</mat-error> -->
+              </mat-radio-group>
+            </div>
+          </td>
+          <td>
+            <mat-checkbox class="chk-box" id="active" formControlName="active">Active: </mat-checkbox>
+          </td>
+          <td>
+
+          </td>
+        </tr>
+        <tr colspan="2">
+
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Description: </mat-label>
+              <textarea matInput type="text" id="description" formControlName="description"></textarea>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+      <!-- <mat-form-field id="courseDropDown" appearance="outline">
           <mat-label>Course</mat-label>
           <select matNativeControl #dd (change)="selectCourse($event)">
             <option value=""></option>
             <option *ngFor="let option of course" [value]="option.name" [selected]="selectCourse === option.name">
               {{ option.name }}</option>
           </select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Name: </mat-label>
-          <input matInput type="text" id="name" formControlName="name">
-        </mat-form-field>
-
-
-        <mat-form-field appearance="outline">
-          <mat-label>Address: </mat-label>
-          <input matInput type="text" id="address" formControlName="address">
-        </mat-form-field>
-
-
-        <mat-form-field appearance="outline">
-          <mat-label>City: </mat-label>
-          <input matInput type="text" id="city" formControlName="city">
-        </mat-form-field>
-
-      </div>
-      <div class="flex-child-element">
-
-        <mat-form-field appearance="outline">
-          <mat-label>Website: </mat-label>
-          <input matInput type="text" id="url" formControlName="url">
-          <!-- <mat-hint align="end">Enter link to Website</mat-hint> -->
-        </mat-form-field>
-
-        <div>
-
-          <mat-checkbox class="chk-box" id="active" formControlName="active">Active: </mat-checkbox>
-
-        </div>
-        <div>
-          <mat-form-field appearance="outline">
-            <mat-label>Description: </mat-label>
-            <textarea matInput type="text" id="description" formControlName="description"></textarea>
-          </mat-form-field>
-
-        </div>
-
-
-
-      </div>
-
+        </mat-form-field> -->
 
     </div>
-    <div class="blk-button">
+
+    <!-- <div class="blk-button">
       <div>
         <button mat-raised-button color="primary" (click)="onNew()" id="btn-new" *ngIf="form.disabled">New</button>
 
@@ -79,7 +108,7 @@
 
         <button mat-raised-button color="primary" id="btn-save" type="submit" *ngIf="!form.disabled">Save</button>
       </div>
-    </div>
+    </div> -->
 
   </form>
 

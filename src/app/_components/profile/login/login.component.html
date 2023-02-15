@@ -1,11 +1,12 @@
 <div class="bkgd">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="create-user">
     <mat-card appearance="outlined" class="mat-elevation-z8" color="warn">
-      <div>
+      <div class="cardtitle">
 
-        <mat-card-title class="mat-text-accent">Login</mat-card-title>
+        <!-- <mat-card-title class="mat-text-accent">Login</mat-card-title> -->
+        <h3>Login</h3>
       </div>
-      <div>
+      <div class="spacer">
         <mat-form-field>
           <input matInput id="email" type="text" placeholder="Email Address" required formControlName="email">
           <mat-icon matPrefix>email</mat-icon>

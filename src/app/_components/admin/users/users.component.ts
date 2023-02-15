@@ -33,7 +33,7 @@ export interface UserProperties {
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.css','./../../../assets/css/bkgd.css']
 })
 export class UsersComponent implements AfterViewInit, OnInit {
 

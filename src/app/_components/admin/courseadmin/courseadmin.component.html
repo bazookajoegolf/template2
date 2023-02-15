@@ -1,5 +1,35 @@
-<div>
-  <app-courses></app-courses>
-  <app-tees></app-tees>
+<ng-container>
+  <div class="maindiv">
+    <div class="title">
+      <h3>Course Administration</h3>
+    </div>
+  </div>
 
-</div>
+  <table id="drpDown" cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field id="courseDropDown" appearance="outline">
+          <mat-label>Course</mat-label>
+          <select matNativeControl #dd (change)="selectCourse($event)">
+            <option value="Blank"></option>
+            <option *ngFor="let option of course" [value]="option.name" [selected]="selectCourse === option.name">
+              {{ option.name }}</option>
+          </select>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+
+
+
+
+  <mat-tab-group dynamicHeight class="container" mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="Course Information">
+      <app-courses (fromChild)="fromChild()" [selectedCourse]="selectedCourse"></app-courses>
+    </mat-tab>
+    <mat-tab label="Course Tees">
+      <app-tees></app-tees>
+    </mat-tab>
+    <mat-tab label="ScoreCard">ScoreCard</mat-tab>
+  </mat-tab-group>
+</ng-container>

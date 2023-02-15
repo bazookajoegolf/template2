@@ -1,11 +1,11 @@
 <div class="bkgd">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="create-user">
     <mat-card appearance="outlined" class="mat-elevation-z8" color="warn">
-      <div>
-        <mat-card-title *ngIf="editMode" class="mat-text-accent">Update Profile</mat-card-title>
-        <mat-card-title *ngIf="!editMode" class="mat-text-accent">User Profile</mat-card-title>
+      <div class="cardtitle">
+        <h3 *ngIf="editMode">Update Profile</h3>
+        <h3 *ngIf="!editMode">User Profile</h3>
       </div>
-      <div>
+      <div class="spacer">
 
         <mat-form-field>
           <input matInput id="name" type="text" formControlName="name" placeholder="Name">

@@ -21,7 +21,7 @@ export class CreateProfileComponent implements OnInit {
   ngOnInit() :void {  
   this.form = new UntypedFormGroup({
   email : new UntypedFormControl('',[Validators.required, Validators.email]),
-  name : new UntypedFormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
+  name : new UntypedFormControl ('',[Validators.required, Validators.minLength(3),Validators.maxLength(40)]),
   gender : new UntypedFormControl ('',[Validators.required]),
   password : new UntypedFormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
   confirmpassword : new UntypedFormControl('',[Validators.required])
@@ -52,7 +52,9 @@ export class CreateProfileComponent implements OnInit {
         },3000);
       },
       (error) => {
-        if(error.status === 409) { this.alert.error(error.error);}
+        if(error.status === 409) { 
+          this.alert.error(error.error.message);
+        }
       }
       );
      

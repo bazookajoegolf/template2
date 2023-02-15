@@ -1,10 +1,11 @@
 <mat-sidenav-container (backdropClick)="formReset()">
   <mat-sidenav-content fullscreen>
     <div id="base">
-
-      <mat-label class="main-header">User Management</mat-label>
+      <div class="cardtitle">
+        <h3>User Management</h3>
+      </div>
       <div>
-        <div class="main-search" id="searchfield">
+        <div class="main-search spacer" id="searchfield">
           <mat-form-field>
             <mat-label class="filter-label"> Search:</mat-label>
             <input class="filter-input" matInput type="text" (keyup)="applyFilter($event.target.value)"
@@ -130,9 +131,7 @@
                 Required
               </mat-error>
               <mat-error *ngIf="f.password.errors?.minlength && (f.password.dirty || f.password.invalid)">Password must
-                be
-                more than 5
-                characters
+                be more than 5 characters
               </mat-error>
             </mat-form-field>
           </div>
@@ -148,7 +147,9 @@
           </div>
 
           <mat-card-actions class="button-section">
-            <button mat-raised-button color="primary" [disabled]="!fm.valid" type=submit> Save </button>
+            <!-- <button mat-icon matTooltip="Save" type=submit>save</mat-icon> -->
+            <mat-icon (click)="onSubmit()">save</mat-icon>
+
             <button mat-raised-button color="accent" (click)="opened = !opened;">Cancel</button>
             <button mat-raised-button color="warn" *ngIf="action != 'new'" [disabled]="delStatus"
               (click)="onDelete('delete')">Delete</button>

@@ -1,11 +1,11 @@
 <div class="bkgd">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="create-user">
     <mat-card appearance="outlined" class="mat-elevation-z8" color="warn">
-      <div>
+      <div class="cardtitle">
 
-        <mat-card-title class="mat-text-accent">Enter Confirmation code:</mat-card-title>
+        <h3>Enter Confirmation code:</h3>
       </div>
-      <div>
+      <div class="spacer">
         <mat-form-field>
           <input matInput id="confirmid" type="text" placeholder="Confirmation ID:" required
             formControlName="confirmid">

@@ -1,59 +1,63 @@
 <div class="bkgd">
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="create-user">
-  <mat-card appearance="outlined" class= "mat-elevation-z8"color="warn">
-    <div>
-    
-    <mat-card-title class= "mat-text-accent">Create Profile</mat-card-title> 
-  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="create-user">
+    <mat-card appearance="outlined" class="mat-elevation-z8" color="warn">
+      <div class="cardtitle">
 
-  <div>
-  <mat-form-field>
-    <input matInput id="name" type="text" placeholder="Name" required formControlName="name">
-    <mat-error *ngIf="f.name.errors?.required && (f.name.dirty || f.name.invalid)">A Name is Required</mat-error>
-    <mat-error *ngIf="f.name.errors?.minlength && (f.name.dirty || f.name.invalid)">Name must be 5 characters
-    </mat-error>
-    <mat-error *ngIf="f.name.errors?.maxlength && (f.name.dirty || f.name.invalid)">Name must not exceed 15 characters
-    </mat-error>
-  </mat-form-field>
-</div>
-<div>
-  <mat-form-field>
-    <input matInput id="email" type="text" placeholder="E-Mail" formControlName="email">
-    <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">An Email address is Required
-    </mat-error>
-    <mat-error *ngIf="f.email.errors?.email && (f.email.dirty || f.email.invalid)">Name must be valid e-mail address
-    </mat-error>
+        <h3>Create Profile</h3>
+      </div>
 
-  </mat-form-field>
-</div>
-<div>
-  <mat-form-field>
-    <input matInput id="password" type="password" placeholder="Password" formControlName="password">
-    <mat-error *ngIf="f.password.errors?.required && (f.password.dirty || f.password.invalid)">A Password is Required
-    </mat-error>
-    <mat-error *ngIf="f.password.errors?.minlength && (f.password.dirty || f.password.invalid)">Password must be a
-      minimum 5 characters</mat-error>
+      <div class="spacer">
+        <mat-form-field>
+          <input matInput id="name" type="text" placeholder="Name" required formControlName="name">
+          <mat-error *ngIf="f.name.errors?.required && (f.name.dirty || f.name.invalid)">A Name is Required</mat-error>
+          <mat-error *ngIf="f.name.errors?.minlength && (f.name.dirty || f.name.invalid)">Name must be 3 characters
+          </mat-error>
+          <mat-error *ngIf="f.name.errors?.maxlength && (f.name.dirty || f.name.invalid)">Name must not exceed 40
+            characters
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput id="email" type="text" placeholder="E-Mail" formControlName="email">
+          <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">An Email address is Required
+          </mat-error>
+          <mat-error *ngIf="f.email.errors?.email && (f.email.dirty || f.email.invalid)">Name must be valid e-mail
+            address
+          </mat-error>
 
-  </mat-form-field>
-</div>
-<div>
-  <mat-form-field>
-    <input matInput id="confirm-password" type="password" placeholder="Confirm Password"
-      formControlName="confirmpassword">
-    <mat-error
-      *ngIf="f.confirmpassword.errors?.confirmpassword && (f.confirmpassword.dirty || f.confirmpassword.invalid)">
-      Password must match!</mat-error>
-  </mat-form-field>
-</div>
-    <mat-radio-group aria-label="Enter Gender" id="gender" formControlName="gender">
-      <mat-radio-button color="primary" value="Female">Female</mat-radio-button>
-      <mat-radio-button color="accent" value="Male">Male</mat-radio-button>
-      <mat-error *ngIf="f.gender.errors?.required && (f.gender.dirty)">Gender Required</mat-error>
-    </mat-radio-group>
-<div style="margin-top:20px; margin-bottom:20px;">
-  <button id="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
-</div>  
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput id="password" type="password" placeholder="Password" formControlName="password">
+          <mat-error *ngIf="f.password.errors?.required && (f.password.dirty || f.password.invalid)">A Password is
+            Required
+          </mat-error>
+          <mat-error *ngIf="f.password.errors?.minlength && (f.password.dirty || f.password.invalid)">Password must be a
+            minimum 5 characters</mat-error>
 
-  </mat-card>
-</form>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput id="confirm-password" type="password" placeholder="Confirm Password"
+            formControlName="confirmpassword">
+          <mat-error
+            *ngIf="f.confirmpassword.errors?.confirmpassword && (f.confirmpassword.dirty || f.confirmpassword.invalid)">
+            Password must match!</mat-error>
+        </mat-form-field>
+      </div>
+      <mat-radio-group aria-label="Enter Gender" id="gender" formControlName="gender">
+        <mat-radio-button color="primary" value="Female">Female</mat-radio-button>
+        <mat-radio-button color="accent" value="Male">Male</mat-radio-button>
+        <mat-error *ngIf="f.gender.errors?.required && (f.gender.dirty)">Gender Required</mat-error>
+      </mat-radio-group>
+      <div style="margin-top:20px; margin-bottom:20px;">
+        <button id="submit-button" mat-raised-button color="primary" type="submit"
+          [disabled]="!form.valid">Submit</button>
+      </div>
+
+    </mat-card>
+  </form>
 </div>

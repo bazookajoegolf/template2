@@ -13,6 +13,7 @@ interface Course {
   active: boolean;
   address: string;
   city: string;
+  country:string;
   description: String;
   name: string;
   url: string;
@@ -37,8 +38,7 @@ export class CoursesComponent implements OnInit, OnChanges {
 @Input()
   selectedCourse: Course;
 
-// @Output()
-//   getUpdate = new EventEmitter();  
+@Output("fromChild") fromChild:EventEmitter<any> = new EventEmitter();  
 
   @ViewChild('dd') dd: ElementRef;
 
@@ -49,6 +49,7 @@ export class CoursesComponent implements OnInit, OnChanges {
       name: new UntypedFormControl('', [Validators.required, Validators.min(2), Validators.max(50)]),
       address: new UntypedFormControl('', []),
       city: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(50)]),
+      country: new UntypedFormControl('', [Validators.required]),
       url: new UntypedFormControl('', []),
       createDate: new UntypedFormControl('', [Validators.required]),
       active: new UntypedFormControl('', [Validators.required]),
@@ -67,11 +68,10 @@ export class CoursesComponent implements OnInit, OnChanges {
       this.selectCourse(this.selectedCourse);
       this.name = this.selectedCourse.name;
     }  
+    
+
 
   }
-
-
-
   get f() {
     return this.form.controls
     };
@@ -89,6 +89,7 @@ export class CoursesComponent implements OnInit, OnChanges {
     this.form.patchValue({ 'name': x.name });
     this.form.patchValue({ 'address': x.address });
     this.form.patchValue({ 'city': x.city });
+    this.form.patchValue({ 'country': x?.country });
     this.form.patchValue({ 'url': x.url });
     this.form.patchValue({ 'description': x.description });
     this.form.patchValue({ 'active': x.active });
@@ -111,7 +112,7 @@ export class CoursesComponent implements OnInit, OnChanges {
   onNew() {
     this.form.enable();
     this.form.reset();
-    this.editMode=false;
+
     // console.log(this.dd.nativeElement.innerText);
 
   }
@@ -157,6 +158,7 @@ export class CoursesComponent implements OnInit, OnChanges {
       name: this.form.value.name,
       address: this.form.value.address,
       city: this.form.value.city,
+      country: this.form.value.country,
       url: this.form.value.url,
       description: this.form.value.description,
       active: this.form.value.active,
@@ -168,6 +170,7 @@ export class CoursesComponent implements OnInit, OnChanges {
         this.alert.success("Settings Saved!");
         this.form.disable();
         this.editMode=false;
+        this.fromChild.emit();
      //   //this.getCourses();
       },
         (error) => {
@@ -183,6 +186,7 @@ export class CoursesComponent implements OnInit, OnChanges {
         this.alert.success("Settings Saved!");
         this.form.disable();
         this.editMode=false;
+        this.fromChild.emit();
     //    this.getUpdate.emit("Saved!");
         //this.getCourses();
 
