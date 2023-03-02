@@ -34,7 +34,21 @@ mat-icon {
     margin-right: 10px;
 }
 
+.flex-parent-element {
+    /* display: flex;
+    margin-left:0%;
+    margin-right:0%;
+    margin-top: 15px;
 
+    align-content: space-between;
+    justify-content: center;   
+    border: 2px solid gray;  */
+
+    align-content: center;
+    border: 2px solid gray;
+    margin-top:15px;
+  
+}
 
 .chk-box {
     display: flex;
@@ -74,26 +88,6 @@ input[disabled] , textarea[disabled] {
     margin-top: 25px;
 }
 
-
-
-.flex-parent-element {
-    /* display: flex;
-    margin-left:0%;
-    margin-right:0%;
-    margin-top: 15px;
-
-    align-content: space-between;
-    justify-content: center;   
-    border: 2px solid gray;  */
-
-    align-content: center;
-    border: 2px solid gray;
-    margin-top:15px;
-  
-}
-
-
-
 .flex-child-element {
     flex:0;
     margin-left: 10px;
@@ -111,4 +105,8 @@ input[disabled] , textarea[disabled] {
 
 .full-width {
     width:100%;
+}
+
+.maindiv {
+    margin-bottom: 30px;
 }

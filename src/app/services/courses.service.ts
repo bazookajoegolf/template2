@@ -50,6 +50,18 @@ updateCourse(id,post) {
   };
    return this.http.put<any>(this.courseserver  +'/' + id, post, Options)
 }
+postTee(id,teeid,post) {
+  let myToken = localStorage.getItem('token') || " ";
+
+  let Options = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json' ,
+      'x-auth-token' : myToken
+    })
+  };
+   return this.http.put<any>(this.courseserver  +'/' + id +'/' + teeid, post, Options)
+}
+
 
 deleteCourse(id) {
   let myToken = localStorage.getItem('token') || " ";

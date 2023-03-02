@@ -2,20 +2,21 @@ import { Component,OnChanges,OnInit} from '@angular/core';
 import { CoursesService } from '../../../services/courses.service';
 import { AlertService } from './../../../services/alert.service';
 import { Router } from '@angular/router';
+import {Course} from '../../../assets/interfaces/interfaces';
 
 
 
-interface Course {
-  active: boolean;
-  address: string;
-  city: string;
-  country: string;
-  description: String;
-  name: string;
-  url: string;
-  _id: string;
+// interface Course {
+//   active: boolean;
+//   address: string;
+//   city: string;
+//   country: string;
+//   description: String;
+//   name: string;
+//   url: string;
+//   _id: string;
 
-}
+// }
 
 
 
@@ -31,14 +32,16 @@ export class CourseAdminComponent implements OnInit, OnChanges{
   selectedCourse: Course;
  
   name;
+  active:boolean;
 
   constructor(private courses: CoursesService, private router: Router, private alert: AlertService) { }
 
   ngOnInit() {
+   this.active=true; 
    this.getCourses();
   }
   ngOnChanges() {
-    console.log("change detected");
+   
     this.getCourses();
   }
 
@@ -46,15 +49,23 @@ export class CourseAdminComponent implements OnInit, OnChanges{
 
     this.courses.getCourses()
       .subscribe((courses) => {
-        if (courses) {
-          this.course = courses;
+        
+        var x=[];
+        if ( this.active) {
+          for(var i=0; i < courses.length;i++) {
+            if(courses[i].active==true){
+              x.push(courses[i]);
+            }
+            this.course = x;
           }
-      }, (error) => {
-        this.alert.error(error.error.message);
+        }
+        else {
+          this.course = courses;
+        }
+       
       });
 
   }
-
   selectCourse(event: Event) {
     // this.name = this.course.name;
     this.name = (event.target as HTMLSelectElement).value;
@@ -62,8 +73,13 @@ export class CourseAdminComponent implements OnInit, OnChanges{
     const x = this.course.find(o => o.name === this.name);
 
     this.selectedCourse = x;
-   //console.log("course selected  ", x);
+   
 
+  }
+
+  activeCheck() {
+     this.active=!this.active;
+     this.getCourses();
   }
 
   fromChild() {

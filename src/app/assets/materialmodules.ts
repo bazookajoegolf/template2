@@ -17,6 +17,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 
@@ -26,9 +28,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   imports: [MatButtonModule, MatCheckboxModule,MatToolbarModule, MatMenuModule,MatFormFieldModule,MatCardModule, 
             MatInputModule, MatListModule,MatTableModule,MatDialogModule, MatGridListModule, MatIconModule,
-            MatSnackBarModule,MatSidenavModule,MatRadioModule,MatExpansionModule,MatTabsModule,MatTooltipModule ],
+            MatSnackBarModule,MatSidenavModule,MatRadioModule,MatExpansionModule,MatTabsModule,MatTooltipModule,
+            MatSelectModule,MatChipsModule  ],
   exports: [MatButtonModule, MatCheckboxModule,MatToolbarModule, MatMenuModule,MatFormFieldModule, MatCardModule,
             MatInputModule, MatListModule,MatTableModule,MatDialogModule, MatGridListModule, MatIconModule,
-            MatSnackBarModule,MatSidenavModule,MatRadioModule,MatExpansionModule,MatTabsModule,MatTooltipModule ],
+            MatSnackBarModule,MatSidenavModule,MatRadioModule,MatExpansionModule,MatTabsModule,MatTooltipModule,
+            MatSelectModule,MatChipsModule  ],
 })
 export class CustomMaterialModule { }

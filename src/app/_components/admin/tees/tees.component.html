@@ -1,121 +1,184 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<div class="courseBorder">
 
-  <mat-accordion>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          New Tee
-        </mat-panel-title>
+  <form class="spacer" [formGroup]="form" (ngSubmit)="onSubmit()">
 
-      </mat-expansion-panel-header>
-      <div>
-        <table class="scorecard">
-          <tr class="header-color1">
-            <th>Hole</th>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-            <th>4</th>
-            <th>5</th>
-            <th>6</th>
-            <th>7</th>
-            <th>8</th>
-            <th>9</th>
-          </tr>
-          <tr>
-            <th class="header-color1">Par</th>
-            <td>
-              <input type="text" id="par1" formControlName="par1">
-            </td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
+    <div style="margin-left:50px;">
 
+      <tr>
+        <td id="radioGender" style="padding-bottom:10px;"> Course:
+          {{selectedCourse?.name}}
+        </td>
+        <td>
+          <mat-checkbox [checked]="active" (click)="activeCheck()" formControlName="isactive" id="isactive">Active
+          </mat-checkbox>
+        </td>
+      </tr>
 
-          </tr>
-          <tr>
-            <th class="header-color1">Yardage</th>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
+      <tr>
+        <td id="radioGender">
+          <mat-form-field appearance="outline">
+            <mat-label>Course Name</mat-label>
+            <mat-select matNativeControl matNativeControl formControlName="coursename" id="coursename">
+              <mat-option color="black" *ngFor="let option of selectedCourse?.coursenames" [value]="option">
+                {{option}}</mat-option>
+              <!-- <mat-hint align="start">Enter the name of the 18 hole course.</mat-hint> -->
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-icon matTooltip="New" id="btn-new" *ngIf="!editMode">open_in_new</mat-icon>
+          <mat-icon matTooltip="Save" id="btn-save" type="submit" (click)="onSubmit()"
+            *ngIf="!form.disabled && editMode">save
+          </mat-icon>
+          <mat-icon matTooltip="Edit" id="btn-edit" *ngIf="!editMode && name">edit</mat-icon>
+          <mat-icon matTooltip="Cancel" id="btn-cancel" *ngIf="editMode">cancel</mat-icon>
+        </td>
 
-          </tr>
-          <tr style="height:18px"></tr>
-          <tr class="header-color1">
-            <th>Hole</th>
-            <th>10</th>
-            <th>11</th>
-            <th>12</th>
-            <th>13</th>
-            <th>14</th>
-            <th>15</th>
-            <th>16</th>
-            <th>17</th>
-            <th>18</th>
-          </tr>
-          <tr>
-            <th class="header-color1">Par</th>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-          </tr>
-          <tr>
-            <th class="header-color1">Yardage</th>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-          </tr>
+      </tr>
+      <tr>
+        <td>
+          <div id="radioGender">
+            <mat-radio-group aria-label="Enter Gender" id="gender" formControlName="gender">
+              <mat-radio-button color="primary" value="male">Mens</mat-radio-button>
+              <mat-radio-button color="accent" value="female">Ladies</mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <mat-form-field appearance="outline">
+            <mat-label>Teebox</mat-label>
+            <mat-select matNativeControl matNativeControl formControlName="teecolor" id="teecolor">
+              <mat-option color="black" *ngFor="let option of selectedCourse?.teecolors" [value]="option">
+                {{option}}</mat-option>
+              <!-- <mat-hint align="start">Enter the name of the 18 hole course.</mat-hint> -->
+            </mat-select>
+          </mat-form-field>
+
+        </td>
+
+        <td>
+          <p style="margin-left:100px; width:300px;">
+            Par: <input class="smallinput" type="text" id="partotal" formControlName="partotal">
+            Slope: <input class="smallinput" type="text" id="slope" formControlName="slope">
+          </p>
+        </td>
+      </tr>
 
 
-        </table>
-        <table>
-          <tr>
-            <th>Par</th>
-            <td>72</td>
-            <th>Mens' Slope</th>
-            <td>71.3</td>
-          </tr>
-        </table>
-        <table>
-          <button mat-raised-button color="primary">Save</button>
-        </table>
+      <table class="scorecard spacer  bottom50" style="margin-left:10px;">
 
-      </div>
-    </mat-expansion-panel>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Black Tee
-        </mat-panel-title>
-        <mat-panel-description>
-          {{panelOpenState ? 'open' : 'closed'}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>This is where the holes, yardage, handicap, slopes, ratings etc. go</p>
-    </mat-expansion-panel>
-  </mat-accordion>
+        <tr class="header-color1">
+          <th>Hole</th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+          <th>10</th>
+          <th>11</th>
+          <th>12</th>
+          <th>13</th>
+          <th>14</th>
+          <th>15</th>
+          <th>16</th>
+          <th>17</th>
+          <th>18</th>
+        </tr>
+        <tr>
+          <th class="header-color1">Par</th>
+          <td> <input type="text" id="p1" formControlName="p1"> </td>
+          <td> <input type="text" id="p2" formControlName="p2"> </td>
+          <td> <input type="text" id="p3" formControlName="p3"> </td>
+          <td> <input type="text" id="p4" formControlName="p4"> </td>
+          <td> <input type="text" id="p5" formControlName="p5"> </td>
+          <td> <input type="text" id="p6" formControlName="p6"> </td>
+          <td> <input type="text" id="p7" formControlName="p7"> </td>
+          <td> <input type="text" id="p8" formControlName="p8"> </td>
+          <td> <input type="text" id="p9" formControlName="p9"> </td>
+          <td> <input type="text" id="p10" formControlName="p10"> </td>
+          <td> <input type="text" id="p11" formControlName="p11"> </td>
+          <td> <input type="text" id="p12" formControlName="p12"> </td>
+          <td> <input type="text" id="p13" formControlName="p13"> </td>
+          <td> <input type="text" id="p14" formControlName="p14"> </td>
+          <td> <input type="text" id="p15" formControlName="p15"> </td>
+          <td> <input type="text" id="p16" formControlName="p16"> </td>
+          <td> <input type="text" id="p17" formControlName="p17"> </td>
+          <td> <input type="text" id="p18" formControlName="p18"> </td>
+        </tr>
+        <tr>
+          <th class="header-color1">Yardage</th>
+          <td> <input type="text" id="yd1" formControlName="yd1"> </td>
+          <td> <input type="text" id="yd2" formControlName="yd2"> </td>
+          <td> <input type="text" id="yd3" formControlName="yd3"> </td>
+          <td> <input type="text" id="yd4" formControlName="yd4"> </td>
+          <td> <input type="text" id="yd5" formControlName="yd5"> </td>
+          <td> <input type="text" id="yd6" formControlName="yd6"> </td>
+          <td> <input type="text" id="yd7" formControlName="yd7"> </td>
+          <td> <input type="text" id="yd8" formControlName="yd8"> </td>
+          <td> <input type="text" id="yd9" formControlName="yd9"> </td>
+          <td> <input type="text" id="yd10" formControlName="yd10"> </td>
+          <td> <input type="text" id="yd11" formControlName="yd11"> </td>
+          <td> <input type="text" id="yd12" formControlName="yd12"> </td>
+          <td> <input type="text" id="yd13" formControlName="yd13"> </td>
+          <td> <input type="text" id="yd14" formControlName="yd14"> </td>
+          <td> <input type="text" id="yd15" formControlName="yd15"> </td>
+          <td> <input type="text" id="yd16" formControlName="yd16"> </td>
+          <td> <input type="text" id="yd17" formControlName="yd17"> </td>
+          <td> <input type="text" id="yd18" formControlName="yd18"> </td>
 
-</form>
+
+        </tr>
+        <tr style="height:18px"></tr>
+        <tr class="header-color1">
+
+        </tr>
+
+      </table>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{selectedCourse?.name}}
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+ 
+      </mat-expansion-panel>
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Black Tee
+          </mat-panel-title>
+          <mat-panel-description>
+            {{panelOpenState ? 'open' : 'closed'}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>This is where the holes, yardage, handicap, slopes, ratings etc. go</p>
+      </mat-expansion-panel>
+    </mat-accordion> -->
+
+  </form>
+</div>

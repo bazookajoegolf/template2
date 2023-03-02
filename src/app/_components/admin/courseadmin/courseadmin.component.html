@@ -16,6 +16,7 @@
               {{ option.name }}</option>
           </select>
         </mat-form-field>
+        <mat-checkbox class="chk-box" id="active" [checked]="active" (click)="activeCheck()">Active</mat-checkbox>
       </td>
     </tr>
   </table>
@@ -28,7 +29,7 @@
       <app-courses (fromChild)="fromChild()" [selectedCourse]="selectedCourse"></app-courses>
     </mat-tab>
     <mat-tab label="Course Tees">
-      <app-tees></app-tees>
+      <app-tees [selectedCourse]="selectedCourse"></app-tees>
     </mat-tab>
     <mat-tab label="ScoreCard">ScoreCard</mat-tab>
   </mat-tab-group>

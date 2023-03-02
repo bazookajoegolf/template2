@@ -3,23 +3,25 @@ import { Component, OnInit, ViewChild, ElementRef, Input, OnChanges, SimpleChang
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import {MatChipInputEvent} from '@angular/material/chips';
 
 
+import {Course} from '../../../assets/interfaces/interfaces';
 import { CoursesService } from '../../../services/courses.service';
 import { AlertService } from './../../../services/alert.service';
 
 
-interface Course {
-  active: boolean;
-  address: string;
-  city: string;
-  country:string;
-  description: String;
-  name: string;
-  url: string;
-  _id: string;
+// interface Course {
+//   active: boolean;
+//   address: string;
+//   city: string;
+//   country:string;
+//   description: String;
+//   name: string;
+//   url: string;
+//   _id: string;
 
-}
+// }
 
 
 @Component({
@@ -34,6 +36,7 @@ export class CoursesComponent implements OnInit, OnChanges {
   form: UntypedFormGroup;
   course: Course[];
   editMode:boolean = false;
+  keywords=[];
 
 @Input()
   selectedCourse: Course;
@@ -54,6 +57,8 @@ export class CoursesComponent implements OnInit, OnChanges {
       createDate: new UntypedFormControl('', [Validators.required]),
       active: new UntypedFormControl('', [Validators.required]),
       description: new UntypedFormControl('', []),
+      coursenames : new UntypedFormControl('', []),
+      teecolors : new UntypedFormControl('', []),
 
     });
     this.form.disable();
@@ -67,6 +72,7 @@ export class CoursesComponent implements OnInit, OnChanges {
     if(this.selectedCourse) {
       this.selectCourse(this.selectedCourse);
       this.name = this.selectedCourse.name;
+      this.form.disable();
     }  
     
 
@@ -93,6 +99,8 @@ export class CoursesComponent implements OnInit, OnChanges {
     this.form.patchValue({ 'url': x.url });
     this.form.patchValue({ 'description': x.description });
     this.form.patchValue({ 'active': x.active });
+    this.form.patchValue({ 'coursenames': x.coursenames });
+    this.form.patchValue({ 'teecolors': x.teecolors });
     this.id = x._id;
   }
 
@@ -162,8 +170,10 @@ export class CoursesComponent implements OnInit, OnChanges {
       url: this.form.value.url,
       description: this.form.value.description,
       active: this.form.value.active,
+      coursenames : this.form.value.coursenames,
+      teecolors : this.form.value.teecolors
     }
-
+    console.log(post);
     if(this.editMode) {
       this.courses.updateCourse(this.id,post)
       .subscribe(response => {
@@ -200,6 +210,44 @@ export class CoursesComponent implements OnInit, OnChanges {
 
 
   }  //end submit
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our keyword
+    if (value) {
+      this.selectedCourse.coursenames.push(value);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+  }
+
+  add2(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our keyword
+    if (value) {
+      this.selectedCourse.teecolors.push(value);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+  }
+
+  removeKeyword(keyword: string) {
+    const index = this.selectedCourse.coursenames.indexOf(keyword);
+    if (index >= 0) {
+      this.selectedCourse.coursenames.splice(index, 1);
+    }
+  }
+
+  removeKeyword2(keyword: string) {
+    const index = this.selectedCourse.teecolors.indexOf(keyword);
+    if (index >= 0) {
+      this.selectedCourse.teecolors.splice(index, 1);
+    }
+  }
 
 
 
