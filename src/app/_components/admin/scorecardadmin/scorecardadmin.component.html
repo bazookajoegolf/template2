@@ -1,0 +1,306 @@
+<div style="background-color:rgb(4, 33, 6);">
+  <h4 style="color:white">{{selectedCourse?.name}}</h4>
+  <h6 style="color:white">{{selectedCourse?.address}}</h6>
+  <h6 style="color:white"><span>{{selectedCourse?.city}}, </span> <span>{{selectedCourse?.country | uppercase}}</span>
+  </h6>
+  <h6 style="color:white">Website: {{selectedCourse?.url}}</h6>
+</div>
+
+
+
+<div class="topdiv">
+  <div>
+    <div *ngFor="let nc of courseNames;let h=index; ">
+      <h3 style="margin:25px 0px;">{{nc}}</h3>
+      <!-- hole layout -->
+      <div>
+        <span class="spanitem holecolor"
+          style="width:calc(8%) !important;text-align: left !important;padding-left:5px">Hole
+        </span>
+        <span *ngFor="let myObj of numbers;let h=index; ">
+          <span class="spanitem holecolor" *ngIf="h < 9">{{h+1}}</span>
+        </span>
+        <span class="spanitem holecolor" style="width:calc(4%) !important;">Out
+        </span>
+        <span class="emptyspan" style="width:30px !important;background-color: white !important;">|
+        </span>
+        <span *ngFor="let myObj of numbers;let h=index; ">
+          <span class="spanitem holecolor " *ngIf="h >= 9 && h <= 17">{{h+1}}</span>
+        </span>
+        <span class="spanitem holecolor" style="width:4% !important;">In
+        </span>
+        <span class="spanitem holecolor" style="width: 4%!important;">Total
+        </span>
+        <span class="spanitem holecolor" style="width:4% !important;">Slope
+        </span>
+        <span class="spanitem holecolor" style="width:4% !important;">Rating
+        </span>
+        <span class="spanitem holecolor" style="width:4% !important;">Edit
+        </span>
+      </div>
+      <!-- gender section -->
+      <div>
+        <div *ngFor="let gender of enumGender ;let g=index;">
+          <!-- tee yardage loop -->
+          <div *ngFor="let myObj of selectedCourse?.tees | sort:'desc':'teebox';let i=index; ">
+            <div *ngIf='gender == myObj.gender && nc == myObj.coursename'>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem"
+                style="width:8% !important;text-align: left !important;padding-left:5px">{{myObj.teebox}}
+              </span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd1}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd2}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd3}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd4}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd5}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd6}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd7}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd8}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd9}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor" style="width:calc(4%) !important;">3234
+              </span>
+              <span class="emptyspan" style="width:30px !important;background-color: white !important;">|
+              </span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd10}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd11}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd12}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd13}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd14}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd15}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd16}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd17}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor">{{myObj.yd18}}</span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor" style="width:4% !important;">3156
+              </span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor" style="width:4%!important;">6378
+              </span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor" style="width:4% !important;">{{myObj.slope}}
+              </span>
+              <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+                class="spanitem holecolor" style="width:4% !important;">{{myObj.rating}}
+              </span>
+              <span [style.background-color]="white" class="spanitem " style="width:4% !important;">
+                <mat-icon matTooltip="Edit" (click)="sendTee(myObj)" style="font-size:22px;vertical-align:text-bottom;"
+                  id="btn-edit">edit
+                </mat-icon>
+              </span>
+
+            </div>
+          </div>
+          <!-- male specific par, handicap lines. requires to know if  -->
+          <!-- may need to for loop through mTee get the coursename to match and get index -->
+          <div *ngFor="let fc of mTee">
+            <div *ngIf='gender == "male" && g == 0 && nc == fc.coursename'>
+              <div>
+                <!--  <div *ngIf="mTee"> -->
+                <div>
+                  <span class="spanitem" style="width:8% !important;text-align: left !important;padding-left:5px">Par
+                  </span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p1}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p2}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p3}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p5}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p6}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p7}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p8}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p9}}</span>
+                  <span class="spanitem" style="width:calc(4%) !important;">36</span>
+                  <span class="spanitem"
+                    style="width:30px !important;background-color: white !important;color:white">|</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p10}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p11}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p12}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p13}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p14}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p15}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p16}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p17}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p18}}</span>
+                  <span class="spanitem" style="width:4% !important;">36</span>
+                  <span class="spanitem" style="width:4% !important;">72</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                </div>
+                <div>
+                  <span class="spanitem" style="width:8% !important;text-align: left !important;padding-left:5px">Hdcp
+                  </span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h1 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h2 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h3 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h4 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h5 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h6 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h7 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h8 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h9 ||4}}</span>
+                  <span class="emptyspan" style="width:calc(4%) !important;">|</span>
+                  <span class="spanitem"
+                    style="width:30px !important;background-color: white !important;color:white">|</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h10||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h11 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h12 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h13 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h14 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h15 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h16 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h17 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h18 ||4}}</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                </div>
+                <div>
+                  <div *ngFor="let z of blankLines" style="margin-bottom: -8px;">
+                    <span class="spanitem"
+                      style="width:8% !important;text-align: left !important;padding-left:5px"></span>
+
+                    <span *ngFor="let x of numbers">
+                      <span class="emptyspan" style="width:3% !important;"></span>
+                      <span *ngIf="x==9">
+                        <span class="emptyspan" style="width:4% !important;"></span>
+                        <span class="emptyspan" style="width:30px !important;"></span>
+                      </span>
+                      <span *ngIf="x==18">
+                        <span class="emptyspan" style="width:4% !important;"></span>
+                        <span class="emptyspan" style="width:4% !important;"></span>
+                        <span class="emptyspan" style="width:4% !important;"></span>
+                        <span class="emptyspan" style="width:4% !important;"></span>
+                        <span class="emptyspan" style="width:4% !important;"></span>
+                      </span>
+
+                    </span>
+                  </div>
+                </div>
+                <!-- <span class="spanitem ">{{selectedCourse?.tees[mTee - 1].p1}}</span> -->
+
+              </div>
+
+            </div>
+          </div>
+          <!-- female specific par, handicap lines -->
+          <div *ngFor="let fc of lTee">
+            <div *ngIf='gender == "female" && g == 1 && nc == fc.coursename'>
+              <div>
+                <!--  <div *ngIf="mTee"> -->
+                <div>
+                  <span class="spanitem" style="width:8% !important;text-align: left !important;padding-left:5px">Par
+                  </span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p1}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p2}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p3}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p5}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p6}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p7}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p8}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p9}}</span>
+                  <span class="spanitem" style="width:calc(4%) !important;">36</span>
+                  <span class="spanitem"
+                    style="width:30px !important;background-color: white !important;color:white">|</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p10}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p11}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p12}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p13}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p14}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p15}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p16}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p17}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].p18}}</span>
+                  <span class="spanitem" style="width:4% !important;">36</span>
+                  <span class="spanitem" style="width:4% !important;">72</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                </div>
+                <div>
+                  <span class="spanitem" style="width:8% !important;text-align: left !important;padding-left:5px">Hdcp
+                  </span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h1 ||5}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h2 ||5}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h3 ||5}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h4 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h5 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h6 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h7 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h8 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h9 ||4}}</span>
+                  <span class="emptyspan" style="width:calc(4%) !important;">|</span>
+                  <span class="spanitem"
+                    style="width:30px !important;background-color: white !important;color:white">|</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h10||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h11 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h12 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h13 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h14 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h15 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h16 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h17 ||4}}</span>
+                  <span class="spanitem ">{{selectedCourse?.tees[fc.index].h18 ||4}}</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                  <span class="emptyspan" style="width:4% !important;">|</span>
+                </div>
+                <div>
+                  <!-- <div *ngFor="let z of blankLines" style="margin-bottom: -8px;">
+                  <span class="spanitem"
+                    style="width:8% !important;text-align: left !important;padding-left:5px"></span>
+
+                  <span *ngFor="let x of numbers">
+                    <span class="emptyspan" style="width:3% !important;"></span>
+                    <span *ngIf="x==9">
+                      <span class="emptyspan" style="width:4% !important;"></span>
+                      <span class="emptyspan" style="width:30px !important;"></span>
+                    </span>
+                    <span *ngIf="x==18">
+                      <span class="emptyspan" style="width:4% !important;"></span>
+                      <span class="emptyspan" style="width:4% !important;"></span>
+                      <span class="emptyspan" style="width:4% !important;"></span>
+                      <span class="emptyspan" style="width:4% !important;"></span>
+                      <span class="emptyspan" style="width:4% !important;"></span>
+                    </span>
+
+                  </span>
+                </div> -->
+                </div>
+                <!-- <span class="spanitem ">{{selectedCourse?.tees[mTee - 1].p1}}</span> -->
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- checkColor(myObj.teebox) -->
+
+
+</div>

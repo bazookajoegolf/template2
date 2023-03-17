@@ -18,7 +18,8 @@
         <td id="radioGender">
           <mat-form-field appearance="outline">
             <mat-label>Course Name</mat-label>
-            <mat-select matNativeControl matNativeControl formControlName="coursename" id="coursename">
+            <mat-select matNativeControl matNativeControl formControlName="coursename" id="coursename"
+              (change)="filterTee()">
               <mat-option color="black" *ngFor="let option of selectedCourse?.coursenames" [value]="option">
                 {{option}}</mat-option>
               <!-- <mat-hint align="start">Enter the name of the 18 hole course.</mat-hint> -->
@@ -26,11 +27,10 @@
           </mat-form-field>
         </td>
         <td>
-          <mat-icon matTooltip="New" id="btn-new" *ngIf="!editMode">open_in_new</mat-icon>
-          <mat-icon matTooltip="Save" id="btn-save" type="submit" (click)="onSubmit()"
-            *ngIf="!form.disabled && editMode">save
+          <mat-icon matTooltip="New" (click)="onNew()" id="btn-new" *ngIf="form.disabled">open_in_new</mat-icon>
+          <mat-icon matTooltip="Save" id="btn-save" type="submit" (click)="onSubmit()">save
           </mat-icon>
-          <mat-icon matTooltip="Edit" id="btn-edit" *ngIf="!editMode && name">edit</mat-icon>
+          <mat-icon matTooltip="Edit" id="btn-edit" *ngIf="!editMode">edit</mat-icon>
           <mat-icon matTooltip="Cancel" id="btn-cancel" *ngIf="editMode">cancel</mat-icon>
         </td>
 
@@ -38,7 +38,7 @@
       <tr>
         <td>
           <div id="radioGender">
-            <mat-radio-group aria-label="Enter Gender" id="gender" formControlName="gender">
+            <mat-radio-group aria-label="Enter Gender" id="gender" formControlName="gender" (change)="filterTee()">
               <mat-radio-button color="primary" value="male">Mens</mat-radio-button>
               <mat-radio-button color="accent" value="female">Ladies</mat-radio-button>
             </mat-radio-group>
@@ -51,7 +51,7 @@
         <td>
           <mat-form-field appearance="outline">
             <mat-label>Teebox</mat-label>
-            <mat-select matNativeControl matNativeControl formControlName="teecolor" id="teecolor">
+            <mat-select matNativeControl matNativeControl formControlName="teebox" id="teebox" (change)="filterTee()">
               <mat-option color="black" *ngFor="let option of selectedCourse?.teecolors" [value]="option">
                 {{option}}</mat-option>
               <!-- <mat-hint align="start">Enter the name of the 18 hole course.</mat-hint> -->
@@ -136,6 +136,30 @@
 
 
         </tr>
+
+        <tr>
+          <th class="header-color1">Handicap</th>
+          <td> <input type="text" id="yd1" formControlName="h1"> </td>
+          <td> <input type="text" id="yd2" formControlName="h2"> </td>
+          <td> <input type="text" id="yd3" formControlName="h3"> </td>
+          <td> <input type="text" id="yd4" formControlName="h4"> </td>
+          <td> <input type="text" id="yd5" formControlName="h5"> </td>
+          <td> <input type="text" id="yd6" formControlName="h6"> </td>
+          <td> <input type="text" id="yd7" formControlName="h7"> </td>
+          <td> <input type="text" id="yd8" formControlName="h8"> </td>
+          <td> <input type="text" id="yd9" formControlName="h9"> </td>
+          <td> <input type="text" id="yd10" formControlName="h10"> </td>
+          <td> <input type="text" id="yd11" formControlName="h11"> </td>
+          <td> <input type="text" id="yd12" formControlName="h12"> </td>
+          <td> <input type="text" id="yd13" formControlName="h13"> </td>
+          <td> <input type="text" id="yd14" formControlName="h14"> </td>
+          <td> <input type="text" id="yd15" formControlName="h15"> </td>
+          <td> <input type="text" id="yd16" formControlName="h16"> </td>
+          <td> <input type="text" id="yd17" formControlName="h17"> </td>
+          <td> <input type="text" id="yd18" formControlName="h18"> </td>
+
+
+        </tr>
         <tr style="height:18px"></tr>
         <tr class="header-color1">
 
@@ -145,40 +169,5 @@
 
 
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{selectedCourse?.name}}
-          </mat-panel-title>
-
-        </mat-expansion-panel-header>
- 
-      </mat-expansion-panel>
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Black Tee
-          </mat-panel-title>
-          <mat-panel-description>
-            {{panelOpenState ? 'open' : 'closed'}}
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>This is where the holes, yardage, handicap, slopes, ratings etc. go</p>
-      </mat-expansion-panel>
-    </mat-accordion> -->
-
   </form>
 </div>

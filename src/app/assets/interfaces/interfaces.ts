@@ -13,5 +13,8 @@ export interface Course {
     tees?:any;
     coursenames:any;
     teecolors:any;
+    front9yd: number,
+    back9yd: number,
+    totalyd: number
   
   }

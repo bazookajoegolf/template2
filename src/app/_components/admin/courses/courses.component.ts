@@ -11,19 +11,6 @@ import { CoursesService } from '../../../services/courses.service';
 import { AlertService } from './../../../services/alert.service';
 
 
-// interface Course {
-//   active: boolean;
-//   address: string;
-//   city: string;
-//   country:string;
-//   description: String;
-//   name: string;
-//   url: string;
-//   _id: string;
-
-// }
-
-
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -103,19 +90,6 @@ export class CoursesComponent implements OnInit, OnChanges {
     this.form.patchValue({ 'teecolors': x.teecolors });
     this.id = x._id;
   }
-
-  // getCourses() {
-
-  //   this.courses.getCourses()
-  //     .subscribe((courses) => {
-  //       if (courses) {
-  //         this.course = courses;
-  //       }
-  //     }, (error) => {
-  //       this.alert.error(error.error.message);
-  //     });
-
-  // }
 
   onNew() {
     this.form.enable();

@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 import { CourseAdminComponent } from './../courseadmin/courseadmin.component';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
@@ -22,10 +23,14 @@ export class TeesComponent implements OnInit, OnChanges {
   genderradio:boolean=true;
  // teecolors =[];
   coursenames = [];
-  testcourse = [{"name":"Tee1"},{"name":"Tee2"},{"name":"Tee3"}]
+ // testcourse = [{"name":"Tee1"},{"name":"Tee2"},{"name":"Tee3"}]
   editMode:boolean=false;
   newTee:boolean=false;
   currentCourse="";
+  selectedTee:string;
+  selectedGender:string;
+  selectedCourseName:string;
+
 
   @Input()
   selectedCourse: Course;
@@ -40,12 +45,13 @@ export class TeesComponent implements OnInit, OnChanges {
     if(!this.selectedCourse) {
       
       this.editMode=true;
+      this.newTee = true;
     }
     else {
       //enumerate through all the tee colors AND course names and assign to teecolors and coursenames arrays
       // also:  if there are save tees pick the first item and populate form
       //this.enumCourses(this.selectedCourse);
-      console.log(this.selectedCourse);
+     // console.log(this.selectedCourse);
 
     }
 
@@ -77,25 +83,42 @@ export class TeesComponent implements OnInit, OnChanges {
       p16: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
       p17: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
       p18: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      yd1: new UntypedFormControl('', [Validators.required]),
-      yd2: new UntypedFormControl('', [Validators.required]),
-      yd3: new UntypedFormControl('', [Validators.required]),
-      yd4: new UntypedFormControl('', [Validators.required]),
-      yd5: new UntypedFormControl('', [Validators.required]),
-      yd6: new UntypedFormControl('', [Validators.required]),
-      yd7: new UntypedFormControl('', [Validators.required]),
-      yd8: new UntypedFormControl('', [Validators.required]),
-      yd9: new UntypedFormControl('', [Validators.required]),
-      yd10: new UntypedFormControl('', [Validators.required]),
-      yd11: new UntypedFormControl('', [Validators.required]),
-      yd12: new UntypedFormControl('', [Validators.required]),
-      yd13: new UntypedFormControl('', [Validators.required]),
-      yd14: new UntypedFormControl('', [Validators.required]),
-      yd15: new UntypedFormControl('', [Validators.required]),
-      yd16: new UntypedFormControl('', [Validators.required]),
-      yd17: new UntypedFormControl('', [Validators.required]),
-      yd18: new UntypedFormControl('', [Validators.required]),
-
+      yd1: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd2: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd3: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd4: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd5: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd6: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd7: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd8: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd9: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd10: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd11: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd12: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd13: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd14: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd15: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd16: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd17: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      yd18: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
+      h1: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h2: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h3: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h4: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h5: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h6: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h7: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h8: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h9: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h10: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h11: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h12: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h13: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h14: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h15: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h16: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h17: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
+      h18: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)])
 
     });
   }
@@ -107,32 +130,78 @@ export class TeesComponent implements OnInit, OnChanges {
       // should only happen if courseAdmin pushed a new value down to this component
       if(this.selectedCourse?.tees.length==0) {
         // this will only happen if the course pushed down has no tees
-        this.editMode=true;
+        //this.editMode=true;
       }
-      this.editMode=false;
-      this.newTee=false;
+      //this.editMode=false;
+      //  this.newTee=false;
       this.fillForm(this.selectedCourse);
 
     }
     
   }
 
+  get f() {
+    return this.form.controls
+    };
+
   activeCheck() {
     this.active=!this.active;
     //this.getCourses();
  }
 
+  newTeeCheck() {
+     this.newTee = !this.newTee;
+     this.editMode = true;
+  }
+
+  onNew() {
+    this.form.enable();
+    this.form.reset();
+    this.editMode = true;
+  }
+  onEdit() {
+    this.form.enable();
+    this.editMode = true;
+  }
+
+  filterTee() {
+    let x;
+     if(this.selectedTee && this.selectedGender && this.selectedCourse){
+       x = this.selectedCourse.tees.filter(tee => {
+          this.selectedTee && this.selectedGender && this.selectedCourse
+        });
+        console.log(x);
+     } 
+     console.log("filter tee triggered");
+     
+  }
+
   onSubmit() {
+
+    var p=[];
+    var y=[];
+    var h=[];
+
+   
+      p.push(this.form.value.p1);
+      p.push(this.form.value.p2);
+      p.push(this.form.value.p3);
+      p.push(this.form.value.p4);
+
+
+   
+    console.log(p);
     const post = {
       course:this.selectedCourse.name,
       coursename:this.form.value.coursename,
       teebox:this.form.value.teebox,
       gender:this.form.value.gender,
       holes18:true,
-      partotal: 72, //this.form.value.partotal,
-      slope:122, //this.form.value.slope,
-      rating: 71.1, // this.form.value.rating,
+      partotal: this.form.value.partotal,
+      slope:  this.form.value.slope,
+      rating: this.form.value.rating,
       isactive:this.form.value.isactive,
+      par:p,
       p1: this.form.value.p1,
       p2: this.form.value.p2,
       p3: this.form.value.p3,
@@ -169,15 +238,35 @@ export class TeesComponent implements OnInit, OnChanges {
       yd16: this.form.value.yd16,
       yd17: this.form.value.yd17,
       yd18: this.form.value.yd18,
-
-
-
+      h1: this.form.value.h1,
+      h2: this.form.value.h2,
+      h3: this.form.value.h3,
+      h4: this.form.value.h4,
+      h5: this.form.value.h5,
+      h6: this.form.value.h6,
+      h7: this.form.value.h7,
+      h8: this.form.value.h8,
+      h9: this.form.value.h9,
+      h10: this.form.value.h10,
+      h11: this.form.value.h11,
+      h12: this.form.value.h12,
+      h13: this.form.value.h13,
+      h14: this.form.value.h14,
+      h15: this.form.value.h15,
+      h16: this.form.value.h16,
+      h17: this.form.value.h17,
+      h18: this.form.value.h18
     }
     
+    console.log(post);
+
     this.courses.postTee(this.selectedCourse._id,"new",post)
     .subscribe(response => {
 
       this.alert.success(response.message);
+      this.form.disable();
+      this.editMode=false;
+      this.newTee= false;
 
    //   //this.getCourses();
     },
@@ -200,15 +289,18 @@ export class TeesComponent implements OnInit, OnChanges {
             });
     }
     this.coursenames = post;
-    console.log(this.coursenames);
+   // console.log(this.coursenames);
   }
 
   }
 
-  fillForm(x) {
-    if(x){
-      this.form.patchValue({ 'isactive': x.tees[0].isactive });
-    }
+  fillForm(x:Course) {
+    // const y;
+    // if(x._id){
+    //    y = x.tees[0];
+    // }
+    //   this.form.patchValue({ 'isactive': this.y.isactive });
+    // }
 
   }
 

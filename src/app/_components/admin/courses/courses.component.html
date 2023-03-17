@@ -15,11 +15,15 @@
         <tr id="headerrow">
           <th style="font-weight:500; text-align: left;">Course: {{name}}</th>
           <th style="text-align: left;">
-            <mat-icon matTooltip="New" (click)="onNew()" id="btn-new" *ngIf="form.disabled">open_in_new</mat-icon>
-            <mat-icon matTooltip="Save" id="btn-save" type="submit" (click)="onSubmit()" *ngIf="!form.disabled">save
+            <mat-icon class="icn" matTooltip="New" (click)="onNew()" id="btn-new" *ngIf="form.disabled">open_in_new
             </mat-icon>
-            <mat-icon matTooltip="Edit" id="btn-edit" (click)="onEdit()" *ngIf="form.disabled && name">edit</mat-icon>
-            <mat-icon matTooltip="Cancel" id="btn-cancel" (click)="onCancel()" *ngIf="!form.disabled">cancel</mat-icon>
+            <mat-icon class="icn" matTooltip="Save" id="btn-save" type="submit" (click)="onSubmit()"
+              *ngIf="!form.disabled">save
+            </mat-icon>
+            <mat-icon class="icn" matTooltip="Edit" id="btn-edit" (click)="onEdit()" *ngIf="form.disabled && name">edit
+            </mat-icon>
+            <mat-icon class="icn" matTooltip="Cancel" id="btn-cancel" (click)="onCancel()" *ngIf="!form.disabled">cancel
+            </mat-icon>
             <!-- <mat-icon matTooltip="Delete" id="btn-delete" (click)="onDelete()" *ngIf="form.disabled && name">delete
             </mat-icon> -->
           </th>
@@ -97,7 +101,7 @@
                 <mat-chip-row *ngFor="let teecolor of selectedCourse?.teecolors" (removed)="removeKeyword2(teecolor)">
                   {{teecolor}}
                   <button matChipRemove aria-label="'remove ' + keyword">
-                    <mat-icon style="width:10px">cancel</mat-icon>
+                    <mat-icon>cancel</mat-icon>
                   </button>
 
                 </mat-chip-row>

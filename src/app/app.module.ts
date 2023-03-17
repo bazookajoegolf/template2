@@ -37,6 +37,8 @@ import { SettingsComponent } from './_components/admin/settings/settings.compone
 import { TeesComponent } from './_components/admin/tees/tees.component';
 import { AlertService } from './services/alert.service';
 import { CourseAdminComponent } from './_components/admin/courseadmin/courseadmin.component';
+import { ScorecardadminComponent } from './_components/admin/scorecardadmin/scorecardadmin.component';
+import { SortPipe } from './assets/pipes/sort.pipe';
 
 
 @NgModule({
@@ -61,7 +63,9 @@ import { CourseAdminComponent } from './_components/admin/courseadmin/courseadmi
         ResetAckComponent,
         SettingsComponent,
         TeesComponent,
-        CourseAdminComponent
+        CourseAdminComponent,
+        ScorecardadminComponent,
+        SortPipe
     ],
     imports: [
         BrowserModule,
@@ -77,7 +81,7 @@ import { CourseAdminComponent } from './_components/admin/courseadmin/courseadmi
         MatSortModule
        
     ],
-    providers: [],
+    providers: [SortPipe],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

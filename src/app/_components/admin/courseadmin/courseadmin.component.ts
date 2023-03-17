@@ -1,4 +1,4 @@
-import { Component,OnChanges,OnInit} from '@angular/core';
+import { Component, OnChanges, OnInit, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
 import { CoursesService } from '../../../services/courses.service';
 import { AlertService } from './../../../services/alert.service';
 import { Router } from '@angular/router';
@@ -33,6 +33,11 @@ export class CourseAdminComponent implements OnInit, OnChanges{
  
   name;
   active:boolean;
+
+  indexnumber=0;
+
+  //@ViewChild('tg') tg: ElementRef;
+
 
   constructor(private courses: CoursesService, private router: Router, private alert: AlertService) { }
 
@@ -77,6 +82,17 @@ export class CourseAdminComponent implements OnInit, OnChanges{
 
   }
 
+  tabchange(x) {
+    console.log(x);
+    this.indexnumber = x;
+  }
+
+  // getforminfo(x) {
+  //   // console.log(x);
+   
+    
+  // }
+
   activeCheck() {
      this.active=!this.active;
      this.getCourses();
@@ -85,6 +101,12 @@ export class CourseAdminComponent implements OnInit, OnChanges{
   fromChild() {
     this.getCourses();
     console.log("Received from child");
+  }
+  
+  fromScorecard(x) {
+    console.log("number emitted " + x );
+    
+    this.indexnumber=x;
   }
 
 }

@@ -24,13 +24,20 @@
 
 
 
-  <mat-tab-group dynamicHeight class="container" mat-stretch-tabs="false" mat-align-tabs="start">
+  <mat-tab-group dynamicHeight class="container" [selectedIndex]="indexnumber" #tg
+    (selectedIndexChange)="tabchange($event)" mat-stretch-tabs="false" mat-align-tabs="start">
     <mat-tab label="Course Information">
       <app-courses (fromChild)="fromChild()" [selectedCourse]="selectedCourse"></app-courses>
     </mat-tab>
-    <mat-tab label="Course Tees">
+    <mat-tab label="ScoreCard">
+
+      <app-scorecardadmin [selectedCourse]="selectedCourse" (fromScorecard)="fromScorecard($event)">
+      </app-scorecardadmin>
+    </mat-tab>
+    <mat-tab label="Tee Builder">
       <app-tees [selectedCourse]="selectedCourse"></app-tees>
     </mat-tab>
-    <mat-tab label="ScoreCard">ScoreCard</mat-tab>
+
   </mat-tab-group>
 </ng-container>
+<!-- <p>Index number: {{tg._indexToSelect}}</p> -->
