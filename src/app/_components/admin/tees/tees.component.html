@@ -1,173 +1,192 @@
 <div class="courseBorder">
+  <div style="margin-left:3%">
+    <form class="spacer" [formGroup]="form" (ngSubmit)="onSubmit()">
 
-  <form class="spacer" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div style="margin-left:50px;">
 
-    <div style="margin-left:50px;">
-
-      <tr>
-        <td id="radioGender" style="padding-bottom:10px;"> Course:
-          {{selectedCourse?.name}}
-        </td>
-        <td>
-          <mat-checkbox [checked]="active" (click)="activeCheck()" formControlName="isactive" id="isactive">Active
-          </mat-checkbox>
-        </td>
-      </tr>
-
-      <tr>
-        <td id="radioGender">
-          <mat-form-field appearance="outline">
-            <mat-label>Course Name</mat-label>
-            <mat-select matNativeControl matNativeControl formControlName="coursename" id="coursename"
-              (change)="filterTee()">
-              <mat-option color="black" *ngFor="let option of selectedCourse?.coursenames" [value]="option">
-                {{option}}</mat-option>
-              <!-- <mat-hint align="start">Enter the name of the 18 hole course.</mat-hint> -->
-            </mat-select>
-          </mat-form-field>
-        </td>
-        <td>
-          <mat-icon matTooltip="New" (click)="onNew()" id="btn-new" *ngIf="form.disabled">open_in_new</mat-icon>
-          <mat-icon matTooltip="Save" id="btn-save" type="submit" (click)="onSubmit()">save
-          </mat-icon>
-          <mat-icon matTooltip="Edit" id="btn-edit" *ngIf="!editMode">edit</mat-icon>
-          <mat-icon matTooltip="Cancel" id="btn-cancel" *ngIf="editMode">cancel</mat-icon>
-        </td>
-
-      </tr>
-      <tr>
-        <td>
-          <div id="radioGender">
-            <mat-radio-group aria-label="Enter Gender" id="gender" formControlName="gender" (change)="filterTee()">
-              <mat-radio-button color="primary" value="male">Mens</mat-radio-button>
-              <mat-radio-button color="accent" value="female">Ladies</mat-radio-button>
-            </mat-radio-group>
-
-          </div>
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-          <mat-form-field appearance="outline">
-            <mat-label>Teebox</mat-label>
-            <mat-select matNativeControl matNativeControl formControlName="teebox" id="teebox" (change)="filterTee()">
-              <mat-option color="black" *ngFor="let option of selectedCourse?.teecolors" [value]="option">
-                {{option}}</mat-option>
-              <!-- <mat-hint align="start">Enter the name of the 18 hole course.</mat-hint> -->
-            </mat-select>
-          </mat-form-field>
-
-        </td>
-
-        <td>
-          <p style="margin-left:100px; width:300px;">
-            Par: <input class="smallinput" type="text" id="partotal" formControlName="partotal">
-            Slope: <input class="smallinput" type="text" id="slope" formControlName="slope">
-          </p>
-        </td>
-      </tr>
-
-
-      <table class="scorecard spacer  bottom50" style="margin-left:10px;">
-
-        <tr class="header-color1">
-          <th>Hole</th>
-          <th>1</th>
-          <th>2</th>
-          <th>3</th>
-          <th>4</th>
-          <th>5</th>
-          <th>6</th>
-          <th>7</th>
-          <th>8</th>
-          <th>9</th>
-          <th>10</th>
-          <th>11</th>
-          <th>12</th>
-          <th>13</th>
-          <th>14</th>
-          <th>15</th>
-          <th>16</th>
-          <th>17</th>
-          <th>18</th>
-        </tr>
         <tr>
-          <th class="header-color1">Par</th>
-          <td> <input type="text" id="p1" formControlName="p1"> </td>
-          <td> <input type="text" id="p2" formControlName="p2"> </td>
-          <td> <input type="text" id="p3" formControlName="p3"> </td>
-          <td> <input type="text" id="p4" formControlName="p4"> </td>
-          <td> <input type="text" id="p5" formControlName="p5"> </td>
-          <td> <input type="text" id="p6" formControlName="p6"> </td>
-          <td> <input type="text" id="p7" formControlName="p7"> </td>
-          <td> <input type="text" id="p8" formControlName="p8"> </td>
-          <td> <input type="text" id="p9" formControlName="p9"> </td>
-          <td> <input type="text" id="p10" formControlName="p10"> </td>
-          <td> <input type="text" id="p11" formControlName="p11"> </td>
-          <td> <input type="text" id="p12" formControlName="p12"> </td>
-          <td> <input type="text" id="p13" formControlName="p13"> </td>
-          <td> <input type="text" id="p14" formControlName="p14"> </td>
-          <td> <input type="text" id="p15" formControlName="p15"> </td>
-          <td> <input type="text" id="p16" formControlName="p16"> </td>
-          <td> <input type="text" id="p17" formControlName="p17"> </td>
-          <td> <input type="text" id="p18" formControlName="p18"> </td>
-        </tr>
-        <tr>
-          <th class="header-color1">Yardage</th>
-          <td> <input type="text" id="yd1" formControlName="yd1"> </td>
-          <td> <input type="text" id="yd2" formControlName="yd2"> </td>
-          <td> <input type="text" id="yd3" formControlName="yd3"> </td>
-          <td> <input type="text" id="yd4" formControlName="yd4"> </td>
-          <td> <input type="text" id="yd5" formControlName="yd5"> </td>
-          <td> <input type="text" id="yd6" formControlName="yd6"> </td>
-          <td> <input type="text" id="yd7" formControlName="yd7"> </td>
-          <td> <input type="text" id="yd8" formControlName="yd8"> </td>
-          <td> <input type="text" id="yd9" formControlName="yd9"> </td>
-          <td> <input type="text" id="yd10" formControlName="yd10"> </td>
-          <td> <input type="text" id="yd11" formControlName="yd11"> </td>
-          <td> <input type="text" id="yd12" formControlName="yd12"> </td>
-          <td> <input type="text" id="yd13" formControlName="yd13"> </td>
-          <td> <input type="text" id="yd14" formControlName="yd14"> </td>
-          <td> <input type="text" id="yd15" formControlName="yd15"> </td>
-          <td> <input type="text" id="yd16" formControlName="yd16"> </td>
-          <td> <input type="text" id="yd17" formControlName="yd17"> </td>
-          <td> <input type="text" id="yd18" formControlName="yd18"> </td>
-
+          <td id="radioGender" style="padding-bottom:10px;">
+            <h4> Course: {{selectedCourse?.name}}</h4>
+          </td>
 
         </tr>
 
         <tr>
-          <th class="header-color1">Handicap</th>
-          <td> <input type="text" id="yd1" formControlName="h1"> </td>
-          <td> <input type="text" id="yd2" formControlName="h2"> </td>
-          <td> <input type="text" id="yd3" formControlName="h3"> </td>
-          <td> <input type="text" id="yd4" formControlName="h4"> </td>
-          <td> <input type="text" id="yd5" formControlName="h5"> </td>
-          <td> <input type="text" id="yd6" formControlName="h6"> </td>
-          <td> <input type="text" id="yd7" formControlName="h7"> </td>
-          <td> <input type="text" id="yd8" formControlName="h8"> </td>
-          <td> <input type="text" id="yd9" formControlName="h9"> </td>
-          <td> <input type="text" id="yd10" formControlName="h10"> </td>
-          <td> <input type="text" id="yd11" formControlName="h11"> </td>
-          <td> <input type="text" id="yd12" formControlName="h12"> </td>
-          <td> <input type="text" id="yd13" formControlName="h13"> </td>
-          <td> <input type="text" id="yd14" formControlName="h14"> </td>
-          <td> <input type="text" id="yd15" formControlName="h15"> </td>
-          <td> <input type="text" id="yd16" formControlName="h16"> </td>
-          <td> <input type="text" id="yd17" formControlName="h17"> </td>
-          <td> <input type="text" id="yd18" formControlName="h18"> </td>
-
+          <td id="radioGender">
+            <mat-form-field appearance="outline">
+              <mat-label>Course Name</mat-label>
+              <mat-select matNativeControl matNativeControl formControlName="coursename" id="coursename"
+                (change)="filterTee()">
+                <mat-option color="black" *ngFor="let option of selectedCourse?.coursenames" [value]="option">
+                  {{option}}</mat-option>
+                <!-- <mat-hint align="start">Enter tde name of tde 18 hole course.</mat-hint> -->
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-icon class="matIconSp" matTooltip="Save" id="btn-save" type="submit" (click)="onSubmit()">save
+            </mat-icon>
+            <mat-icon class="matIconSp" matTooltip="Cancel" id="btn-cancel">cancel</mat-icon>
+          </td>
 
         </tr>
-        <tr style="height:18px"></tr>
-        <tr class="header-color1">
+        <tr>
+          <td>
+            <div id="radioGender">
+              <mat-radio-group aria-label="Enter Gender" id="gender" formControlName="gender" (change)="filterTee()">
+                <mat-radio-button color="primary" value="male">Mens</mat-radio-button>
+                <mat-radio-button color="accent" value="female">Ladies</mat-radio-button>
+              </mat-radio-group>
 
+            </div>
+          </td>
         </tr>
 
-      </table>
+        <tr>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Teebox</mat-label>
+              <mat-select matNativeControl matNativeControl formControlName="teebox" id="teebox" (change)="filterTee()">
+                <mat-option color="black" *ngFor="let option of selectedCourse?.teecolors" [value]="option">
+                  {{option}}</mat-option>
+                <!-- <mat-hint align="start">Enter tde name of tde 18 hole course.</mat-hint> -->
+              </mat-select>
+            </mat-form-field>
+
+          </td>
+
+          <td>
+            <mat-checkbox formControlName="teeactive" id="teeactive">Active</mat-checkbox>
+
+          </td>
+
+          <!-- <td>
+            <p style="margin-left:100px; width:300px;">
+              Rating <input class="smallinput" type="text" id="rating" formControlName="rating">
+              Slope: <input class="smallinput" type="text" id="slope" formControlName="slope">
+            </p>
+          </td> -->
+        </tr>
 
 
-    </div>
-  </form>
+        <table class="scorecard spacer  bottom50" style="width:80%">
+
+          <tr class="headercolor toprow">
+            <td class="w6 firstcolumn">
+              Hole</td>
+            <td class="w3">1</td>
+            <td class="w3">2</td>
+            <td class="w3">3</td>
+            <td class="w3">4</td>
+            <td class="w3">5</td>
+            <td class="w3">6</td>
+            <td class="w3">7</td>
+            <td class="w3">8</td>
+            <td class="w3">9</td>
+            <td class="w4">Out</td>
+            <td class="w3">10</td>
+            <td class="w3">11</td>
+            <td class="w3">12</td>
+            <td class="w3">13</td>
+            <td class="w3">14</td>
+            <td class="w3">15</td>
+            <td class="w3">16</td>
+            <td class="w3">17</td>
+            <td class="w3">18</td>
+            <td class="w4">In</td>
+            <td class="w4">Total</td>
+            <td class="w4">Slope</td>
+            <td class="w4">Rating</td>
+          </tr>
+          <tr>
+            <td class="w6 firstcolumn">Par</td>
+            <td class="w3"> <input type="text" #p1 id="p1" formControlName="p1"> </td>
+            <td class="w3"> <input type="text" #p2 id="p2" formControlName="p2"> </td>
+            <td class="w3"> <input type="text" #p3 id="p3" formControlName="p3"> </td>
+            <td class="w3"> <input type="text" #p4 id="p4" formControlName="p4"> </td>
+            <td class="w3"> <input type="text" #p5 id="p5" formControlName="p5"> </td>
+            <td class="w3"> <input type="text" #p6 id="p6" formControlName="p6"> </td>
+            <td class="w3"> <input type="text" #p7 id="p7" formControlName="p7"> </td>
+            <td class="w3"> <input type="text" #p8 id="p8" formControlName="p8"> </td>
+            <td class="w3"> <input type="text" #p9 id="p9" formControlName="p9"> </td>
+            <td class="w4">
+              <p style="margin-bottom:0px;">{{outp9}}</p>
+            </td>
+            <td class="w3"> <input type="text" #p10 id="p10" formControlName="p10"> </td>
+            <td class="w3"> <input type="text" #p11 id="p11" formControlName="p11"> </td>
+            <td class="w3"> <input type="text" #p12 id="p12" formControlName="p12"> </td>
+            <td class="w3"> <input type="text" #p13 id="p13" formControlName="p13"> </td>
+            <td class="w3"> <input type="text" #p14 id="p14" formControlName="p14"> </td>
+            <td class="w3"> <input type="text" #p15 id="p15" formControlName="p15"> </td>
+            <td class="w3"> <input type="text" #p16 id="p16" formControlName="p16"> </td>
+            <td class="w3"> <input type="text" #p17 id="p17" formControlName="p17"> </td>
+            <td class="w3"> <input type="text" #p18 id="p18" formControlName="p18"> </td>
+            <td class="w4"> {{inp9}}</td>
+            <td class="w4"> {{ptotal}}</td>
+            <td class="w4"> <input type="text" id="slope" formControlName="slope"> </td>
+            <td class="w4"> <input type="text" id="rating" formControlName="rating"> </td>
+          </tr>
+          <tr>
+            <td class="w6 firstcolumn">Yardage</td>
+            <td> <input type="text" id="yd1" formControlName="yd1" (keyup)="ku_yards"> </td>
+            <td> <input type="text" id="yd2" formControlName="yd2" (keyup)="ku_yards"> </td>
+            <td> <input type="text" id="yd3" formControlName="yd3"> </td>
+            <td> <input type="text" id="yd4" formControlName="yd4"> </td>
+            <td> <input type="text" id="yd5" formControlName="yd5"> </td>
+            <td> <input type="text" id="yd6" formControlName="yd6"> </td>
+            <td> <input type="text" id="yd7" formControlName="yd7"> </td>
+            <td> <input type="text" id="yd8" formControlName="yd8"> </td>
+            <td> <input type="text" id="yd9" formControlName="yd9"> </td>
+            <td class="w4">
+              <p style="margin-bottom:0px;">{{outy9}}</p>
+            </td>
+            <td> <input type="text" id="yd10" formControlName="yd10"> </td>
+            <td> <input type="text" id="yd11" formControlName="yd11"> </td>
+            <td> <input type="text" id="yd12" formControlName="yd12"> </td>
+            <td> <input type="text" id="yd13" formControlName="yd13"> </td>
+            <td> <input type="text" id="yd14" formControlName="yd14"> </td>
+            <td> <input type="text" id="yd15" formControlName="yd15"> </td>
+            <td> <input type="text" id="yd16" formControlName="yd16"> </td>
+            <td> <input type="text" id="yd17" formControlName="yd17"> </td>
+            <td> <input type="text" id="yd18" formControlName="yd18"> </td>
+            <td class="w4">
+              <p style="margin-bottom:0px;">{{iny9}}</p>
+            </td>
+            <td class="w4">
+              <p style="margin-bottom:0px;">{{ytotal}}</p>
+            </td>
+            <td class="w4"></td>
+            <td class="w4"></td>
+          </tr>
+
+          <tr>
+            <td class="w8 firstcolumn">Handicap</td>
+            <td> <input type="text" id="yd1" formControlName="h1"> </td>
+            <td> <input type="text" id="yd2" formControlName="h2"> </td>
+            <td> <input type="text" id="yd3" formControlName="h3"> </td>
+            <td> <input type="text" id="yd4" formControlName="h4"> </td>
+            <td> <input type="text" id="yd5" formControlName="h5"> </td>
+            <td> <input type="text" id="yd6" formControlName="h6"> </td>
+            <td> <input type="text" id="yd7" formControlName="h7"> </td>
+            <td> <input type="text" id="yd8" formControlName="h8"> </td>
+            <td> <input type="text" id="yd9" formControlName="h9"> </td>
+            <td class="w4"></td>
+            <td> <input type="text" id="yd10" formControlName="h10"> </td>
+            <td> <input type="text" id="yd11" formControlName="h11"> </td>
+            <td> <input type="text" id="yd12" formControlName="h12"> </td>
+            <td> <input type="text" id="yd13" formControlName="h13"> </td>
+            <td> <input type="text" id="yd14" formControlName="h14"> </td>
+            <td> <input type="text" id="yd15" formControlName="h15"> </td>
+            <td> <input type="text" id="yd16" formControlName="h16"> </td>
+            <td> <input type="text" id="yd17" formControlName="h17"> </td>
+            <td> <input type="text" id="yd18" formControlName="h18"> </td>
+            <td class="w4"></td>
+            <td class="w4"></td>
+            <td class="w4"></td>
+            <td class="w4"></td>
+          </tr>
+        </table>
+      </div>
+    </form>
+  </div>
 </div>

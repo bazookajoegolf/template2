@@ -5,21 +5,6 @@ import { Router } from '@angular/router';
 import {Course} from '../../../assets/interfaces/interfaces';
 
 
-
-// interface Course {
-//   active: boolean;
-//   address: string;
-//   city: string;
-//   country: string;
-//   description: String;
-//   name: string;
-//   url: string;
-//   _id: string;
-
-// }
-
-
-
 @Component({
   selector: 'app-courseadmin',
   templateUrl: './courseadmin.component.html',
@@ -27,27 +12,39 @@ import {Course} from '../../../assets/interfaces/interfaces';
 })
 export class CourseAdminComponent implements OnInit, OnChanges{
 
+  //course: Course[];
   course: Course[];
-
   selectedCourse: Course;
+  selectedCourseId: string;
+  newCourse:string;
+  pushedTee:any;
+  newTee:string;
  
   name;
+  option:Course;
+  id;
   active:boolean;
+
+  activetab=true;
 
   indexnumber=0;
 
-  //@ViewChild('tg') tg: ElementRef;
+  //@ViewChild('dd') dd: ElementRef;
 
 
-  constructor(private courses: CoursesService, private router: Router, private alert: AlertService) { }
-
+  constructor(private courses: CoursesService, private router: Router, private alert: AlertService) {}
   ngOnInit() {
    this.active=true; 
    this.getCourses();
+   
+   
+
   }
   ngOnChanges() {
-   
     this.getCourses();
+    this.selectedCourseId= this.selectedCourseId;
+    this.pushTee();
+      
   }
 
   getCourses() {
@@ -71,42 +68,74 @@ export class CourseAdminComponent implements OnInit, OnChanges{
       });
 
   }
+  pushTee() {
+    this.selectedCourseId = this.selectedCourseId ;
+    this.newCourse = "blah";
+  }
+  
   selectCourse(event: Event) {
-    // this.name = this.course.name;
-    this.name = (event.target as HTMLSelectElement).value;
 
-    const x = this.course.find(o => o.name === this.name);
+    this.id = (event.target as HTMLSelectElement).value;
+    console.log("courseadmin id pushed to courses:  " + this.id);
+    this.indexnumber=0;
 
-    this.selectedCourse = x;
-   
+    if(this.name=="newcourse") {
+      this.selectedCourseId="newcourse";
+      console.log("course id sent from courseadmin to courses:  " + this.selectedCourseId);
 
+    } else {
+      this.selectedCourseId=this.id;
+      console.log("course id sent from courseadmin to courses:  " + this.selectedCourseId);
+      const x = this.course.find(o => o._id == this.id);
+      this.newCourse="";
+      this.selectedCourse = x;
+    } 
+  }
+ 
+  blankCourse() {
+    //this.selectedCourse._id="";
+    const blank:Course={active:true,address:"",city:"",country:"",description:"",name:"",coursenames:[],teecolors:[],
+                        url:"",_id:"",front9yd:0,back9yd:0,totalyd:0};
+    this.selectedCourse= blank;
   }
 
   tabchange(x) {
-    console.log(x);
     this.indexnumber = x;
+    if(x==1) {this.getCourses()}
+    const y = this.course.find(o => o._id == this.id);
+    this.selectedCourse = y;
+    console.log(this.course);
+    console.log(this.selectedCourseId);
   }
-
-  // getforminfo(x) {
-  //   // console.log(x);
-   
-    
-  // }
 
   activeCheck() {
      this.active=!this.active;
      this.getCourses();
   }
 
-  fromChild() {
+  fromTeebuilder(x) {
     this.getCourses();
     console.log("Received from child");
-  }
-  
-  fromScorecard(x) {
-    console.log("number emitted " + x );
     
-    this.indexnumber=x;
+  }
+  fromCourseChild(x) {
+    // console.log("Received from Course child " + x);
+    // let y= this.course.find(this.selectedCo=> name==x);
+     console.log("in fromCourseChild" + JSON.stringify(x));
+    // this.option._id= this.selectedCourse._id;
+    this.getCourses();
+ 
+  }
+
+  fromScorecard(x) {
+    //console.log("number emitted " + x.tabNum + "   course fromScorecard  " + x.tee );
+    this.indexnumber=x.tabNum;
+    this.pushedTee = x;
+  }
+  fromScorecardTee(y) {
+    this.newTee = y;
+    this.indexnumber=y.tabNum;
+    console.log("sent from scorecard to courseadmin. " + this.newTee);
   }
 
 }

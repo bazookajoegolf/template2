@@ -1,19 +1,54 @@
+.courseBorder {
+    align-items: center;
+}
+
 .scorecard > tr > td > input, .smallinput {
-    border-color: rgb(191, 185, 185);
-    border-style: solid;
-    border-radius: 5px;
-    width: 36px;
-    margin:1px;
+    width: 98%;
+    margin:0px;
+    height:36px;
+    text-align: center;
+    border:none;
 
 }
 
-
-.header-color1 {
-    background-color: rgb(233, 233, 234);
+.scorecard > tr > td {
+    border: black 1px solid;
 }
 
-mat-icon {
-    margin-right: 10px;
+
+.toprow:nth-child(1 )  {
+    background-color: seagreen !important;
+    color:white;
+    height: 36px;
+    line-height: 36px;
+    border:1px black solid;
+}
+
+.firstcolumn {
+    text-align: left !important;
+    padding-left:5px;
+    border:1px gray solid;
+}
+.w8 {
+  width:8%;
+}
+
+.w6 {
+    width:6.5%;
+}
+
+.w4 {
+    width:5.5%;
+}
+
+.w3 {
+    width:3.8%;
+}
+
+.matIconSp {
+    margin-left: 20px;
+    vertical-align: text-bottom;
+    font-size:24px;
 }
 
 .teeformfield {

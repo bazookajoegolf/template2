@@ -1,17 +1,17 @@
-<div style="background-color:rgb(4, 33, 6);">
-  <h4 style="color:white">{{selectedCourse?.name}}</h4>
-  <h6 style="color:white">{{selectedCourse?.address}}</h6>
-  <h6 style="color:white"><span>{{selectedCourse?.city}}, </span> <span>{{selectedCourse?.country | uppercase}}</span>
+<div class="header">
+  <h4>{{selectedCourse?.name | uppercase}}</h4>
+  <h6>{{selectedCourse?.address | uppercase}}</h6>
+  <h6><span>{{selectedCourse?.city}}, </span> <span>{{selectedCourse?.country | uppercase}}</span>
   </h6>
-  <h6 style="color:white">Website: {{selectedCourse?.url}}</h6>
+  <h6>Website: {{selectedCourse?.url}}</h6>
 </div>
-
+<div><span class="newTee"> <span style="margin: auto;" (click)="newTee()">New Tee</span> </span></div>
 
 
 <div class="topdiv">
   <div>
     <div *ngFor="let nc of courseNames;let h=index; ">
-      <h3 style="margin:25px 0px;">{{nc}}</h3>
+      <h3 style="margin:20px 0px;">{{nc}}</h3>
       <!-- hole layout -->
       <div>
         <span class="spanitem holecolor"
@@ -36,6 +36,8 @@
         <span class="spanitem holecolor" style="width:4% !important;">Rating
         </span>
         <span class="spanitem holecolor" style="width:4% !important;">Edit
+          <!-- <span [style.background-color]="white" class="spanitem " style="width:4% !important;"> -->
+
         </span>
       </div>
       <!-- gender section -->
@@ -67,7 +69,7 @@
               <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
                 class="spanitem holecolor">{{myObj.yd9}}</span>
               <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-                class="spanitem holecolor" style="width:calc(4%) !important;">3234
+                class="spanitem holecolor" style="width:calc(4%) !important;">{{myObj?.front9y}}
               </span>
               <span class="emptyspan" style="width:30px !important;background-color: white !important;">|
               </span>
@@ -90,10 +92,10 @@
               <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
                 class="spanitem holecolor">{{myObj.yd18}}</span>
               <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-                class="spanitem holecolor" style="width:4% !important;">3156
+                class="spanitem holecolor" style="width:4% !important;">{{myObj.back9y}}
               </span>
               <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-                class="spanitem holecolor" style="width:4%!important;">6378
+                class="spanitem holecolor" style="width:4%!important;">{{myObj.totaly}}
               </span>
               <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
                 class="spanitem holecolor" style="width:4% !important;">{{myObj.slope}}
@@ -101,9 +103,10 @@
               <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
                 class="spanitem holecolor" style="width:4% !important;">{{myObj.rating}}
               </span>
-              <span [style.background-color]="white" class="spanitem " style="width:4% !important;">
-                <mat-icon matTooltip="Edit" (click)="sendTee(myObj)" style="font-size:22px;vertical-align:text-bottom;"
-                  id="btn-edit">edit
+              <span [style.background-color]="white" class="spanitem "
+                style="width:4% !important;padding:0px;margin:0px">
+                <mat-icon matTooltip="Edit" (click)="sendTee(myObj)"
+                  style="vertical-align:text-bottom;line-height: 32px;padding:0px;margin:0px;" id="btn-edit">edit
                 </mat-icon>
               </span>
 
@@ -127,7 +130,8 @@
                   <span class="spanitem ">{{selectedCourse?.tees[fc.index].p7}}</span>
                   <span class="spanitem ">{{selectedCourse?.tees[fc.index].p8}}</span>
                   <span class="spanitem ">{{selectedCourse?.tees[fc.index].p9}}</span>
-                  <span class="spanitem" style="width:calc(4%) !important;">36</span>
+                  <span class="spanitem"
+                    style="width:calc(4%) !important;">{{selectedCourse?.tees[fc.index].front9p}}</span>
                   <span class="spanitem"
                     style="width:30px !important;background-color: white !important;color:white">|</span>
                   <span class="spanitem ">{{selectedCourse?.tees[fc.index].p10}}</span>
@@ -139,8 +143,8 @@
                   <span class="spanitem ">{{selectedCourse?.tees[fc.index].p16}}</span>
                   <span class="spanitem ">{{selectedCourse?.tees[fc.index].p17}}</span>
                   <span class="spanitem ">{{selectedCourse?.tees[fc.index].p18}}</span>
-                  <span class="spanitem" style="width:4% !important;">36</span>
-                  <span class="spanitem" style="width:4% !important;">72</span>
+                  <span class="spanitem" style="width:4% !important;">{{selectedCourse?.tees[fc.index].back9p}}</span>
+                  <span class="spanitem" style="width:4% !important;">{{selectedCourse?.tees[fc.index].totalp}}</span>
                   <span class="emptyspan" style="width:4% !important;">|</span>
                   <span class="emptyspan" style="width:4% !important;">|</span>
                   <span class="emptyspan" style="width:4% !important;">|</span>

@@ -10,10 +10,12 @@
       <td>
         <mat-form-field id="courseDropDown" appearance="outline">
           <mat-label>Course</mat-label>
-          <select matNativeControl #dd (change)="selectCourse($event)">
-            <option value="Blank"></option>
-            <option *ngFor="let option of course" [value]="option.name" [selected]="selectCourse === option.name">
+          <select matNativeControl id="dd" (change)="selectCourse($event)">
+            <option value="blank"></option>
+            <option value="newcourse" #x [selected]="newCourse==x.value">New Course</option>
+            <option *ngFor="let option of course" [value]="option._id" [selected]="selectCourseId === option._id">
               {{ option.name }}</option>
+
           </select>
         </mat-form-field>
         <mat-checkbox class="chk-box" id="active" [checked]="active" (click)="activeCheck()">Active</mat-checkbox>
@@ -21,21 +23,21 @@
     </tr>
   </table>
 
-
-
-
   <mat-tab-group dynamicHeight class="container" [selectedIndex]="indexnumber" #tg
     (selectedIndexChange)="tabchange($event)" mat-stretch-tabs="false" mat-align-tabs="start">
     <mat-tab label="Course Information">
-      <app-courses (fromChild)="fromChild()" [selectedCourse]="selectedCourse"></app-courses>
+      <app-courses (fromChild)="fromCourseChild($event)" [selectedCourseId]="selectedCourseId" [newCourse]="newCourse">
+      </app-courses>
     </mat-tab>
     <mat-tab label="ScoreCard">
 
-      <app-scorecardadmin [selectedCourse]="selectedCourse" (fromScorecard)="fromScorecard($event)">
+      <app-scorecardadmin [selectedCourse]="selectedCourse" (fromScorecard)="fromScorecard($event)"
+        (fromScorecardTee)="fromScorecardTee($event)">
       </app-scorecardadmin>
     </mat-tab>
-    <mat-tab label="Tee Builder">
-      <app-tees [selectedCourse]="selectedCourse"></app-tees>
+    <mat-tab [disabled]="activetab" label="Tee Builder">
+      <app-tees [selectedCourse]="selectedCourse" [pushedTee]="pushedTee" [newTee]="newTee"
+        (fromTeebuilder)="fromTeebuilder($event)"></app-tees>
     </mat-tab>
 
   </mat-tab-group>

@@ -13,16 +13,17 @@
 
       <table>
         <tr id="headerrow">
-          <th style="font-weight:500; text-align: left;">Course: {{name}}</th>
+          <th style="font-weight:500; text-align: left;">Course: {{selectedCourse?.name}}</th>
           <th style="text-align: left;">
-            <mat-icon class="icn" matTooltip="New" (click)="onNew()" id="btn-new" *ngIf="form.disabled">open_in_new
-            </mat-icon>
+            <!-- <mat-icon class="icn" matTooltip="New" (click)="onNew()" id="btn-new" *ngIf="form.disabled">open_in_new
+            </mat-icon> -->
             <mat-icon class="icn" matTooltip="Save" id="btn-save" type="submit" (click)="onSubmit()"
-              *ngIf="!form.disabled">save
+              *ngIf="!form.disabled || newMode">save
             </mat-icon>
             <mat-icon class="icn" matTooltip="Edit" id="btn-edit" (click)="onEdit()" *ngIf="form.disabled && name">edit
             </mat-icon>
-            <mat-icon class="icn" matTooltip="Cancel" id="btn-cancel" (click)="onCancel()" *ngIf="!form.disabled">cancel
+            <mat-icon class="icn" matTooltip="Cancel" id="btn-cancel" (click)="onCancel()"
+              *ngIf="!form.disabled || newMode">cancel
             </mat-icon>
             <!-- <mat-icon matTooltip="Delete" id="btn-delete" (click)="onDelete()" *ngIf="form.disabled && name">delete
             </mat-icon> -->
@@ -81,8 +82,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Course Names </mat-label>
               <mat-chip-grid #chipGrid aria-label="Enter Course Names" formControlName="coursenames">
-                <mat-chip-row *ngFor="let coursename of selectedCourse?.coursenames"
-                  (removed)="removeKeyword(coursename)">
+                <mat-chip-row *ngFor="let coursename of course?.coursenames" (removed)="removeKeyword(coursename)">
                   {{coursename}}
                   <button matChipRemove aria-label="'remove ' + keyword">
                     <mat-icon>cancel</mat-icon>
@@ -98,7 +98,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Tee Colors </mat-label>
               <mat-chip-grid #chipGrid2 aria-label="Enter keywords" formControlName="teecolors">
-                <mat-chip-row *ngFor="let teecolor of selectedCourse?.teecolors" (removed)="removeKeyword2(teecolor)">
+                <mat-chip-row *ngFor="let teecolor of course?.teecolors" (removed)="removeKeyword2(teecolor)">
                   {{teecolor}}
                   <button matChipRemove aria-label="'remove ' + keyword">
                     <mat-icon>cancel</mat-icon>
@@ -121,33 +121,7 @@
           </td>
         </tr>
       </table>
-      <!-- <mat-form-field id="courseDropDown" appearance="outline">
-          <mat-label>Course</mat-label>
-          <select matNativeControl #dd (change)="selectCourse($event)">
-            <option value=""></option>
-            <option *ngFor="let option of course" [value]="option.name" [selected]="selectCourse === option.name">
-              {{ option.name }}</option>
-          </select>
-        </mat-form-field> -->
-
     </div>
-
-    <!-- <div class="blk-button">
-      <div>
-        <button mat-raised-button color="primary" (click)="onNew()" id="btn-new" *ngIf="form.disabled">New</button>
-
-        <button mat-raised-button color="accent" id="btn-edit" (click)="onEdit()"
-          *ngIf="form.disabled && name">Edit</button>
-
-        <button mat-raised-button color="warn" id="btn-delete" (click)="onDelete()"
-          *ngIf="form.disabled && name">Delete</button>
-
-        <button mat-raised-button color="accent" id="btn-cancel" (click)="onCancel()"
-          *ngIf="!form.disabled">Cancel</button>
-
-        <button mat-raised-button color="primary" id="btn-save" type="submit" *ngIf="!form.disabled">Save</button>
-      </div>
-    </div> -->
 
   </form>
 

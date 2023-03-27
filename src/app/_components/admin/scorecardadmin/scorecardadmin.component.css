@@ -1,3 +1,33 @@
+.header {
+    background-color: white;
+    border:2px darkgray solid;
+    padding:15px;
+    border-radius: 10px;
+    min-height: 150px;
+}
+
+.newTee {
+   display:flex;
+    border-left: 2px darkgray solid;
+    border-right: 2px darkgray solid;
+    border-bottom: 2px darkgray solid;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    line-height: 36px;
+    text-align: center;
+    align-items: center;
+    height: 36px;
+    width: 120px;
+    float:left;
+    margin-left:10px;
+    padding-left: auto;
+    padding-right: auto;
+
+}
+
+.newTee:hover {
+    cursor:pointer;
+}
 .topdiv {
     margin-top: 30px;
     margin-bottom: 30px;
@@ -29,3 +59,4 @@
 .holecolor {
     background-color:seagreen; color:white;
 }
+

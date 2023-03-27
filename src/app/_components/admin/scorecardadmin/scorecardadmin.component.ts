@@ -23,24 +23,28 @@ export class ScorecardadminComponent implements OnChanges {
   blankLines=[0,1,2,3];
   mTee;
   lTee;
+  uniqueM;
+  uniqueL;
   extraTeeColors=["darkslateblue","darkslategray","olivedrab", "saddlebrown"]
   constructor() {
     this.numbers = Array.from({length: 18}, (_, i) => i + 1)
   }
-
+// ngOnChanges(changes: SimpleChanges): void {
   ngOnChanges(changes: SimpleChanges): void {
+    console.log("scorecardAdmin on changes fired");
     this.mTee=[];
     this.lTee=[];
+    this.uniqueL=[];
+    this.uniqueM=[];
     this.teeboxColor=[];
     this.courseNames=[];
     if(this.selectedCourse?.tees.length) {
-    for(let i=0; i <this.selectedCourse?.tees.length;i++) {
+    for(let i=0; i < this.selectedCourse?.tees.length;i++) {
       //console.log (this.selectedCourse.tees[i]._id);
       let x = this.checkColor(this.selectedCourse?.tees[i].teebox);
 
       let y= this.courseNames.find((post, index)=> {
-        console.log("course names in courseNames  " + post);
-        if(post == this.selectedCourse?.tees[i].coursename)
+          if(post == this.selectedCourse?.tees[i].coursename)
         return true
       });
       
@@ -53,26 +57,57 @@ export class ScorecardadminComponent implements OnChanges {
       if(this.selectedCourse?.tees[i].gender == "male") {
         
         this.mTee.push({"coursename":this.selectedCourse?.tees[i].coursename, "index": i});
+        console.log(this.selectedCourse?.tees[i].coursename);
+
+        if(this.uniqueM.length > 0){
+           this.uniqueM.find( element => {
+            if(element.coursename == this.selectedCourse.tees[i].coursename &&
+              element.gender == this.selectedCourse.tees[i].gender ) {
+                console.log("men's if condition met");
+            } else {
+              console.log("in mens else");
+              this.uniqueM.push(this.selectedCourse.tees[i]);
+            }
+           });
+        } else {
+          console.log("no elements");
+          this.uniqueM.push(this.selectedCourse.tees[i]);
+        }
         
       }
       if(this.selectedCourse?.tees[i].gender == "female") {
         
         this.lTee.push({"coursename":this.selectedCourse?.tees[i].coursename, "index": i});
+        if(this.uniqueL.length > 0){
+          this.uniqueL.find( element =>{
+           if(element.coursename == this.selectedCourse.tees[i].coursename && 
+            element.gender == this.selectedCourse.tees[i].gender ) {
+           } else {
+             this.uniqueL.push(this.selectedCourse.tees[i]);
+           }
+          });
+       } else {
+         this.uniqueL.push(this.selectedCourse.tees[i]);
+       }
         
       }
 
 
      
     }
-    console.log(JSON.stringify(this.mTee));
+    //console.log(JSON.stringify(this.mTee));
   }
+  console.log("unique mens:  " + this.uniqueM.length);
+  console.log("unique ladies:  " + this.uniqueL.length);
       
   }
 
   @Input()
   selectedCourse: Course;
+ 
 
   @Output() fromScorecard:EventEmitter<any> = new EventEmitter(); 
+  @Output() fromScorecardTee:EventEmitter<any> = new EventEmitter(); 
 
   tabNumber;
 
@@ -88,8 +123,11 @@ export class ScorecardadminComponent implements OnChanges {
     return v;
   }
   sendTee(x){
-    console.log("tee being sent " + JSON.stringify(x));
-    this.fromScorecard.emit(this.tabNumber=2);
+   // console.log("tee being sent " + JSON.stringify(x));
+    this.fromScorecard.emit({tabNum:this.tabNumber=2,tee:x,isNew:false});
+  }
+  newTee(){
+    this.fromScorecard.emit({tabNum:this.tabNumber=2,tee:null,isNew:true});
   }
 
   checkColor(strColor:string){
