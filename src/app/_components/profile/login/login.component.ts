@@ -53,9 +53,9 @@ get f() {
     //console.log("trying to sign in " + post.email + "  " + post.password);
      this.signup.signin(post)
     .subscribe(response =>{
-     
+      console.log("token received from authentication " + response);
       if(response.token && response) {
-        console.log(response.minpassword);
+       // console.log(response.minpassword);
         this.alert.success( "Successfully Logged in!");
        
        localStorage.setItem('token', response.token);

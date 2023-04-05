@@ -1,3 +1,4 @@
+import { LoginComponent } from './../../profile/login/login.component';
 import { filter } from 'rxjs/operators';
 import { CourseAdminComponent } from './../courseadmin/courseadmin.component';
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
@@ -7,7 +8,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import {Course} from '../../../assets/interfaces/interfaces';
 import { CoursesService } from '../../../services/courses.service';
 import { AlertService } from './../../../services/alert.service';
-import { outputAst } from '@angular/compiler';
+//import { outputAst } from '@angular/compiler';
 
 //import { TEECOLORS } from 'src/app/assets/data/teecolors';
 
@@ -19,7 +20,7 @@ import { outputAst } from '@angular/compiler';
 export class TeesComponent implements OnInit, OnChanges {
 
   form:UntypedFormGroup;
-  panelOpenState = false;
+  //panelOpenState = false;
   name;
  // active:boolean;
   genderradio:boolean=true;
@@ -39,13 +40,11 @@ export class TeesComponent implements OnInit, OnChanges {
   selectedTee:string;
   selectedGender:string;
   selectedCourseName:string;
+  selectedTeeColors=[];
+  selectedCourse:any;
 
-
-  @Input()
-  selectedCourse: Course;
 
   @Input() pushedTee:any;
-  @Input() newTee:any;
   @Output() fromTeebuilder= new EventEmitter(); 
 
   constructor(private courses: CoursesService, private alert: AlertService) { }
@@ -53,14 +52,14 @@ export class TeesComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     
     this.form = new UntypedFormGroup({
-      coursename : new UntypedFormControl('', []),
+      coursename : new UntypedFormControl('', [Validators.required]),
       teebox     : new UntypedFormControl('', [Validators.required]),
       gender     : new UntypedFormControl('', [Validators.required]),
-      holes18    : new UntypedFormControl('', [Validators.required]),
-      partotal   : new UntypedFormControl('', [Validators.required]),
+      holes18    : new UntypedFormControl('', []),
+      partotal   : new UntypedFormControl('', []),
       slope	     : new UntypedFormControl('', [Validators.required]),
       rating     : new UntypedFormControl('', [Validators.required]),
-      teeactive   : new UntypedFormControl('', [Validators.required]),
+      teeactive   : new UntypedFormControl('', []),
       front9p     : new UntypedFormControl('', []),
       back9p     : new UntypedFormControl('', []),
       totalp     : new UntypedFormControl('', []),
@@ -126,52 +125,41 @@ export class TeesComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-
-    console.log(this.selectedCourse?._id + this.selectedCourse?.name);
-    console.log(this.pushedTee);
-    console.log(this.newTee);
-
+   // this.form.reset();
+    this.selectedTeeColors=this.selectedCourse?.teecolors;
     if(this.pushedTee?.isNew==false) {
+     this.form.get('coursename')?.disable();
+     this.form.get('gender')?.disable();
+     this.form.get('teebox')?.disable();
       this.teeid = this.pushedTee.tee._id;
-      console.log("pushed tee :  "+ this.pushedTee.tee.teeactive);
-      this.fillForm(this.pushedTee.tee);
+      this.selectedCourse = this.pushedTee.sc;     
+      this.fillForm(this.pushedTee.tee, "all");
       this.ku_yards();
       this.ku_par();
-      console.log("in tee component, tee has been pushed, on changes, what is the current course id:  " + this.selectedCourse._id);
+     // console.log("in tee, checking to see if i have all the tees:  " + this.selectedCourse?.tees[0].coursename);
+     // console.log("in tee component, tee has been pushed, on changes, what is the current course id:  " + this.selectedCourse._id);
       
     } 
 
     if(this.pushedTee?.isNew==true) {
-      console.log("new tee received from courseadmin, emitted from scorecard:  " +  JSON.stringify(this.newTee));
-      this.teeid = "new";
-      this.pushedTee=null;
       this.form.reset();
+      this.selectedCourse = this.pushedTee.sc;
+      this.form.get('coursename')?.enable();
+      this.form.get('gender')?.disable();
+      this.form.get('teebox')?.disable();
+      this.teeid = "new";
+     // this.pushedTee=null;
       this.inp9=null;
       this.outp9=null;
       this.outy9=null;
       this.iny9=null;
       this.ptotal=null;
       this.ytotal=null;
-      console.log("in tee component, on changes, what is the current course id:  " + this.selectedCourse._id);
+          
     }
 
-
-    this.enumCourses(this.selectedCourse);
-    if(this.currentCourse != this.selectedCourse?.name) {
-      // should only happen if courseAdmin pushed a new value down to this component
-      if(this.selectedCourse?.tees.length==0) {
-        // this will only happen if the course pushed down has no tees
-        //this.editMode=true;
-      }
-      //this.editMode=false;
-      //  this.newTee=false;
-
-
-    }
-
-  
-    
   }
+
 
   ku_yards() {
     this.outy9 = parseInt(this.form.value.yd1) + parseInt(this.form.value.yd2) + parseInt(this.form.value.yd3)+
@@ -204,36 +192,52 @@ export class TeesComponent implements OnInit, OnChanges {
   }
 
   get f() {
-    return this.form.controls
+    return this.form?.controls
     };
 
 
-  filterTee() {
-    let x;
-     if(this.selectedTee && this.selectedGender && this.selectedCourse){
-       x = this.selectedCourse.tees.filter(tee => {
-          this.selectedTee && this.selectedGender && this.selectedCourse
-        });
-        console.log(x);
-     } 
-     console.log("filter tee triggered");
+  filterTee(j,k) {
+    //console.log("filter tee firing "+ j.value);
+    if(k==1) {
+     // console.log("filterTee triggered on coursename " + j.value);
+      this.selectedCourseName = j.value;
+      this.form.get('gender')?.enable();
+    }
+    if(k==2) {
+      this.form.get('teebox')?.enable();
+      this.selectedGender=j.value;
+      
+      this.selectedTeeColors = this.findUsableTee(this.selectedGender,this.selectedCourseName);
+      console.log("filter tee running after gender chosen. tee colors available are: " + this.selectedTeeColors);
+      this.fillForm(this.pushedTee,"new");
+    }
      
   }
-  sumFront() {
-    let x:number = this.pushedTee.p1 + this.pushedTee.p2
-    return x;
-  }
-
+ 
   onSubmit() {
-
+   // console.log(" coursename  " + this.form.getRawValue().coursename);
     this.ku_par();
     this.ku_yards();
+    let c;
+    let t;
+    let g;
+    if(this.pushedTee.isNew==false) {
+      c =this.form.getRawValue().coursename;
+      t = this.form.getRawValue().teebox;
+      g = this.form.getRawValue().gender;
+
+    } else {
+      c = this.form.value.coursename;
+      t = this.form.value.teebox;
+      g = this.form.value.gender;
+    }
+
     const post = {
       course:this.form.value.name,
-      coursename:this.form.value.coursename,
-      teebox:this.form.value.teebox,
+      coursename:c,
+      teebox:t,
       courseid:String(this.selectedCourse._id),
-      gender:this.form.value.gender,
+      gender:g,
       holes18:true,
       partotal: this.ptotal,
       front9p     : this.form.value.front9p,
@@ -301,13 +305,13 @@ export class TeesComponent implements OnInit, OnChanges {
       h18: this.form.value.h18
     }
     
-    console.log("current selected course._id  " + this.selectedCourse._id);
+    //console.log("contents of post in Tees  :  " + JSON.stringify(post)); 
     this.courses.postTee(this.selectedCourse._id,this.teeid,post)
     .subscribe(response => {
 
       this.alert.success(response.message);
-      this.fromTeebuilder.emit("");
-      console.log("coursename after doing postTee:  " + this.selectedCourse.name);
+      this.fromTeebuilder.emit({sc : response.course});
+     // console.log("name after doing postTee:  " + this.selectedCourse.name);
    //   //this.getCourses();
     },
       (error) => {
@@ -317,90 +321,140 @@ export class TeesComponent implements OnInit, OnChanges {
     );
 
   }
-
-  enumCourses(coursearray:Course) {
-    if(coursearray) {
-      let post=[];
-      for(var i=0;i < coursearray.tees.length;i++) {
-              post.push( {coursename: coursearray.tees[i].coursename,
-              teebox: coursearray.tees[i].teebox,
-              gender: coursearray.tees[i].gender
+  // disabled apr 4....not needed?
+  // enumCourses(coursearray:Course) {
+  //   if(coursearray) {
+  //     let post=[];
+  //     for(var i=0;i < coursearray.tees.length;i++) {
+  //             post.push( {coursename: coursearray.tees[i].coursename,
+  //             teebox: coursearray.tees[i].teebox,
+  //             gender: coursearray.tees[i].gender
              
-            });
+  //           });
+  //   }
+  //   this.coursenames = post;
+  //  // console.log(this.coursenames);
+  // }
+  // }
+
+  findUsableTee(g,c) {
+    let ar=[];
+    for(let i=0;i < this.selectedCourse.teecolors.length;i++) {
+      let found = false;
+      for(let j=0;j < this.selectedCourse.tees.length;j++) {
+      //  console.log("i = " + i + " j = " + j + " teecolor " + this.selectedCourse.teecolors[i] 
+        // + " sc teebox color " + this.selectedCourse.tees[j].teebox + " found " 
+        // + " gender "+ g+  " coursename " + c + "selectedTeescoursename" + this.selectedCourse.tees[j].teebox +found );
+        if(this.selectedCourse.teecolors[i]== this.selectedCourse.tees[j].teebox && 
+          g == this.selectedCourse.tees[j].gender && 
+          c == this.selectedCourse.tees[j].coursename ){
+          found = true;
+        }
+
+      }
+      if(!found) {ar.push(this.selectedCourse.teecolors[i]);}
+      found=false;
     }
-    this.coursenames = post;
-   // console.log(this.coursenames);
-  }
+    return ar;
 
   }
 
-  fillForm(x:any ) {
- 
+  fillForm(x:any,y:string ) {
+    let ar=[];
+    console.log("is new or all  " +y); 
    
-    if(x){
-      this.form.patchValue({ 'coursename': x.coursename });
-      this.form.patchValue({ 'gender': x.gender});
-      this.form.patchValue({ 'teebox': x.teebox });
-      this.form.patchValue({ 'slope': x.slope });
-      this.form.patchValue({ 'rating': x.rating });
-      this.form.patchValue({ 'teeactive': x.teeactive });
-      this.form.patchValue({ 'p1': x.p1 });
-      this.form.patchValue({ 'p2': x.p2 });
-      this.form.patchValue({ 'p3': x.p3 });
-      this.form.patchValue({ 'p4': x.p4 });
-      this.form.patchValue({ 'p5': x.p5 });
-      this.form.patchValue({ 'p6': x.p6 });
-      this.form.patchValue({ 'p7': x.p7 });
-      this.form.patchValue({ 'p8': x.p8 });
-      this.form.patchValue({ 'p9': x.p9 });
-      this.form.patchValue({ 'p10': x.p10 });
-      this.form.patchValue({ 'p11': x.p11 });
-      this.form.patchValue({ 'p12': x.p12 });
-      this.form.patchValue({ 'p13': x.p13 });
-      this.form.patchValue({ 'p14': x.p14 });
-      this.form.patchValue({ 'p15': x.p15 });
-      this.form.patchValue({ 'p16': x.p16 });
-      this.form.patchValue({ 'p17': x.p17 });
-      this.form.patchValue({ 'p18': x.p18 });
-      this.form.patchValue({ 'yd1': x.yd1 });
-      this.form.patchValue({ 'yd2': x.yd2 });
-      this.form.patchValue({ 'yd3': x.yd3 });
-      this.form.patchValue({ 'yd4': x.yd4 });
-      this.form.patchValue({ 'yd5': x.yd5 });
-      this.form.patchValue({ 'yd6': x.yd6 });
-      this.form.patchValue({ 'yd7': x.yd7 });
-      this.form.patchValue({ 'yd8': x.yd8 });
-      this.form.patchValue({ 'yd9': x.yd9 });
-      this.form.patchValue({ 'yd10': x.yd10 });
-      this.form.patchValue({ 'yd11': x.yd11 });
-      this.form.patchValue({ 'yd12': x.yd12 });
-      this.form.patchValue({ 'yd13': x.yd13 });
-      this.form.patchValue({ 'yd14': x.yd14 });
-      this.form.patchValue({ 'yd15': x.yd15 });
-      this.form.patchValue({ 'yd16': x.yd16 });
-      this.form.patchValue({ 'yd17': x.yd17 });
-      this.form.patchValue({ 'yd18': x.yd18 });
-      this.form.patchValue({ 'h1': x.h1 });
-      this.form.patchValue({ 'h2': x.h2 });
-      this.form.patchValue({ 'h3': x.h3 });
-      this.form.patchValue({ 'h4': x.h4 });
-      this.form.patchValue({ 'h5': x.h5 });
-      this.form.patchValue({ 'h6': x.h6 });
-      this.form.patchValue({ 'h7': x.h7 });
-      this.form.patchValue({ 'h8': x.h8 });
-      this.form.patchValue({ 'h9': x.h9 });
-      this.form.patchValue({ 'h10': x.h10 });
-      this.form.patchValue({ 'h11': x.h11 });
-      this.form.patchValue({ 'h12': x.h12 });
-      this.form.patchValue({ 'h13': x.h13 });
-      this.form.patchValue({ 'h14': x.h14 });
-      this.form.patchValue({ 'h15': x.h15 });
-      this.form.patchValue({ 'h16': x.h16 });
-      this.form.patchValue({ 'h17': x.h17 });
-      this.form.patchValue({ 'h18': x.h18 });
+    if(1){
+      // console.log("length of selectedcourse tees array" + this.selectedCourse?.tees.length);
+      // console.log("coursename, teebox and gender on fill form:  " + x.coursename + x.teebox + x.gender);
+      
+      
+      
+      if(y=="all") {
+        this.form.patchValue({ 'coursename': x.coursename });
+        this.form.patchValue({ 'teebox': x.teebox });
+        this.form.patchValue({ 'teeactive': x.teeactive});
+        this.form.patchValue({ 'gender': x.gender});
+        this.form.patchValue({ 'slope': x.slope });
+        this.form.patchValue({ 'rating': x.rating });
+        this.form.patchValue({ 'yd1': x.yd1 });
+        this.form.patchValue({ 'yd2': x.yd2 });
+        this.form.patchValue({ 'yd3': x.yd3 });
+        this.form.patchValue({ 'yd4': x.yd4 });
+        this.form.patchValue({ 'yd5': x.yd5 });
+        this.form.patchValue({ 'yd6': x.yd6 });
+        this.form.patchValue({ 'yd7': x.yd7 });
+        this.form.patchValue({ 'yd8': x.yd8 });
+        this.form.patchValue({ 'yd9': x.yd9 });
+        this.form.patchValue({ 'yd10': x.yd10 });
+        this.form.patchValue({ 'yd11': x.yd11 });
+        this.form.patchValue({ 'yd12': x.yd12 }); 
+        this.form.patchValue({ 'yd13': x.yd13 });
+        this.form.patchValue({ 'yd14': x.yd14 });
+        this.form.patchValue({ 'yd15': x.yd15 });
+        this.form.patchValue({ 'yd16': x.yd16 });
+        this.form.patchValue({ 'yd17': x.yd17 });
+        this.form.patchValue({ 'yd18': x.yd18 });
 
+      }
+      if(y=="new") {
+       // let z = this.findUsableTee(this.selectedGender, this.selectedCourseName);
+       // console.log("selected tee colors " +  this.selectedTeeColors);
+        let j = null;
+        let i = 0;
+        while ( this.selectedCourse?.tees.length > i) {
+          console
+          if(this.selectedCourse?.tees[i].coursename == this.selectedCourseName && !j){
+            console.log("a course with a similar name to new tee choice was found. i value is:  " + i );
+            j=true;
+            x=this.selectedCourse?.tees[i];
+          }
+
+          i++;
+        };
+      //  console.log("Tee Component, new tee,  checking if in tees array exists, if so, checking to see what is set  ");
+      //  console.log("selectedCourseName " + this.selectedCourseName + " par1 " + x.p1 );
+
+      }
+      if(y=="all" || y=="new") {
+        this.form.patchValue({ 'p1': x.p1 });
+        this.form.patchValue({ 'p2': x.p2 });
+        this.form.patchValue({ 'p3': x.p3 });
+        this.form.patchValue({ 'p4': x.p4 });
+        this.form.patchValue({ 'p5': x.p5 });
+        this.form.patchValue({ 'p6': x.p6 });
+        this.form.patchValue({ 'p7': x.p7 });
+        this.form.patchValue({ 'p8': x.p8 });
+        this.form.patchValue({ 'p9': x.p9 });
+        this.form.patchValue({ 'p10': x.p10 });
+        this.form.patchValue({ 'p11': x.p11 });
+        this.form.patchValue({ 'p12': x.p12 });
+        this.form.patchValue({ 'p13': x.p13 });
+        this.form.patchValue({ 'p14': x.p14 });
+        this.form.patchValue({ 'p15': x.p15 });
+        this.form.patchValue({ 'p16': x.p16 });
+        this.form.patchValue({ 'p17': x.p17 });
+        this.form.patchValue({ 'p18': x.p18 });
+  
+        this.form.patchValue({ 'h1': x.h1 });
+        this.form.patchValue({ 'h2': x.h2 });
+        this.form.patchValue({ 'h3': x.h3 });
+        this.form.patchValue({ 'h4': x.h4 });
+        this.form.patchValue({ 'h5': x.h5 });
+        this.form.patchValue({ 'h6': x.h6 });
+        this.form.patchValue({ 'h7': x.h7 });
+        this.form.patchValue({ 'h8': x.h8 });
+        this.form.patchValue({ 'h9': x.h9 });
+        this.form.patchValue({ 'h10': x.h10 });
+        this.form.patchValue({ 'h11': x.h11 });
+        this.form.patchValue({ 'h12': x.h12 });
+        this.form.patchValue({ 'h13': x.h13 });
+        this.form.patchValue({ 'h14': x.h14 });
+        this.form.patchValue({ 'h15': x.h15 });
+        this.form.patchValue({ 'h16': x.h16 });
+        this.form.patchValue({ 'h17': x.h17 });
+        this.form.patchValue({ 'h18': x.h18 });
+
+      }
     }
-
   }
-
 }

@@ -37,6 +37,9 @@ mat-card {
     height:32px;
     width:32px;
 }
+.mat-mdc-icon-button ::ng-deep .mat-mdc-button-persistent-ripple {
+    display: none;
+}
 
 .flex-parent-element {
     /* display: flex;

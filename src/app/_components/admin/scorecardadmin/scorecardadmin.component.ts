@@ -6,6 +6,7 @@ import {colourNameToHex} from '../../../shared/texttohex'
 import { CoursesService } from '../../../services/courses.service';
 import { AlertService } from './../../../services/alert.service';
 import { HeaderRowOutlet } from '@angular/cdk/table';
+import { ThisReceiver } from '@angular/compiler';
 
 
 @Component({
@@ -23,21 +24,35 @@ export class ScorecardadminComponent implements OnChanges {
   blankLines=[0,1,2,3];
   mTee;
   lTee;
+  umt;
+  ult;
   uniqueM;
   uniqueL;
-  extraTeeColors=["darkslateblue","darkslategray","olivedrab", "saddlebrown"]
+  extraTeeColors=["darkslateblue","darkslategray","olivedrab", "saddlebrown"];
+
+  @Input()
+  selectedCourse: Course;
+ 
+
+  @Output() fromScorecard:EventEmitter<any> = new EventEmitter(); 
+  //@Output() fromScorecardTee:EventEmitter<any> = new EventEmitter(); 
+
+  tabNumber;
+
   constructor() {
     this.numbers = Array.from({length: 18}, (_, i) => i + 1)
   }
 // ngOnChanges(changes: SimpleChanges): void {
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("scorecardAdmin on changes fired");
-    this.mTee=[];
-    this.lTee=[];
-    this.uniqueL=[];
-    this.uniqueM=[];
+    //console.log("scorecardAdmin on changes fired");
+    this.mTee=[];  // contains all mens tees for selected course
+    this.lTee=[];  // contains all ladies tees for selected course
+    this.uniqueL=[];  // contains 1 entry per course ladies
+    this.uniqueM=[];  // contains 1 entry per course mens
+    this.umt=[];
+    this.ult=[];
     this.teeboxColor=[];
-    this.courseNames=[];
+    this.courseNames=[]; // courseNames is the main out loop in html page
     if(this.selectedCourse?.tees.length) {
     for(let i=0; i < this.selectedCourse?.tees.length;i++) {
       //console.log (this.selectedCourse.tees[i]._id);
@@ -55,65 +70,65 @@ export class ScorecardadminComponent implements OnChanges {
 
 
       if(this.selectedCourse?.tees[i].gender == "male") {
-        
-        this.mTee.push({"coursename":this.selectedCourse?.tees[i].coursename, "index": i});
-        console.log(this.selectedCourse?.tees[i].coursename);
 
-        if(this.uniqueM.length > 0){
-           this.uniqueM.find( element => {
-            if(element.coursename == this.selectedCourse.tees[i].coursename &&
-              element.gender == this.selectedCourse.tees[i].gender ) {
-                console.log("men's if condition met");
-            } else {
-              console.log("in mens else");
-              this.uniqueM.push(this.selectedCourse.tees[i]);
-            }
-           });
-        } else {
-          console.log("no elements");
-          this.uniqueM.push(this.selectedCourse.tees[i]);
-        }
+       this.mTee.push(this.selectedCourse?.tees[i]);
         
       }
       if(this.selectedCourse?.tees[i].gender == "female") {
-        
-        this.lTee.push({"coursename":this.selectedCourse?.tees[i].coursename, "index": i});
-        if(this.uniqueL.length > 0){
-          this.uniqueL.find( element =>{
-           if(element.coursename == this.selectedCourse.tees[i].coursename && 
-            element.gender == this.selectedCourse.tees[i].gender ) {
-           } else {
-             this.uniqueL.push(this.selectedCourse.tees[i]);
-           }
-          });
-       } else {
-         this.uniqueL.push(this.selectedCourse.tees[i]);
-       }
-        
-      }
 
-
-     
+        this.lTee.push(this.selectedCourse?.tees[i]);
+      }   
     }
-    //console.log(JSON.stringify(this.mTee));
   }
-  console.log("unique mens:  " + this.uniqueM.length);
-  console.log("unique ladies:  " + this.uniqueL.length);
-      
+  for(let i=0; i < this.mTee.length;i++){
+    let mt=this.mTee[i].coursename;
+    let localumt=null;
+    let found = false;
+    let x=this.umt;  // searching for unique course
+    
+    for(let j=0;j < x.length;j++) {
+      localumt= x[j].coursename;
+    //  console.log("contents of localumt " + localumt + " contents of umt " + x[j].coursename);
+      if(localumt== mt) {    // comparing the mtee course array coursename to the local list being generated
+        found=true;
+     //   console.log("a match was found;")
+      }
+    }
+    if(!found) {
+      this.umt.push({"coursename": mt});
+      this.uniqueM.push(this.mTee[i]);
+    }
+  }
+//  console.log("Length of lTee.  Should be a full list of ladies tees. " + this.lTee.length);
+  let xx=[];
+  for(let i=0; i < this.lTee.length;i++){
+
+    let lt=this.lTee[i].coursename;
+    let localult=null;
+    let found = false;
+    //let xx=this.ult;
+    
+    console.log("lTee value coursename: " + lt + " length of xx " + xx.length );
+    
+    for(let j=0;j < xx.length;j++) {
+      localult= xx[j].coursename;
+      console.log("contents of localult " + localult + " contents of umt " + xx[j].coursename + " xx length " + xx.length);
+      if(localult== lt) {
+        found=true;
+      }
+    }
+    if(!found) {
+      console.log("Unique course pushed.  ")
+      xx.push(this.lTee[i]);
+      this.ult.push({"coursename": lt});
+      this.uniqueL.push(this.lTee[i]);
+    }
+    found==false;
+  }
+     console.log("value of xx " + xx.length);
   }
 
-  @Input()
-  selectedCourse: Course;
- 
 
-  @Output() fromScorecard:EventEmitter<any> = new EventEmitter(); 
-  @Output() fromScorecardTee:EventEmitter<any> = new EventEmitter(); 
-
-  tabNumber;
-
-  sendEditNotice() {
-    this.fromScorecard.emit(this.tabNumber=2);
-  }
 
   bgcolor(x) {
     // x is the tee box _id value
@@ -124,10 +139,10 @@ export class ScorecardadminComponent implements OnChanges {
   }
   sendTee(x){
    // console.log("tee being sent " + JSON.stringify(x));
-    this.fromScorecard.emit({tabNum:this.tabNumber=2,tee:x,isNew:false});
+    this.fromScorecard.emit({tabNum:this.tabNumber=2,tee:x,isNew:false, sc:this.selectedCourse});
   }
   newTee(){
-    this.fromScorecard.emit({tabNum:this.tabNumber=2,tee:null,isNew:true});
+    this.fromScorecard.emit({tabNum:this.tabNumber=2,tee:null,isNew:true,sc:this.selectedCourse});
   }
 
   checkColor(strColor:string){

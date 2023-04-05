@@ -17,9 +17,11 @@
           <th style="text-align: left;">
             <!-- <mat-icon class="icn" matTooltip="New" (click)="onNew()" id="btn-new" *ngIf="form.disabled">open_in_new
             </mat-icon> -->
-            <mat-icon class="icn" matTooltip="Save" id="btn-save" type="submit" (click)="onSubmit()"
-              *ngIf="!form.disabled || newMode">save
-            </mat-icon>
+            <button mat-icon-button [disabled]="!form.valid" [disableRipple]="true">
+              <mat-icon class="icn" matTooltip="Save" id="btn-save" type="submit" (click)="onSubmit()"
+                *ngIf="!form.disabled || newMode">save
+              </mat-icon>
+            </button>
             <mat-icon class="icn" matTooltip="Edit" id="btn-edit" (click)="onEdit()" *ngIf="form.disabled && name">edit
             </mat-icon>
             <mat-icon class="icn" matTooltip="Cancel" id="btn-cancel" (click)="onCancel()"
@@ -113,7 +115,7 @@
         </tr>
         <tr>
 
-          <td>
+          <td colspan="2" rows="5">
             <mat-form-field appearance="outline">
               <mat-label>Description: </mat-label>
               <textarea matInput type="text" id="description" formControlName="description"></textarea>
@@ -124,5 +126,7 @@
     </div>
 
   </form>
+  form valid is: {{form.valid}}
+  <div *ngIf="selectedCourseId"> selectedCourse is: {{selectedCourseId}}</div>
 
 </div>

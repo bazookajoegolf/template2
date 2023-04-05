@@ -29,8 +29,8 @@ export class CoursesComponent implements OnInit, OnChanges {
 
 @Input()
   selectedCourse: Course;
-@Input()
-  newCourse: string;
+// @Input()
+//   newCourse: string;
 @Input()
   selectedCourseId: string;
 
@@ -47,7 +47,7 @@ export class CoursesComponent implements OnInit, OnChanges {
       city: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(50)]),
       country: new UntypedFormControl('', [Validators.required]),
       url: new UntypedFormControl('', []),
-      createDate: new UntypedFormControl('', [Validators.required]),
+      createDate: new UntypedFormControl('', []),
       active: new UntypedFormControl('', [Validators.required]),
       description: new UntypedFormControl('', []),
       coursenames : new UntypedFormControl('[]', []),
@@ -62,13 +62,14 @@ export class CoursesComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    console.log("courses on changes occurred");
+    //console.log("courses on changes occurred");
     this.course=null;
     
     if(this.selectedCourseId == "newcourse") {
       this.course = this.blankCourse();
         this.selectCourse( this.blankCourse());
     } else if (this.selectedCourseId){
+      console.log("selected course id:  " + this.selectedCourseId);
       this.getCoursebyId(this.selectedCourseId) ;
     }
   }
@@ -155,9 +156,9 @@ export class CoursesComponent implements OnInit, OnChanges {
   onCancel() {
     this.form.disable();
      this.newMode=false;
-     if(this.newCourse) {
-      this.blankCourse();
-     }
+    //  if(this.newCourse) {
+    //   this.blankCourse();
+    //  }
         // console.log(this.dd.nativeElement.innerText);
 
   }
@@ -175,16 +176,16 @@ export class CoursesComponent implements OnInit, OnChanges {
       coursenames : this.form.value.coursenames,
       teecolors : this.form.value.teecolors
     }
- 
-    if(this.selectCourse) {
+   
+    if(this.selectedCourseId !="newcourse") {
       this.courses.updateCourse(this.id,post)
       .subscribe(response => {
         this.alert.success("Settings Saved!");
-        this.form.disable();
-        this.editMode=false;
-        console.log("in courses, should be sending the post.name from update:  " + post.name);
-        this.fromChild.emit(post.name);
-        this.newCourse="";
+       // this.form.disable();
+       // this.editMode=false;
+       // console.log("in courses, should be sending the response.name from update:  " + JSON.stringify(response));
+        this.fromChild.emit({name:response.course ,updateCourse:true});
+       // this.newCourse="";
      //   //this.getCourses();
       },
         (error) => {
@@ -197,11 +198,11 @@ export class CoursesComponent implements OnInit, OnChanges {
     else {
       this.courses.saveCourse(post)
       .subscribe(response => {
-        this.alert.success("Settings Saved!");
-        this.form.disable();
+        this.alert.success("New Course Saved!");
+       // this.form.disable();
        // this.editMode=false;
-       console.log("in courses, should be sending the post.name  " + post.name);
-        this.fromChild.emit(post.name);
+       //console.log("saving a new course, returned value is   " + JSON.stringify(response.course));
+        this.fromChild.emit({name:post,updateCourse:false});
     //    this.getUpdate.emit("Saved!");
         //this.getCourses();
 
