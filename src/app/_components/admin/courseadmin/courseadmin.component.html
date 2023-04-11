@@ -10,7 +10,7 @@
       <td>
         <mat-form-field id="courseDropDown" appearance="outline">
           <mat-label>Course</mat-label>
-          <select matNativeControl #dd id="dd" (change)="selectCourse($event)">
+          <select matNativeControl #dd id="dd" [value]="name" (change)="selectCourse($event)">
             <option value="blank"></option>
             <option value="newcourse" #x [selected]="newCourse==x.value">New Course</option>
             <option *ngFor="let option of course" [value]="option._id" [selected]="selectCourseId === option._id">
@@ -24,6 +24,28 @@
     </tr>
   </table>
 
+  <!-- <table id="drpDown" cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field id="courseDropDown" appearance="outline">
+          <mat-label>Course</mat-label>
+          <select matNativeControl #dd id="dd" (change)="selectCourse($event)">
+            <option value="blank"></option>
+            <option value="newcourse" #x [selected]="newCourse==x.value">New Course</option>
+            <option *ngFor="let option of course" [value]="option._id" [selected]="selectCourseId === option._id">
+              {{ option.name }}</option>
+
+          </select>
+        </mat-form-field>
+
+        <mat-checkbox class="chk-box" id="active" [checked]="active" (click)="activeCheck()">Active</mat-checkbox>
+      </td>
+    </tr>
+  </table> -->
+
+
+
+
   <mat-tab-group dynamicHeight class="container" [selectedIndex]="indexnumber" #tg
     (selectedIndexChange)="tabchange($event)" mat-stretch-tabs="false" mat-align-tabs="start">
     <mat-tab label="Course Information">
@@ -31,7 +53,7 @@
         [selectedCourseId]="selectedCourseId">
       </app-courses>
     </mat-tab>
-    <mat-tab label="ScoreCard">
+    <mat-tab [disabled]="activesctab" label="ScoreCard">
 
       <app-scorecardadmin [selectedCourse]="selectedCourse" (fromScorecard)="fromScorecard($event)">
       </app-scorecardadmin>
@@ -41,5 +63,6 @@
     </mat-tab>
 
   </mat-tab-group>
+
 </ng-container>
 <!-- <p>Index number: {{tg._indexToSelect}}</p> -->

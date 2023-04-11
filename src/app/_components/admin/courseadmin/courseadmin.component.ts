@@ -16,7 +16,7 @@ export class CourseAdminComponent implements OnInit, OnChanges{
   //course: Course[];
   form:UntypedFormGroup;
   course: Course[];
-  chosenCourse:string;
+ // chosenCourse:string;
   selectedCourse: Course;
   selectedCourseId: string;
   newCourse:string;
@@ -29,6 +29,7 @@ export class CourseAdminComponent implements OnInit, OnChanges{
   active:boolean;
 
   activetab=true;
+  activesctab=true;
 
   indexnumber=0;
   
@@ -86,16 +87,19 @@ export class CourseAdminComponent implements OnInit, OnChanges{
   selectCourse(event: Event) {
 
     this.id = (event.target as HTMLSelectElement).value;
-    console.log("courseadmin id pushed to courses:  " + this.id);
+    console.log("courseadmin event  ");
     this.indexnumber=0;
-    this.chosenCourse=this.name;
-   
-    if(this.name=="newcourse") {
+   // this.chosenCourse=this.name;
+  
+    if(this.id=="newcourse") {
       this.selectedCourseId="newcourse";
-   //   console.log("course id sent from courseadmin to courses:  " + this.selectedCourseId);
+      console.log("select course event, if new activesctab should turn true");
+      this.activesctab=true;
+      console.log("activesctab  " + this.activesctab);
 
     } else {
       this.selectedCourseId=this.id;
+      this.activesctab=false;
      // console.log("course id sent from courseadmin to courses:  " + this.selectedCourseId);
       const x = this.course.find(o => o._id == this.id);
      // this.newCourse="";
@@ -134,6 +138,7 @@ export class CourseAdminComponent implements OnInit, OnChanges{
     // console.log("in fromCourseChild selectedCourse pushed: " + JSON.stringify(x.name));
      this.selectedCourseId = x.name._id;
      this.selectedCourse = x.name;
+     this.id = x.name._id;
     //console.log("in fromCourseChild, value of selectedCourse after assignment " + JSON.stringify(this.selectedCourse));
 
     // this.option._id= this.selectedCourse._id;

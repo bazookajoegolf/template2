@@ -3,11 +3,12 @@ import { filter } from 'rxjs/operators';
 import { CourseAdminComponent } from './../courseadmin/courseadmin.component';
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl,FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 import {Course} from '../../../assets/interfaces/interfaces';
 import { CoursesService } from '../../../services/courses.service';
 import { AlertService } from './../../../services/alert.service';
+
 //import { outputAst } from '@angular/compiler';
 
 //import { TEECOLORS } from 'src/app/assets/data/teecolors';
@@ -57,8 +58,8 @@ export class TeesComponent implements OnInit, OnChanges {
       gender     : new UntypedFormControl('', [Validators.required]),
       holes18    : new UntypedFormControl('', []),
       partotal   : new UntypedFormControl('', []),
-      slope	     : new UntypedFormControl('', [Validators.required]),
-      rating     : new UntypedFormControl('', [Validators.required]),
+      slope	     : new UntypedFormControl('', [Validators.required,Validators.pattern('^[0-9]*(\.)?([0-9]{1})?$')]),
+      rating     : new UntypedFormControl('', [Validators.required,Validators.pattern('^[0-9]*(\.)?([0-9]{1})?$')]),
       teeactive   : new UntypedFormControl('', []),
       front9p     : new UntypedFormControl('', []),
       back9p     : new UntypedFormControl('', []),
@@ -66,60 +67,60 @@ export class TeesComponent implements OnInit, OnChanges {
       front9y     : new UntypedFormControl('', []),
       back9y    : new UntypedFormControl('', []),
       totaly     : new UntypedFormControl('', []),
-      p1: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p2: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p3: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p4: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p5: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p6: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p7: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p8: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p9: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p10: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p11: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p12: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p13: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p14: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p15: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p16: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p17: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      p18: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9)]),
-      yd1: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd2: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd3: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd4: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd5: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd6: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd7: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd8: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd9: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd10: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd11: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd12: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd13: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd14: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd15: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd16: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd17: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      yd18: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999)]),
-      h1: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h2: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h3: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h4: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h5: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h6: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h7: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h8: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h9: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h10: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h11: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h12: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h13: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h14: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h15: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h16: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h17: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)]),
-      h18: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18)])
+      p1: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p2: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p3: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p4: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p5: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p6: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p7: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p8: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p9: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p10: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p11: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p12: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p13: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p14: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p15: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p16: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p17: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      p18: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(9),Validators.pattern('^[0-9]*$')]),
+      yd1: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd2: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd3: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd4: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd5: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd6: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd7: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd8: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd9: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd10: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd11: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd12: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd13: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd14: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd15: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd16: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd17: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      yd18: new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(999),Validators.pattern('^[0-9]*$')]),
+      h1: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h2: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h3: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h4: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h5: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h6: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h7: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h8: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h9: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h10: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h11: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h12: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h13: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h14: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h15: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h16: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h17: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')]),
+      h18: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(18),Validators.pattern('^[0-9]*$')])
 
     });
   }
@@ -128,14 +129,17 @@ export class TeesComponent implements OnInit, OnChanges {
    // this.form.reset();
     this.selectedTeeColors=this.selectedCourse?.teecolors;
     if(this.pushedTee?.isNew==false) {
-     this.form.get('coursename')?.disable();
-     this.form.get('gender')?.disable();
-     this.form.get('teebox')?.disable();
       this.teeid = this.pushedTee.tee._id;
-      this.selectedCourse = this.pushedTee.sc;     
+      this.selectedCourse = this.pushedTee.sc;   
+      
       this.fillForm(this.pushedTee.tee, "all");
       this.ku_yards();
       this.ku_par();
+      this.selectedTeeColors.push(this.selectedCourse.teebox );
+      this.form.get('coursename').disable();
+      this.form.get('gender').disable();
+      this.form.get('teebox').disable();
+
      // console.log("in tee, checking to see if i have all the tees:  " + this.selectedCourse?.tees[0].coursename);
      // console.log("in tee component, tee has been pushed, on changes, what is the current course id:  " + this.selectedCourse._id);
       
@@ -143,23 +147,37 @@ export class TeesComponent implements OnInit, OnChanges {
 
     if(this.pushedTee?.isNew==true) {
       this.form.reset();
-      this.selectedCourse = this.pushedTee.sc;
-      this.form.get('coursename')?.enable();
-      this.form.get('gender')?.disable();
-      this.form.get('teebox')?.disable();
-      this.teeid = "new";
-     // this.pushedTee=null;
-      this.inp9=null;
-      this.outp9=null;
-      this.outy9=null;
-      this.iny9=null;
-      this.ptotal=null;
-      this.ytotal=null;
+      this.resetNewForm();
+    //   this.selectedCourse = this.pushedTee.sc;
+    //   this.form.get('coursename')?.enable();
+    //   this.form.get('gender')?.disable();
+    //   this.form.get('teebox')?.disable();
+    //   this.teeid = "new";
+    //  // this.pushedTee=null;
+    //   this.inp9=null;
+    //   this.outp9=null;
+    //   this.outy9=null;
+    //   this.iny9=null;
+    //   this.ptotal=null;
+    //   this.ytotal=null;
           
     }
 
   }
+  resetNewForm() { 
+    this.selectedCourse = this.pushedTee.sc;
+    this.form.get('coursename')?.enable();
+    this.form.get('gender')?.disable();
+    this.form.get('teebox')?.disable();
+    this.teeid = "new";
+    this.inp9=null;
+    this.outp9=null;
+    this.outy9=null;
+    this.iny9=null;
+    this.ptotal=null;
+    this.ytotal=null;
 
+  }
 
   ku_yards() {
     this.outy9 = parseInt(this.form.value.yd1) + parseInt(this.form.value.yd2) + parseInt(this.form.value.yd3)+
@@ -174,7 +192,6 @@ export class TeesComponent implements OnInit, OnChanges {
      this.form.patchValue({ 'back9y': this.iny9});
      this.form.patchValue({ 'totaly': this.ytotal});
 
-     console.log(this.iny9);
     
   }
 
@@ -197,7 +214,7 @@ export class TeesComponent implements OnInit, OnChanges {
 
 
   filterTee(j,k) {
-    //console.log("filter tee firing "+ j.value);
+    console.log("filter tee firing "+ j.value);
     if(k==1) {
      // console.log("filterTee triggered on coursename " + j.value);
       this.selectedCourseName = j.value;
@@ -321,22 +338,21 @@ export class TeesComponent implements OnInit, OnChanges {
     );
 
   }
-  // disabled apr 4....not needed?
-  // enumCourses(coursearray:Course) {
-  //   if(coursearray) {
-  //     let post=[];
-  //     for(var i=0;i < coursearray.tees.length;i++) {
-  //             post.push( {coursename: coursearray.tees[i].coursename,
-  //             teebox: coursearray.tees[i].teebox,
-  //             gender: coursearray.tees[i].gender
-             
-  //           });
-  //   }
-  //   this.coursenames = post;
-  //  // console.log(this.coursenames);
-  // }
-  // }
 
+  cancelBtn() {
+    console.log("cancel button pushed, value of pushedTee" + this.pushedTee.isNew);
+    if(this.pushedTee?.isNew==true) {
+      this.form.reset();
+      this.resetNewForm();
+    }
+    else {
+      this.fillForm(this.pushedTee.tee, "all");
+      this.ku_yards();
+      this.ku_par();
+      this.form.patchValue({ 'teebox': this.pushedTee.tee.teebox });  
+    }
+  }
+  
   findUsableTee(g,c) {
     let ar=[];
     for(let i=0;i < this.selectedCourse.teecolors.length;i++) {
@@ -361,7 +377,7 @@ export class TeesComponent implements OnInit, OnChanges {
 
   fillForm(x:any,y:string ) {
     let ar=[];
-    console.log("is new or all  " +y); 
+    //console.log("is new or all  " +y); 
    
     if(1){
       // console.log("length of selectedcourse tees array" + this.selectedCourse?.tees.length);
@@ -370,8 +386,9 @@ export class TeesComponent implements OnInit, OnChanges {
       
       
       if(y=="all") {
-        this.form.patchValue({ 'coursename': x.coursename });
         this.form.patchValue({ 'teebox': x.teebox });
+        this.form.patchValue({ 'coursename': x.coursename });
+  
         this.form.patchValue({ 'teeactive': x.teeactive});
         this.form.patchValue({ 'gender': x.gender});
         this.form.patchValue({ 'slope': x.slope });
@@ -402,7 +419,7 @@ export class TeesComponent implements OnInit, OnChanges {
         let j = null;
         let i = 0;
         while ( this.selectedCourse?.tees.length > i) {
-          console
+          
           if(this.selectedCourse?.tees[i].coursename == this.selectedCourseName && !j){
             console.log("a course with a similar name to new tee choice was found. i value is:  " + i );
             j=true;

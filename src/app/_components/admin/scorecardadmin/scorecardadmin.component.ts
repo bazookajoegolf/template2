@@ -53,7 +53,7 @@ export class ScorecardadminComponent implements OnChanges {
     this.ult=[];
     this.teeboxColor=[];
     this.courseNames=[]; // courseNames is the main out loop in html page
-    if(this.selectedCourse?.tees.length) {
+    if(this.selectedCourse.tees?.length) {
     for(let i=0; i < this.selectedCourse?.tees.length;i++) {
       //console.log (this.selectedCourse.tees[i]._id);
       let x = this.checkColor(this.selectedCourse?.tees[i].teebox);
@@ -138,7 +138,7 @@ export class ScorecardadminComponent implements OnChanges {
     return v;
   }
   sendTee(x){
-   // console.log("tee being sent " + JSON.stringify(x));
+   //console.log("tee being sent " + JSON.stringify(x));
     this.fromScorecard.emit({tabNum:this.tabNumber=2,tee:x,isNew:false, sc:this.selectedCourse});
   }
   newTee(){

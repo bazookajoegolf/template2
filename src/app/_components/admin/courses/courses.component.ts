@@ -42,16 +42,16 @@ export class CoursesComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.form = new UntypedFormGroup({
-      name: new UntypedFormControl('', [Validators.required, Validators.min(2), Validators.max(50)]),
+      name: new UntypedFormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
       address: new UntypedFormControl('', []),
-      city: new UntypedFormControl('', [Validators.required, Validators.min(3), Validators.max(50)]),
+      city: new UntypedFormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
       country: new UntypedFormControl('', [Validators.required]),
-      url: new UntypedFormControl('', []),
+      url: new UntypedFormControl('', [Validators.required]),
       createDate: new UntypedFormControl('', []),
       active: new UntypedFormControl('', [Validators.required]),
       description: new UntypedFormControl('', []),
-      coursenames : new UntypedFormControl('[]', []),
-      teecolors : new UntypedFormControl('', []),
+      coursenames : new UntypedFormControl('[]', [Validators.required]),
+      teecolors : new UntypedFormControl('', [Validators.required]),
 
     });
    // this.form.disable();
@@ -154,8 +154,7 @@ export class CoursesComponent implements OnInit, OnChanges {
 
   }
   onCancel() {
-    this.form.disable();
-     this.newMode=false;
+    this.form.reset();
     //  if(this.newCourse) {
     //   this.blankCourse();
     //  }

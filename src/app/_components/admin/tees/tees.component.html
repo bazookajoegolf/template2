@@ -15,7 +15,7 @@
           <td id="radioGender">
             <mat-form-field appearance="outline">
               <mat-label>Course Name</mat-label>
-              <mat-select matNativeControl matNativeControl formControlName="coursename" id="coursename"
+              <mat-select matNativeControl formControlName="coursename" id="coursename"
                 (selectionChange)="filterTee($event,1)">
                 <mat-option color="black" *ngFor="let option of selectedCourse?.coursenames" [value]="option">
                   {{option}}</mat-option>
@@ -24,11 +24,15 @@
             </mat-form-field>
           </td>
           <td>
-            <button class="button" mat-icon-button [disabled]="!form.valid" type="submit" [disableRipple]="true">
+            <button style="margin-left:10px;" class="button" mat-icon-button [disabled]="!form.valid" type="submit"
+              [disableRipple]="true">
               <mat-icon class="matIconSp" matTooltip="Save" id="btn-save">save
               </mat-icon>
             </button>
-            <mat-icon class="matIconSp" matTooltip="Cancel" id="btn-cancel">cancel</mat-icon>
+            <button mat-icon-button [disableRipple]="true" type="button" (click)="cancelBtn()">
+              <mat-icon class="matIconSp" matTooltip="Cancel" id="btn-cancel" type="button">cancel
+              </mat-icon>
+            </button>
           </td>
 
         </tr>
@@ -49,9 +53,8 @@
           <td>
             <mat-form-field appearance="outline">
               <mat-label>Teebox</mat-label>
-              <mat-select matNativeControl matNativeControl formControlName="teebox" id="teebox"
-                (selectionChange)="filterTee($event,3)">
-                <mat-option color="black" *ngFor="let option of selectedTeeColors" [value]="option">
+              <mat-select matNativeControl formControlName="teebox" id="teebox">
+                <mat-option *ngFor="let option of selectedTeeColors" [value]="option">
                   {{option}}</mat-option>
                 <!-- <mat-hint align="start">Enter tde name of tde 18 hole course.</mat-hint> -->
               </mat-select>
@@ -104,8 +107,8 @@
           </tr>
           <tr>
             <td class="w6 firstcolumn">Yardage</td>
-            <td> <input type="text" id="yd1" formControlName="yd1" (keyup)="ku_yards"> </td>
-            <td> <input type="text" id="yd2" formControlName="yd2" (keyup)="ku_yards"> </td>
+            <td> <input type="text" id="yd1" formControlName="yd1"> </td>
+            <td> <input type="text" id="yd2" formControlName="yd2"> </td>
             <td> <input type="text" id="yd3" formControlName="yd3"> </td>
             <td> <input type="text" id="yd4" formControlName="yd4"> </td>
             <td> <input type="text" id="yd5" formControlName="yd5"> </td>
@@ -137,7 +140,7 @@
           </tr>
           <tr>
             <td class="w6 firstcolumn">Par</td>
-            <td class="w3"> <input type="text" #p1 id="p1" formControlName="p1"> </td>
+            <td class="w3"> <input type="text" id="p1" formControlName="p1"> </td>
             <td class="w3"> <input type="text" #p2 id="p2" formControlName="p2"> </td>
             <td class="w3"> <input type="text" #p3 id="p3" formControlName="p3"> </td>
             <td class="w3"> <input type="text" #p4 id="p4" formControlName="p4"> </td>
@@ -166,25 +169,25 @@
           </tr>
           <tr>
             <td class="w8 firstcolumn">Handicap</td>
-            <td> <input type="text" id="yd1" formControlName="h1"> </td>
-            <td> <input type="text" id="yd2" formControlName="h2"> </td>
-            <td> <input type="text" id="yd3" formControlName="h3"> </td>
-            <td> <input type="text" id="yd4" formControlName="h4"> </td>
-            <td> <input type="text" id="yd5" formControlName="h5"> </td>
-            <td> <input type="text" id="yd6" formControlName="h6"> </td>
-            <td> <input type="text" id="yd7" formControlName="h7"> </td>
-            <td> <input type="text" id="yd8" formControlName="h8"> </td>
-            <td> <input type="text" id="yd9" formControlName="h9"> </td>
+            <td> <input type="text" id="h1" formControlName="h1"> </td>
+            <td> <input type="text" id="h2" formControlName="h2"> </td>
+            <td> <input type="text" id="h3" formControlName="h3"> </td>
+            <td> <input type="text" id="h4" formControlName="h4"> </td>
+            <td> <input type="text" id="h5" formControlName="h5"> </td>
+            <td> <input type="text" id="h6" formControlName="h6"> </td>
+            <td> <input type="text" id="h7" formControlName="h7"> </td>
+            <td> <input type="text" id="h8" formControlName="h8"> </td>
+            <td> <input type="text" id="h9" formControlName="h9"> </td>
             <td class="w4"></td>
-            <td> <input type="text" id="yd10" formControlName="h10"> </td>
-            <td> <input type="text" id="yd11" formControlName="h11"> </td>
-            <td> <input type="text" id="yd12" formControlName="h12"> </td>
-            <td> <input type="text" id="yd13" formControlName="h13"> </td>
-            <td> <input type="text" id="yd14" formControlName="h14"> </td>
-            <td> <input type="text" id="yd15" formControlName="h15"> </td>
-            <td> <input type="text" id="yd16" formControlName="h16"> </td>
-            <td> <input type="text" id="yd17" formControlName="h17"> </td>
-            <td> <input type="text" id="yd18" formControlName="h18"> </td>
+            <td> <input type="text" id="h10" formControlName="h10"> </td>
+            <td> <input type="text" id="h11" formControlName="h11"> </td>
+            <td> <input type="text" id="h12" formControlName="h12"> </td>
+            <td> <input type="text" id="h13" formControlName="h13"> </td>
+            <td> <input type="text" id="h14" formControlName="h14"> </td>
+            <td> <input type="text" id="h15" formControlName="h15"> </td>
+            <td> <input type="text" id="h16" formControlName="h16"> </td>
+            <td> <input type="text" id="h17" formControlName="h17"> </td>
+            <td> <input type="text" id="h18" formControlName="h18"> </td>
             <td class="w4"></td>
             <td class="w4"></td>
             <td class="w4"></td>
@@ -195,4 +198,4 @@
     </form>
   </div>
 </div>
-coursename valid {{form.valid}}
+teebox {{selectedCourse?.teebox}}
