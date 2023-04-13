@@ -3,7 +3,9 @@ table {
     width: 90%;
     align-items: center;
     margin: auto;
+   
 }
+
 
 #headerrow {
     height: 70px;
@@ -20,10 +22,10 @@ button {
 
 
 .mat-mdc-form-field {
-    width : 600px;
+    width : 90%;
     display: block;
+    height:calc(8vh + 10px);
 }
-
 mat-card {
 
     width: 40%;
@@ -32,8 +34,8 @@ mat-card {
 
 .icn {
     margin-right: 40px;
-    font-size: 30px;
-    height:50px;
+    font-size: 28px;
+    height:32px;
     width:32px;
     margin-top: 0px;
     margin-left: -20px;
@@ -42,6 +44,11 @@ mat-card {
     display: none;
 }
 
+/* .fmrfield {
+    height: calc(15vh + 10px) !important;
+    width:40%;
+
+} */
 
 .flex-parent-element {
     /* display: flex;
@@ -56,6 +63,9 @@ mat-card {
     align-content: center;
     border: 2px solid gray;
     margin-top:15px;
+    padding-top:20px;
+    font-size: 18px;
+    height:55vh;
   
 }
 
@@ -80,6 +90,12 @@ mat-card {
     height: 150px;
 }
 
+#active {
+    margin-top:-15px;
+    margin-left:48px ;
+    line-height: 32px;
+    vertical-align:middle;
+}
 
 .mat-accordion {
     width: 90%;
@@ -116,6 +132,3 @@ input[disabled] , textarea[disabled] {
     width:100%;
 }
 
-.maindiv {
-    margin-bottom: 30px;
-}

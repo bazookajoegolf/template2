@@ -104,6 +104,7 @@ export class CourseAdminComponent implements OnInit, OnChanges{
       const x = this.course.find(o => o._id == this.id);
      // this.newCourse="";
       this.selectedCourse = x;
+     // console.log("in courses admin, value of selectedCourse " + JSON.stringify(this.selectedCourse));
     } 
   }
  
@@ -139,7 +140,8 @@ export class CourseAdminComponent implements OnInit, OnChanges{
      this.selectedCourseId = x.name._id;
      this.selectedCourse = x.name;
      this.id = x.name._id;
-    //console.log("in fromCourseChild, value of selectedCourse after assignment " + JSON.stringify(this.selectedCourse));
+     this.name = x.name.name;
+    console.log("in fromCourseChild, value of selectedCourse after assignment " + x.name.name);
 
     // this.option._id= this.selectedCourse._id;
     this.getCourses();
