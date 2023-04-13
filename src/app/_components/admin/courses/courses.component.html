@@ -1,9 +1,9 @@
 <div>
-  <div class="maindiv">
-    <!-- <div class="title">
+  <!-- <div class="maindiv">
+    <div class="title">
       <h3>Course Administration</h3>
-    </div> -->
-  </div>
+    </div>
+  </div> -->
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
@@ -12,37 +12,20 @@
     <div class="flex-parent-element">
 
       <table>
-        <tr id="headerrow">
+        <!-- <tr id="headerrow">
           <th style="font-weight:500; text-align: left;">Course: {{selectedCourse?.name}}</th>
           <th style="text-align: left;">
-            <!-- <mat-icon class="icn" matTooltip="New" (click)="onNew()" id="btn-new" *ngIf="form.disabled">open_in_new
-            </mat-icon> -->
-            <div class="actionPanel">
-              <button mat-icon-button [disabled]="!form.valid" [disableRipple]="true">
-                <mat-icon class="icn" matTooltip="Save" id="btn-save" type="submit" (click)="onSubmit()"
-                  *ngIf="!form.disabled || newMode">save
-                </mat-icon>
-              </button>
-              <mat-icon class="icn" matTooltip="Edit" id="btn-edit" (click)="onEdit()" *ngIf="form.disabled && name">
-                edit
-              </mat-icon>
-              <mat-icon class="icn" matTooltip="Cancel" id="btn-cancel" (click)="onCancel()"
-                *ngIf="!form.disabled || newMode">cancel
-              </mat-icon>
-            </div>
-            <!-- <mat-icon matTooltip="Delete" id="btn-delete" (click)="onDelete()" *ngIf="form.disabled && name">delete
-            </mat-icon> -->
           </th>
-        </tr>
+        </tr> -->
         <tr>
           <td>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" class="frmfield">
               <mat-label>Name: </mat-label>
-              <input matInput type="text" id="name" formControlName="name">
+              <input matInput type="text" id="name" formControlName="name" class="frmfield">
             </mat-form-field>
           </td>
           <td>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" class="frmfield">
               <mat-label>Website: </mat-label>
               <input matInput type="text" id="url" formControlName="url">
               <!-- <mat-hint align="end">Enter link to Website</mat-hint> -->
@@ -64,24 +47,7 @@
             </mat-form-field>
           </td>
         </tr>
-        <tr>
-          <td>
-            <div id="radioCountry">
-              <mat-radio-group aria-label="Enter Gender" id="country" formControlName="country">
-                <mat-radio-button color="primary" value="canada">Canada</mat-radio-button>
-                <mat-radio-button color="accent" value="usa">U.S.A.</mat-radio-button>
-                <mat-radio-button color="accent" value="other">Other</mat-radio-button>
-                <!-- <mat-error *ngIf="f.gender.errors?.required && (f.gender.dirty)">Gender Required</mat-error> -->
-              </mat-radio-group>
-            </div>
-          </td>
-          <td>
-            <mat-checkbox class="chk-box" id="active" formControlName="active">Active: </mat-checkbox>
-          </td>
-          <td>
 
-          </td>
-        </tr>
         <tr>
           <td>
             <mat-form-field appearance="outline">
@@ -96,10 +62,12 @@
                 </mat-chip-row>
               </mat-chip-grid>
               <input placeholder="Course Name" [matChipInputFor]="chipGrid" (matChipInputTokenEnd)="add($event)" />
-              <mat-hint>Enter a course name if course has multiple 18 hole courses</mat-hint>
+              <mat-hint>Enter course name(s)</mat-hint>
             </mat-form-field>
+
           </td>
           <td>
+
             <mat-form-field appearance="outline">
               <mat-label>Tee Colors </mat-label>
               <mat-chip-grid #chipGrid2 aria-label="Enter keywords" formControlName="teecolors">
@@ -114,16 +82,52 @@
               <input placeholder="Tee Colors..." [matChipInputFor]="chipGrid2" (matChipInputTokenEnd)="add2($event)" />
               <mat-hint>Enter Tee Colors</mat-hint>
             </mat-form-field>
+
           </td>
         </tr>
         <tr>
 
-          <td colspan="2" rows="5">
+          <td colspan="1" rows="4">
             <mat-form-field appearance="outline">
               <mat-label>Description: </mat-label>
               <textarea matInput type="text" id="description" formControlName="description"></textarea>
             </mat-form-field>
           </td>
+
+          <td>
+        <tr>
+          <td>
+            <div id="radioCountry">
+              <mat-radio-group aria-label="Enter Gender" id="country" formControlName="country">
+                <mat-radio-button color="primary" value="canada">Canada</mat-radio-button>
+                <mat-radio-button color="accent" value="usa">U.S.A.</mat-radio-button>
+                <mat-radio-button color="accent" value="other">Other</mat-radio-button>
+                <!-- <mat-error *ngIf="f.gender.errors?.required && (f.gender.dirty)">Gender Required</mat-error> -->
+              </mat-radio-group>
+            </div>
+          </td>
+        </tr>
+        <tr style="text-align:left;">
+          <td>
+            <div style="margin-left:10px;">
+              <button style="margin-right:15px;" mat-icon-button [disabled]="!form.valid" [disableRipple]="true">
+                <mat-icon class="icn" matTooltip="Save" id="btn-save" type="submit" (click)="onSubmit()"
+                  *ngIf="!form.disabled || newMode">save
+                </mat-icon>
+              </button>
+              <!-- <mat-icon class="icn" matTooltip="Edit" id="btn-edit" (click)="onEdit()" *ngIf="form.disabled && name">
+              edit
+            </mat-icon> -->
+              <mat-icon class="icn" matTooltip="Cancel" id="btn-cancel" (click)="onCancel()">cancel
+              </mat-icon>
+
+              <mat-checkbox id="active" formControlName="active">Active: </mat-checkbox>
+
+            </div>
+          </td>
+        </tr>
+
+
         </tr>
       </table>
     </div>

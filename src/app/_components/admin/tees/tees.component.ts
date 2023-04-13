@@ -127,15 +127,16 @@ export class TeesComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
    // this.form.reset();
-    this.selectedTeeColors=this.selectedCourse?.teecolors;
+   
+    console.log("tees tee color length " + this.selectedTeeColors?.length);
     if(this.pushedTee?.isNew==false) {
       this.teeid = this.pushedTee.tee._id;
       this.selectedCourse = this.pushedTee.sc;   
-      
+      this.selectedTeeColors=this.selectedCourse?.teecolors;
       this.fillForm(this.pushedTee.tee, "all");
       this.ku_yards();
       this.ku_par();
-      this.selectedTeeColors.push(this.selectedCourse.teebox );
+      //this.selectedTeeColors.push(this.selectedCourse.teebox );
       this.form.get('coursename').disable();
       this.form.get('gender').disable();
       this.form.get('teebox').disable();
@@ -146,6 +147,7 @@ export class TeesComponent implements OnInit, OnChanges {
     } 
 
     if(this.pushedTee?.isNew==true) {
+      
       this.form.reset();
       this.resetNewForm();
     //   this.selectedCourse = this.pushedTee.sc;
@@ -386,6 +388,7 @@ export class TeesComponent implements OnInit, OnChanges {
       
       
       if(y=="all") {
+        console.log("in teesComp, value of teebox: " + x.teebox);
         this.form.patchValue({ 'teebox': x.teebox });
         this.form.patchValue({ 'coursename': x.coursename });
   
