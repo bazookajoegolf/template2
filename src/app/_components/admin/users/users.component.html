@@ -146,16 +146,29 @@
             </mat-radio-group>
           </div>
 
-          <mat-card-actions class="button-section">
-            <!-- <button mat-icon matTooltip="Save" type=submit>save</mat-icon> -->
-            <mat-icon (click)="onSubmit()">save</mat-icon>
+          <!-- <button mat-icon matTooltip="Save" type=submit>save</mat-icon> -->
+          <div style="text-align:left;margin-left:10px">
+            <button mat-icon-button matTooltip="Save" type="submit" [disableRipple]="true">
+              <mat-icon>save</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Cancel" [disableRipple]="true" (click)="opened = !opened;">
+              <mat-icon>cancel</mat-icon>
+            </button>
 
-            <button mat-raised-button color="accent" (click)="opened = !opened;">Cancel</button>
+            <button mat-icon-button matTooltip="Delete" [disableRipple]="true" *ngIf="action != 'new'" type="button"
+              [disabled]="delStatus" (click)="onDelete()">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <!-- <button mat-raised-button color="accent" (click)="opened = !opened;">Cancel</button>
             <button mat-raised-button color="warn" *ngIf="action != 'new'" [disabled]="delStatus"
-              (click)="onDelete('delete')">Delete</button>
-            <mat-checkbox id="ckk-confirm" [checked]="chkEnabled" *ngIf="action == 'edit'" (click)="onCheck()">Delete
+              (click)="onDelete('delete')">Delete</button> -->
+
+            <mat-checkbox id="chk-confirm" matTooltip="Enable Delete" [checked]="chkEnabled" *ngIf="action == 'edit'"
+              (click)="onCheck()">Delete
               Account</mat-checkbox>
-          </mat-card-actions>
+
+          </div>
+
 
         </form>
         <h2>{{disableCheck}}</h2>

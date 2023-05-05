@@ -3,7 +3,7 @@ import { CoursesService } from '../../../services/courses.service';
 import { AlertService } from './../../../services/alert.service';
 import { Router } from '@angular/router';
 import {Course} from '../../../assets/interfaces/interfaces';
-import { FormControl,UntypedFormGroup} from '@angular/forms';
+import { UntypedFormControl,UntypedFormGroup} from '@angular/forms';
 
 
 @Component({
@@ -15,6 +15,7 @@ export class CourseAdminComponent implements OnInit, OnChanges{
 
   //course: Course[];
   form:UntypedFormGroup;
+
   course: Course[];
  // chosenCourse:string;
   selectedCourse: Course;
@@ -41,6 +42,11 @@ export class CourseAdminComponent implements OnInit, OnChanges{
    this.active=true; 
    //this.chosenCourse="Maple Ridge";
    this.getCourses();
+
+   this.form = new UntypedFormGroup({
+    coursename : new UntypedFormControl('', []),
+
+  })
 
  
    
@@ -84,10 +90,13 @@ export class CourseAdminComponent implements OnInit, OnChanges{
     //this.newCourse = "blah";
   }
   
-  selectCourse(event: Event) {
+  selectCourse(event) {
 
-    this.id = (event.target as HTMLSelectElement).value;
-    console.log("courseadmin event  ");
+    /////this.id = (event.target as HTMLSelectElement).value;
+    console.log("courseadmin event  " + event.value);
+    console.log("event value "+ event);
+    this.id = event.value;
+    this.selectedCourseId = this.id;
     this.indexnumber=0;
    // this.chosenCourse=this.name;
   
@@ -98,7 +107,7 @@ export class CourseAdminComponent implements OnInit, OnChanges{
       console.log("activesctab  " + this.activesctab);
 
     } else {
-      this.selectedCourseId=this.id;
+     // this.selectedCourseId=this.id;
       this.activesctab=false;
      // console.log("course id sent from courseadmin to courses:  " + this.selectedCourseId);
       const x = this.course.find(o => o._id == this.id);
@@ -137,14 +146,17 @@ export class CourseAdminComponent implements OnInit, OnChanges{
    //  this.chosenCourse=x.name.name;
      //console.log("in fromCourseChild chosen name: " + x.name.name);
     // console.log("in fromCourseChild selectedCourse pushed: " + JSON.stringify(x.name));
+    this.getCourses();
      this.selectedCourseId = x.name._id;
      this.selectedCourse = x.name;
+     this.activesctab=false;
      this.id = x.name._id;
      this.name = x.name.name;
-    console.log("in fromCourseChild, value of selectedCourse after assignment " + x.name.name);
+     this.form.patchValue({ 'coursename': this.name });
+     console.log("in fromCourseChild, value of selectedCourse after assignment " + x.name.name);
 
     // this.option._id= this.selectedCourse._id;
-    this.getCourses();
+    
   //  console.log("in fromcoursechild, checking item 0 for a to see name and id are valid fields " + this.course[0].name + "  " + this.course[0]._id);
   //  console.log("in fromCourseChild, checking if this is an update, should be false on new course  " + x.updateCourse);
 

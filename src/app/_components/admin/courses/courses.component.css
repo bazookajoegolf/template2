@@ -1,11 +1,12 @@
 
+
 table {
     width: 90%;
     align-items: center;
     margin: auto;
+    table-layout: fixed;
    
 }
-
 
 #headerrow {
     height: 70px;
@@ -24,13 +25,15 @@ button {
 .mat-mdc-form-field {
     width : 90%;
     display: block;
-    height:calc(8vh + 10px);
+
 }
-mat-card {
+
+
+/* mat-card {
 
     width: 40%;
     margin:40px;
-}
+} */
 
 .icn {
     margin-right: 40px;
@@ -64,8 +67,8 @@ mat-card {
     border: 2px solid gray;
     margin-top:15px;
     padding-top:20px;
-    font-size: 18px;
-    height:55vh;
+    font-size: 16px;
+    height:600px;
   
 }
 

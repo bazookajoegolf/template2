@@ -1,0 +1,299 @@
+<ng-container id="container">
+
+  <div class="topdiv">
+    <div *ngIf='courseTee'>
+      <span class="spanitem holecolor"
+        style="width:calc(8%) !important;text-align: left !important;padding-left:5px">Hole
+      </span>
+      <span *ngFor="let myObj of numbers;let h=index; ">
+        <span class="spanitem holecolor" *ngIf="h < 9">{{h+1}}</span>
+      </span>
+      <span class="spanitem holecolor" style="width:calc(4%) !important;">Out
+      </span>
+      <span *ngFor="let myObj of numbers;let h=index; ">
+        <span class="spanitem holecolor " *ngIf="h >= 9 && h <= 17">{{h+1}}</span>
+      </span>
+      <span class="spanitem holecolor" style="width:4% !important;">In
+      </span>
+      <span class="spanitem holecolor" style="width: 4%!important;">Total
+      </span>
+      <span class="spanitem holecolor" style="width:4% !important;">Slope
+      </span>
+      <span class="spanitem holecolor" style="width:4% !important;">Rating
+      </span>
+    </div>
+    <div *ngIf='courseTee'>
+      <span [style.background-color]="bgcolor" class="spanitem"
+        style="width:8% !important;text-align: left !important;padding-left:5px">{{ courseTee.tee.teebox}}
+      </span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd1}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd2}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd3}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd4}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd5}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd6}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd7}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd8}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd9}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem "
+        style="width:calc(4%) !important;">{{  courseTee.tee?.front9y}}
+      </span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd10}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd11}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd12}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd13}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd14}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd15}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd16}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd17}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd18}}</span>
+      <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">{{  courseTee.tee.back9y}}
+      </span>
+      <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{  courseTee.tee.totaly}}
+      </span>
+      <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">{{  courseTee.tee.slope}}
+      </span>
+      <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">{{  courseTee.tee.rating}}
+      </span>
+    </div>
+    <!-- Beginning of If courseTee -->
+    <div *ngIf='courseTee'>
+      <!-- Beginning of data entry Par -->
+      <div>
+        <span [style.background-color]="bgcolor" class="spanitem"
+          style="width:8% !important;text-align: left !important;padding-left:5px">Par
+        </span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p1}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p2}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p3}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p4}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p5}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p6}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p7}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p8}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p9}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem "
+          style="width:calc(4%) !important;">{{  courseTee.tee?.front9p}}
+        </span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p10}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p11}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p12}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p13}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p14}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p15}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p16}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p17}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p18}}</span>
+        <span [style.background-color]="bgcolor" class="spanitem "
+          style="width:4% !important;">{{  courseTee.tee.back9p}}
+        </span>
+        <span [style.background-color]="bgcolor" class="spanitem "
+          style="width:4%!important;">{{  courseTee.tee.totalp}}
+        </span>
+        <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
+        </span>
+        <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
+        </span>
+      </div>
+      <!-- end of data entry PAR -->
+      <!-- Begining of data entry SCORE -->
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+          <span [style.background-color]="bgcolor" class="spanitem"
+            style="width:8% !important;text-align: left !important;padding-left:5px">Score
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s1"
+              formControlName="s1"></span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p2}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p3}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p4}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p5}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p6}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p7}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p8}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p9}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:calc(4%) !important;">{{  courseTee.tee?.front9p}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p10}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p11}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p12}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p13}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p14}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p15}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p16}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p17}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p18}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:4% !important;">{{  courseTee.tee.back9p}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:4%!important;">{{  courseTee.tee.totalp}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
+          </span>
+        </div>
+        <!-- End of data entry SCORE -->
+
+        <!-- Begining of data entry FAIRWAY -->
+        <div>
+          <span [style.background-color]="bgcolor" class="spanitem"
+            style="width:8% !important;text-align: left !important;padding-left:5px">Fairways
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p1}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p2}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p3}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p4}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p5}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p6}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p7}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p8}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p9}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:calc(4%) !important;">{{  courseTee.tee?.front9p}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p10}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p11}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p12}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p13}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p14}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p15}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p16}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p17}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p18}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:4% !important;">{{  courseTee.tee.back9p}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:4%!important;">{{  courseTee.tee.totalp}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
+          </span>
+        </div>
+        <!-- End of data entry FAIRWAY -->
+
+        <!-- Begining of data entry GREENS -->
+        <div>
+          <span [style.background-color]="bgcolor" class="spanitem"
+            style="width:8% !important;text-align: left !important;padding-left:5px">Greens
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p1}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p2}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p3}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p4}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p5}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p6}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p7}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p8}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p9}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:calc(4%) !important;">{{  courseTee.tee?.front9p}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p10}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p11}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p12}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p13}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p14}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p15}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p16}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p17}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p18}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:4% !important;">{{  courseTee.tee.back9p}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:4%!important;">{{  courseTee.tee.totalp}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
+          </span>
+        </div>
+        <!-- End of data entry GREENS -->
+        <!-- Begining of data entry PUTTS -->
+        <div>
+          <span [style.background-color]="bgcolor" class="spanitem"
+            style="width:8% !important;text-align: left !important;padding-left:5px">Putts
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p1}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p2}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p3}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p4}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p5}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p6}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p7}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p8}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p9}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:calc(4%) !important;">{{  courseTee.tee?.front9p}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p10}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p11}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p12}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p13}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p14}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p15}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p16}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p17}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p18}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:4% !important;">{{  courseTee.tee.back9p}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:4%!important;">{{  courseTee.tee.totalp}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
+          </span>
+        </div>
+        <!-- End of data entry PUTTS -->
+        <!-- Begining of data entry PENALTIES -->
+        <div>
+          <span [style.background-color]="bgcolor" class="spanitem"
+            style="width:8% !important;text-align: left !important;padding-left:5px">Penalty
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p1}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p2}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p3}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p4}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p5}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p6}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p7}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p8}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p9}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:calc(4%) !important;">{{  courseTee.tee?.front9p}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p10}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p11}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p12}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p13}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p14}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p15}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p16}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p17}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p18}}</span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:4% !important;">{{  courseTee.tee.back9p}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:4%!important;">{{  courseTee.tee.totalp}}
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
+          </span>
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
+          </span>
+        </div>
+        <!-- End of data entry PENALTIES -->
+      </form>
+    </div>
+
+    <!-- End of If courseTee -->
+  </div>
+
+</ng-container>

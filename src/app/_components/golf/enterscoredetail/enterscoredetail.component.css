@@ -1,0 +1,39 @@
+
+#container {
+ 
+    margin: auto;
+}
+
+.topdiv {
+    margin:auto;
+    width:85%;
+    margin-top:30px;
+
+ 
+   
+}
+
+.spanitem {
+    display: inline-block; 
+    line-height:36px; 
+    min-width: 15px;
+    height:36px; 
+    width:calc(3%);
+    border:1px solid rgb(67, 61, 61);
+    vertical-align: top;
+    
+}
+
+.emptyspan {
+    display: inline-block; 
+    color:white;
+    height:36px;
+    line-height:36px;
+    min-width: 15px;
+    border:1px solid rgb(67, 61, 61);
+    
+}
+
+.holecolor {
+    background-color:seagreen; color:white;
+}

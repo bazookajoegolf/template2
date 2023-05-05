@@ -55,14 +55,16 @@
               <mat-chip-grid #chipGrid aria-label="Enter Course Names" formControlName="coursenames">
                 <mat-chip-row *ngFor="let coursename of course?.coursenames" (removed)="removeKeyword(coursename)">
                   {{coursename}}
-                  <button matChipRemove aria-label="'remove ' + keyword">
+                  <button matChipRemove aria-label="'remove ' + coursename">
                     <mat-icon>cancel</mat-icon>
                   </button>
 
                 </mat-chip-row>
+
+                <input placeholder="Course Name" [matChipInputFor]="chipGrid"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)" />
               </mat-chip-grid>
-              <input placeholder="Course Name" [matChipInputFor]="chipGrid" (matChipInputTokenEnd)="add($event)" />
-              <mat-hint>Enter course name(s)</mat-hint>
             </mat-form-field>
 
           </td>
@@ -70,24 +72,29 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Tee Colors </mat-label>
-              <mat-chip-grid #chipGrid2 aria-label="Enter keywords" formControlName="teecolors">
+              <mat-chip-grid #chipGrid2 aria-label="Enter Tee Colors" formControlName="teecolors">
                 <mat-chip-row *ngFor="let teecolor of course?.teecolors" (removed)="removeKeyword2(teecolor)">
                   {{teecolor}}
-                  <button matChipRemove aria-label="'remove ' + keyword">
+                  <button matChipRemove aria-label="'remove ' + teecolor">
                     <mat-icon>cancel</mat-icon>
                   </button>
 
                 </mat-chip-row>
+
+                <input placeholder="Tee Colors" [matChipInputFor]="chipGrid2"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add2($event)" />
               </mat-chip-grid>
-              <input placeholder="Tee Colors..." [matChipInputFor]="chipGrid2" (matChipInputTokenEnd)="add2($event)" />
-              <mat-hint>Enter Tee Colors</mat-hint>
             </mat-form-field>
 
           </td>
         </tr>
+      </table>
+      <div style="position:absolute"></div>
+      <table>
         <tr>
 
-          <td colspan="1" rows="4">
+          <td colspan="1" rows="3">
             <mat-form-field appearance="outline">
               <mat-label>Description: </mat-label>
               <textarea matInput type="text" id="description" formControlName="description"></textarea>
@@ -115,9 +122,6 @@
                   *ngIf="!form.disabled || newMode">save
                 </mat-icon>
               </button>
-              <!-- <mat-icon class="icn" matTooltip="Edit" id="btn-edit" (click)="onEdit()" *ngIf="form.disabled && name">
-              edit
-            </mat-icon> -->
               <mat-icon class="icn" matTooltip="Cancel" id="btn-cancel" (click)="onCancel()">cancel
               </mat-icon>
 
@@ -133,7 +137,5 @@
     </div>
 
   </form>
-  form valid is: {{form.valid}}
-  <div *ngIf="selectedCourseId"> selectedCourse is: {{selectedCourseId}}</div>
-
 </div>
+<div style="padding-top:100px;"></div>

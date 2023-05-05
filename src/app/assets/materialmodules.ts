@@ -19,7 +19,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 
@@ -29,10 +30,10 @@ import {MatChipsModule} from '@angular/material/chips';
   imports: [MatButtonModule, MatCheckboxModule,MatToolbarModule, MatMenuModule,MatFormFieldModule,MatCardModule, 
             MatInputModule, MatListModule,MatTableModule,MatDialogModule, MatGridListModule, MatIconModule,
             MatSnackBarModule,MatSidenavModule,MatRadioModule,MatExpansionModule,MatTabsModule,MatTooltipModule,
-            MatSelectModule,MatChipsModule  ],
+            MatSelectModule,MatChipsModule,MatDatepickerModule,MatNativeDateModule  ],
   exports: [MatButtonModule, MatCheckboxModule,MatToolbarModule, MatMenuModule,MatFormFieldModule, MatCardModule,
             MatInputModule, MatListModule,MatTableModule,MatDialogModule, MatGridListModule, MatIconModule,
             MatSnackBarModule,MatSidenavModule,MatRadioModule,MatExpansionModule,MatTabsModule,MatTooltipModule,
-            MatSelectModule,MatChipsModule  ],
+            MatSelectModule,MatChipsModule,MatDatepickerModule,MatNativeDateModule  ],
 })
 export class CustomMaterialModule { }

@@ -1,0 +1,35 @@
+
+
+#topdiv {
+    margin-left: 10%;
+    margin-top:0px;
+}
+#formControl {
+ margin-top: 20px;
+}
+#courseDropDown {
+ width: 400px;
+ margin-top: 20px;
+ 
+}
+
+#teeDropDown {
+    width: 400px;
+    margin-top: 10px;
+    
+   }
+
+#radioCountry {
+    display: flex;
+    align-items: flex-start;
+}
+
+mat-radio-group {
+    margin-left: 30px;
+    
+}
+#linebreak {
+    width:90%;
+    border: 1px solid grey;
+
+}

@@ -1,14 +1,17 @@
 
 
 .currentuser {
-    font-size: 12px;
+    font-size: 14px;
     text-transform: capitalize;
     margin-right: 10px;
     margin-left: auto;
+    color:white;
 }
 
 a {
     text-decoration: none;
+    color:white;
+    
 }
 
 .mat-toolbar {
@@ -16,6 +19,8 @@ a {
     position: -webkit-sticky;
     top: 0;
     z-index: 1000;
+    background-color: cadetblue;
+    font-size: 32px;
 }
 
 .mdc-button__label {

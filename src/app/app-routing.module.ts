@@ -18,6 +18,9 @@ import {CourseAdminComponent} from './_components/admin/courseadmin/courseadmin.
 import {UsersComponent}  from './_components/admin/users/users.component';
 import { SettingsComponent } from './_components/admin/settings/settings.component';
 
+import { GolfmainComponent } from './_components/golf/golfmain/golfmain.component';
+import { EnterscoreComponent } from './_components/golf/enterscore/enterscore.component';
+import { GolfstatsComponent } from './_components/golf/golfstats/golfstats.component';
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -39,6 +42,9 @@ const routes: Routes = [  { path: '', component: HomeComponent },
 {path:'admincourses', component:CourseAdminComponent, canActivate: [AdminGuard]},
 // {path:'adminusers', component:AdminusersComponent, canActivate: [AdminGuard]},
 {path:'adminsettings', component:SettingsComponent, canActivate: [AdminGuard]},
+{ path: 'golfmain', component: GolfmainComponent , canActivate: [AuthGuard]},
+{ path: 'enterscore', component: EnterscoreComponent , canActivate: [AuthGuard]},
+{ path: 'golfstats', component: GolfstatsComponent , canActivate: [AuthGuard]},
 { path: '', redirectTo: '/', pathMatch: 'full'}];
 
 @NgModule({

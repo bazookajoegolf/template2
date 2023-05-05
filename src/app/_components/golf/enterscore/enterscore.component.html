@@ -1,0 +1,76 @@
+<ng-container>
+  <div id="topdiv">
+    <table id="drpDown" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field id="courseDropDown" appearance="outline">
+            <mat-label>Course</mat-label>
+            <mat-select [value]="" (selectionChange)="selectCourse($event)">
+              <mat-option *ngFor="let option of course" [value]="option._id" [selected]="selectCourseId === option._id">
+                {{ option.name }}</mat-option>
+
+            </mat-select>
+          </mat-form-field>
+
+        </td>
+        <td>
+          <div id="radioCountry">
+            <mat-radio-group aria-label="Country" id="country" (change)="filterCourse($event)">
+              <mat-radio-button color="primary" value="all" checked>All</mat-radio-button>
+              <mat-radio-button color="primary" value="canada">Canada</mat-radio-button>
+              <mat-radio-button color="accent" value="usa">U.S.A.</mat-radio-button>
+              <mat-radio-button color="accent" value="other">Other</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </td>
+        <td>Gender: {{gender}}</td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field id="teeDropDown" appearance="outline">
+            <mat-label>Course Name</mat-label>
+            <mat-select [value]="" (selectionChange)="getTees($event)">
+              <mat-option *ngFor="let cname of selectedCourseName" [value]="cname" [selected]="selectedName === cname">
+                {{ cname}}</mat-option>
+
+            </mat-select>
+          </mat-form-field>
+
+        </td>
+        <td>
+          <mat-form-field id="teeDropDown" appearance="outline">
+            <mat-label>Tee</mat-label>
+            <mat-select [value]="" (selectionChange)="selectTee($event)">
+              <mat-option *ngFor="let tee of teebox" [value]="tee" [selected]="selectedTee === tee">
+                {{ tee.teebox }}</mat-option>
+
+            </mat-select>
+          </mat-form-field>
+
+        </td>
+        <td>
+          <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <!-- eg can add the following to input: (dateInput)="addEvent('input', $event)" -->
+            <input matInput [matDatepicker]="picker" [value]="selectedDate" disabled
+              (dateChange)="addEvent('change', $event)">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker disabled="false"></mat-datepicker>
+          </mat-form-field>
+
+        </td>
+
+      </tr>
+    </table>
+    <div id="linebreak"></div>
+  </div>
+
+</ng-container>
+
+<!-- <app-courses (fromChild)="fromCourseChild($event)" [selectedCourse]="selectedCourse"
+[selectedCourseId]="selectedCourseId">
+</app-courses> -->
+<app-enterscoredetail [courseTee]="pushToESD">
+
+</app-enterscoredetail>

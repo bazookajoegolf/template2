@@ -28,6 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 //import { AdminusersComponent } from './_components/admin/adminusers/adminusers.component';
 import { SnackstatusComponent } from './_components/general/snackstatus/snackstatus.component';
 import { UniqueEmailValidatorDirective } from './shared/unique-email-validator.directive';
@@ -39,6 +40,10 @@ import { AlertService } from './services/alert.service';
 import { CourseAdminComponent } from './_components/admin/courseadmin/courseadmin.component';
 import { ScorecardadminComponent } from './_components/admin/scorecardadmin/scorecardadmin.component';
 import { SortPipe } from './assets/pipes/sort.pipe';
+import { GolfmainComponent } from './_components/golf/golfmain/golfmain.component';
+import { EnterscoreComponent } from './_components/golf/enterscore/enterscore.component';
+import { GolfstatsComponent } from './_components/golf/golfstats/golfstats.component';
+import { EnterscoredetailComponent } from './_components/golf/enterscoredetail/enterscoredetail.component';
 
 
 @NgModule({
@@ -65,7 +70,11 @@ import { SortPipe } from './assets/pipes/sort.pipe';
         TeesComponent,
         CourseAdminComponent,
         ScorecardadminComponent,
-        SortPipe
+        SortPipe,
+        GolfmainComponent,
+        EnterscoreComponent,
+        GolfstatsComponent,
+        EnterscoredetailComponent
     ],
     imports: [
         BrowserModule,

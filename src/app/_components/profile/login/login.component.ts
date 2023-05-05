@@ -53,12 +53,13 @@ get f() {
     //console.log("trying to sign in " + post.email + "  " + post.password);
      this.signup.signin(post)
     .subscribe(response =>{
-      console.log("token received from authentication " + response);
+     // console.log("token received from authentication " + response);
       if(response.token && response) {
-       // console.log(response.minpassword);
+       //console.log("Response value " +JSON.stringify(response));
         this.alert.success( "Successfully Logged in!");
        
        localStorage.setItem('token', response.token);
+       localStorage.setItem('gender',response.gender);
       }  
         setTimeout(()=>{
             this.router.navigate(['/']);

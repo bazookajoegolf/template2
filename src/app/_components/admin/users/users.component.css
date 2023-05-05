@@ -15,10 +15,23 @@ table {
     text-align: center;
     font-size: .9em;
 }
+.mat-mdc-icon-button ::ng-deep .mat-mdc-button-persistent-ripple {
+    display: none;
+}
 
 .action-link {
     cursor: pointer;
 }
+
+.mat-icon:hover {
+    cursor:pointer;
+}
+.mat-icon {
+    font-size: 24px;
+    vertical-align: middle;
+
+}
+
 
 a:hover {
     color : crimson;
@@ -91,10 +104,6 @@ mat-card{
 
 
 /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-mat-card-actions {
-
-    margin-top : 20px;
-}
 
 
 
@@ -114,8 +123,6 @@ mat-card-actions {
 
 mat-card-actions {
     display: inline-block;
-    align-content: center;
-    align-items: center;
     height: 60px;
     padding:10px;
 }
@@ -129,6 +136,7 @@ mat-card-actions {
     display: flex;
     float: left;
 }
+
 
 /* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version. */
 mat-radio-button {

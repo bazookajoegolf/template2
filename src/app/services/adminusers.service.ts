@@ -27,6 +27,7 @@ export class AdminusersService {
 
 
   adminDeleteUser(id) {
+    console.log("deleting user ...");
     let myToken = localStorage.getItem('token') || " ";
  
     let Options = {

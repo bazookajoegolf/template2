@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, OnChanges, SimpleChanges, Output, EventEmitter} from '@angular/core';
-
+import {COMMA,ENTER} from '@angular/cdk/keycodes';
 import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -24,6 +24,8 @@ export class CoursesComponent implements OnInit, OnChanges {
   course: Course;
   editMode:boolean = false;
   newMode:boolean;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  addOnBlur=true;
   //courseKeywords=[];
   //teeKeywords=[];
 
@@ -66,8 +68,10 @@ export class CoursesComponent implements OnInit, OnChanges {
     this.course=null;
     
     if(this.selectedCourseId == "newcourse") {
+      
       this.course = this.blankCourse();
-        this.selectCourse( this.blankCourse());
+      this.selectCourse( this.blankCourse());
+      this.form.reset();
     } else if (this.selectedCourseId){
       console.log("selected course id:  " + this.selectedCourseId);
       this.getCoursebyId(this.selectedCourseId) ;

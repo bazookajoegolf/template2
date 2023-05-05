@@ -12,6 +12,16 @@
       <a routerLink="/adminsettings"><button mat-menu-item>Settings</button></a>
       <button mat-menu-item>Other Admin</button>
     </mat-menu>
+    <a *ngIf="login.isLoggedIn()"><button mat-button [matMenuTriggerFor]="golfmenu">Golf</button></a>
+
+    <mat-menu #golfmenu="matMenu" xPosition="after">
+      <a *ngIf="login.isLoggedIn()" routerLink="/golfmain"><button mat-menu-item>Golf Profile</button></a>
+      <a *ngIf="login.isLoggedIn()" routerLink="/enterscore"><button mat-menu-item>Enter Score</button></a>
+      <a *ngIf="login.isLoggedIn()" routerLink="/golfstats"><button mat-menu-item>Golf Statistics</button></a>
+
+    </mat-menu>
+    <!-- <a *ngIf="login.isLoggedIn()" routerLink="/golfmain"><button mat-button>Golf Statistics</button></a> -->
+
 
     <a *ngIf="login.isLoggedIn()" routerLink="/profile"><button mat-button>Profile</button></a>
     <a *ngIf="login.isLoggedIn()" (click)="signout()"><button mat-button>Logout</button></a>
