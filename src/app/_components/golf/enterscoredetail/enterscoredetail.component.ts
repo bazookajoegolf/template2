@@ -27,6 +27,8 @@ export class EnterscoredetailComponent {
       partotalcourse : new UntypedFormControl('', [Validators.required]),
       slope	     : new UntypedFormControl('', [Validators.required]),
       rating     : new UntypedFormControl('', [Validators.required]),
+      date       : new UntypedFormControl('', [Validators.required]),
+      year    : new UntypedFormControl('', [Validators.required]),
       f9tot   : new UntypedFormControl('', [Validators.required]),
       b9tot    : new UntypedFormControl('', [Validators.required]),
       gtotal     : new UntypedFormControl('', [Validators.required]),
@@ -139,7 +141,7 @@ export class EnterscoredetailComponent {
       pen15: new UntypedFormControl('', [Validators.required, Validators.min(0), Validators.max(99),Validators.pattern('^[0-9]*$')]),
       pen16: new UntypedFormControl('', [Validators.required, Validators.min(0), Validators.max(99),Validators.pattern('^[0-9]*$')]),
       pen17: new UntypedFormControl('', [Validators.required, Validators.min(0), Validators.max(99),Validators.pattern('^[0-9]*$')]),
-      pen18: new UntypedFormControl('', [Validators.required])
+      pen18: new UntypedFormControl('', [Validators.required, Validators.min(0), Validators.max(99),Validators.pattern('^[0-9]*$')])
 
     });
   }
