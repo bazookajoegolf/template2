@@ -60,6 +60,7 @@ get f() {
        
        localStorage.setItem('token', response.token);
        localStorage.setItem('gender',response.gender);
+       localStorage.setItem('userid',response.userid);
       }  
         setTimeout(()=>{
             this.router.navigate(['/']);

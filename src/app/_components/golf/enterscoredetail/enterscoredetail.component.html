@@ -599,6 +599,20 @@
           </span>
         </div>
         <!-- End of data entry PENALTIES -->
+        <!-- Beginning of save / post  -->
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Description: </mat-label>
+            <textarea matInput type="text" id="comment" formControlName="comment"></textarea>
+          </mat-form-field>
+        </div>
+        <div>
+          <button style="margin-left:10px;" class="button" mat-icon-button type="submit" [disableRipple]="true">
+            <mat-icon class="matIconSp" matTooltip="Save" id="btn-save">save
+            </mat-icon>
+          </button>
+        </div>
+        <!-- End of save / post  -->
       </form>
     </div>
 
