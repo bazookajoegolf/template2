@@ -24,6 +24,7 @@ export class EnterscoreComponent implements OnInit , OnChanges {
   selectedDate;
   pushToESD;
   teebox=[];
+  today:Date;
 
   id;
 
@@ -35,6 +36,8 @@ export class EnterscoreComponent implements OnInit , OnChanges {
    //this.chosenCourse="Maple Ridge";
    this.gender=localStorage.getItem('gender');
    this.countrySelect="all";
+
+   this.today = new Date();
    this.getCourses();
 
   //  this.form = new UntypedFormGroup({
@@ -125,7 +128,7 @@ export class EnterscoreComponent implements OnInit , OnChanges {
     selectTee(event) {
       this.selectedTee=event.value;
       if(this.selectedDate) {
-        this.pushToESD= {course:this.selectedCourseId,tee:this.selectedTee,date:this.selectedDate};
+        this.pushToESD= {course:this.selectedCourseId,name: this.selectedCourse.name,tee:this.selectedTee,date:this.selectedDate};
       }
 
     }
@@ -134,7 +137,7 @@ export class EnterscoreComponent implements OnInit , OnChanges {
       // once date is added push the value to enterscoredetail
       console.log(event.value);
       this.selectedDate= event.value
-      this.pushToESD= {course:this.selectedCourseId,tee:this.selectedTee,date:this.selectedDate};
+      this.pushToESD= {course:this.selectedCourseId,name: this.selectedCourse.name,tee:this.selectedTee,date:this.selectedDate};
     }
 
   filterCourse(event) {

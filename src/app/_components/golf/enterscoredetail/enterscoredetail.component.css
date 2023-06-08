@@ -4,6 +4,12 @@
     margin: auto;
 }
 
+#linebreak {
+    width:90%;
+    border: 1px solid grey;
+
+}
+
 .topdiv {
     margin:auto;
     width:85%;
@@ -57,4 +63,109 @@ input.ng-invalid.ng-touched {
     vertical-align:top;
     appearance: none;
 
+}
+
+.dblcircle  {
+
+    border: 4px double rgb(53, 49, 49) !important;
+    border-radius:100% !important;
+    height:30px;
+    margin: 1px;
+}
+
+.dblsquare  {
+
+    border: 4px double rgb(53, 49, 49) !important;
+    height:30px;
+    outline:cadetblue;
+}
+
+.circle  {
+
+    border: 2px solid rgb(53, 49, 49) !important;
+    border-radius:100% !important;
+    height:30px !important;
+    width:86% !important;
+    vertical-align:middle !important;
+}
+
+.square  {
+
+    border: 2px solid rgb(53, 49, 49) !important;
+    outline:cadetblue;
+    height:31px !important;
+    width:88% !important;
+    margin:2px !important;
+    vertical-align: middle;
+
+}
+
+
+.cssDesc {
+    margin-top: 15px;
+    width: 82%;
+
+}
+
+.calcbtn {
+    margin-left:10px;
+    width:60%;
+    height:45px;
+    color: white;
+    background-color: rgb(4, 52, 140);
+    font-size: 22px;
+}
+
+/* .spanDetails {
+    display: inline-block;
+    width: 12%;
+    border: 1px solid lightgrey;
+    margin: auto;
+    padding:3px;
+    vertical-align: top;
+} */
+
+
+#dandc {
+    font-size: 1.2rem;
+    margin-top:20px;
+ }
+
+.wrapper {
+    display: flex;
+    align-items:stretch;
+    flex-wrap: wrap;
+    height: auto;
+    width: 100%;
+    justify-content: center;
+}
+
+.block {
+    width: calc(13% - 5px);
+    margin:10px;
+    border: 1px solid lightgrey;
+}
+
+.block table {
+    width: 80%;
+    align-items: center;
+}
+
+.block  table th {
+    text-align: center;
+}
+.block  table  tr {
+    height:30px;
+    align-items: center;
+}
+.block table tr td:nth-child(1) {
+   
+    text-align: right;
+    color :rgb(4, 38, 4);
+}
+.block table tr td:nth-child(2) {
+    
+    text-align: right;
+    color:rgb(31, 15, 60);
+   
 }

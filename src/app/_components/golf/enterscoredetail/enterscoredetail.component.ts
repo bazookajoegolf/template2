@@ -2,6 +2,11 @@ import { NewuserComponent } from './../../profile/newuser/newuser.component';
 import { Component, Input , OnChanges} from '@angular/core';
 import { UntypedFormControl,FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
+import { ScoreService } from '../../../services/score.service';
+import { LoginService } from 'src/app/services/login.service';
+import { AlertService } from './../../../services/alert.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-enterscoredetail',
   templateUrl: './enterscoredetail.component.html',
@@ -10,7 +15,17 @@ import { UntypedFormControl,FormControl, UntypedFormGroup, Validators } from '@a
 export class EnterscoredetailComponent {
 
   numbers;
+  scoreUser;
+  username;
   bgcolor="white";
+
+  roundsplayed;
+  currenthandicap;
+  calculated = false;
+
+  shape = ["dblcircle","circle","square","dblsquare","","","",];
+
+
   form;
   parArray :number[]=[];
   scoreArray :number[]=[];
@@ -18,17 +33,21 @@ export class EnterscoredetailComponent {
   greensArray :string[]=[];
   puttsArray :number[]=[];
   penaltyArray :number[]=[];
+  handicapArray : number[]=[];
+  scorediff:number;
   
 
   @Input() courseTee;
 
-  constructor() {
+  // constructor(private courses: CoursesService, private router: Router, private alert: AlertService) {}
+
+  constructor(private score: ScoreService, private user: LoginService, private router: Router, private alert: AlertService) {
     this.numbers = Array.from({length: 18}, (_, i) => i + 1);
 
     this.form = new UntypedFormGroup({
       courseid : new UntypedFormControl('', [Validators.required]),
       teeid   : new UntypedFormControl('', [Validators.required]),
-      userid   : new UntypedFormControl('', [Validators.required]),
+      name     : new UntypedFormControl('', [Validators.required]),
       coursename     : new UntypedFormControl('', [Validators.required]),
       teename    : new UntypedFormControl('', [Validators.required]),
       username    : new UntypedFormControl('', [Validators.required]),
@@ -57,7 +76,7 @@ export class EnterscoredetailComponent {
       oneputts    : new UntypedFormControl('', [Validators.required]),
       twoputts    : new UntypedFormControl('', [Validators.required]),
       threeputtsplus : new UntypedFormControl('', [Validators.required]),
-      Penaltytotal   : new UntypedFormControl('', [Validators.required]),
+      penaltytotal   : new UntypedFormControl('', [Validators.required]),
       albatotal     : new UntypedFormControl('', [Validators.required]),
       eagletotal   : new UntypedFormControl('', [Validators.required]),
       birdietotal    : new UntypedFormControl('', [Validators.required]),
@@ -160,37 +179,92 @@ export class EnterscoredetailComponent {
     });
   }
 
+  ngOnInit() {
+    this.scoreUser = localStorage.getItem('userid');
+    console.log("userid " + this.scoreUser);
+    this.getScore(this.scoreUser);
+    this.user.getProfile()
+    .subscribe((profile)=>{
+      this.username = profile.email
+     // this.form.patchValue({'name' : profile.name});
+     // this.form.patchValue({'gender' : profile.gender})
+    });
+
+
+  }
+
   ngOnChanges() {
     if(this.courseTee) {
     this.parArray=[this.courseTee.tee.p1,this.courseTee.tee.p2,this.courseTee.tee.p3,this.courseTee.tee.p4,this.courseTee.tee.p5,this.courseTee.tee.p6,
       this.courseTee.tee.p7,this.courseTee.tee.p8,this.courseTee.tee.p9,this.courseTee.tee.p10,this.courseTee.tee.p11,this.courseTee.tee.p12,this.courseTee.tee.p13,
       this.courseTee.tee.p14,this.courseTee.tee.p15,this.courseTee.tee.p16,this.courseTee.tee.p17,this.courseTee.tee.p18  ] ;
 
+    this.handicapArray=[this.courseTee.tee.h1,this.courseTee.tee.h2,this.courseTee.tee.h3,this.courseTee.tee.h4,this.courseTee.tee.h5,this.courseTee.tee.h6,
+      this.courseTee.tee.h7,this.courseTee.tee.h8,this.courseTee.tee.h9,this.courseTee.tee.h10,this.courseTee.tee.h11,this.courseTee.tee.h12,this.courseTee.tee.h13,
+      this.courseTee.tee.h14,this.courseTee.tee.h15,this.courseTee.tee.h16,this.courseTee.tee.h17,this.courseTee.tee.h18  ] ;
+
+
     // console.log(JSON.stringify(this.parArray));
     // console.log(this.courseTee.tee.p1);
-    // console.log(JSON.stringify(this.courseTee));
+     //console.log(JSON.stringify(this.courseTee));
   }
   }
 
+  getScore(x) {
+
+    console.log("getting score user information for " + x);
+    this.score.getScoreId(x)
+      .subscribe((s) => {
+        this.roundsplayed = s.scores.scores.length;
+        this.currenthandicap = s.scores.handicap;
+        console.log("Current Handicap: " + this.currenthandicap + "Rounds Played" + this.roundsplayed);
+               
+      });
+
+  }
+
+
+
+
   onSubmit() {
-    this.form.courseid = this.courseTee.courseid;
-    this.form.teeid    = this.courseTee._id;
-    this.form.userid = localStorage.getItem('userid');
-    this.form.coursename = this.courseTee.name;
-    this.form.partotalcourse = this.courseTee.totalp;
-    this.form.slope = this.courseTee.slope;
-    this.form.rating = this.courseTee.rating;
-    this.form.date = this.courseTee.date;
-    this.form.year = this.courseTee?.date.getFullYear();
-    this.form.gir = 0;
-    this.form.fy = 0;
-    this.form.fl2 = 0;
-    this.form.fl1 = 0;
-    this.form.fr1 = 0;
-    this.form.fr2 = 0;
-    this.form.fw = 0;
-    this.form.fs = 0;
-    this.form.fairways = 0;
+    this.form.value.ntotal = 0;
+    this.form.value.handicap = 0;
+    this.form.value.username = this.username;
+    this.form.value.courseid = this.courseTee.tee.courseid;
+    this.form.value.teeid    = this.courseTee.tee._id;
+    this.form.value.teename    = this.courseTee.tee.teebox;
+    this.form.value.name = this.courseTee.name;
+    this.form.value.coursename = this.courseTee.tee.coursename;
+    this.form.value.partotalcourse = this.courseTee.tee.totalp;
+    this.form.value.slope = this.courseTee.tee.slope;
+    this.form.value.rating = this.courseTee.tee.rating;
+    this.form.value.date = this.courseTee.date;
+    this.form.value.year = this.courseTee?.date.getFullYear();
+    this.form.value.f9tot = 0;
+    this.form.value.b9tot = 0;
+    this.form.value.gir = 0;
+    this.form.value.fy = 0;
+    this.form.value.fl2 = 0;
+    this.form.value.fl1 = 0;
+    this.form.value.fr1 = 0;
+    this.form.value.fr2 = 0;
+    this.form.value.fw = 0;
+    this.form.value.fs = 0;
+    this.form.value.fairways = 0;
+    this.form.value.putts = 0;
+    this.form.value.penaltytotal =0;
+    this.form.value.albatotal=0;
+    this.form.value.eagletotal=0;
+    this.form.value.birdietotal=0;
+    this.form.value.partotal=0;
+    this.form.value.bogeytotal=0;
+    this.form.value.doubletotal=0;
+    this.form.value.tripleplustotal=0;
+    this.form.value.zeroputts = 0;
+    this.form.value.oneputts = 0;
+    this.form.value.twoputts = 0;
+    this.form.value.threeputtsplus = 0;
+
 
     this.scoreArray = [parseInt(this.form.value.s1),parseInt(this.form.value.s2),parseInt(this.form.value.s3),parseInt(this.form.value.s4),
       parseInt(this.form.value.s5),parseInt(this.form.value.s6),parseInt(this.form.value.s7),parseInt(this.form.value.s8),
@@ -224,47 +298,153 @@ export class EnterscoredetailComponent {
 
     for(var i=0;i<18;i++) {
       if(i < 9) {
-        this.form.f9tot += this.scoreArray[i];
+        this.form.value.f9tot += this.scoreArray[i];
       }
       if(i >= 9) {
-        this.form.b9tot += this.scoreArray[i];
+        this.form.value.b9tot += this.scoreArray[i];
       }
-      if(this.greensArray[i]=='y') {this.form.gir ++}
+      if(this.greensArray[i]=='y') {this.form.value.gir ++}
       if(this.fairwaysArray[i]=='y') {
-        this.form.fy ++;
-        this.form.fairways++;
+        this.form.value.fy ++;
+        this.form.value.fairways++;
       }
       if(this.fairwaysArray[i]=='l2') {
-        this.form.fl2 ++;
-        this.form.fairways++;
+        this.form.value.fl2 ++;
+        this.form.value.fairways++;
       }
       if(this.fairwaysArray[i]=='l1') {
-        this.form.fl1 ++;
-        this.form.fairways++;
+        this.form.value.fl1 ++;
+        this.form.value.fairways++;
       }
       if(this.fairwaysArray[i]=='r1') {
-        this.form.fr1 ++;
-        this.form.fairways++;
+        this.form.value.fr1 ++;
+        this.form.value.fairways++;
       }
       if(this.fairwaysArray[i]=='r2') {
-        this.form.fr2 ++;
-        this.form.fairways++;
+        this.form.value.fr2 ++;
+        this.form.value.fairways++;
       }
       if(this.fairwaysArray[i]=='w') {
-        this.form.fw ++;
-        this.form.fairways++;
+        this.form.value.fw ++;
+        this.form.value.fairways++;
       }
       if(this.fairwaysArray[i]=='s') {
-        this.form.fs ++;
-        this.form.fairways++;
+        this.form.value.fs ++;
+        this.form.value.fairways++;
+      }
+      this.form.value.penaltytotal += this.penaltyArray[i];
+      this.form.value.putts += this.puttsArray[i];
+
+      switch (this.puttsArray[i]) {
+        case 0:
+          this.form.value.zeroputts++;
+          break;
+        case 1:
+          this.form.value.oneputts++;
+          break;
+        case 2:
+          this.form.value.twoputts++;
+          break;
+        default:
+          this.form.value.threeputtsplus++;
       }
 
+      this.scorediff =this.scoreArray[i] - this.parArray[i];
+
+      switch(this.scorediff) {
+        case -3:
+          this.form.value.albatotal++;
+          break;
+        case -2: 
+          this.form.value.eagletotal++;
+          break;
+        case -1:
+          this.form.value.birdietotal++;
+          break;
+        case 0: 
+          this.form.value.partotal++;
+          break;
+        case 1:
+          this.form.value.bogeytotal++;
+          break;
+        case 2:
+          this.form.value.doubletotal++;
+          break;
+        default:
+          this.form.value.tripleplustotal++;
+      }
     }  
+
+    // end of 18 hole loop
+    this.form.value.gtotal= this.form.value.f9tot + this.form.value.b9tot;
+    this.form.value.g_topar = this.form.value.gtotal - this.courseTee.tee.totalp;
+
+    // do netscore calc and handicap calc here
+    this.calcNetScore();
+    this.calcHandicap();
+    this.calculated = true;
     // console.log(JSON.stringify(this.scoreArray));
     // console.log(JSON.stringify(this.greensArray));
     // console.log(JSON.stringify(this.puttsArray));
     // console.log(JSON.stringify(this.penaltyArray));
-     console.log(JSON.stringify(this.form.value));
+    // console.log(JSON.stringify(this.form.value));
+
+   // add below to final submit function
+   
+    //  this.score.postScore(this.scoreUser,this.form.value)
+    //  .subscribe((ret)=>{
+    //    this.alert.success(ret.message);
+
+    //  },(error)=> {
+    //   this.alert.error(error.error.message);
+    //  });
+
+  }
+
+  calcNetScore() {
+    let net = 0;
+    let ch = this.currenthandicap;
+    console.log("current handicap " + ch);
+    let all;
+    let rem;
+    if(ch) {
+      all = Math.trunc(this.currenthandicap / 18);
+      rem = this.currenthandicap - (all * 18);
+      console.log("All " + all + " Rem " + rem);
+    }  
+    for(let i=0;i<this.numbers.length;i++) {
+      const noH = 5;
+      let cp = this.parArray[i];
+      let hh = this.handicapArray[i];
+      let sc = this.scoreArray[i];
+
+      console.log("Par: " + cp + " handicap: " + hh + " Score: " + sc);
+
+      let scoremax=0; 
+      if(ch) {
+        scoremax = cp + all + Math.trunc(rem / hh) + 2;
+        console.log("hole" + i + " score max " + scoremax + " score posted " + sc);
+      } else {
+        scoremax = cp + noH;
+      }
+      if(scoremax < sc) {net += scoremax}
+      else {net+=sc}
+      
+    }
+    console.log("current Handicap: " + ch); 
+    console.log("net score: " + net);
+    this.form.value.ntotal = net;
+  }
+
+  calcHandicap() {
+    const x = 113;  // static number used 
+    
+    let a = x / this.form.value.slope;
+    let b = this.form.value.ntotal - this.form.value.rating;
+    if(b < 0) {b = Math.round(b * 10) / 10;}
+    this.form.value.handicap = b * a;
+
+    console.log("handicap calculated: " + this.form.value.handicap);
 
 
   }

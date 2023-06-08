@@ -1,6 +1,7 @@
 <ng-container id="container">
 
   <div class="topdiv">
+
     <div *ngIf='courseTee'>
       <span class="spanitem holecolor"
         style="width:calc(8%) !important;text-align: left !important;padding-left:5px">Hole
@@ -103,15 +104,15 @@
           <span [style.background-color]="bgcolor" class="spanitem"
             style="width:8% !important;text-align: left !important;padding-left:5px">Score
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s1"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[0]] type=" text" id="s1"
               formControlName="s1"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s2"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[1]] type="text" id="s2"
               formControlName="s2"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s3"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[2]] type="text" id="s3"
               formControlName="s3"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s4"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[3]] type="text" id="s4"
               formControlName="s4"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s5"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[4]] type="text" id="s5"
               formControlName="s5"></span>
           <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s6"
               formControlName="s6"></span>
@@ -121,7 +122,8 @@
               formControlName="s8"></span>
           <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s9"
               formControlName="s9"></span>
-          <span [style.background-color]="bgcolor" class="spanitem " style="width:calc(4%) !important;">{{ f9tot}}
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:calc(4%) !important;">{{ form.value.f9tot}}
           </span>
           <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s10"
               formControlName="s10"></span>
@@ -141,9 +143,9 @@
               formControlName="s17"></span>
           <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s18"
               formControlName="s18"></span>
-          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">{{ b9tot}}
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">{{ form.value.b9tot}}
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{ gtotal}}
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{ form.value.gtotal}}
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
           </span>
@@ -359,7 +361,7 @@
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{fairwayshit}}
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{form.value.fy}}
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
           </span>
@@ -485,7 +487,7 @@
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{gir}}
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{form.value.gir}}
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
           </span>
@@ -538,7 +540,7 @@
               formControlName="p18"></span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{putts}}
+          <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{form.value.putts}}
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
           </span>
@@ -591,7 +593,8 @@
               formControlName="pen18"></span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{ penaltytotal}}
+          <span [style.background-color]="bgcolor" class="spanitem "
+            style="width:4%!important;">{{ form.value.penaltytotal}}
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
           </span>
@@ -601,15 +604,14 @@
         <!-- End of data entry PENALTIES -->
         <!-- Beginning of save / post  -->
         <div>
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="cssDesc">
             <mat-label>Description: </mat-label>
             <textarea matInput type="text" id="comment" formControlName="comment"></textarea>
           </mat-form-field>
         </div>
         <div>
-          <button style="margin-left:10px;" class="button" mat-icon-button type="submit" [disableRipple]="true">
-            <mat-icon class="matIconSp" matTooltip="Save" id="btn-save">save
-            </mat-icon>
+          <button class="calcbtn" mat-button>
+            Calculate
           </button>
         </div>
         <!-- End of save / post  -->
@@ -619,4 +621,177 @@
     <!-- End of If courseTee -->
   </div>
 
+  <!-- Beginning of Score Review -->
+  <div *ngIf='form.value.gtotal'>
+    <div id="dandc">
+      <table style="margin:auto;width:60%;align-items: center;">
+        <tr>
+          <td>Date: {{this.form.value.date | date: 'mediumDate'}}</td>
+          <td>Handicap: {{this.form.value.handicap | number: '1.0-2'}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Course: {{this.courseTee?.name}}</td>
+          <td>Course Name: {{this.form.value.coursename}}</td>
+          <td>Teebox: {{this.form.value.teename}} </td>
+
+        </tr>
+      </table>
+    </div>
+    <div class="wrapper">
+
+      <span class="block">
+        <table>
+          <tr>
+            <th colspan="2">Score</th>
+          </tr>
+          <tr>
+            <td> Front: </td>
+            <td>{{this.form.value.f9tot}}</td>
+          </tr>
+          <tr>
+            <td>Back:</td>
+            <td>{{this.form.value.b9tot}}</td>
+          </tr>
+          <tr>
+            <td>Gross: </td>
+            <td>{{this.form.value.gtotal}}</td>
+          </tr>
+          <tr>
+            <td>Score to Par: </td>
+            <td>{{this.form.value.g_topar}}</td>
+          </tr>
+          <tr>
+            <td>Net Score:</td>
+            <td> {{this.form.value.ntotal}}</td>
+          </tr>
+
+        </table>
+      </span>
+      <span class="block">
+        <table>
+          <tr>
+            <th colspan="2">Accuracy</th>
+          </tr>
+          <tr>
+            <td> Fairways: </td>
+            <td>{{this.form.value.fy}}</td>
+          </tr>
+          <tr>
+            <td>GIR:</td>
+            <td>{{this.form.value.gir}}</td>
+          </tr>
+          <tr>
+            <td>Putts: </td>
+            <td>{{this.form.value.putts}}</td>
+          </tr>
+          <tr>
+            <td>Penalty:</td>
+            <td>{{this.form.value.penaltytotal}}</td>
+          </tr>
+
+        </table>
+      </span>
+      <span class="block">
+        <table>
+          <tr>
+            <th colspan="2">Scoring</th>
+          </tr>
+          <tr>
+            <td>Pars: </td>
+            <td>{{this.form.value.partotal}}</td>
+          </tr>
+          <tr>
+            <td>Birdies:</td>
+            <td>{{this.form.value.birdietotal}}</td>
+          </tr>
+          <tr>
+            <td>Eagles: </td>
+            <td>{{this.form.value.eagletotal}}</td>
+          </tr>
+          <tr>
+            <td>Albatross </td>
+            <td>{{this.form.value.albatotal}}</td>
+          </tr>
+          <tr>
+            <td>Bogeys: </td>
+            <td>{{this.form.value.bogeytotal}}</td>
+          </tr>
+          <tr>
+            <td>Doubles: </td>
+            <td>{{this.form.value.doubletotal}}</td>
+          </tr>
+          <tr>
+            <td>Triples+: </td>
+            <td>{{this.form.value.tripleplustotal}}</td>
+          </tr>
+        </table>
+      </span>
+      <span class="block">
+        <table>
+          <tr>
+            <th colspan="2">Tee Shots</th>
+          </tr>
+          <tr>
+            <td>Hit: </td>
+            <td>{{this.form.value.fy}}/{{this.form.value.fairways}}</td>
+          </tr>
+          <tr>
+            <td>Left Playable:</td>
+            <td>{{this.form.value.fl1}}</td>
+          </tr>
+          <tr>
+            <td>Left Trouble: </td>
+            <td>{{this.form.value.fl2}}</td>
+          </tr>
+          <tr>
+            <td>Right Playable:</td>
+            <td>{{this.form.value.fr1}}</td>
+          </tr>
+          <tr>
+            <td>Right Trouble: </td>
+            <td>{{this.form.value.fr2}}</td>
+          </tr>
+          <tr>
+            <td>Water:</td>
+            <td>{{this.form.value.fw}}</td>
+          </tr>
+          <tr>
+            <td>Sand: </td>
+            <td>{{this.form.value.fs}}</td>
+          </tr>
+        </table>
+      </span>
+      <span class="block">
+        <table>
+          <tr>
+            <th colspan="2">Putting</th>
+          </tr>
+          <tr>
+            <td> Zero: </td>
+            <td>{{this.form.value.zeroputts}}</td>
+          </tr>
+          <tr>
+            <td>One:</td>
+            <td>{{this.form.value.oneputts}}</td>
+          </tr>
+          <tr>
+            <td>Two: </td>
+            <td>{{this.form.value.twoputts}}</td>
+          </tr>
+          <tr>
+            <td>three+: </td>
+            <td>{{this.form.value.threeputtsplus}}</td>
+          </tr>
+        </table>
+      </span>
+    </div>
+  </div>
+  <!-- End of Score Review -->
+  <div class="scorecard">
+    <span [style.background-color]="bgcolor" class="spanitem "><input class="dblcircle" type="text" id="s1"
+        formControlName="s1"></span>
+  </div>
+
+  <div style="height:50px;"></div>
 </ng-container>
