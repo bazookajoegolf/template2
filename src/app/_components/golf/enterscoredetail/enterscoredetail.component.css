@@ -84,7 +84,7 @@ input.ng-invalid.ng-touched {
 
     border: 2px solid rgb(53, 49, 49) !important;
     border-radius:100% !important;
-    height:30px !important;
+    height:32px !important;
     width:86% !important;
     vertical-align:middle !important;
 }
@@ -98,6 +98,10 @@ input.ng-invalid.ng-touched {
     margin:2px !important;
     vertical-align: middle;
 
+}
+
+.par {
+    border: none;
 }
 
 

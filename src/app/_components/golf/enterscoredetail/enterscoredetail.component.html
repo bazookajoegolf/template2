@@ -104,7 +104,7 @@
           <span [style.background-color]="bgcolor" class="spanitem"
             style="width:8% !important;text-align: left !important;padding-left:5px">Score
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[0]] type=" text" id="s1"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[0]] type="text" id="s1"
               formControlName="s1"></span>
           <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[1]] type="text" id="s2"
               formControlName="s2"></span>
@@ -114,34 +114,34 @@
               formControlName="s4"></span>
           <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[4]] type="text" id="s5"
               formControlName="s5"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s6"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[5]] type="text" id="s6"
               formControlName="s6"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s7"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[6]] type="text" id="s7"
               formControlName="s7"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s8"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[7]] type="text" id="s8"
               formControlName="s8"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s9"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[8]] type="text" id="s9"
               formControlName="s9"></span>
           <span [style.background-color]="bgcolor" class="spanitem "
             style="width:calc(4%) !important;">{{ form.value.f9tot}}
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s10"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[9]] type="text" id="s10"
               formControlName="s10"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s11"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[10]] type="text" id="s11"
               formControlName="s11"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s12"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[11]] type="text" id="s12"
               formControlName="s12"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s13"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[12]] type="text" id="s13"
               formControlName="s13"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s14"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[13]] type="text" id="s14"
               formControlName="s14"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s15"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[14]] type="text" id="s15"
               formControlName="s15"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s16"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[15]] type="text" id="s16"
               formControlName="s16"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s17"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[16]] type="text" id="s17"
               formControlName="s17"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="s18"
+          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[17]] type="text" id="s18"
               formControlName="s18"></span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">{{ form.value.b9tot}}
           </span>
@@ -160,7 +160,7 @@
             style="width:8% !important;text-align: left !important;padding-left:5px">Fairways
           </span>
           <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f1" formControlName="f1">
+            <select id="f1" [disableControl]="isfairway" formControlName="f1">
               <option value="y">Y</option>
               <option value="l2">L2</option>
               <option value="l1">L1</option>
@@ -659,7 +659,9 @@
           </tr>
           <tr>
             <td>Score to Par: </td>
-            <td>{{this.form.value.g_topar}}</td>
+            <td><span *ngIf='form.value.g_topar > 0'>+</span><span *ngIf='form.value.g_topar < 0'>-</span><span
+                *ngIf='form.value.g_topar == 0'>Even</span><span
+                *ngIf='form.value.g_topar != 0'>{{this.form.value.g_topar}}</span></td>
           </tr>
           <tr>
             <td>Net Score:</td>
@@ -788,10 +790,6 @@
     </div>
   </div>
   <!-- End of Score Review -->
-  <div class="scorecard">
-    <span [style.background-color]="bgcolor" class="spanitem "><input class="dblcircle" type="text" id="s1"
-        formControlName="s1"></span>
-  </div>
 
   <div style="height:50px;"></div>
 </ng-container>

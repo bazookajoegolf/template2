@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
 export class EnterscoredetailComponent {
 
   numbers;
+  shape;
+  isfairway = true;
   scoreUser;
   username;
   bgcolor="white";
@@ -23,7 +25,7 @@ export class EnterscoredetailComponent {
   currenthandicap;
   calculated = false;
 
-  shape = ["dblcircle","circle","square","dblsquare","","","",];
+ // shape = ["","","","","","","","","","","","","","","","","",""];
 
 
   form;
@@ -43,7 +45,8 @@ export class EnterscoredetailComponent {
 
   constructor(private score: ScoreService, private user: LoginService, private router: Router, private alert: AlertService) {
     this.numbers = Array.from({length: 18}, (_, i) => i + 1);
-
+    this.shape = Array.from({length: 18}, (_, i) => "par");
+   // console.log("shape " + this.shape);
     this.form = new UntypedFormGroup({
       courseid : new UntypedFormControl('', [Validators.required]),
       teeid   : new UntypedFormControl('', [Validators.required]),
@@ -203,11 +206,30 @@ export class EnterscoredetailComponent {
       this.courseTee.tee.h7,this.courseTee.tee.h8,this.courseTee.tee.h9,this.courseTee.tee.h10,this.courseTee.tee.h11,this.courseTee.tee.h12,this.courseTee.tee.h13,
       this.courseTee.tee.h14,this.courseTee.tee.h15,this.courseTee.tee.h16,this.courseTee.tee.h17,this.courseTee.tee.h18  ] ;
 
-
+    this.form.reset();
+    this.initializeForm();
+    this.shape = Array.from({length: 18}, (_, i) => "par");
     // console.log(JSON.stringify(this.parArray));
     // console.log(this.courseTee.tee.p1);
      //console.log(JSON.stringify(this.courseTee));
   }
+  }
+
+  initializeForm() {
+    for(let i=0;i<this.numbers.length;i++) { 
+      var x = "f"+(i+1);
+      var p = "p"+(i+1);
+      var pen = "pen"+(i+1);
+      //console.log("value of x: " + x);
+      if(this.parArray[i]== 3) {
+        console.log("attempting to patch " + x);
+        this.form.patchValue({[x]: "-" });
+        //this.form.get([x]).disable();
+       
+      }
+      this.form.patchValue({[p]: 2 });
+      this.form.patchValue({[pen]: 0 });
+    }
   }
 
   getScore(x) {
@@ -383,11 +405,12 @@ export class EnterscoredetailComponent {
     this.calcNetScore();
     this.calcHandicap();
     this.calculated = true;
+
     // console.log(JSON.stringify(this.scoreArray));
     // console.log(JSON.stringify(this.greensArray));
     // console.log(JSON.stringify(this.puttsArray));
     // console.log(JSON.stringify(this.penaltyArray));
-    // console.log(JSON.stringify(this.form.value));
+    console.log(JSON.stringify(this.form.value));
 
    // add below to final submit function
    
@@ -412,18 +435,26 @@ export class EnterscoredetailComponent {
       rem = this.currenthandicap - (all * 18);
       console.log("All " + all + " Rem " + rem);
     }  
+    this.shape = [];
+    let scoremax=0; 
     for(let i=0;i<this.numbers.length;i++) {
       const noH = 5;
       let cp = this.parArray[i];
       let hh = this.handicapArray[i];
       let sc = this.scoreArray[i];
 
-      console.log("Par: " + cp + " handicap: " + hh + " Score: " + sc);
+      if      ((sc - cp) <= -2  ) {this.shape.push("dblcircle")}
+      else if ((sc - cp) == -1  ) {this.shape.push("circle")}
+      else if ((sc - cp) == 0  ) {this.shape.push("par")}
+      else if ((sc - cp) == 1  ) {this.shape.push("square")}
+      else if ((sc - cp) >= 2  ) {this.shape.push("dblsquare")}
 
-      let scoremax=0; 
+      
       if(ch) {
-        scoremax = cp + all + Math.trunc(rem / hh) + 2;
-        console.log("hole" + i + " score max " + scoremax + " score posted " + sc);
+        var xx;
+        xx = (rem > hh) ? 1 : 0;
+        scoremax = cp + all + xx + 2; 
+        // console.log("hole " +i+ " score max "+scoremax+" score " + sc + " par " + cp + "all " + all + " to h " +  xx);
       } else {
         scoremax = cp + noH;
       }
