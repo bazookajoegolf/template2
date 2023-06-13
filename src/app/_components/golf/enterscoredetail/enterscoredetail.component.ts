@@ -37,6 +37,12 @@ export class EnterscoredetailComponent {
   penaltyArray :number[]=[];
   handicapArray : number[]=[];
   scorediff:number;
+
+  fullOptions = ["Y","L2","L1","R1","R2","S","W"];
+  par3Options = ["--"];
+  girOptions = ["Y","N"];
+  taf = [1,2,3,4,5,6,7,8,9]
+  tab = [10,11,12,13,14,15,16,17,18]
   
 
   @Input() courseTee;
@@ -223,7 +229,7 @@ export class EnterscoredetailComponent {
       //console.log("value of x: " + x);
       if(this.parArray[i]== 3) {
         console.log("attempting to patch " + x);
-        this.form.patchValue({[x]: "-" });
+        this.form.patchValue({[x]: "--" });
         //this.form.get([x]).disable();
        
       }
@@ -325,32 +331,32 @@ export class EnterscoredetailComponent {
       if(i >= 9) {
         this.form.value.b9tot += this.scoreArray[i];
       }
-      if(this.greensArray[i]=='y') {this.form.value.gir ++}
-      if(this.fairwaysArray[i]=='y') {
+      if(this.greensArray[i]=='Y') {this.form.value.gir ++}
+      if(this.fairwaysArray[i]=='Y') {
         this.form.value.fy ++;
         this.form.value.fairways++;
       }
-      if(this.fairwaysArray[i]=='l2') {
+      if(this.fairwaysArray[i]=='L2') {
         this.form.value.fl2 ++;
         this.form.value.fairways++;
       }
-      if(this.fairwaysArray[i]=='l1') {
+      if(this.fairwaysArray[i]=='L1') {
         this.form.value.fl1 ++;
         this.form.value.fairways++;
       }
-      if(this.fairwaysArray[i]=='r1') {
+      if(this.fairwaysArray[i]=='R1') {
         this.form.value.fr1 ++;
         this.form.value.fairways++;
       }
-      if(this.fairwaysArray[i]=='r2') {
+      if(this.fairwaysArray[i]=='R2') {
         this.form.value.fr2 ++;
         this.form.value.fairways++;
       }
-      if(this.fairwaysArray[i]=='w') {
+      if(this.fairwaysArray[i]=='W') {
         this.form.value.fw ++;
         this.form.value.fairways++;
       }
-      if(this.fairwaysArray[i]=='s') {
+      if(this.fairwaysArray[i]=='S') {
         this.form.value.fs ++;
         this.form.value.fairways++;
       }

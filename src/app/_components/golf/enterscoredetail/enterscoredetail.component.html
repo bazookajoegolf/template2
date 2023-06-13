@@ -104,45 +104,17 @@
           <span [style.background-color]="bgcolor" class="spanitem"
             style="width:8% !important;text-align: left !important;padding-left:5px">Score
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[0]] type="text" id="s1"
-              formControlName="s1"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[1]] type="text" id="s2"
-              formControlName="s2"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[2]] type="text" id="s3"
-              formControlName="s3"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[3]] type="text" id="s4"
-              formControlName="s4"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[4]] type="text" id="s5"
-              formControlName="s5"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[5]] type="text" id="s6"
-              formControlName="s6"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[6]] type="text" id="s7"
-              formControlName="s7"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[7]] type="text" id="s8"
-              formControlName="s8"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[8]] type="text" id="s9"
-              formControlName="s9"></span>
+
+          <span *ngFor="let x of taf; index as j" [style.background-color]="bgcolor" class="spanitem ">
+            <input [ngClass]=[shape[j]] type="text" [id]="'s' + x" [formControlName]="'s' + x"></span>
+
           <span [style.background-color]="bgcolor" class="spanitem "
             style="width:calc(4%) !important;">{{ form.value.f9tot}}
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[9]] type="text" id="s10"
-              formControlName="s10"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[10]] type="text" id="s11"
-              formControlName="s11"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[11]] type="text" id="s12"
-              formControlName="s12"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[12]] type="text" id="s13"
-              formControlName="s13"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[13]] type="text" id="s14"
-              formControlName="s14"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[14]] type="text" id="s15"
-              formControlName="s15"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[15]] type="text" id="s16"
-              formControlName="s16"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[16]] type="text" id="s17"
-              formControlName="s17"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input [ngClass]=[shape[17]] type="text" id="s18"
-              formControlName="s18"></span>
+
+          <span *ngFor="let x of tab; index as j" [style.background-color]="bgcolor" class="spanitem ">
+            <input [ngClass]=[shape[j+9]] type="text" [id]="'s' + x" [formControlName]="'s' + x"></span>
+
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">{{ form.value.b9tot}}
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{ form.value.gtotal}}
@@ -159,206 +131,29 @@
           <span [style.background-color]="bgcolor" class="spanitem"
             style="width:8% !important;text-align: left !important;padding-left:5px">Fairways
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f1" [disableControl]="isfairway" formControlName="f1">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
+
+
+          <span *ngFor="let x of taf; index as j" [style.background-color]="bgcolor" class="spanitem ">
+            <select *ngIf="parArray[j] != 3" id="'f'+ x[j]" [formControlName]="'f'+ x">
+              <option *ngFor="let opt of fullOptions" [value]="opt">{{opt}}</option>
+            </select>
+            <select *ngIf="parArray[j] == 3" id="'f'+ x[j]" placeholder="--" [formControlName]="'f' + x">
+              <option *ngFor="let opt of par3Options" [value]="opt">{{opt}}</option>
             </select>
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f2" formControlName="f2">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f3" formControlName="f3">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f4" formControlName="f4">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f5" formControlName="f5">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f6" formControlName="f6">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f7" formControlName="f7">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f8" formControlName="f8">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f9" formControlName="f9">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
+
           <span [style.background-color]="bgcolor" class="spanitem " style="width:calc(4%) !important;">
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f10" formControlName="f10">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
+
+          <span *ngFor="let x of tab; index as j" [style.background-color]="bgcolor" class="spanitem ">
+            <select *ngIf="parArray[j+9] != 3" [id]="'f'+ x" [formControlName]="'f'+ x">
+              <option *ngFor="let opt of fullOptions" [value]="opt">{{opt}}</option>
+            </select>
+            <select *ngIf="parArray[j+9] == 3" [id]="'f'+ x" placeholder="--" [formControlName]="'f'+ x">
+              <option *ngFor="let opt of par3Options" [value]="opt">{{opt}}</option>
             </select>
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f11" formControlName="f11">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f12" formControlName="f12">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f13" formControlName="f13">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f14" formControlName="f14">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f15" formControlName="f15">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f16" formControlName="f16">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f17" formControlName="f17">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="f18" formControlName="f18">
-              <option value="y">Y</option>
-              <option value="l2">L2</option>
-              <option value="l1">L1</option>
-              <option value="r1">R1</option>
-              <option value="r2">R2</option>
-              <option value="w">W</option>
-              <option value="s">S</option>
-            </select>
-          </span>
+
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{form.value.fy}}
@@ -375,116 +170,22 @@
           <span [style.background-color]="bgcolor" class="spanitem"
             style="width:8% !important;text-align: left !important;padding-left:5px">Greens
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g1" formControlName="g1">
-              <option value="y">Y</option>
-              <option value="n">N</option>
+
+          <span *ngFor="let x of taf; index as j" [style.background-color]="bgcolor" class="spanitem ">
+            <select [id]="'g'+ x" [formControlName]="'g'+ x">
+              <option *ngFor="let opt of girOptions" [value]="opt">{{opt}}</option>
             </select>
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g2" formControlName="g2">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g3" formControlName="g3">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g4" formControlName="g4">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g5" formControlName="g5">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g6" formControlName="g6">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g7" formControlName="g7">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g8" formControlName="g8">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g9" formControlName="g9">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
+
           <span [style.background-color]="bgcolor" class="spanitem " style="width:calc(4%) !important;">
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g10" formControlName="g10">
-              <option value="y">Y</option>
-              <option value="n">N</option>
+
+          <span *ngFor="let x of tab; index as j" [style.background-color]="bgcolor" class="spanitem ">
+            <select [id]="'g'+ x" [formControlName]="'g'+ x">
+              <option *ngFor="let opt of girOptions" [value]="opt">{{opt}}</option>
             </select>
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g11" formControlName="g11">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g12" formControlName="g12">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g13" formControlName="g13">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g14" formControlName="g14">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g15" formControlName="g15">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g16" formControlName="g16">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g17" formControlName="g17">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
-          <span [style.background-color]="bgcolor" class="spanitem ">
-            <select id="g18" formControlName="g18">
-              <option value="y">Y</option>
-              <option value="n">N</option>
-            </select>
-          </span>
+
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{form.value.gir}}
@@ -500,44 +201,16 @@
           <span [style.background-color]="bgcolor" class="spanitem"
             style="width:8% !important;text-align: left !important;padding-left:5px">Putts
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p1"
-              formControlName="p1"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p2"
-              formControlName="p2"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p3"
-              formControlName="p3"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p4"
-              formControlName="p4"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p5"
-              formControlName="p5"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p6"
-              formControlName="p6"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p7"
-              formControlName="p7"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p8"
-              formControlName="p8"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p9"
-              formControlName="p9"></span>
+
+          <span *ngFor="let x of taf" [style.background-color]="bgcolor" class="spanitem ">
+            <input type="text" [id]="'p' + x" [formControlName]="'p' + x"></span>
+
           <span [style.background-color]="bgcolor" class="spanitem " style="width:calc(4%) !important;">
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p10"
-              formControlName="p10"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p11"
-              formControlName="p11"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p12"
-              formControlName="p12"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p13"
-              formControlName="p13"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p14"
-              formControlName="p14"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p15"
-              formControlName="p15"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p16"
-              formControlName="p16"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p17"
-              formControlName="p17"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="p18"
-              formControlName="p18"></span>
+
+          <span *ngFor="let x of tab" [style.background-color]="bgcolor" class="spanitem ">
+            <input type="text" [id]="'p' + x" [formControlName]="'p' + x"></span>
+
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{form.value.putts}}
@@ -553,44 +226,15 @@
           <span [style.background-color]="bgcolor" class="spanitem"
             style="width:8% !important;text-align: left !important;padding-left:5px">Penalty
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen1"
-              formControlName="pen1"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen2"
-              formControlName="pen2"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen3"
-              formControlName="pen3"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen4"
-              formControlName="pen4"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen5"
-              formControlName="pen5"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen6"
-              formControlName="pen6"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen7"
-              formControlName="pen7"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen8"
-              formControlName="pen8"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen9"
-              formControlName="pen9"></span>
+
+          <span *ngFor="let x of taf" [style.background-color]="bgcolor" class="spanitem ">
+            <input type="text" [id]="'pen' + x" [formControlName]="'pen' + x"></span>
+
           <span [style.background-color]="bgcolor" class="spanitem " style="width:calc(4%) !important;">
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen10"
-              formControlName="pen10"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen11"
-              formControlName="pen11"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen12"
-              formControlName="pen12"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen13"
-              formControlName="pen13"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen14"
-              formControlName="pen14"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen15"
-              formControlName="pen15"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen16"
-              formControlName="pen16"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen17"
-              formControlName="pen17"></span>
-          <span [style.background-color]="bgcolor" class="spanitem "><input type="text" id="pen18"
-              formControlName="pen18"></span>
+          <span *ngFor="let x of tab" [style.background-color]="bgcolor" class="spanitem ">
+            <input type="text" [id]="'pen' + x" [formControlName]="'pen' + x"></span>
+
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">
           </span>
           <span [style.background-color]="bgcolor" class="spanitem "
