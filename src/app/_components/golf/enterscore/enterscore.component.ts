@@ -142,7 +142,6 @@ export class EnterscoreComponent implements OnInit , OnChanges {
 
   filterCourse(event) {
     this.countrySelect = event.value;
-    console.log("country select: " + this.countrySelect);
     this.getCourses();
   }
 

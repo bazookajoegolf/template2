@@ -20,6 +20,7 @@ export class EnterscoredetailComponent {
   scoreUser;
   username;
   bgcolor="white";
+  resubmit=false;
 
   roundsplayed;
   currenthandicap;
@@ -54,45 +55,47 @@ export class EnterscoredetailComponent {
     this.shape = Array.from({length: 18}, (_, i) => "par");
    // console.log("shape " + this.shape);
     this.form = new UntypedFormGroup({
-      courseid : new UntypedFormControl('', [Validators.required]),
-      teeid   : new UntypedFormControl('', [Validators.required]),
-      name     : new UntypedFormControl('', [Validators.required]),
-      coursename     : new UntypedFormControl('', [Validators.required]),
-      teename    : new UntypedFormControl('', [Validators.required]),
-      username    : new UntypedFormControl('', [Validators.required]),
-      partotalcourse : new UntypedFormControl('', [Validators.required]),
-      slope	     : new UntypedFormControl('', [Validators.required]),
-      rating     : new UntypedFormControl('', [Validators.required]),
-      date       : new UntypedFormControl('', [Validators.required]),
-      year    : new UntypedFormControl('', [Validators.required]),
-      f9tot   : new UntypedFormControl('', [Validators.required]),
-      b9tot    : new UntypedFormControl('', [Validators.required]),
-      gtotal     : new UntypedFormControl('', [Validators.required]),
-      ntotal     : new UntypedFormControl('', [Validators.required]),
-      g_topar    : new UntypedFormControl('', [Validators.required]),
-      handicap    : new UntypedFormControl('', [Validators.required]),
-      gir     : new UntypedFormControl('', [Validators.required]),
-      fairways : new UntypedFormControl('', [Validators.required]),
-      fy : new UntypedFormControl('', [Validators.required]),
-      fl2 : new UntypedFormControl('', [Validators.required]),
-      fl1 : new UntypedFormControl('', [Validators.required]),
-      fr1 : new UntypedFormControl('', [Validators.required]),
-      fr2 : new UntypedFormControl('', [Validators.required]),
-      fw : new UntypedFormControl('', [Validators.required]),
-      fs : new UntypedFormControl('', [Validators.required]),
-      putts   : new UntypedFormControl('', [Validators.required]),
-      zeroputts     : new UntypedFormControl('', [Validators.required]),
-      oneputts    : new UntypedFormControl('', [Validators.required]),
-      twoputts    : new UntypedFormControl('', [Validators.required]),
-      threeputtsplus : new UntypedFormControl('', [Validators.required]),
-      penaltytotal   : new UntypedFormControl('', [Validators.required]),
-      albatotal     : new UntypedFormControl('', [Validators.required]),
-      eagletotal   : new UntypedFormControl('', [Validators.required]),
-      birdietotal    : new UntypedFormControl('', [Validators.required]),
-      partotal     : new UntypedFormControl('', [Validators.required]),
-      bogeytotal     : new UntypedFormControl('', [Validators.required]),
-      doubletotal    : new UntypedFormControl('', [Validators.required]),
-      tripleplustotal    : new UntypedFormControl('', [Validators.required]),
+      courseid : new UntypedFormControl('', []),
+      scoredetail : new UntypedFormControl('', []),
+      teeid   : new UntypedFormControl('', []),
+      name     : new UntypedFormControl('', []),
+      coursename     : new UntypedFormControl('', []),
+      teename    : new UntypedFormControl('', []),
+      username    : new UntypedFormControl('', []),
+      partotalcourse : new UntypedFormControl('', []),
+      slope	     : new UntypedFormControl('', []),
+      rating     : new UntypedFormControl('', []),
+      date       : new UntypedFormControl('', []),
+      rn       : new UntypedFormControl('', []),
+      year    : new UntypedFormControl('', []),
+      f9tot   : new UntypedFormControl('', []),
+      b9tot    : new UntypedFormControl('', []),
+      gtotal     : new UntypedFormControl('', []),
+      ntotal     : new UntypedFormControl('', []),
+      g_topar    : new UntypedFormControl('', []),
+      handicap    : new UntypedFormControl('', []),
+      gir     : new UntypedFormControl('', []),
+      fairways : new UntypedFormControl('', []),
+      fy : new UntypedFormControl('', []),
+      fl2 : new UntypedFormControl('', []),
+      fl1 : new UntypedFormControl('', []),
+      fr1 : new UntypedFormControl('', []),
+      fr2 : new UntypedFormControl('', []),
+      fw : new UntypedFormControl('', []),
+      fs : new UntypedFormControl('', []),
+      putts   : new UntypedFormControl('', []),
+      zeroputts     : new UntypedFormControl('', []),
+      oneputts    : new UntypedFormControl('', []),
+      twoputts    : new UntypedFormControl('', []),
+      threeputtsplus : new UntypedFormControl('', []),
+      penaltytotal   : new UntypedFormControl('', []),
+      albatotal     : new UntypedFormControl('', []),
+      eagletotal   : new UntypedFormControl('', []),
+      birdietotal    : new UntypedFormControl('', []),
+      partotal     : new UntypedFormControl('', []),
+      bogeytotal     : new UntypedFormControl('', []),
+      doubletotal    : new UntypedFormControl('', []),
+      tripleplustotal    : new UntypedFormControl('', []),
       comment     : new UntypedFormControl('',[]),
       s1: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(99),Validators.pattern('^[0-9]*$')]),
       s2: new UntypedFormControl('', [Validators.required, Validators.min(1), Validators.max(99),Validators.pattern('^[0-9]*$')]),
@@ -190,11 +193,12 @@ export class EnterscoredetailComponent {
 
   ngOnInit() {
     this.scoreUser = localStorage.getItem('userid');
+   // this.scoreUser = localStorage.getItem('userid');
     console.log("userid " + this.scoreUser);
     this.getScore(this.scoreUser);
     this.user.getProfile()
     .subscribe((profile)=>{
-      this.username = profile.email
+      this.username = profile.email;
      // this.form.patchValue({'name' : profile.name});
      // this.form.patchValue({'gender' : profile.gender})
     });
@@ -245,10 +249,15 @@ export class EnterscoredetailComponent {
       .subscribe((s) => {
         this.roundsplayed = s.scores.scores.length;
         this.currenthandicap = s.scores.handicap;
-        console.log("Current Handicap: " + this.currenthandicap + "Rounds Played" + this.roundsplayed);
+        console.log("Current Handicap: " + this.currenthandicap + "     Rounds Played:  " + this.roundsplayed);
                
       });
 
+  }
+
+  get frm() {
+   // console.log("is the form valid:  " + this.form.valid);
+    return this.form.invalid;
   }
 
 
@@ -267,6 +276,7 @@ export class EnterscoredetailComponent {
     this.form.value.slope = this.courseTee.tee.slope;
     this.form.value.rating = this.courseTee.tee.rating;
     this.form.value.date = this.courseTee.date;
+    this.form.value.rn =  Date.now();
     this.form.value.year = this.courseTee?.date.getFullYear();
     this.form.value.f9tot = 0;
     this.form.value.b9tot = 0;
@@ -411,22 +421,33 @@ export class EnterscoredetailComponent {
     this.calcNetScore();
     this.calcHandicap();
     this.calculated = true;
+    this.resubmit=false;
 
     // console.log(JSON.stringify(this.scoreArray));
     // console.log(JSON.stringify(this.greensArray));
     // console.log(JSON.stringify(this.puttsArray));
     // console.log(JSON.stringify(this.penaltyArray));
-    console.log(JSON.stringify(this.form.value));
+    //console.log(JSON.stringify(this.form.value));
 
-   // add below to final submit function
+
+
+  }
+
+
+  post() {
+       // add below to final submit function
    
-    //  this.score.postScore(this.scoreUser,this.form.value)
-    //  .subscribe((ret)=>{
-    //    this.alert.success(ret.message);
+     this.score.postScore(this.scoreUser,this.form.value)
+     .subscribe((ret)=>{
+       this.alert.success(ret.message);
+       this.resubmit=true;
+       this.form.reset();
+       this.shape = Array.from({length: 18}, (_, i) => "par");
+       
 
-    //  },(error)=> {
-    //   this.alert.error(error.error.message);
-    //  });
+     },(error)=> {
+      this.alert.error(error.error.message);
+     });
 
   }
 
@@ -482,8 +503,10 @@ export class EnterscoredetailComponent {
     this.form.value.handicap = b * a;
 
     console.log("handicap calculated: " + this.form.value.handicap);
-
-
   }
+
+  detailLevel(event) {
+    this.form.value.detailLevel = event.value;
+  }  
 
 }

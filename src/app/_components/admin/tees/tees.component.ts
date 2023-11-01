@@ -354,6 +354,34 @@ export class TeesComponent implements OnInit, OnChanges {
       this.form.patchValue({ 'teebox': this.pushedTee.tee.teebox });  
     }
   }
+
+  fillTee(evt) {
+    //console.log("teeboxes available count " + this.pushedTee.sc?.tees[0].teebox);
+   // console.log("teebox value emitted " + evt.value);
+    for(let i=0;i < this.pushedTee.sc.tees.length;i++) {
+      //console.log("teebox colors available " + this.pushedTee.sc.tees[i].teebox);
+      if(evt.value == this.pushedTee.sc.tees[i].teebox) {
+        this.form.patchValue({ 'yd1': this.pushedTee.sc.tees[i].yd1 });
+        this.form.patchValue({ 'yd2': this.pushedTee.sc.tees[i].yd2 });
+        this.form.patchValue({ 'yd3': this.pushedTee.sc.tees[i].yd3 });
+        this.form.patchValue({ 'yd4': this.pushedTee.sc.tees[i].yd4 });
+        this.form.patchValue({ 'yd5': this.pushedTee.sc.tees[i].yd5 });
+        this.form.patchValue({ 'yd6': this.pushedTee.sc.tees[i].yd6 });
+        this.form.patchValue({ 'yd7': this.pushedTee.sc.tees[i].yd7 });
+        this.form.patchValue({ 'yd8': this.pushedTee.sc.tees[i].yd8 });
+        this.form.patchValue({ 'yd9': this.pushedTee.sc.tees[i].yd9 });
+        this.form.patchValue({ 'yd10': this.pushedTee.sc.tees[i].yd10 });
+        this.form.patchValue({ 'yd11': this.pushedTee.sc.tees[i].yd11 });
+        this.form.patchValue({ 'yd12': this.pushedTee.sc.tees[i].yd12 });
+        this.form.patchValue({ 'yd13': this.pushedTee.sc.tees[i].yd13 });
+        this.form.patchValue({ 'yd14': this.pushedTee.sc.tees[i].yd14 });
+        this.form.patchValue({ 'yd15': this.pushedTee.sc.tees[i].yd15 });
+        this.form.patchValue({ 'yd16': this.pushedTee.sc.tees[i].yd16 });
+        this.form.patchValue({ 'yd17': this.pushedTee.sc.tees[i].yd17 });
+        this.form.patchValue({ 'yd18': this.pushedTee.sc.tees[i].yd18 });
+      }
+    }
+  }
   
   findUsableTee(g,c) {
     let ar=[];
@@ -372,6 +400,7 @@ export class TeesComponent implements OnInit, OnChanges {
       }
       if(!found) {ar.push(this.selectedCourse.teecolors[i]);}
       found=false;
+      
     }
     return ar;
 

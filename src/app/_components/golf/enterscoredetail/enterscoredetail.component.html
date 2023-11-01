@@ -2,7 +2,20 @@
 
   <div class="topdiv">
 
-    <div *ngIf='courseTee'>
+    <div id="detailDiv" *ngIf='courseTee'>
+      <mat-radio-group aria-label="Score Detail Level" (change)="detailLevel($event)">
+        <mat-radio-button value="1">1</mat-radio-button>
+        <mat-radio-button value="2">2</mat-radio-button>
+        <mat-radio-button selected value="3">3</mat-radio-button>
+
+      </mat-radio-group>
+      <span id="scoreDetailspan"> Score Detail Level</span>
+    </div>
+
+
+    <div *ngIf='courseTee && this.form.value.detailLevel =="3"'>
+
+
       <span class="spanitem holecolor"
         style="width:calc(8%) !important;text-align: left !important;padding-left:5px">Hole
       </span>
@@ -23,7 +36,7 @@
       <span class="spanitem holecolor" style="width:4% !important;">Rating
       </span>
     </div>
-    <div *ngIf='courseTee'>
+    <div *ngIf='courseTee && this.form.value.detailLevel =="3"'>
       <span [style.background-color]="bgcolor" class="spanitem"
         style="width:8% !important;text-align: left !important;padding-left:5px">{{ courseTee.tee.teebox}}
       </span>
@@ -58,7 +71,7 @@
       </span>
     </div>
     <!-- Beginning of If courseTee -->
-    <div *ngIf='courseTee'>
+    <div *ngIf='courseTee '>
       <!-- Beginning of data entry Par -->
       <div>
         <span [style.background-color]="bgcolor" class="spanitem"
@@ -254,14 +267,13 @@
           </mat-form-field>
         </div>
         <div>
-          <button class="calcbtn" mat-button>
+          <button id="calcid" class="calcbtn" [disabled]="frm" mat-button>
             Calculate
           </button>
         </div>
         <!-- End of save / post  -->
       </form>
     </div>
-
     <!-- End of If courseTee -->
   </div>
 
@@ -432,6 +444,13 @@
         </table>
       </span>
     </div>
+
+    <div>
+      <button id="postScore" (click)="post()" [disabled]="frm || resubmit" mat-button>
+        Post
+      </button>
+    </div>
+
   </div>
   <!-- End of Score Review -->
 

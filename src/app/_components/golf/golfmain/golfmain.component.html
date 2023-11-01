@@ -1,1 +1,30 @@
-<p>golfmain works!</p>
+<h2>Scoring Profile</h2>
+
+
+<table>
+  <tr>
+    <th>Round</th>
+    <th>Date</th>
+    <th>Course</th>
+    <th>Tee</th>
+    <th>Gross</th>
+    <th>Net</th>
+    <th>Hdcp</th>
+    <th>Slope</th>
+    <th>Rating</th>
+    <th>HCI</th>
+  </tr>
+
+  <tr *ngFor="let x of scores | sortgrid: 'date' index as j" [ngClass]="countingRound(x?.rn || j+1000)">
+    <td>{{j + 1}}</td>
+    <td>{{x.date | date : shortDate}}</td>
+    <td>{{x.coursename}}</td>
+    <td>{{x.teename}}</td>
+    <td>{{x.gtotal}}</td>
+    <td>{{x.ntotal}}</td>
+    <td>{{x.handicap | number :'1.2-2'}}</td>
+    <td>{{x.slope}}</td>
+    <td>{{x.rating}}</td>
+    <td>{{hcArray[j].handicapIndex | number :'1.2-2'}}</td>
+  </tr>
+</table>

@@ -120,6 +120,25 @@ input.ng-invalid.ng-touched {
     font-size: 22px;
 }
 
+
+#postScore {
+    /* background-color: gray; */
+    margin-left:10px;
+    width:50%;
+    height:45px;
+    color: white;
+    background-color: rgb(4, 52, 140);
+    font-size: 22px;
+}
+
+#postScore:disabled {
+   background-color: gray;
+}
+
+#calcid:disabled {
+    background-color: gray;
+ }
+
 /* .spanDetails {
     display: inline-block;
     width: 12%;
@@ -172,4 +191,20 @@ input.ng-invalid.ng-touched {
     text-align: right;
     color:rgb(31, 15, 60);
    
+}
+
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+    align-items: flex-end;
+  }
+
+#scoreDetailspan {
+    margin-left : 40px;
+    align-items: flex-end;
+    font-weight: bolder;
+
+}
+
+#detailDiv {
+    margin-top: 20px;
+    margin-bottom: 15px;
 }

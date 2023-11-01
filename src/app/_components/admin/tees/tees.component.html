@@ -53,7 +53,7 @@
           <td>
             <mat-form-field appearance="outline">
               <mat-label>Teebox</mat-label>
-              <mat-select matNativeControl formControlName="teebox" id="teebox">
+              <mat-select matNativeControl formControlName="teebox" id="teebox" (selectionChange)="fillTee($event)">
                 <mat-option *ngFor="let option of selectedTeeColors" [value]="option">
                   {{option}}</mat-option>
                 <!-- <mat-hint align="start">Enter tde name of tde 18 hole course.</mat-hint> -->

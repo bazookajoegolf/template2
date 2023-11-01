@@ -44,6 +44,8 @@ import { GolfmainComponent } from './_components/golf/golfmain/golfmain.componen
 import { EnterscoreComponent } from './_components/golf/enterscore/enterscore.component';
 import { GolfstatsComponent } from './_components/golf/golfstats/golfstats.component';
 import { EnterscoredetailComponent } from './_components/golf/enterscoredetail/enterscoredetail.component';
+import { SortgridPipe } from './assets/pipes/sortgrid.pipe';
+
 
 
 @NgModule({
@@ -74,7 +76,8 @@ import { EnterscoredetailComponent } from './_components/golf/enterscoredetail/e
         GolfmainComponent,
         EnterscoreComponent,
         GolfstatsComponent,
-        EnterscoredetailComponent
+        EnterscoredetailComponent,
+        SortgridPipe
     ],
     imports: [
         BrowserModule,
@@ -90,7 +93,7 @@ import { EnterscoredetailComponent } from './_components/golf/enterscoredetail/e
         MatSortModule
        
     ],
-    providers: [SortPipe],
+    providers: [SortPipe,SortgridPipe],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
