@@ -24,6 +24,8 @@ import { CoursesComponent } from './_components/admin/courses/courses.component'
 import { UsersComponent} from './_components/admin/users/users.component';
 import {UserEditDialog} from './_components/admin/users/usereditdialog.component';
 
+
+
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -45,6 +47,7 @@ import { EnterscoreComponent } from './_components/golf/enterscore/enterscore.co
 import { GolfstatsComponent } from './_components/golf/golfstats/golfstats.component';
 import { EnterscoredetailComponent } from './_components/golf/enterscoredetail/enterscoredetail.component';
 import { SortgridPipe } from './assets/pipes/sortgrid.pipe';
+import { GolfscoresComponent } from './_components/golf/golfscores/golfscores.component';
 
 
 
@@ -77,7 +80,8 @@ import { SortgridPipe } from './assets/pipes/sortgrid.pipe';
         EnterscoreComponent,
         GolfstatsComponent,
         EnterscoredetailComponent,
-        SortgridPipe
+        SortgridPipe,
+        GolfscoresComponent
     ],
     imports: [
         BrowserModule,
