@@ -21,7 +21,7 @@ import { SettingsComponent } from './_components/admin/settings/settings.compone
 import { GolfmainComponent } from './_components/golf/golfmain/golfmain.component';
 import { EnterscoreComponent } from './_components/golf/enterscore/enterscore.component';
 import { GolfstatsComponent } from './_components/golf/golfstats/golfstats.component';
-import { GolfscoresComponent } from './_components/golf/golfscores/golfscores.component';
+//import { GolfscoresComponent } from './_components/golf/golfscores/golfscores.component';
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -46,7 +46,7 @@ const routes: Routes = [  { path: '', component: HomeComponent },
 { path: 'golfmain', component: GolfmainComponent , canActivate: [AuthGuard]},
 { path: 'enterscore', component: EnterscoreComponent , canActivate: [AuthGuard]},
 { path: 'golfstats', component: GolfstatsComponent , canActivate: [AuthGuard]},
-{ path: 'golfscores', component: GolfscoresComponent , canActivate: [AuthGuard]},
+//{ path: 'golfscores', component: GolfscoresComponent , canActivate: [AuthGuard]},
 { path: '', redirectTo: '/', pathMatch: 'full'}];
 
 @NgModule({

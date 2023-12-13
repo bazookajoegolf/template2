@@ -18,3 +18,14 @@ export interface Course {
     totalyd: number
   
   }
+
+export interface Score {
+   date: Date;
+   course:string;
+   tee: string;
+   gtotal:number;
+   ntotal:number;
+   hdcp:number;
+   slope:number;
+   
+}

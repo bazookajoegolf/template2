@@ -1,6 +1,131 @@
-table {
-    width: 60%;
+
+#title {
+    padding-bottom:50px;
+}
+
+.filters {
+    width: 24%;
     margin: auto;
+    padding-left: 5%;
+    padding-right: 5%;
+
+}
+
+.pageCentering {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 150px;
+}
+
+
+.scoreTable {
+    width: 85%;
+    /* background-color: rgb(226,232,240); */
+    padding:30px;
+    width: 100%;
+  }
+  
+.scoreTable > tr {
+    color:rgb(42, 43, 44);
+    border-bottom: grey 1px;
+    text-rendering: optimizeLegibility;
+    text-align: center;
+    height:36px;
+    line-height: 36px;
+    vertical-align: middle;
+}  
+.stTr > th {
+    border-top: solid rgb(83, 78, 78) 2px;
+    width:calc(4.5%);
+    margin:auto;
+    height:36px;
+    line-height: 36px;
+    vertical-align: middle;
+    text-rendering: optimizeLegibility;
+
+}
+
+.stWider {
+    width: calc(5.2%);
+    background-color: rgba(158, 162, 168, 0.5);
+}
+
+  tr.example-detail-row {
+    height: 0;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  .example-element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .example-element-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+  }
+  
+  .example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+  }
+  
+  .example-element-description {
+    width:80%;
+    margin:auto;
+    padding: 16px;
+  }
+  
+  .example-element-description-attribution {
+    opacity: 0.5;
+  }
+  .cPeach {
+    background-color: rgb(131, 168, 163, 0.5);
+}
+
+.cBlank {
+    background-color: white;
+}
+
+.over {
+   
+    letter-spacing: 0px;
+}
+.over::before {
+    color:rgb(12, 104, 97);
+    content: "+";
+}
+
+.under {
+    color: darkred;
+}
+
+.par {
+    color: black;
+    content:"Par";
+}
+  /* .pageCentering {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 150px;
 }
 tr {
  line-height: 36px;
@@ -12,10 +137,5 @@ th, td {
 
 }
 
-.cPeach {
-    background-color: rgb(220, 223, 226);
-}
 
-.cBlank {
-    background-color: white;
-}
+} */
