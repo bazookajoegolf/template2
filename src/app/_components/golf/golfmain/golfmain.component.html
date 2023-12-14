@@ -3,14 +3,25 @@
 
   <h2 id="title">Scoring Profile</h2>
   
-  <div style="height:30px;">
-    <span class="filters"> <input (keyup)="applyFilter($event)" placeholder="Filter by Course" #input></span>
-    <span class="filters"><input (keyup)="applyFilter($event)" placeholder="Filter by Year" #input></span>
-    <span class="filters"> <input (keyup)="applyFilter($event)" placeholder="Filter by Counting Rounds" #input></span>
-    <span class="filters"><input (keyup)="applyFilter($event)" placeholder="Filter All" #input></span>
-   </div>
+ 
   <div class="mat-elevation-z8">
+    <div >
+      <mat-form-field class="filters"  style="font-size: 12px;line-height: 10px;">
+      <input matInput (keyup)="applyFilter($event)"#input>
+      <mat-label>Course Search</mat-label>
+    </mat-form-field>
+    <mat-form-field class="filters">
+      <span > <input matInput (keyup)="applyFilter($event)" placeholder="Filter by Year" #input></span>
+    </mat-form-field>
+    <mat-form-field class="filters">
+      <span > <input matInput (keyup)="applyFilter($event)" placeholder="Filter by Counting" #input></span>
+    </mat-form-field>
+    <mat-form-field class="filters">
+      <span > <input matInput (keyup)="applyFilter($event)" placeholder="Filter by All" #input></span>
+    </mat-form-field>
 
+
+     </div>
 
 
    <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows 
@@ -57,7 +68,9 @@
             </table>
 
             <table class="scoreTable">
- 
+              <!-- todo<: first need scoring detail flag. then,build dropdown based on detail, either full, score per hole, or just score
+              modify filter to use a radio button for the 4 types.  add more rows, putts, fairways, penalties. also add fairway, gir's 
+              and putts to the right of coursename -->
               <tr class="stTr">
                 <th class="stWider">HOLE</th>
                 <th>1</th>
