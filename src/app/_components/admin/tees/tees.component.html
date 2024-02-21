@@ -1,8 +1,8 @@
 <div class="courseBorder">
-  <div style="margin-left:3%">
+  <div style="margin-left:1.5%">
     <form class="spacer" [formGroup]="form" (ngSubmit)="onSubmit()">
 
-      <div style="margin-left:50px;">
+      <div style="margin-left:auto;margin-right:auto">
 
         <tr>
           <td id="radioGender" style="padding-bottom:10px;">
@@ -47,6 +47,18 @@
 
             </div>
           </td>
+          <td style="padding-left:30px;">
+            <div id="holes18">
+              <mat-radio-group aria-label="Holes" id="holes18" formControlName="holes18"
+                (change)="filterTee($event,2)"
+                (change)="holesSelector($event)">
+                <mat-radio-button color="primary" [value]=true >18 Holes</mat-radio-button>
+                <mat-radio-button color="accent" [value]=false>9 Holes</mat-radio-button>
+              </mat-radio-group>
+
+            </div>
+          </td>
+          
         </tr>
 
         <tr>
@@ -76,7 +88,7 @@
         </tr>
 
 
-        <table class="scorecard spacer  bottom50" style="width:80%">
+        <table class="scorecard spacer  bottom50"[ngStyle]="{'width' : eighteen ? '96%' : '66%'}" >
 
           <tr class="headercolor toprow">
             <td class="w6 firstcolumn">
@@ -91,19 +103,25 @@
             <td class="w3">8</td>
             <td class="w3">9</td>
             <td class="w4">Out</td>
-            <td class="w3">10</td>
-            <td class="w3">11</td>
-            <td class="w3">12</td>
-            <td class="w3">13</td>
-            <td class="w3">14</td>
-            <td class="w3">15</td>
-            <td class="w3">16</td>
-            <td class="w3">17</td>
-            <td class="w3">18</td>
-            <td class="w4">In</td>
+
+            <td *ngIf="eighteen" class="w3">10</td>
+            <td *ngIf="eighteen" class="w3">11</td>
+            <td *ngIf="eighteen" class="w3">12</td>
+            <td *ngIf="eighteen" class="w3">13</td>
+            <td *ngIf="eighteen" class="w3">14</td>
+            <td *ngIf="eighteen" class="w3">15</td>
+            <td *ngIf="eighteen" class="w3">16</td>
+            <td *ngIf="eighteen" class="w3">17</td>
+            <td *ngIf="eighteen"class="w3">18</td>
+            <td *ngIf="eighteen" class="w4">In</td>
+
             <td class="w4">Total</td>
-            <td class="w4">Slope</td>
-            <td class="w4">Rating</td>
+            <td class="w4 smfont">Slope</td>
+            <td class="w4 smfont">Rating</td>
+            <td class="w4 smfont">F9-Slope</td>
+            <td class="w4 smfont">F9-Rating</td>
+            <td *ngIf="eighteen" class="w4 smfont">B9-Slope</td>
+            <td *ngIf="eighteen" class="w4 smfont">B9-Rating</td>
           </tr>
           <tr>
             <td class="w6 firstcolumn">Yardage</td>
@@ -119,16 +137,16 @@
             <td class="w4">
               <p style="margin-bottom:0px;">{{outy9}}</p>
             </td>
-            <td> <input type="text" id="yd10" formControlName="yd10"> </td>
-            <td> <input type="text" id="yd11" formControlName="yd11"> </td>
-            <td> <input type="text" id="yd12" formControlName="yd12"> </td>
-            <td> <input type="text" id="yd13" formControlName="yd13"> </td>
-            <td> <input type="text" id="yd14" formControlName="yd14"> </td>
-            <td> <input type="text" id="yd15" formControlName="yd15"> </td>
-            <td> <input type="text" id="yd16" formControlName="yd16"> </td>
-            <td> <input type="text" id="yd17" formControlName="yd17"> </td>
-            <td> <input type="text" id="yd18" formControlName="yd18"> </td>
-            <td class="w4">
+            <td *ngIf="eighteen"> <input type="text" id="yd10" formControlName="yd10"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="yd11" formControlName="yd11"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="yd12" formControlName="yd12"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="yd13" formControlName="yd13"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="yd14" formControlName="yd14"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="yd15" formControlName="yd15"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="yd16" formControlName="yd16"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="yd17" formControlName="yd17"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="yd18" formControlName="yd18"> </td>
+            <td *ngIf="eighteen" class="w4">
               <p style="margin-bottom:0px;">{{iny9}}</p>
             </td>
             <td class="w4">
@@ -136,6 +154,10 @@
             </td>
             <td class="w4"> <input type="text" id="slope" formControlName="slope"> </td>
             <td class="w4"> <input type="text" id="rating" formControlName="rating"> </td>
+            <td class="w4"> <input type="text" id="f9slope" formControlName="f9slope"> </td>
+            <td class="w4"> <input type="text" id="f9rating" formControlName="f9rating"> </td>
+            <td *ngIf="eighteen" class="w4"> <input type="text" id="b9slope" formControlName="b9slope"> </td>
+            <td *ngIf="eighteen" class="w4"> <input type="text" id="b9rating" formControlName="b9rating"></td>
 
           </tr>
           <tr>
@@ -152,19 +174,23 @@
             <td class="w4">
               <p style="margin-bottom:0px;">{{outp9}}</p>
             </td>
-            <td class="w3"> <input type="text" #p10 id="p10" formControlName="p10"> </td>
-            <td class="w3"> <input type="text" #p11 id="p11" formControlName="p11"> </td>
-            <td class="w3"> <input type="text" #p12 id="p12" formControlName="p12"> </td>
-            <td class="w3"> <input type="text" #p13 id="p13" formControlName="p13"> </td>
-            <td class="w3"> <input type="text" #p14 id="p14" formControlName="p14"> </td>
-            <td class="w3"> <input type="text" #p15 id="p15" formControlName="p15"> </td>
-            <td class="w3"> <input type="text" #p16 id="p16" formControlName="p16"> </td>
-            <td class="w3"> <input type="text" #p17 id="p17" formControlName="p17"> </td>
-            <td class="w3"> <input type="text" #p18 id="p18" formControlName="p18"> </td>
-            <td class="w4"> {{inp9}}</td>
+            <td *ngIf="eighteen" class="w3"> <input type="text" #p10 id="p10" formControlName="p10"> </td>
+            <td *ngIf="eighteen" class="w3"> <input type="text" #p11 id="p11" formControlName="p11"> </td>
+            <td *ngIf="eighteen" class="w3"> <input type="text" #p12 id="p12" formControlName="p12"> </td>
+            <td *ngIf="eighteen" class="w3"> <input type="text" #p13 id="p13" formControlName="p13"> </td>
+            <td *ngIf="eighteen" class="w3"> <input type="text" #p14 id="p14" formControlName="p14"> </td>
+            <td *ngIf="eighteen" class="w3"> <input type="text" #p15 id="p15" formControlName="p15"> </td>
+            <td *ngIf="eighteen" class="w3"> <input type="text" #p16 id="p16" formControlName="p16"> </td>
+            <td *ngIf="eighteen" class="w3"> <input type="text" #p17 id="p17" formControlName="p17"> </td>
+            <td *ngIf="eighteen" class="w3"> <input type="text" #p18 id="p18" formControlName="p18"> </td>
+            <td *ngIf="eighteen" class="w4"> {{inp9}}</td>
             <td class="w4"> {{ptotal}}</td>
             <td class="w4"></td>
             <td class="w4"></td>
+            <td class="w4"></td>
+            <td class="w4"></td>
+            <td *ngIf="eighteen" class="w4"></td>
+            <td *ngIf="eighteen" class="w4"></td>
 
           </tr>
           <tr>
@@ -179,19 +205,23 @@
             <td> <input type="text" id="h8" formControlName="h8"> </td>
             <td> <input type="text" id="h9" formControlName="h9"> </td>
             <td class="w4"></td>
-            <td> <input type="text" id="h10" formControlName="h10"> </td>
-            <td> <input type="text" id="h11" formControlName="h11"> </td>
-            <td> <input type="text" id="h12" formControlName="h12"> </td>
-            <td> <input type="text" id="h13" formControlName="h13"> </td>
-            <td> <input type="text" id="h14" formControlName="h14"> </td>
-            <td> <input type="text" id="h15" formControlName="h15"> </td>
-            <td> <input type="text" id="h16" formControlName="h16"> </td>
-            <td> <input type="text" id="h17" formControlName="h17"> </td>
-            <td> <input type="text" id="h18" formControlName="h18"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="h10" formControlName="h10"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="h11" formControlName="h11"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="h12" formControlName="h12"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="h13" formControlName="h13"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="h14" formControlName="h14"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="h15" formControlName="h15"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="h16" formControlName="h16"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="h17" formControlName="h17"> </td>
+            <td *ngIf="eighteen"> <input type="text" id="h18" formControlName="h18"> </td>
             <td class="w4"></td>
             <td class="w4"></td>
             <td class="w4"></td>
             <td class="w4"></td>
+            <td class="w4"></td>
+            <td *ngIf="eighteen" class="w4"></td>
+            <td *ngIf="eighteen" class="w4"></td>
+            <td *ngIf="eighteen" class="w4"></td>
           </tr>
         </table>
       </div>

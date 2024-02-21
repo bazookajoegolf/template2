@@ -1,8 +1,63 @@
 
 <div class="pageCentering">
 
-  <h2 id="title">Scoring Profile</h2>
+  <div class="top-inline">
+    <table>
+
+      <tr >
+        <td>
+          <table>
+            <tr>
+              <td style="margin-right: 10px;">
+                <img class="avatar" *ngIf='gender =="Male"' src="../assets/images/batman-icon.png" alt="Batman">
+                <img class="avatar" *ngIf='gender =="Female"' src="../assets/images/batwoman.jpeg" alt="Batwoman">
+              </td>
+              <td>
+                <tr>
+                  <span style="font-weight: 450; font-size:20px;padding-left:10px;">{{name}}</span>
+                </tr>
+                <tr>
+                  <span><img style="padding-bottom:5px;padding-right:10px;padding-left:10px;"*ngIf='countryCode != " "' src="https://flagcdn.com/20x15/{{countryCode}}.png"></span>
+                  <span style="line-height: 15px;">{{country}}</span>
+                </tr>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="top-inline">
+    <table >
+      <tr >
+        <td class="ti1">BIRTHDATE</td>
+        <td class="ti2">{{birthdate | date: 'mediumDate'}}</td>
+      </tr>
+      <tr>
+        <td class="ti1">HOME COURSE</td>
+        <td class="ti2"><span *ngIf='homeCourse !="undefined"'>{{homeCourse}}</span></td>
+      </tr>
+      <tr>
+        <td class="ti1">CURRENT HANDICAP</td>
+        <td class="ti2">{{currentHandicap | number :'1.2-2'}}</td>
+      </tr>
+    </table>
+
+
+
+  </div>
+
+ <table id="toptable">
+  <tr>
+    <td>
+
+    </td>
+  </tr>
+ </table>
+
+
   
+
  
   <div class="mat-elevation-z8">
     <div >
@@ -26,7 +81,7 @@
 
    <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows 
    (matSortChange)="announceSortChange($event)"
-    matSortActive="date" matSortDirection="desc"
+    matSortActive="round" matSortDirection="desc"
     class="mat-elevation-z8">
 
     <ng-container matColumnDef="expand">
@@ -58,16 +113,29 @@
           </div> -->
           <div class="example-element-description">
             <hr style="width:100%;height:4px;color:darkslategray">
-            <table>
+            <table style="width: 100%;table-layout: fixed;margin:auto;">
               <tr style="font-size: 24px; font-family:'Roboto'; font-weight: bold;height: 30px;" >             
                 <td>{{element.name}}</td>
               </tr>
               <tr style="font-size: 16px; font-weight:bold;height:50px; ">
                 <td>  Course: {{element.coursename}}</td>
               </tr>
+              <tr *ngIf='element.scoredetail =="1"'  style="font-size: 22px; font-weight:450; align-items: center;">
+                <table style="width:60%;margin:auto;">
+                <td style="text-align: center;"> <div class="levelOneScore " style="background-color:#7ca9cf ;"> <div>Gross</div> <div>{{element.gtotal}}</div></div>    </td>
+                <td style="text-align: center;"> <div class="levelOneScore " style="background-color:#ea6e6e  ;"> <div>Net</div> <div>{{element.ntotal}}</div></div>    </td>
+                <td style="text-align: center;"> <div class="levelOneScore " style="background-color:#a1eec7;"> <div>Score</div> 
+                  <div><span *ngIf='element.g_topar > 0'>+</span> 
+                       <span *ngIf='element.g_topar != 0'>{{element.g_topar}}</span>
+                       <span *ngIf='element.g_topar == 0'>Even</span>
+                  </div>
+                </div>
+                </td>
+              </table>
+              </tr>
             </table>
 
-            <table class="scoreTable">
+            <table class="scoreTable" *ngIf='element.scoredetail !="1"'>
               <!-- todo<: first need scoring detail flag. then,build dropdown based on detail, either full, score per hole, or just score
               modify filter to use a radio button for the 4 types.  add more rows, putts, fairways, penalties. also add fairway, gir's 
               and putts to the right of coursename -->
@@ -146,29 +214,159 @@
               </tr>
               <tr>
                 <td class="stWider">Score</td>
-                <td>{{element.s1}}</td>
-                <td>{{element.s2}}</td>
-                <td>{{element.s3}}</td>
-                <td>{{element.s4}}</td>
-                <td>{{element.s5}}</td>
-                <td>{{element.s6}}</td>
-                <td>{{element.s7}}</td>
-                <td>{{element.s8}}</td>
-                <td>{{element.s9}}</td>
+                <td [ngStyle]="getColor(course?.p1 - element.s1)">{{element.s1}}</td>
+                <td [ngStyle]="getColor(course?.p2 - element.s2)">{{element.s2}}</td>
+                <td [ngStyle]="getColor(course?.p3 - element.s3)">{{element.s3}}</td>
+                <td [ngStyle]="getColor(course?.p4 - element.s4)">{{element.s4}}</td>
+                <td [ngStyle]="getColor(course?.p5 - element.s5)">{{element.s5}}</td>
+                <td [ngStyle]="getColor(course?.p6 - element.s6)">{{element.s6}}</td>
+                <td [ngStyle]="getColor(course?.p7 - element.s7)">{{element.s7}}</td>
+                <td [ngStyle]="getColor(course?.p8 - element.s8)">{{element.s8}}</td>
+                <td [ngStyle]="getColor(course?.p9 - element.s9)">{{element.s9}}</td>
                 <td class="stWider">{{element.f9tot}}</td>
-                <td>{{element.s10}}</td>
-                <td>{{element.s11}}</td>
-                <td>{{element.s12}}</td>
-                <td>{{element.s13}}</td>
-                <td>{{element.s14}}</td>
-                <td>{{element.s15}}</td>
-                <td>{{element.s16}}</td>
-                <td>{{element.s17}}</td>
-                <td>{{element.s18}}</td>
+                <td [ngStyle]="getColor(course?.p10 - element.s10)">{{element.s10}}</td>
+                <td [ngStyle]="getColor(course?.p11 - element.s11)">{{element.s11}}</td>
+                <td [ngStyle]="getColor(course?.p12 - element.s12)">{{element.s12}}</td>
+                <td [ngStyle]="getColor(course?.p13 - element.s13)">{{element.s13}}</td>
+                <td [ngStyle]="getColor(course?.p14 - element.s14)">{{element.s14}}</td>
+                <td [ngStyle]="getColor(course?.p15 - element.s15)">{{element.s15}}</td>
+                <td [ngStyle]="getColor(course?.p16 - element.s16)">{{element.s16}}</td>
+                <td [ngStyle]="getColor(course?.p17 - element.s17)">{{element.s17}}</td>
+                <td [ngStyle]="getColor(course?.p18 - element.s18)">{{element.s18}}</td>
                 <td class="stWider">{{element.b9tot}}</td>
                 <td style="width:calc(5.5%)">{{element.gtotal}}</td>
               </tr>
+              <tr *ngIf='element.scoredetail=="3"'>
+                <td class="stWider">Fairways</td>
+                <td>{{element.f1}}</td>
+                <td>{{element.f2}}</td>
+                <td>{{element.f3}}</td>
+                <td>{{element.f4}}</td>
+                <td>{{element.f5}}</td>
+                <td>{{element.f6}}</td>
+                <td>{{element.f7}}</td>
+                <td>{{element.f8}}</td>
+                <td>{{element.f9}}</td>
+                <td class="stWider">{{(element.f1=='Y' ? 1 : 0) + (element.f2=='Y' ? 1 : 0) +
+                                      (element.f3=='Y' ? 1 : 0) + (element.f4=='Y' ? 1 : 0) +
+                                      (element.f5=='Y' ? 1 : 0) + (element.f6=='Y' ? 1 : 0) +
+                                      (element.f7=='Y' ? 1 : 0) + (element.f8=='Y' ? 1 : 0) +
+                                      (element.f9=='Y' ? 1 : 0) }} </td>
+                <td>{{element.f10}}</td>
+                <td>{{element.f11}}</td>
+                <td>{{element.f12}}</td>
+                <td>{{element.f13}}</td>
+                <td>{{element.f14}}</td>
+                <td>{{element.f15}}</td>
+                <td>{{element.f16}}</td>
+                <td>{{element.f17}}</td>
+                <td>{{element.f18}}</td>
+                <td class="stWider">{{(element.f10=='Y' ? 1 : 0) + (element.f11=='Y' ? 1 : 0) +
+                                      (element.f12=='Y' ? 1 : 0) + (element.f13=='Y' ? 1 : 0) +
+                                      (element.f14=='Y' ? 1 : 0) + (element.f15=='Y' ? 1 : 0) +
+                                      (element.f16=='Y' ? 1 : 0) + (element.f17=='Y' ? 1 : 0) +
+                                      (element.f18=='Y' ? 1 : 0) }}</td>
+                <td style="width:calc(5.5%)">{{element.fy}}</td>
+              </tr>
+
+              <tr *ngIf='element.scoredetail=="3"'>
+                <td class="stWider">Greens</td>
+                <td>{{element.g1}}</td>
+                <td>{{element.g2}}</td>
+                <td>{{element.g3}}</td>
+                <td>{{element.g4}}</td>
+                <td>{{element.g5}}</td>
+                <td>{{element.g6}}</td>
+                <td>{{element.g7}}</td>
+                <td>{{element.g8}}</td>
+                <td>{{element.g9}}</td>
+                <td class="stWider">{{(element.g1=='Y' ? 1 : 0) + (element.g2=='Y' ? 1 : 0) +
+                                      (element.g3=='Y' ? 1 : 0) + (element.g4=='Y' ? 1 : 0) +
+                                      (element.g5=='Y' ? 1 : 0) + (element.g6=='Y' ? 1 : 0) +
+                                      (element.g7=='Y' ? 1 : 0) + (element.g8=='Y' ? 1 : 0) +
+                                      (element.g9=='Y' ? 1 : 0) }} </td>
+                <td>{{element.g10}}</td>
+                <td>{{element.g11}}</td>
+                <td>{{element.g12}}</td>
+                <td>{{element.g13}}</td>
+                <td>{{element.g14}}</td>
+                <td>{{element.g15}}</td>
+                <td>{{element.g16}}</td>
+                <td>{{element.g17}}</td>
+                <td>{{element.g18}}</td>
+                <td class="stWider">{{(element.g10=='Y' ? 1 : 0) + (element.g11=='Y' ? 1 : 0) +
+                                      (element.g12=='Y' ? 1 : 0) + (element.g13=='Y' ? 1 : 0) +
+                                      (element.g14=='Y' ? 1 : 0) + (element.g15=='Y' ? 1 : 0) +
+                                      (element.g16=='Y' ? 1 : 0) + (element.g17=='Y' ? 1 : 0) +
+                                      (element.g18=='Y' ? 1 : 0) }}</td>
+                <td style="width:calc(5.5%)">{{element.gir}}</td>
+              </tr>
+              <tr *ngIf='element.scoredetail=="3"'>
+                <td class="stWider">Putts</td>
+                <td>{{element.p1}}</td>
+                <td>{{element.p2}}</td>
+                <td>{{element.p3}}</td>
+                <td>{{element.p4}}</td>
+                <td>{{element.p5}}</td>
+                <td>{{element.p6}}</td>
+                <td>{{element.p7}}</td>
+                <td>{{element.p8}}</td>
+                <td>{{element.p9}}</td>
+                <td class="stWider">{{element.p1 + element.p2 + element.p3 +
+                                      element.p4 + element.p5 + element.p6 +
+                                      element.p7 + element.p8 + element.p9  }}</td>
+                <td>{{element.p10}}</td>
+                <td>{{element.p11}}</td>
+                <td>{{element.p12}}</td>
+                <td>{{element.p13}}</td>
+                <td>{{element.p14}}</td>
+                <td>{{element.p15}}</td>
+                <td>{{element.p16}}</td>
+                <td>{{element.p17}}</td>
+                <td>{{element.p18}}</td>
+                <td class="stWider">{{element.p10 + element.p11 + element.p12 +
+                  element.p13 + element.p14 + element.p15 +
+                  element.p16 + element.p17 + element.p18  }}</td>
+                <td style="width:calc(5.5%)">{{element.putts}}</td>
+              </tr>
+              <tr *ngIf='element.scoredetail=="3"'>
+                <td class="stWider">Penalties</td>
+                <td>{{element.pen1}}</td>
+                <td>{{element.pen2}}</td>
+                <td>{{element.pen3}}</td>
+                <td>{{element.pen4}}</td>
+                <td>{{element.pen5}}</td>
+                <td>{{element.pen6}}</td>
+                <td>{{element.pen7}}</td>
+                <td>{{element.pen8}}</td>
+                <td>{{element.pen9}}</td>
+                <td class="stWider">{{element.pen1 + element.pen2 + element.pen3 +
+                  element.pen4 + element.pen5 + element.pen6 +
+                  element.pen7 + element.pen8 + element.pen9  }}</td>
+                <td>{{element.pen10}}</td>
+                <td>{{element.pen11}}</td>
+                <td>{{element.pen12}}</td>
+                <td>{{element.pen13}}</td>
+                <td>{{element.pen14}}</td>
+                <td>{{element.pen15}}</td>
+                <td>{{element.pen16}}</td>
+                <td>{{element.pen17}}</td>
+                <td>{{element.pen18}}</td>
+                <td class="stWider">{{element.pen10 + element.pen11 + element.pen12 +
+                  element.pen13 + element.pen14 + element.pen15 +
+                  element.pen16 + element.pen17 + element.pen18  }}</td>
+                <td style="width:calc(5.5%)">{{element.penaltytotal}}</td>
+              </tr>
+ 
             </table>
+            <tr *ngIf='element.scoredetail!="1"' id="legend"><span>EAGLE+ </span><div style="background-color: #e9ea9b"></div>
+                            <span>BIRDIE </span><div style="background-color: #a1eec7"></div>
+                            <span>BOGEY </span><div style="background-color: #ea6e6e" ></div>
+                            <span>DBL BOGEY+ </span><div style="background-color: #7ca9cf"></div>
+            <tr style="padding-top:40px;">
+              <span style="font-weight: bolder;padding-right: 30px;">Comment:</span> 
+              <span style="line-height: 24px ;">{{element.comment}}</span>  
+            </tr> 
 
             <hr style="width:100%;height:4px;color:darkslategray">
 
@@ -191,11 +389,16 @@
       <td mat-cell *matCellDef="let element; let i=index"> {{i+1}} </td>
     </ng-container> -->
   
+    <ng-container matColumnDef="round">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Date</th>
+      <td mat-cell *matCellDef="let element">{{element.date | date : shortDate}}</td>
+    </ng-container>
+
     <!-- Date Column -->
-    <ng-container matColumnDef="date">
+    <!-- <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef  mat-sort-header> Date </th>
       <td mat-cell *matCellDef="let element"> {{element.date | date : shortDate}} </td>
-    </ng-container>
+    </ng-container> -->
   
     <!-- Coursename Column -->
     <ng-container matColumnDef="coursename">
@@ -262,7 +465,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> + - </th>
         <td mat-cell *matCellDef="let element let i=index"
         [ngClass]="{'over' : element.g_topar > 0, 'under': element.g_topar < 0}"
-        >{{element.g_topar}}</td>
+        > <span *ngIf="element.g_topar !=0">{{element.g_topar}}</span> <span *ngIf="element.g_topar ==0">Even</span> </td>
       </ng-container>
 
        <!-- counter Column -->

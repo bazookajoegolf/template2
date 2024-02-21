@@ -1,4 +1,5 @@
 import { Component, OnChanges, OnInit, ElementRef, SimpleChanges } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { CoursesService } from '../../../services/courses.service';
 import { AlertService } from './../../../services/alert.service';
 import { Router } from '@angular/router';
@@ -13,6 +14,7 @@ import {Course} from '../../../assets/interfaces/interfaces';
 export class EnterscoreComponent implements OnInit , OnChanges {
 
   course: Course[];
+  form;
  // form:UntypedFormGroup;
   selectedCourse: Course;
   selectedCourseId;
@@ -36,6 +38,13 @@ export class EnterscoreComponent implements OnInit , OnChanges {
    //this.chosenCourse="Maple Ridge";
    this.gender=localStorage.getItem('gender');
    this.countrySelect="all";
+
+   this.form = new UntypedFormGroup({
+    coursename : new UntypedFormControl('',),
+    teebox     : new UntypedFormControl('',),
+    gender     : new UntypedFormControl('',),
+    holes18    : new UntypedFormControl('',)
+  });
 
    this.today = new Date();
    this.getCourses();
@@ -86,9 +95,14 @@ export class EnterscoreComponent implements OnInit , OnChanges {
     // console.log("courseadmin event  " + event.value);
     // console.log("event value "+ event);
     this.selectedTee=null;
+    this.selectedName=null;
     this.teebox=[];
     this.selectedDate=null;
-    this.pushToESD=null;
+    this.pushToESD=null; 
+    this.selectedCourse = null;
+    this.selectedCourseId = null;
+    this.selectedCourseName= null;
+    this.id=null;
     this.id = event.value;
 
          const x = this.course.find(o => o._id == this.id );
@@ -113,12 +127,16 @@ export class EnterscoreComponent implements OnInit , OnChanges {
 
     getTees(event) {
       this.selectedName = event.value;
+      this.teebox= [];
+      this.selectedTee=null;
+      this.pushToESD=null;
       console.log(this.selectedName);
            for(var i=0; i < this.selectedCourse?.tees.length;i++) {
         if(this.selectedCourse.tees[i].coursename == this.selectedName 
            && this.selectedCourse.tees[i].gender == this.gender.toLowerCase()) {
           console.log("pushing in tee");
           this.teebox.push(this.selectedCourse.tees[i]);
+        
         }
 
       }

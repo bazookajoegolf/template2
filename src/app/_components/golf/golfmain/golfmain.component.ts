@@ -36,7 +36,7 @@ import {Score} from '../../../assets/interfaces/interfaces';
 export class GolfmainComponent implements AfterViewInit {
 
 
-  displayedColumns: string[] = ['date','coursename','Tee','gtotal','Net','g_topar','Hdcp','Slope','Rating','hci','year'];
+  displayedColumns: string[] = ['round','coursename','Tee','gtotal','Net','g_topar','Hdcp','Slope','Rating','hci','year'];
   columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
  // dataSource:MatTableDataSource<any>;
 
@@ -52,7 +52,14 @@ export class GolfmainComponent implements AfterViewInit {
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private score: ScoreService ,private courses: CoursesService, private router: Router, private alert: AlertService) {
     this.userid = localStorage.getItem('userid');
-   
+    this.homeCourse = localStorage.getItem('homeCourse');
+    this.country = localStorage.getItem('country') || " ";
+    const x = localStorage.getItem('countryCode') || " ";
+    this.countryCode = x.toLowerCase() || " ";
+    this.birthdate = localStorage.getItem('birthdate');
+    this.gender = localStorage.getItem('gender');
+    this.name = localStorage.getItem('name');
+    console.log(this.countryCode);
     this.getScore(this.userid);
   }
 
@@ -60,10 +67,18 @@ export class GolfmainComponent implements AfterViewInit {
  
   scores=[];
   course;
+  
   allScore;
   data = [];
   
   userid;
+  homeCourse;
+  currentHandicap;
+  country = " ";
+  countryCode = " ";
+  birthdate;
+  gender;
+  name;
   
   hcArray=[];
   lowScores =[];
@@ -93,34 +108,37 @@ export class GolfmainComponent implements AfterViewInit {
        // this.roundsplayed = s.scores.scores.length;
        // this.currenthandicap = s.scores.handicap;
       // console.log("Scores " + JSON.stringify(s.scores.scores));
+      
       this.allScore = s.scores;
        this.scores = s.scores.scores; 
        this.hcArray = s.scores.handicapArray;
        this.lowScores = s.scores.lowScoresArray;
+       this.currentHandicap = this.hcArray[this.hcArray.length -1].handicapIndex;
     //  console.table(this.hcArray);
       // this.dataSource.data = s.scores.scores;
-      this.scores = s.scores.scores.sort(function(a,b) {
-          let DateA = new Date(a.date);
-          let DateB = new Date(b.date);
-          return DateA.getTime()  - DateB.getTime();
-       });
-       for(let i=0;i<this.scores.length;i++) {
-        if(this.hcArray[i].hasOwnProperty('rn')) {
-         // console.log("hc " + this.hcArray[i].rn);
-          if(this.scores[i].rn == this.hcArray[i].rn ) {
-            this.scores[i].hc = this.hcArray[i].handicap;
-            this.scores[i].hci = this.hcArray[i].handicapIndex;
-          }
-        }  
-        this.scores[i].counter = false;
-        for(let j=0;j<this.lowScores.length;j++){
-          if(this.lowScores[j].r == this.scores[i].rn) {
-            this.scores[i].counter = true;
+      let tmp=[];  
+      for(let i=0;i < this.hcArray.length;i++) {
+        for(let j=0;j<this.scores.length;j++) {
+          if(this.hcArray[i].rn == this.scores[j].rn) {
+
+            this.scores[j].hc = this.hcArray[i].handicap;
+            this.scores[j].hci = this.hcArray[i].handicapIndex;
+            this.scores[j].round = i+1;
+            this.scores[j].counter = false;
+            for(let k=0;k<this.lowScores.length;k++){
+              if(this.lowScores[k].r == this.scores[j].rn) {
+                this.scores[j].counter = true;
+              }
+           } 
+            tmp.push(this.scores[j]) 
           }
         }
-       }
+      } 
 
-       //this.allScore.scores = this.scores;
+
+      this.scores = tmp;
+
+      //this.allScore.scores = this.scores;
        this.dataSource = new MatTableDataSource(this.scores);
        this.dataSource.paginator = this.paginator;
        this.dataSource.sort = this.sort;
@@ -159,16 +177,19 @@ export class GolfmainComponent implements AfterViewInit {
   }
 
   async getCoursebyId(x, y) {
-    console.log("course id passed in " +x);
+    console.log("course id passed in " +x +" y value is: " + y);
+    this.course = null;
    this.courses.getCourseId(x)
       .subscribe((courses) => {
           // let temp = courses;
-          console.table(y);
+         // console.table(courses);
           for(let i = 0;i < courses.tees.length;i++) {
+            console.log( "x id value is:  "  +  courses.tees[i]._id + " y value : " + y);
             if(courses.tees[i]._id == y) {
               console.log ("tee id found");
               this.course = courses.tees[i];
             }
+           // console.log(" course tee value " + JSON.stringify(this.course));
           }
         });
  
@@ -176,6 +197,30 @@ export class GolfmainComponent implements AfterViewInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  getColor(x) {
+    
+    switch(x) {
+      case 4:
+      case 3:
+      case 2 : {
+      return {'background-color': '#e9ea9b'}
+      }
+ 
+      case 1 : 
+        return {'background-color': '#a1eec7'}
+      case 0:
+        return {'background-color': 'white'}
+
+        case  -1 : 
+        return {'background-color': '#ea6e6e'}
+
+        default: {
+          return {'background-color': '#7ca9cf'}
+          }
+    }
+   
   }
 
 

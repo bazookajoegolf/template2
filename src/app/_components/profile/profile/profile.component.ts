@@ -1,11 +1,14 @@
 import { AlertService } from './../../../services/alert.service';
 import { User } from '../../../models/user';
 import { LoginService } from '../../../services/login.service';
+import { CoursesService } from '../../../services/courses.service';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {UntypedFormControl,UntypedFormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import { catchError, map, tap } from 'rxjs/operators';
+
+import  countries from  "../../../assets/data/countrycodes.json";
 
 
 
@@ -22,10 +25,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   editMode = false;
   id : string;
   exp : Date;
-
+  courseList = [];
+  country: string;
+  countryList = [];
 
   
-  constructor(private signup : LoginService, private router:Router, private alert : AlertService) { }
+  constructor(private signup : LoginService , private courses : CoursesService , private router:Router, private alert : AlertService) { }
 
   ngOnInit() :void {  
 
@@ -36,8 +41,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
       name : new UntypedFormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
       gender : new UntypedFormControl ('',[Validators.required]),
       oldpassword: new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
+      homeCourse : new UntypedFormControl ('',[]),
+      birthdate : new UntypedFormControl ('',[]),
+      country : new UntypedFormControl ('',[])
     });
         
+    this.getCourses();
+    this.countryList = countries.countries;
 
     this.signup.getProfile()
     .subscribe((profile)=>{
@@ -50,7 +60,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.form.patchValue({'email' : profile.email});
       this.form.patchValue({'name' : profile.name});
       this.form.patchValue({'password' : "*****"});
-      this.form.patchValue({'gender' : profile.gender})
+      this.form.patchValue({'gender' : profile.gender});
+      this.form.patchValue({'homeCourse' : profile.homeCourse});
+      this.form.patchValue({'country' : profile.country});
+      this.form.patchValue({'countryCode' : profile.countryCode});
+      this.form.patchValue({'birthdate' : profile.birthdate});
       this.form.disable();
       this.id = profile._id;
       } 
@@ -83,13 +97,20 @@ get p() {
 }  
   
     onSubmit() {
+      const cc = this.countryList.find(({name}) => name === this.form.value.country);
         const post = {
             name: this.form.value.name,
             email: this.form.value.email,
             oldpassword: this.form.value.oldpassword,
-            gender : this.form.value.gender
+            homeCourse: this.form.value.homeCourse,
+            gender : this.form.value.gender,
+            birthdate: this.form.value.birthdate,
+            country : this.form.value.country,
+            countryCode : cc.code
         }
-
+        
+      
+        //console.log("country code: " + this.countryList.find(this.form.value.country));
 
         this.signup.updateProfile(this.id, post)
             .pipe(
@@ -101,6 +122,12 @@ get p() {
                 response => {
                 this.alert.success("Request Sent Successfully");
                  localStorage.setItem('token', response.token);
+                 localStorage.setItem('homeCourse', response.user.homeCourse);
+                 localStorage.setItem('gender', response.user.gender);
+                 localStorage.setItem('email', response.user.email);
+                 localStorage.setItem('birthdate', response.user.birthdate);
+                 localStorage.setItem('country', response.user.country);
+                 localStorage.setItem('countryCode', response.user.countryCode);
                 // update the user object.
                 setTimeout(() => {
                     this.router.navigate(['profile']);
@@ -116,35 +143,9 @@ get p() {
 
     }
 
-//     this.signup.updateProfile(this.id, post)
-//     .subscribe(response => {
-//         this.statusMessage = "Request Sent Successfully";
-//         localStorage.setItem('token', response.token);
-//         // update the user object.
-//         setTimeout(() => {
-//             this.router.navigate(['profile']);
-//             this.form.patchValue({'email' : this.user.email});
-//             this.form.patchValue({'name' : this.user.name});
-//             this.editMode = false;
-//             this.form.disable();
-//             this.statusMessage = null;
-//         }, 2000);
-//     },
-//         (error) => {
-//             console.log("This is the error handler" + error.error.message);
-//             { this.statusMessage = error.error.message }
-//         }
-//     );
-
-// }
-
 
  cancelUpdate() {
-  // this.form = null;
-  // this.form = new FormGroup({
-  //   email : new FormControl('',[Validators.required, Validators.email]),
-  //   name : new FormControl ('',[Validators.required, Validators.minLength(5),Validators.maxLength(15)]),
-  //    });
+
   this.form.patchValue({'email' : this.user.email});
   this.form.patchValue({'name' : this.user.name});
   this.form.patchValue({'oldpassword' : "*****"});
@@ -171,5 +172,20 @@ get p() {
 //   else (this.form.disable())
 //   this.statusMessage = null;
 }
+
+getCourses() {
+
+  this.courses.getCourses()
+    .subscribe((courses) => {
+     
+      this.courseList = courses;
+      //console.table(this.courseList);
+    });
+
+}
+
+
+
+
 
 }

@@ -26,6 +26,37 @@
 
         </mat-form-field>
 
+        <!-- <mat-form-field>
+          <input matInput id="homeCourse" type="text" formControlName="homeCourse" placeholder="Home Course" >
+        </mat-form-field> -->
+
+        <mat-form-field id="homeCourse" appearance="outline">
+          <mat-label>Home Course</mat-label>
+          <mat-select formControlName="homeCourse" >
+            <mat-option *ngFor="let cname of courseList" [value]="cname.name" [selected]="homeCourse === cname">
+              {{ cname.name}}</mat-option>
+
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Birthdate</mat-label>
+          <input matInput formControlName="birthdate" [matDatepicker]="picker">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field id="country" appearance="outline">
+          <mat-label>Country</mat-label>
+          <mat-select formControlName="country" >
+            <mat-option *ngFor="let cname of countryList" [value]="cname.name" [selected]="country === cname">
+              {{ cname.name}}</mat-option>
+
+          </mat-select>
+        </mat-form-field>
+
+
+
         <mat-radio-group aria-label="Enter Gender" id="gender" formControlName="gender">
           <mat-radio-button color="primary" value="Female">Female</mat-radio-button>
           <mat-radio-button color="accent" value="Male">Male</mat-radio-button>

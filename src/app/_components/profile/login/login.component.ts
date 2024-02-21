@@ -57,11 +57,16 @@ get f() {
       if(response.token && response) {
        //console.log("Response value " +JSON.stringify(response));
         this.alert.success( "Successfully Logged in!");
-       
+       //localStorage.clear();
        localStorage.setItem('token', response.token);
        localStorage.setItem('gender',response.gender);
        localStorage.setItem('userid',response.userid);
        localStorage.setItem('email',response.email);
+       localStorage.setItem('homeCourse',response.homeCourse);
+       localStorage.setItem('birthdate',response.birthdate);
+       localStorage.setItem('country',response.country);
+       localStorage.setItem('countryCode',response.countryCode);
+       localStorage.setItem('name', response.name);
       }  
         setTimeout(()=>{
             this.router.navigate(['/']);

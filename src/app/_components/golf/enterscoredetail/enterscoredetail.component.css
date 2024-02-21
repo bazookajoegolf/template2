@@ -5,8 +5,8 @@
 }
 
 #linebreak {
-    width:90%;
-    border: 1px solid grey;
+    width:80%;
+    border: 1px solid rgb(0, 0, 0);
 
 }
 
@@ -24,6 +24,17 @@
     line-height:36px; 
     min-width: 15px;
     height:36px; 
+    width:calc(3%);
+    border:1px solid rgb(173, 168, 168);
+    vertical-align: top;
+    
+}
+
+.btm-spanitem {
+    display: inline-block; 
+    line-height:36px; 
+    min-width: 15px;
+    height:38px; 
     width:calc(3%);
     border:1px solid rgb(173, 168, 168);
     vertical-align: top;
@@ -124,6 +135,7 @@ input.ng-invalid.ng-touched {
 #postScore {
     /* background-color: gray; */
     margin-left:10px;
+    margin-top: 20px;
     width:50%;
     height:45px;
     color: white;
@@ -133,6 +145,7 @@ input.ng-invalid.ng-touched {
 
 #postScore:disabled {
    background-color: gray;
+
 }
 
 #calcid:disabled {
@@ -161,6 +174,13 @@ input.ng-invalid.ng-touched {
     height: auto;
     width: 100%;
     justify-content: center;
+}
+
+
+.one-review > div {
+    display:inline-block;
+    margin: 40px 40px 10px 40px;
+    font-size: larger;
 }
 
 .block {
@@ -200,11 +220,26 @@ input.ng-invalid.ng-touched {
 #scoreDetailspan {
     margin-left : 40px;
     align-items: flex-end;
-    font-weight: bolder;
+    font-weight: 550;
 
 }
 
 #detailDiv {
     margin-top: 20px;
     margin-bottom: 15px;
+}
+
+.l-one-input {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 30%;
+}
+
+.inpScore {
+    line-height: 36px;
+    font-size: 22px;
+    text-align: center;
+    width: 70px;
+    margin-left:10px ;
+    margin-right:30px;
 }

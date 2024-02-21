@@ -25,6 +25,8 @@ export class EnterscoredetailComponent {
   roundsplayed;
   currenthandicap;
   calculated = false;
+  detail="3";
+  holesplayed;
 
  // shape = ["","","","","","","","","","","","","","","","","",""];
 
@@ -38,6 +40,7 @@ export class EnterscoredetailComponent {
   penaltyArray :number[]=[];
   handicapArray : number[]=[];
   scorediff:number;
+  holes18:boolean;
 
   fullOptions = ["Y","L2","L1","R1","R2","S","W"];
   par3Options = ["--"];
@@ -61,6 +64,8 @@ export class EnterscoredetailComponent {
       name     : new UntypedFormControl('', []),
       coursename     : new UntypedFormControl('', []),
       teename    : new UntypedFormControl('', []),
+      holes18    : new UntypedFormControl('', []),
+      holesplayed : new UntypedFormControl('', []),
       username    : new UntypedFormControl('', []),
       partotalcourse : new UntypedFormControl('', []),
       slope	     : new UntypedFormControl('', []),
@@ -70,8 +75,8 @@ export class EnterscoredetailComponent {
       year    : new UntypedFormControl('', []),
       f9tot   : new UntypedFormControl('', []),
       b9tot    : new UntypedFormControl('', []),
-      gtotal     : new UntypedFormControl('', []),
-      ntotal     : new UntypedFormControl('', []),
+      gtotal     : new UntypedFormControl('', [Validators.min(50), Validators.max(499),Validators.pattern('^[0-9]*$')]),
+      ntotal     : new UntypedFormControl('', [Validators.min(50), Validators.max(499),Validators.pattern('^[0-9]*$')]),
       g_topar    : new UntypedFormControl('', []),
       handicap    : new UntypedFormControl('', []),
       gir     : new UntypedFormControl('', []),
@@ -193,8 +198,7 @@ export class EnterscoredetailComponent {
 
   ngOnInit() {
     this.scoreUser = localStorage.getItem('userid');
-   // this.scoreUser = localStorage.getItem('userid');
-    console.log("userid " + this.scoreUser);
+
     this.getScore(this.scoreUser);
     this.user.getProfile()
     .subscribe((profile)=>{
@@ -202,11 +206,13 @@ export class EnterscoredetailComponent {
      // this.form.patchValue({'name' : profile.name});
      // this.form.patchValue({'gender' : profile.gender})
     });
-
-
+   
+ 
   }
 
+
   ngOnChanges() {
+    
     if(this.courseTee) {
     this.parArray=[this.courseTee.tee.p1,this.courseTee.tee.p2,this.courseTee.tee.p3,this.courseTee.tee.p4,this.courseTee.tee.p5,this.courseTee.tee.p6,
       this.courseTee.tee.p7,this.courseTee.tee.p8,this.courseTee.tee.p9,this.courseTee.tee.p10,this.courseTee.tee.p11,this.courseTee.tee.p12,this.courseTee.tee.p13,
@@ -215,10 +221,15 @@ export class EnterscoredetailComponent {
     this.handicapArray=[this.courseTee.tee.h1,this.courseTee.tee.h2,this.courseTee.tee.h3,this.courseTee.tee.h4,this.courseTee.tee.h5,this.courseTee.tee.h6,
       this.courseTee.tee.h7,this.courseTee.tee.h8,this.courseTee.tee.h9,this.courseTee.tee.h10,this.courseTee.tee.h11,this.courseTee.tee.h12,this.courseTee.tee.h13,
       this.courseTee.tee.h14,this.courseTee.tee.h15,this.courseTee.tee.h16,this.courseTee.tee.h17,this.courseTee.tee.h18  ] ;
-
+   
     this.form.reset();
     this.initializeForm();
     this.shape = Array.from({length: 18}, (_, i) => "par");
+    this.holes18=this.courseTee.tee.holes18;
+    if(this.holes18) {this.holesplayed="18"}
+    else {this.holesplayed="f9"}
+    //console.log("course id" + this.courseTee.course+ "  tee id" + this.courseTee.tee._id );
+    //console.log("holes18: " + this.courseTee.tee.holes18);
     // console.log(JSON.stringify(this.parArray));
     // console.log(this.courseTee.tee.p1);
      //console.log(JSON.stringify(this.courseTee));
@@ -232,7 +243,7 @@ export class EnterscoredetailComponent {
       var pen = "pen"+(i+1);
       //console.log("value of x: " + x);
       if(this.parArray[i]== 3) {
-        console.log("attempting to patch " + x);
+    //    console.log("attempting to patch " + x);
         this.form.patchValue({[x]: "--" });
         //this.form.get([x]).disable();
        
@@ -257,15 +268,29 @@ export class EnterscoredetailComponent {
 
   get frm() {
    // console.log("is the form valid:  " + this.form.valid);
+   if(this.detail=="3" || this.detail=="2") {
+    
     return this.form.invalid;
+   }
+   if(this.detail=="1") {
+    if(this.form.value.gtotal == null || this.form.value.ntotal == null ) {
+      return true;
+    }
+    if(this.form.value.gtotal < this.form.value.ntotal) {
+      return true;
+    }
+    return this.form.invalid;
+
+   }
   }
 
 
-
+// onSubmit does calculations...post function, posts to mongo
 
   onSubmit() {
-    this.form.value.ntotal = 0;
+   // this.form.value.ntotal = 0;
     this.form.value.handicap = 0;
+    this.form.value.scoredetail = this.detail;
     this.form.value.username = this.username;
     this.form.value.courseid = this.courseTee.tee.courseid;
     this.form.value.teeid    = this.courseTee.tee._id;
@@ -303,44 +328,47 @@ export class EnterscoredetailComponent {
     this.form.value.twoputts = 0;
     this.form.value.threeputtsplus = 0;
 
-
+  // if level 2 or 3
     this.scoreArray = [parseInt(this.form.value.s1),parseInt(this.form.value.s2),parseInt(this.form.value.s3),parseInt(this.form.value.s4),
       parseInt(this.form.value.s5),parseInt(this.form.value.s6),parseInt(this.form.value.s7),parseInt(this.form.value.s8),
       parseInt(this.form.value.s9),parseInt(this.form.value.s10),parseInt(this.form.value.s11),
       parseInt(this.form.value.s12),parseInt(this.form.value.s13),parseInt(this.form.value.s14),parseInt(this.form.value.s15),
       parseInt(this.form.value.s16),parseInt(this.form.value.s17),parseInt(this.form.value.s18)]; 
-
+  // if level 3
     this.greensArray = [this.form.value.g1,this.form.value.g2,this.form.value.g3,this.form.value.g4,
       this.form.value.g5,this.form.value.g6,this.form.value.g7,this.form.value.g8,
       this.form.value.g9,this.form.value.g10,this.form.value.g11,
       this.form.value.g12,this.form.value.g13,this.form.value.g14,this.form.value.g15,
       this.form.value.g16,this.form.value.g17,this.form.value.g18];  
-      
+      // if level 3  
     this.puttsArray = [parseInt(this.form.value.p1),parseInt(this.form.value.p2),parseInt(this.form.value.p3),parseInt(this.form.value.p4),
       parseInt(this.form.value.p5),parseInt(this.form.value.p6),parseInt(this.form.value.p7),parseInt(this.form.value.p8),
       parseInt(this.form.value.p9),parseInt(this.form.value.p10),parseInt(this.form.value.p11),
       parseInt(this.form.value.p12),parseInt(this.form.value.p13),parseInt(this.form.value.p14),parseInt(this.form.value.p15),
       parseInt(this.form.value.p16),parseInt(this.form.value.p17),parseInt(this.form.value.p18)];  
-
+  // if level 3
     this.penaltyArray = [parseInt(this.form.value.pen1),parseInt(this.form.value.pen2),parseInt(this.form.value.pen3),parseInt(this.form.value.pen4),
       parseInt(this.form.value.pen5),parseInt(this.form.value.pen6),parseInt(this.form.value.pen7),parseInt(this.form.value.pen8),
       parseInt(this.form.value.pen9),parseInt(this.form.value.pen10),parseInt(this.form.value.pen11),
       parseInt(this.form.value.pen12),parseInt(this.form.value.pen13),parseInt(this.form.value.pen14),parseInt(this.form.value.pen15),
       parseInt(this.form.value.pen16),parseInt(this.form.value.pen17),parseInt(this.form.value.pen18)];
-
+  // if level 3
     this.fairwaysArray = [this.form.value.f1,this.form.value.f2,this.form.value.f3,this.form.value.f4,
       this.form.value.f5,this.form.value.f6,this.form.value.f7,this.form.value.f8,
       this.form.value.f9,this.form.value.f10,this.form.value.f11,
       this.form.value.f12,this.form.value.f13,this.form.value.f14,this.form.value.f15,
       this.form.value.f16,this.form.value.f17,this.form.value.f18];
-
+  // if level 2 or 3
     for(var i=0;i<18;i++) {
+      if(this.detail !="1") {
       if(i < 9) {
         this.form.value.f9tot += this.scoreArray[i];
       }
       if(i >= 9) {
         this.form.value.b9tot += this.scoreArray[i];
       }
+    }
+      // if level 3. wrap the rest of for loop into a level 3 if
       if(this.greensArray[i]=='Y') {this.form.value.gir ++}
       if(this.fairwaysArray[i]=='Y') {
         this.form.value.fy ++;
@@ -414,22 +442,20 @@ export class EnterscoredetailComponent {
     }  
 
     // end of 18 hole loop
+    //if level 2 or 3
+    if(this.detail !="1") {
     this.form.value.gtotal= this.form.value.f9tot + this.form.value.b9tot;
+  }
+
     this.form.value.g_topar = this.form.value.gtotal - this.courseTee.tee.totalp;
 
     // do netscore calc and handicap calc here
+    // level 2 and 3
     this.calcNetScore();
+    // all levels
     this.calcHandicap();
     this.calculated = true;
     this.resubmit=false;
-
-    // console.log(JSON.stringify(this.scoreArray));
-    // console.log(JSON.stringify(this.greensArray));
-    // console.log(JSON.stringify(this.puttsArray));
-    // console.log(JSON.stringify(this.penaltyArray));
-    //console.log(JSON.stringify(this.form.value));
-
-
 
   }
 
@@ -450,8 +476,8 @@ export class EnterscoredetailComponent {
      });
 
   }
-
   calcNetScore() {
+    console.log("net score: " + this.form.value.ntotal);
     let net = 0;
     let ch = this.currenthandicap;
     console.log("current handicap " + ch);
@@ -460,7 +486,7 @@ export class EnterscoredetailComponent {
     if(ch) {
       all = Math.trunc(this.currenthandicap / 18);
       rem = this.currenthandicap - (all * 18);
-      console.log("All " + all + " Rem " + rem);
+     // console.log("All " + all + " Rem " + rem);
     }  
     this.shape = [];
     let scoremax=0; 
@@ -489,9 +515,12 @@ export class EnterscoredetailComponent {
       else {net+=sc}
       
     }
-    console.log("current Handicap: " + ch); 
-    console.log("net score: " + net);
-    this.form.value.ntotal = net;
+    // console.log("current Handicap: " + ch); 
+    // console.log("net score: " + net);
+    if(this.detail !="1") {
+     
+      this.form.value.ntotal = net;
+    }
   }
 
   calcHandicap() {
@@ -505,8 +534,53 @@ export class EnterscoredetailComponent {
     console.log("handicap calculated: " + this.form.value.handicap);
   }
 
+  setOneTwo() {
+    for(let i=0;i< 18;i++) { 
+      var x = "f"+(i+1);
+      var g = "g"+(i+1);
+      var p = "p"+(i+1);
+      var pen = "pen"+(i+1);
+      var s = "s"+(i+1);
+      //console.log("value of x: " + x);
+      if(this.detail == "1") {
+    //    console.log("attempting to patch " + x);
+        this.form.patchValue({[s]: "99" });
+        //this.form.get([x]).disable();
+       
+      }
+      this.form.patchValue({[x]: "na" });
+      this.form.patchValue({[p]: 99 });
+      this.form.patchValue({[pen]: 99 });
+      this.form.patchValue({[g]: "na" });
+    }
+    this.form.value.gtotal = null;
+    this.form.value.ntotal = null;
+
+  }
+
+
   detailLevel(event) {
-    this.form.value.detailLevel = event.value;
-  }  
+    this.detail = event.value;
+    this.calculated = false;
+    console.log("Detail level: " + this.detail);
+    this.shape = Array.from({length: 18}, (_, i) => "par");
+    this.form.reset();
+    if(this.detail == "1" || this.detail == "2") {    this.setOneTwo();}
+    if(this.detail == "3" )  {this.initializeForm();}
+  } 
+
+  holesLevel(event) {
+    let x = event.value;
+    if(x=="18") {
+      console.log("18 holes chosen");
+    }
+    else if(x=="f9") {
+      console.log("front 9 chosen");
+    }
+    else if(x=="b9") {
+      console.log("back 9 chosen");
+    }
+  }
+  
 
 }

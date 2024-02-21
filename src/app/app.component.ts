@@ -24,8 +24,10 @@ export class AppComponent implements OnInit{
   ngOnInit() :void {  
     this.isLoggedIn = this.login.isLoggedIn();
     this.isAdmin = this.login.isAdmin();
+    
     //this.userName = this.login.CurrentUser;
-    console.log("are you logged in: " + this.isLoggedIn);
+    console.log("username" + this.login.CurrentUser.name);
+    localStorage.setItem('name', this.login.CurrentUser.name);
     
     }
         
@@ -33,6 +35,7 @@ export class AppComponent implements OnInit{
   
   signout() {
     this.login.signout();
+    localStorage.clear();
     this.router.navigate(['/']);
   }
 }

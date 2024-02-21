@@ -3,17 +3,33 @@
   <div class="topdiv">
 
     <div id="detailDiv" *ngIf='courseTee'>
+      <span style="float:left;margin-left:10%;margin-bottom:15px;">
       <mat-radio-group aria-label="Score Detail Level" (change)="detailLevel($event)">
         <mat-radio-button value="1">1</mat-radio-button>
         <mat-radio-button value="2">2</mat-radio-button>
-        <mat-radio-button selected value="3">3</mat-radio-button>
+        <mat-radio-button selected [checked]= true value="3">3</mat-radio-button>
 
       </mat-radio-group>
+
       <span id="scoreDetailspan"> Score Detail Level</span>
+    </span>
+      <span style="float:right;margin-right:10%">
+        <span style="font-weight:550;">Holes:</span>
+      <mat-radio-group *ngIf="holes18" aria-label="Holes Selection" (change)="holesLevel($event)">
+        <mat-radio-button  [checked]= true value="18">Eighteen</mat-radio-button>
+        <mat-radio-button  value="f9">Front</mat-radio-button>
+        <mat-radio-button  value="b9">Back</mat-radio-button>
+       </mat-radio-group>
+       <mat-radio-group *ngIf="!holes18" >
+        <mat-radio-button  [checked]= true disabled  value="9only">Nine</mat-radio-button>
+       </mat-radio-group>
+    </span>
     </div>
+    <div style="clear:left;" ></div>
+    <!-- Level 1 scoring only -->
 
 
-    <div *ngIf='courseTee && this.form.value.detailLevel =="3"'>
+    <div *ngIf='courseTee && this.detail !="1"'>
 
 
       <span class="spanitem holecolor"
@@ -36,7 +52,7 @@
       <span class="spanitem holecolor" style="width:4% !important;">Rating
       </span>
     </div>
-    <div *ngIf='courseTee && this.form.value.detailLevel =="3"'>
+    <div *ngIf='courseTee && this.detail !="1"'>
       <span [style.background-color]="bgcolor" class="spanitem"
         style="width:8% !important;text-align: left !important;padding-left:5px">{{ courseTee.tee.teebox}}
       </span>
@@ -73,7 +89,8 @@
     <!-- Beginning of If courseTee -->
     <div *ngIf='courseTee '>
       <!-- Beginning of data entry Par -->
-      <div>
+    
+     <div *ngIf='this.detail !="1" '>
         <span [style.background-color]="bgcolor" class="spanitem"
           style="width:8% !important;text-align: left !important;padding-left:5px">Par
         </span>
@@ -108,12 +125,37 @@
         </span>
         <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
         </span>
-      </div>
+  
+    </div> 
       <!-- end of data entry PAR -->
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <!-- Begining of data entry SCORE -->
-        <div class="scorecard">
+        <!-- <div *ngIf='this.detail =="1"'>
+          <span> <label  for="g_topar">Gross:  </label>
+           <input matInput class ="inpScore" type="text" [id]="gtotal" 
+           formControlName="gtotal" #g (change)='levelOneScore($event, "gross")' ></span>
+           <span><label for="g_topar">Net:  </label>
+           <input matInput class ="inpScore"  type="text" [id]="ntotal" 
+           formControlName="ntotal" #n (change)='levelOneScore($event, "net")'></span>
+         </div> -->
+         <div *ngIf='this.detail =="1"'>
+          <mat-form-field class="l-one-input">
+          <mat-label>   Gross   </mat-label>
+          <input type="text" matInput formControlName="gtotal" placeholder="Enter Gross Score" >
+          <mat-hint >Gross must greater or equal to Net</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="l-one-input">
+          <mat-label>   Net   </mat-label>
+          <input type="text" matInput formControlName="ntotal" placeholder="Enter Net Score" >
+          
+          </mat-form-field>
+        </div>
+
+
+
+
+        <div class="scorecard" *ngIf='this.detail !="1" '>
           <span [style.background-color]="bgcolor" class="spanitem"
             style="width:8% !important;text-align: left !important;padding-left:5px">Score
           </span>
@@ -140,7 +182,7 @@
         <!-- End of data entry SCORE -->
 
         <!-- Begining of data entry FAIRWAY -->
-        <div class="fairways">
+        <div class="fairways" *ngIf='this.detail =="3" '>
           <span [style.background-color]="bgcolor" class="spanitem"
             style="width:8% !important;text-align: left !important;padding-left:5px">Fairways
           </span>
@@ -179,7 +221,7 @@
         <!-- End of data entry FAIRWAY -->
 
         <!-- Begining of data entry GREENS -->
-        <div class="greens">
+        <div class="greens" *ngIf='this.detail =="3" '>
           <span [style.background-color]="bgcolor" class="spanitem"
             style="width:8% !important;text-align: left !important;padding-left:5px">Greens
           </span>
@@ -210,7 +252,7 @@
         </div>
         <!-- End of data entry GREENS -->
         <!-- Begining of data entry PUTTS -->
-        <div class="putts">
+        <div class="putts" *ngIf='this.detail =="3" '>
           <span [style.background-color]="bgcolor" class="spanitem"
             style="width:8% !important;text-align: left !important;padding-left:5px">Putts
           </span>
@@ -235,27 +277,27 @@
         </div>
         <!-- End of data entry PUTTS -->
         <!-- Begining of data entry PENALTIES -->
-        <div class="penalty">
-          <span [style.background-color]="bgcolor" class="spanitem"
+        <div class="penalty" *ngIf='this.detail =="3" '>
+          <span [style.background-color]="bgcolor" class="btm-spanitem "
             style="width:8% !important;text-align: left !important;padding-left:5px">Penalty
           </span>
 
-          <span *ngFor="let x of taf" [style.background-color]="bgcolor" class="spanitem ">
+          <span *ngFor="let x of taf" [style.background-color]="bgcolor" class="btm-spanitem ">
             <input type="text" [id]="'pen' + x" [formControlName]="'pen' + x"></span>
 
-          <span [style.background-color]="bgcolor" class="spanitem " style="width:calc(4%) !important;">
+          <span [style.background-color]="bgcolor" class="btm-spanitem " style="width:calc(4%) !important;">
           </span>
-          <span *ngFor="let x of tab" [style.background-color]="bgcolor" class="spanitem ">
+          <span *ngFor="let x of tab" [style.background-color]="bgcolor" class="btm-spanitem ">
             <input type="text" [id]="'pen' + x" [formControlName]="'pen' + x"></span>
 
-          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">
+          <span [style.background-color]="bgcolor" class="btm-spanitem " style="width:4% !important;">
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem "
+          <span [style.background-color]="bgcolor" class="btm-spanitem "
             style="width:4%!important;">{{ form.value.penaltytotal}}
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
+          <span [style.background-color]="bgcolor" class="btm-spanitem  " style="width:4% !important;padding-top:-20px;">
           </span>
-          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
+          <span [style.background-color]="bgcolor" class="btm-spanitem " style="width:4% !important;padding-top:-20px;">
           </span>
         </div>
         <!-- End of data entry PENALTIES -->
@@ -278,7 +320,7 @@
   </div>
 
   <!-- Beginning of Score Review -->
-  <div *ngIf='form.value.gtotal'>
+  <div *ngIf=this.calculated>
     <div id="dandc">
       <table style="margin:auto;width:60%;align-items: center;">
         <tr>
@@ -294,18 +336,18 @@
         </tr>
       </table>
     </div>
-    <div class="wrapper">
+    <div class="wrapper" *ngIf='this.detail !="1"'>
 
       <span class="block">
         <table>
           <tr>
             <th colspan="2">Score</th>
           </tr>
-          <tr>
+          <tr *ngIf='this.detail == "3" '>
             <td> Front: </td>
             <td>{{this.form.value.f9tot}}</td>
           </tr>
-          <tr>
+          <tr *ngIf='this.detail == "3" '>
             <td>Back:</td>
             <td>{{this.form.value.b9tot}}</td>
           </tr>
@@ -326,7 +368,7 @@
 
         </table>
       </span>
-      <span class="block">
+      <span class="block" *ngIf='this.detail == "3" '>
         <table>
           <tr>
             <th colspan="2">Accuracy</th>
@@ -385,7 +427,7 @@
           </tr>
         </table>
       </span>
-      <span class="block">
+      <span class="block" *ngIf='this.detail == "3" '>
         <table>
           <tr>
             <th colspan="2">Tee Shots</th>
@@ -420,7 +462,7 @@
           </tr>
         </table>
       </span>
-      <span class="block">
+      <span class="block" *ngIf='this.detail == "3" '>
         <table>
           <tr>
             <th colspan="2">Putting</th>
@@ -443,6 +485,14 @@
           </tr>
         </table>
       </span>
+    </div>
+    <div class="one-review" *ngIf='this.detail =="1"'>
+      <div>Gross:   {{this.form.value.gtotal}}</div>
+      <div>Net:   {{this.form.value.ntotal}}</div>
+      <div>Score:  <span *ngIf="this.form.value.g_topar > 0">+</span>
+                   <span *ngIf="this.form.value.g_topar != 0">{{this.form.value.g_topar}}</span>
+                   <span *ngIf="this.form.value.g_topar == 0">Even</span>
+      </div>
     </div>
 
     <div>

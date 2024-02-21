@@ -27,6 +27,7 @@
 
 .newTee:hover {
     cursor:pointer;
+    background-color: cornflowerblue;
 }
 
 
@@ -34,6 +35,7 @@
     margin-top: 30px;
     margin-bottom: 30px;
     text-align: center;
+    font-size:13px;
  
    
 }
@@ -43,7 +45,15 @@
     line-height:36px; 
     min-width: 15px;
     height:36px; 
-    width:calc(3%);
+    border:1px solid rgb(67, 61, 61);
+    
+}
+
+.spanitem2 {
+    display: inline-block; 
+    line-height:38px; 
+    min-width: 15px;
+    height:36px; 
     border:1px solid rgb(67, 61, 61);
     
 }
@@ -62,3 +72,22 @@
     background-color:seagreen; color:white;
 }
 
+.w1 {
+    width: 2.5%;
+}
+
+.w2 {
+    width: 3.5%;
+}
+
+.w3 {
+    width: 4%;
+}
+
+.w4 {
+    width: 8.5%;
+}
+
+.smallerfont {
+    font-size:smaller;
+}

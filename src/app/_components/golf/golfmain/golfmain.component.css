@@ -1,6 +1,38 @@
 
-#title {
-    padding-bottom:50px;
+#toptable {
+  margin-top: 40px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.top-inline  {
+  display: inline-block;
+  text-align: left;
+  margin-left: 60px;
+  margin-right: 60px;
+  vertical-align:middle;
+}
+
+.top-inline > table > tr > td {
+  padding-right: 30px;
+  
+}
+
+.ti1 {
+  font-size: 14px;
+  color: rgba(0,0,0,0.8);
+}
+
+.ti2 {
+  font-size: 14px;
+  color: rgba(0,0,0,1);
+  font-weight:450;
+}
+
+
+.avatar {
+  max-width: 100px;
 }
 
 .filters {
@@ -47,7 +79,7 @@
 }
 
 .stWider {
-    width: calc(5.2%);
+    width: calc(5.3%);
     background-color: rgba(158, 162, 168, 0.5);
 }
 
@@ -121,21 +153,43 @@
     color: black;
     content:"Par";
 }
-  /* .pageCentering {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 150px;
-}
-tr {
- line-height: 36px;
- 
-}
 
-th, td {
-    border-bottom: 1px solid #ddd;
+#legend > span {
+  font-size : 10px;
+
 
 }
+#legend > div {
+  width:8px;
+  height:8px;
+  display:inline-block;
+  margin-right:8px;
+}
+
+.levelOneScore {
+  width: 100px;
+  height: 100px;
+  margin-top:30px;
+  margin-bottom:15px;
+  align-items: center;
+  display:inline-block;
+  box-shadow: 5px 5px;
+  
+}
+
+.levelOneScore > div:nth-child(1) {
+  text-align: center;
+  margin-top: -25px;
+  font-size: 18px;
+}
+.levelOneScore > div:nth-child(2) {
+  text-align:center;
+  line-height: 100px;
+  vertical-align: middle;
+  font-size:26px;
+  font-weight: 400;
+  padding-top:5px;
+
+}
 
 
-} */

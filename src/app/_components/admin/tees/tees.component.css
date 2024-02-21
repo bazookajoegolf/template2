@@ -2,7 +2,7 @@
     align-items: center;
 }
 
-.scorecard > tr > td > input, .smallinput {
+.scorecard > tr > td > input, .scorecard > tr > span > td > input, .smallinput {
     width: 98%;
     margin:0px;
     height:36px;
@@ -13,9 +13,16 @@
 .mat-mdc-icon-button ::ng-deep .mat-mdc-button-persistent-ripple {
     display: none;
 }
+.smfont {
+    font-size: 13px;
+}
 
+.scorecard {
+    font-size: 14px;
+    text-wrap: nowrap;
+}
 
-.scorecard > tr > td {
+.scorecard > tr > td , .scorecard > tr > span > td{
     border: black 1px solid;
 }
 
@@ -23,7 +30,7 @@ input.ng-invalid.ng-touched {
     border:2px solid rgb(196, 4, 4) !important;
 }
 
-.toprow:nth-child(1 )  {
+.toprow:nth-child(1 ) , .toprow:nth-child(2)  {
     background-color: seagreen !important;
     color:white;
     height: 36px;
@@ -37,19 +44,19 @@ input.ng-invalid.ng-touched {
     border:1px gray solid;
 }
 .w8 {
-  width:8%;
+  width:7%;
 }
 
 .w6 {
-    width:6.5%;
+    width:3.5%;
 }
 
 .w4 {
-    width:5.2%;
+    width:3.0%;
 }
 
 .w3 {
-    width:3.8%;
+    width:2.50%;
 }
 input {
     background-color: #eee;

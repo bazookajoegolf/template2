@@ -71,17 +71,17 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "first:build"
+            "buildTarget": "first:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "first:build:production"
+              "buildTarget": "first:build:production"
             },
-            "development":{
-              "browserTarget": "first:build:development",
+            "development": {
               "disableHostCheck": true,
               "watch": true,
-              "host": "host.template.baz"
+              "host": "host.template.baz",
+              "buildTarget": "first:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -90,7 +90,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "first:build"
+            "buildTarget": "first:build"
           }
         },
         "test": {

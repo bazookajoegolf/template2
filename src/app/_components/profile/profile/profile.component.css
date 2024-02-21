@@ -16,6 +16,10 @@
 
 }
 
-input:read-only {
+/* input:read-only {
     color: black;
+} */
+
+.mdc-text-field--disabled {
+    color: red !important;
 }

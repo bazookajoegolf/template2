@@ -59,11 +59,11 @@ export class ScorecardadminComponent implements OnChanges {
       let x = this.checkColor(this.selectedCourse?.tees[i].teebox);
 
       let y= this.courseNames.find((post, index)=> {
-          if(post == this.selectedCourse?.tees[i].coursename)
+          if(post.c == this.selectedCourse?.tees[i].coursename)
         return true
       });
       
-      if(!y) this.courseNames.push(this.selectedCourse?.tees[i].coursename);
+      if(!y) this.courseNames.push({"c": this.selectedCourse?.tees[i].coursename, "is18": this.selectedCourse?.tees[i].holes18});
       
       this.teeboxColor.push({"b":this.checkColor(this.selectedCourse?.tees[i].teebox), "c": colourNameToHex(x),
                             "id":this.selectedCourse?.tees[i]._id});

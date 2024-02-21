@@ -6,36 +6,46 @@
   <h6>Website: {{selectedCourse?.url}}</h6>
 </div>
 <div><span class="newTee"> <span style="margin: auto;" (click)="newTee()">New Tee</span> </span></div>
-
-
+<div style="height:25px;"></div>
 <div class="topdiv">
   <div>
     <div *ngFor="let nc of courseNames;let h=index; ">
-      <h3 style="margin:20px 0px;">{{nc}}</h3>
+      <h3  align="left" style="margin-left:5%;margin-bottom:20px;margin-top:40px;">{{nc.c}}</h3>
       <!-- hole layout -->
       <div>
-        <span class="spanitem holecolor"
-          style="width:calc(8%) !important;text-align: left !important;padding-left:5px">Hole
+        <span class="spanitem holecolor w4"
+          style= "text-align: left !important;padding-left:5px">Hole
         </span>
         <span *ngFor="let myObj of numbers;let h=index; ">
-          <span class="spanitem holecolor" *ngIf="h < 9">{{h+1}}</span>
+          <span class="spanitem holecolor w1" *ngIf="h < 9">{{h+1}}</span>
         </span>
-        <span class="spanitem holecolor" style="width:calc(4%) !important;">Out
+        <span  class="spanitem holecolor w2" >Out
         </span>
-        <span class="emptyspan" style="width:30px !important;background-color: white !important;">|
+        <span  *ngIf="nc.is18" class="emptyspan" style="width:20px !important;background-color: white !important;">|
         </span>
-        <span *ngFor="let myObj of numbers;let h=index; ">
-          <span class="spanitem holecolor " *ngIf="h >= 9 && h <= 17">{{h+1}}</span>
+        <span *ngIf="nc.is18"  >
+        <span  *ngFor="let myObj of numbers;let h=index; ">
+          <span  class="spanitem holecolor w1" *ngIf="h >= 9 && h <= 17">{{h+1}}</span>
         </span>
-        <span class="spanitem holecolor" style="width:4% !important;">In
+      </span>
+        <span *ngIf="nc.is18" class="spanitem holecolor w2"  >In
         </span>
-        <span class="spanitem holecolor" style="width: 4%!important;">Total
+        <span class="spanitem holecolor w2"  >Total
         </span>
-        <span class="spanitem holecolor" style="width:4% !important;">Slope
+        <span class="spanitem holecolor w2" >Slope
         </span>
-        <span class="spanitem holecolor" style="width:4% !important;">Rating
+        <span class="spanitem holecolor w2"  >Rating
         </span>
-        <span class="spanitem holecolor" style="width:4% !important;">Edit
+        <span class="spanitem2 holecolor w3 smallerfont">F9 Slope
+        </span>
+        <span class="spanitem2 holecolor w3 smallerfont" >F9 Rating
+        </span>
+        <span *ngIf="nc.is18" class="spanitem2 holecolor w3 smallerfont" >B9 Slope
+        </span>
+        <span *ngIf="nc.is18" class="spanitem2 holecolor w3 smallerfont" >B9 Rating
+        </span>
+
+        <span class="spanitem holecolor w2">Edit
           <!-- <span [style.background-color]="white" class="spanitem " style="width:4% !important;"> -->
 
         </span>
@@ -46,64 +56,79 @@
         <!-- <div *ngFor="let gender of enumGender ;let g=index;"> -->
         <!-- tee yardage loop -->
         <div *ngFor="let myObj of selectedCourse?.tees | sort:'desc':'totaly';let i=index; ">
-          <div *ngIf='myObj.gender=="male" && nc == myObj.coursename'>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c" class="spanitem"
-              style="width:8% !important;text-align: left !important;padding-left:5px">{{myObj.teebox}}
+          <div *ngIf='myObj.gender=="male" && nc.c == myObj.coursename'>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c" class="spanitem w4"
+              style="text-align: left !important;padding-left:5px">{{myObj.teebox}}
             </span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd1}}</span>
+              class="spanitem holecolor w1">{{myObj.yd1}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd2}}</span>
+              class="spanitem holecolor w1">{{myObj.yd2}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd3}}</span>
+              class="spanitem holecolor w1">{{myObj.yd3}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd4}}</span>
+              class="spanitem holecolor w1">{{myObj.yd4}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd5}}</span>
+              class="spanitem holecolor w1">{{myObj.yd5}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd6}}</span>
+              class="spanitem holecolor w1">{{myObj.yd6}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd7}}</span>
+              class="spanitem holecolor w1">{{myObj.yd7}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd8}}</span>
+              class="spanitem holecolor w1">{{myObj.yd8}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd9}}</span>
+              class="spanitem holecolor w1">{{myObj.yd9}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor" style="width:calc(4%) !important;">{{myObj?.front9y}}
+              class="spanitem holecolor w2" >{{myObj?.front9y}}
             </span>
-            <span class="emptyspan" style="width:30px !important;background-color: white !important;">|
+            <span *ngIf="myObj.holes18"class="emptyspan" style="width:20px !important;background-color: white !important;">|
+            </span>
+            <span *ngIf="myObj.holes18">
+           
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd10}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd11}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd12}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd13}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd14}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd15}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd16}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd17}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd18}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w2" >{{myObj.back9y}}
+            </span>
+          </span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w2" >{{myObj.totaly}}
             </span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd10}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd11}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd12}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd13}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd14}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd15}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd16}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd17}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd18}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor" style="width:4% !important;">{{myObj.back9y}}
+              class="spanitem holecolor w2" >{{myObj.slope}}
             </span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor" style="width:4%!important;">{{myObj.totaly}}
+              class="spanitem holecolor w2" >{{myObj.rating}}
             </span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor" style="width:4% !important;">{{myObj.slope}}
-            </span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor" style="width:4% !important;">{{myObj.rating}}
-            </span>
-            <span [style.background-color]="white" class="spanitem " style="width:4% !important;padding:0px;margin:0px">
+            class="spanitem holecolor w3" >{{myObj.f9slope || "-"}}
+          </span>
+          <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+            class="spanitem holecolor w3" >{{myObj.f9rating || "-"}}
+          </span>
+          <span *ngIf="myObj.holes18" [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+          class="spanitem holecolor w3" >{{myObj.b9slope || "-"}}
+        </span>
+        <span *ngIf="myObj.holes18" [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+          class="spanitem holecolor w3" >{{myObj.b9rating || "-"}}
+        </span>
+            <span [style.background-color]="white" class="spanitem w2" style="padding:0px;margin:0px">
               <mat-icon matTooltip="Edit" (click)="sendTee(myObj)"
                 style="vertical-align:text-bottom;line-height: 32px;padding:0px;margin:0px;" id="btn-edit">edit
               </mat-icon>
@@ -115,86 +140,105 @@
         <!-- male specific par, handicap lines. requires to know if  -->
         <!-- may need to for loop through mTee get the coursename to match and get index -->
         <div *ngFor="let fc of uniqueM">
-          <div *ngIf='nc == fc.coursename && fc.gender=="male"'>
+          <div *ngIf='nc.c == fc.coursename && fc.gender=="male"'>
             <div>
               <!--  <div *ngIf="mTee"> -->
               <div>
-                <span class="spanitem" style="width:8% !important;text-align: left !important;padding-left:5px">Par
+                <span class="spanitem w4" style="text-align: left !important;padding-left:5px">Par
                 </span>
-                <span class="spanitem ">{{ fc.p1}}</span>
-                <span class="spanitem ">{{ fc.p2}}</span>
-                <span class="spanitem ">{{ fc.p3}}</span>
-                <span class="spanitem ">{{ fc.p4}}</span>
-                <span class="spanitem ">{{ fc.p5}}</span>
-                <span class="spanitem ">{{ fc.p6}}</span>
-                <span class="spanitem ">{{ fc.p7}}</span>
-                <span class="spanitem ">{{ fc.p8}}</span>
-                <span class="spanitem ">{{ fc.p9}}</span>
-                <span class="spanitem" style="width:calc(4%) !important;">{{ fc.front9p}}</span>
-                <span class="spanitem"
-                  style="width:30px !important;background-color: white !important;color:white">|</span>
-                <span class="spanitem ">{{ fc.p10}}</span>
-                <span class="spanitem ">{{ fc.p11}}</span>
-                <span class="spanitem ">{{ fc.p12}}</span>
-                <span class="spanitem ">{{ fc.p13}}</span>
-                <span class="spanitem ">{{ fc.p14}}</span>
-                <span class="spanitem ">{{ fc.p15}}</span>
-                <span class="spanitem ">{{ fc.p16}}</span>
-                <span class="spanitem ">{{ fc.p17}}</span>
-                <span class="spanitem ">{{ fc.p18}}</span>
-                <span class="spanitem" style="width:4% !important;">{{ fc.back9p}}</span>
-                <span class="spanitem" style="width:4% !important;">{{ fc.totalp}}</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
+                <span class="spanitem w1">{{ fc.p1}}</span>
+                <span class="spanitem w1">{{ fc.p2}}</span>
+                <span class="spanitem w1">{{ fc.p3}}</span>
+                <span class="spanitem w1">{{ fc.p4}}</span>
+                <span class="spanitem w1">{{ fc.p5}}</span>
+                <span class="spanitem w1">{{ fc.p6}}</span>
+                <span class="spanitem w1">{{ fc.p7}}</span>
+                <span class="spanitem w1">{{ fc.p8}}</span>
+                <span class="spanitem w1">{{ fc.p9}}</span>
+                <span class="spanitem w2" >{{ fc.front9p}}</span>
+                <span *ngIf="nc.is18">
+                <span class="spanitem" 
+                  style="width:20px !important;background-color: white !important;color:white">|</span>
+                <span class="spanitem w1">{{ fc.p10}}</span>
+                <span class="spanitem w1">{{ fc.p11}}</span>
+                <span class="spanitem w1">{{ fc.p12}}</span>
+                <span class="spanitem w1">{{ fc.p13}}</span>
+                <span class="spanitem w1">{{ fc.p14}}</span>
+                <span class="spanitem w1">{{ fc.p15}}</span>
+                <span class="spanitem w1">{{ fc.p16}}</span>
+                <span class="spanitem w1">{{ fc.p17}}</span>
+                <span class="spanitem w1">{{ fc.p18}}</span>
+                <span class="spanitem w2" >{{ fc.back9p}}</span>
+              </span>
+                <span class="spanitem w2"  >{{ fc.totalp}}</span>
+                <span class="emptyspan w2" >|</span>
+                <span class="emptyspan w2" >|</span>
+                <span class="emptyspan w3">|</span>
+                <span class="emptyspan w3" >|</span>
+                <span *ngIf="nc.is18" class="emptyspan w3" >|</span>
+                <span *ngIf="nc.is18" class="emptyspan w3" >|</span>
+                <span class="emptyspan w2" >|</span>
               </div>
               <div>
-                <span class="spanitem" style="width:8% !important;text-align: left !important;padding-left:5px">Hdcp
+                <span class="spanitem w4" style="text-align: left !important;padding-left:5px">Hdcp
                 </span>
-                <span class="spanitem ">{{ fc.h1 ||4}}</span>
-                <span class="spanitem ">{{ fc.h2 ||4}}</span>
-                <span class="spanitem ">{{ fc.h3 ||4}}</span>
-                <span class="spanitem ">{{ fc.h4 ||4}}</span>
-                <span class="spanitem ">{{ fc.h5 ||4}}</span>
-                <span class="spanitem ">{{ fc.h6 ||4}}</span>
-                <span class="spanitem ">{{ fc.h7 ||4}}</span>
-                <span class="spanitem ">{{ fc.h8 ||4}}</span>
-                <span class="spanitem ">{{ fc.h9 ||4}}</span>
-                <span class="emptyspan" style="width:calc(4%) !important;">|</span>
+                <span class="spanitem w1">{{ fc.h1 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h2 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h3 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h4 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h5 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h6 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h7 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h8 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h9 ||4}}</span>
+
+                <span *ngIf="nc.is18">
+                <span class="emptyspan w2">|</span>
                 <span class="spanitem"
-                  style="width:30px !important;background-color: white !important;color:white">|</span>
-                <span class="spanitem ">{{ fc.h10||4}}</span>
-                <span class="spanitem ">{{ fc.h11 ||4}}</span>
-                <span class="spanitem ">{{ fc.h12 ||4}}</span>
-                <span class="spanitem ">{{ fc.h13 ||4}}</span>
-                <span class="spanitem ">{{ fc.h14 ||4}}</span>
-                <span class="spanitem ">{{ fc.h15 ||4}}</span>
-                <span class="spanitem ">{{ fc.h16 ||4}}</span>
-                <span class="spanitem ">{{ fc.h17 ||4}}</span>
-                <span class="spanitem ">{{ fc.h18 ||4}}</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
+                  style="width:20px !important;background-color: white !important;color:white">|</span>
+                <span class="spanitem w1">{{ fc.h10||4}}</span>
+                <span class="spanitem w1">{{ fc.h11 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h12 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h13 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h14 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h15 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h16 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h17 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h18 ||4}}</span>
+              </span>
+                <span class="emptyspan w2" >|</span>
+
+                <span class="emptyspan w2" >|</span>
+                <span class="emptyspan w2" >|</span>
+                <span class="emptyspan w2" >|</span>
+                <span  class="emptyspan w3" >|</span>
+                <span   class="emptyspan w3" >|</span>
+                <span *ngIf="nc.is18" class="emptyspan w3" >|</span>
+                <span *ngIf="nc.is18" class="emptyspan w3" >|</span>
+                <span class="emptyspan w2" >|</span>
               </div>
               <div>
                 <div *ngFor="let z of blankLines" style="margin-bottom: -8px;">
-                  <span class="spanitem"
-                    style="width:8% !important;text-align: left !important;padding-left:5px"></span>
+                  <span class="spanitem w4"
+                    style="text-align: left !important;padding-left:5px"></span>
 
                   <span *ngFor="let x of numbers">
-                    <span class="emptyspan" style="width:3% !important;"></span>
+                    <span *ngIf="nc.is18" class="emptyspan w1" ></span>
+                    <span *ngIf="!nc.is18 && x <=9" class="emptyspan w1" ></span>
                     <span *ngIf="x==9">
-                      <span class="emptyspan" style="width:4% !important;"></span>
-                      <span class="emptyspan" style="width:30px !important;"></span>
+                      <span class="emptyspan w2" ></span>
+                      <span *ngIf="nc.is18" class="emptyspan" style="width:20px !important;"></span>
                     </span>
                     <span *ngIf="x==18">
-                      <span class="emptyspan" style="width:4% !important;"></span>
-                      <span class="emptyspan" style="width:4% !important;"></span>
-                      <span class="emptyspan" style="width:4% !important;"></span>
-                      <span class="emptyspan" style="width:4% !important;"></span>
-                      <span class="emptyspan" style="width:4% !important;"></span>
+                      <span class="emptyspan w2"  ></span>
+                      <span class="emptyspan w2"  ></span>
+                      <span class="emptyspan w2" ></span>
+                      <span *ngIf="nc.is18" class="emptyspan w2" ></span>
+                      <span class="emptyspan w3" ></span>
+                      <span  class="emptyspan w3" ></span>
+                      <span *ngIf="nc.is18"  class="emptyspan w3" ></span>
+                      <span *ngIf="nc.is18" class="emptyspan w3" ></span>
+                      <span class="emptyspan w2" ></span>
                     </span>
 
                   </span>
@@ -205,64 +249,78 @@
         </div>
         <!-- female specific par, handicap lines -->
         <div *ngFor="let myObj of selectedCourse?.tees | sort:'desc':'totaly';let i=index; ">
-          <div *ngIf='myObj.gender=="female" && nc == myObj.coursename'>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c" class="spanitem"
-              style="width:8% !important;text-align: left !important;padding-left:5px">{{myObj.teebox}}
+          <div *ngIf='myObj.gender=="female" && nc.c == myObj.coursename'>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c" class="spanitem w4"
+              style="text-align: left !important;padding-left:5px">{{myObj.teebox}}
             </span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd1}}</span>
+              class="spanitem holecolor w1">{{myObj.yd1}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd2}}</span>
+              class="spanitem holecolor w1">{{myObj.yd2}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd3}}</span>
+              class="spanitem holecolor w1">{{myObj.yd3}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd4}}</span>
+              class="spanitem holecolor w1">{{myObj.yd4}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd5}}</span>
+              class="spanitem holecolor w1">{{myObj.yd5}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd6}}</span>
+              class="spanitem holecolor w1">{{myObj.yd6}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd7}}</span>
+              class="spanitem holecolor w1">{{myObj.yd7}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd8}}</span>
+              class="spanitem holecolor w1">{{myObj.yd8}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd9}}</span>
+              class="spanitem holecolor w1">{{myObj.yd9}}</span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor" style="width:calc(4%) !important;">{{myObj?.front9y}}
+              class="spanitem holecolor w2" >{{myObj?.front9y}}
             </span>
-            <span class="emptyspan" style="width:30px !important;background-color: white !important;">|
-            </span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd10}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd11}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd12}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd13}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd14}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd15}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd16}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd17}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor">{{myObj.yd18}}</span>
-            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor" style="width:4% !important;">{{myObj.back9y}}
+            <span *ngIf="myObj.holes18" >
+            <span class="emptyspan" style="width:20px !important;background-color: white !important;">|
             </span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor" style="width:4%!important;">{{myObj.totaly}}
+              class="spanitem holecolor w1">{{myObj.yd10}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd11}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd12}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd13}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd14}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd15}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd16}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd17}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w1">{{myObj.yd18}}</span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w2" >{{myObj.back9y}}
+            </span>
+          </span>
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+              class="spanitem holecolor w2" >{{myObj.totaly}}
             </span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor" style="width:4% !important;">{{myObj.slope}}
+              class="spanitem holecolor w2" >{{myObj.slope}}
             </span>
             <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
-              class="spanitem holecolor" style="width:4% !important;">{{myObj.rating}}
+              class="spanitem holecolor w2" >{{myObj.rating}}
             </span>
-            <span [style.background-color]="white" class="spanitem " style="width:4% !important;padding:0px;margin:0px">
+            <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+            class="spanitem holecolor w3" >{{myObj.f9slope || "-"}}
+          </span>
+          <span [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+            class="spanitem holecolor w3" >{{myObj.f9rating || "-"}}
+          </span>
+          <span *ngIf="myObj.holes18" [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+          class="spanitem holecolor w3" >{{myObj.b9slope || "-"}}
+        </span>
+        <span *ngIf="myObj.holes18" [style.background-color]="bgcolor(myObj._id).b" [style.color]="bgcolor(myObj._id).c"
+          class="spanitem holecolor w3" >{{myObj.b9rating || "-"}}
+        </span>
+            <span [style.background-color]="white" class="spanitem w2" style="padding:0px;margin:0px">
               <mat-icon matTooltip="Edit" (click)="sendTee(myObj)"
                 style="vertical-align:text-bottom;line-height: 32px;padding:0px;margin:0px;" id="btn-edit">edit
               </mat-icon>
@@ -272,93 +330,84 @@
         </div>
         <div *ngFor="let fc of uniqueL">
 
-          <div *ngIf='nc == fc.coursename && fc.gender=="female"'>
+          <div *ngIf='nc.c == fc.coursename && fc.gender=="female"'>
             <div>
               <!--  <div *ngIf="mTee"> -->
               <div>
-                <span class="spanitem" style="width:8% !important;text-align: left !important;padding-left:5px">Par
+                <span class="spanitem w4" style="text-align: left !important;padding-left:5px">Par
                 </span>
-                <span class="spanitem ">{{ fc.p1}}</span>
-                <span class="spanitem ">{{ fc.p2}}</span>
-                <span class="spanitem ">{{ fc.p3}}</span>
-                <span class="spanitem ">{{ fc.p4}}</span>
-                <span class="spanitem ">{{ fc.p5}}</span>
-                <span class="spanitem ">{{ fc.p6}}</span>
-                <span class="spanitem ">{{ fc.p7}}</span>
-                <span class="spanitem ">{{ fc.p8}}</span>
-                <span class="spanitem ">{{ fc.p9}}</span>
-                <span class="spanitem" style="width:calc(4%) !important;">{{fc.front9p}}</span>
+                <span class="spanitem w1">{{ fc.p1}}</span>
+                <span class="spanitem w1">{{ fc.p2}}</span>
+                <span class="spanitem w1">{{ fc.p3}}</span>
+                <span class="spanitem w1">{{ fc.p4}}</span>
+                <span class="spanitem w1">{{ fc.p5}}</span>
+                <span class="spanitem w1">{{ fc.p6}}</span>
+                <span class="spanitem w1">{{ fc.p7}}</span>
+                <span class="spanitem w1">{{ fc.p8}}</span>
+                <span class="spanitem w1">{{ fc.p9}}</span>
+                <span class="spanitem w2">{{fc.front9p}}</span>
+                <span *ngIf="nc.is18">
                 <span class="spanitem"
-                  style="width:30px !important;background-color: white !important;color:white">|</span>
-                <span class="spanitem ">{{ fc.p10}}</span>
-                <span class="spanitem ">{{ fc.p11}}</span>
-                <span class="spanitem ">{{ fc.p12}}</span>
-                <span class="spanitem ">{{ fc.p13}}</span>
-                <span class="spanitem ">{{ fc.p14}}</span>
-                <span class="spanitem ">{{ fc.p15}}</span>
-                <span class="spanitem ">{{ fc.p16}}</span>
-                <span class="spanitem ">{{ fc.p17}}</span>
-                <span class="spanitem ">{{ fc.p18}}</span>
-                <span class="spanitem" style="width:4% !important;">{{fc.back9p}}</span>
-                <span class="spanitem" style="width:4% !important;">{{fc.totalp}}</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
+                  style="width:20px !important;background-color: white !important;color:white">|</span>
+                <span class="spanitem w1">{{ fc.p10}}</span>
+                <span class="spanitem w1">{{ fc.p11}}</span>
+                <span class="spanitem w1">{{ fc.p12}}</span>
+                <span class="spanitem w1">{{ fc.p13}}</span>
+                <span class="spanitem w1">{{ fc.p14}}</span>
+                <span class="spanitem w1">{{ fc.p15}}</span>
+                <span class="spanitem w1">{{ fc.p16}}</span>
+                <span class="spanitem w1">{{ fc.p17}}</span>
+                <span class="spanitem w1">{{ fc.p18}}</span>
+                <span class="spanitem w2" >{{fc.back9p}}</span>
+              </span>
+                <span class="spanitem w2" >{{fc.totalp}}</span>
+                <span class="emptyspan w2" >|</span>
+                <span class="emptyspan w2" >|</span>
+                <span class="emptyspan w3" >|</span>
+                <span class="emptyspan w3" >|</span>
+                <span *ngIf="nc.is18" class="emptyspan w3" >|</span>
+                <span *ngIf="nc.is18" class="emptyspan w3" >|</span>
+                <span class="emptyspan w2" >|</span>
               </div>
               <div>
-                <span class="spanitem" style="width:8% !important;text-align: left !important;padding-left:5px">Hdcp
+                <span class="spanitem w4" style="text-align: left !important;padding-left:5px">Hdcp
                 </span>
-                <span class="spanitem ">{{ fc.h1 ||5}}</span>
-                <span class="spanitem ">{{ fc.h2 ||5}}</span>
-                <span class="spanitem ">{{ fc.h3 ||5}}</span>
-                <span class="spanitem ">{{ fc.h4 ||4}}</span>
-                <span class="spanitem ">{{ fc.h5 ||4}}</span>
-                <span class="spanitem ">{{ fc.h6 ||4}}</span>
-                <span class="spanitem ">{{ fc.h7 ||4}}</span>
-                <span class="spanitem ">{{ fc.h8 ||4}}</span>
-                <span class="spanitem ">{{ fc.h9 ||4}}</span>
-                <span class="emptyspan" style="width:calc(4%) !important;">|</span>
+                <span class="spanitem w1">{{ fc.h1 ||5}}</span>
+                <span class="spanitem w1">{{ fc.h2 ||5}}</span>
+                <span class="spanitem w1">{{ fc.h3 ||5}}</span>
+                <span class="spanitem w1">{{ fc.h4 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h5 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h6 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h7 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h8 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h9 ||4}}</span>
+                <span *ngIf="nc.is18">
+                <span class="emptyspan w2" >|</span>
                 <span class="spanitem"
-                  style="width:30px !important;background-color: white !important;color:white">|</span>
-                <span class="spanitem ">{{ fc.h10||4}}</span>
-                <span class="spanitem ">{{ fc.h11 ||4}}</span>
-                <span class="spanitem ">{{ fc.h12 ||4}}</span>
-                <span class="spanitem ">{{ fc.h13 ||4}}</span>
-                <span class="spanitem ">{{ fc.h14 ||4}}</span>
-                <span class="spanitem ">{{ fc.h15 ||4}}</span>
-                <span class="spanitem ">{{ fc.h16 ||4}}</span>
-                <span class="spanitem ">{{ fc.h17 ||4}}</span>
-                <span class="spanitem ">{{ fc.h18 ||4}}</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
-                <span class="emptyspan" style="width:4% !important;">|</span>
+                  style="width:20px !important;background-color: white !important;color:white">|</span>
+                <span class="spanitem w1">{{ fc.h10||4}}</span>
+                <span class="spanitem w1">{{ fc.h11 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h12 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h13 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h14 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h15 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h16 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h17 ||4}}</span>
+                <span class="spanitem w1">{{ fc.h18 ||4}}</span>
+              </span>
+                <span class="emptyspan w2">|</span>
+                <span class="emptyspan w2" >|</span>
+                <span class="emptyspan w2" >|</span>
+                <span class="emptyspan w2" >|</span>
+                <span class="emptyspan w3" >|</span>
+                <span class="emptyspan w3" >|</span>
+                <span *ngIf="nc.is18" class="emptyspan w3" >|</span>
+                <span *ngIf="nc.is18" class="emptyspan w3" >|</span>
+                <span class="emptyspan w2" >|</span>
               </div>
               <div>
-                <!-- <div *ngFor="let z of blankLines" style="margin-bottom: -8px;">
-                  <span class="spanitem"
-                    style="width:8% !important;text-align: left !important;padding-left:5px"></span>
-
-                  <span *ngFor="let x of numbers">
-                    <span class="emptyspan" style="width:3% !important;"></span>
-                    <span *ngIf="x==9">
-                      <span class="emptyspan" style="width:4% !important;"></span>
-                      <span class="emptyspan" style="width:30px !important;"></span>
-                    </span>
-                    <span *ngIf="x==18">
-                      <span class="emptyspan" style="width:4% !important;"></span>
-                      <span class="emptyspan" style="width:4% !important;"></span>
-                      <span class="emptyspan" style="width:4% !important;"></span>
-                      <span class="emptyspan" style="width:4% !important;"></span>
-                      <span class="emptyspan" style="width:4% !important;"></span>
-                    </span>
-
-                  </span>
-                </div> -->
               </div>
-              <!-- <span class="spanitem ">{{selectedCourse?.tees[mTee - 1].p1}}</span> -->
-
+              
             </div>
 
           </div>
