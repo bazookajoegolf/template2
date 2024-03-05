@@ -41,9 +41,9 @@
       <span class="spanitem holecolor" style="width:calc(4%) !important;">Out
       </span>
       <span *ngFor="let myObj of numbers;let h=index; ">
-        <span class="spanitem holecolor " *ngIf="h >= 9 && h <= 17">{{h+1}}</span>
+        <span class="spanitem holecolor " *ngIf='h >= 9 && h <= 17 && holes18'>{{h+1}}</span>
       </span>
-      <span class="spanitem holecolor" style="width:4% !important;">In
+      <span class="spanitem holecolor" style="width:4% !important;" *ngIf="holes18">In
       </span>
       <span class="spanitem holecolor" style="width: 4%!important;">Total
       </span>
@@ -68,6 +68,7 @@
       <span [style.background-color]="bgcolor" class="spanitem "
         style="width:calc(4%) !important;">{{  courseTee.tee?.front9y}}
       </span>
+      <span *ngIf="holes18">
       <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd10}}</span>
       <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd11}}</span>
       <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd12}}</span>
@@ -79,6 +80,7 @@
       <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.yd18}}</span>
       <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">{{  courseTee.tee.back9y}}
       </span>
+    </span>
       <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{  courseTee.tee.totaly}}
       </span>
       <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">{{  courseTee.tee.slope}}
@@ -106,6 +108,7 @@
         <span [style.background-color]="bgcolor" class="spanitem "
           style="width:calc(4%) !important;">{{  courseTee.tee?.front9p}}
         </span>
+        <span *ngIf="holes18">
         <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p10}}</span>
         <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p11}}</span>
         <span [style.background-color]="bgcolor" class="spanitem ">{{  courseTee.tee.p12}}</span>
@@ -118,6 +121,7 @@
         <span [style.background-color]="bgcolor" class="spanitem "
           style="width:4% !important;">{{  courseTee.tee.back9p}}
         </span>
+      </span>
         <span [style.background-color]="bgcolor" class="spanitem "
           style="width:4%!important;">{{  courseTee.tee.totalp}}
         </span>
@@ -130,15 +134,6 @@
       <!-- end of data entry PAR -->
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <!-- Begining of data entry SCORE -->
-        <!-- <div *ngIf='this.detail =="1"'>
-          <span> <label  for="g_topar">Gross:  </label>
-           <input matInput class ="inpScore" type="text" [id]="gtotal" 
-           formControlName="gtotal" #g (change)='levelOneScore($event, "gross")' ></span>
-           <span><label for="g_topar">Net:  </label>
-           <input matInput class ="inpScore"  type="text" [id]="ntotal" 
-           formControlName="ntotal" #n (change)='levelOneScore($event, "net")'></span>
-         </div> -->
          <div *ngIf='this.detail =="1"'>
           <mat-form-field class="l-one-input">
           <mat-label>   Gross   </mat-label>
@@ -152,9 +147,6 @@
           </mat-form-field>
         </div>
 
-
-
-
         <div class="scorecard" *ngIf='this.detail !="1" '>
           <span [style.background-color]="bgcolor" class="spanitem"
             style="width:8% !important;text-align: left !important;padding-left:5px">Score
@@ -166,11 +158,12 @@
           <span [style.background-color]="bgcolor" class="spanitem "
             style="width:calc(4%) !important;">{{ form.value.f9tot}}
           </span>
-
+          <span *ngIf="holes18">
           <span *ngFor="let x of tab; index as j" [style.background-color]="bgcolor" class="spanitem ">
             <input [ngClass]=[shape[j+9]] type="text" [id]="'s' + x" [formControlName]="'s' + x"></span>
 
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">{{ form.value.b9tot}}
+          </span>
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{ form.value.gtotal}}
           </span>
@@ -199,8 +192,8 @@
 
           <span [style.background-color]="bgcolor" class="spanitem " style="width:calc(4%) !important;">
           </span>
-
-          <span *ngFor="let x of tab; index as j" [style.background-color]="bgcolor" class="spanitem ">
+          <span *ngIf="holes18">
+          <span  *ngFor="let x of tab; index as j" [style.background-color]="bgcolor" class="spanitem ">
             <select *ngIf="parArray[j+9] != 3" [id]="'f'+ x" [formControlName]="'f'+ x">
               <option *ngFor="let opt of fullOptions" [value]="opt">{{opt}}</option>
             </select>
@@ -208,9 +201,12 @@
               <option *ngFor="let opt of par3Options" [value]="opt">{{opt}}</option>
             </select>
           </span>
+          
 
-          <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">
+
+          <span  [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">
           </span>
+        </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{form.value.fy}}
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;padding-top:-20px;">
@@ -234,7 +230,7 @@
 
           <span [style.background-color]="bgcolor" class="spanitem " style="width:calc(4%) !important;">
           </span>
-
+          <span *ngIf="holes18">
           <span *ngFor="let x of tab; index as j" [style.background-color]="bgcolor" class="spanitem ">
             <select [id]="'g'+ x" [formControlName]="'g'+ x">
               <option *ngFor="let opt of girOptions" [value]="opt">{{opt}}</option>
@@ -242,6 +238,7 @@
           </span>
 
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">
+          </span>
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{form.value.gir}}
           </span>
@@ -262,11 +259,12 @@
 
           <span [style.background-color]="bgcolor" class="spanitem " style="width:calc(4%) !important;">
           </span>
-
+          <span *ngIf="holes18">
           <span *ngFor="let x of tab" [style.background-color]="bgcolor" class="spanitem ">
             <input type="text" [id]="'p' + x" [formControlName]="'p' + x"></span>
 
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4% !important;">
+          </span>
           </span>
           <span [style.background-color]="bgcolor" class="spanitem " style="width:4%!important;">{{form.value.putts}}
           </span>
@@ -287,11 +285,13 @@
 
           <span [style.background-color]="bgcolor" class="btm-spanitem " style="width:calc(4%) !important;">
           </span>
+          <span *ngIf="holes18">
           <span *ngFor="let x of tab" [style.background-color]="bgcolor" class="btm-spanitem ">
             <input type="text" [id]="'pen' + x" [formControlName]="'pen' + x"></span>
 
           <span [style.background-color]="bgcolor" class="btm-spanitem " style="width:4% !important;">
           </span>
+        </span>
           <span [style.background-color]="bgcolor" class="btm-spanitem "
             style="width:4%!important;">{{ form.value.penaltytotal}}
           </span>
@@ -303,9 +303,15 @@
         <!-- End of data entry PENALTIES -->
         <!-- Beginning of save / post  -->
         <div>
-          <mat-form-field appearance="outline" class="cssDesc">
+          <mat-form-field *ngIf="!holes18" style="width:60%" appearance="outline" class="cssDesc">
             <mat-label>Description: </mat-label>
-            <textarea matInput type="text" id="comment" formControlName="comment"></textarea>
+            <textarea matInput  type="text" id="comment" formControlName="comment"></textarea>
+            
+          </mat-form-field>
+          <mat-form-field *ngIf="holes18" appearance="outline" class="cssDesc">
+            <mat-label>Description: </mat-label>
+            <textarea matInput  type="text" id="comment" formControlName="comment"></textarea>
+            
           </mat-form-field>
         </div>
         <div>

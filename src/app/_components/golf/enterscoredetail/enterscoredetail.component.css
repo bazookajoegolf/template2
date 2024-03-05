@@ -35,7 +35,7 @@
     line-height:36px; 
     min-width: 15px;
     height:38px; 
-    width:calc(3%);
+    width:calc(3%); 
     border:1px solid rgb(173, 168, 168);
     vertical-align: top;
     
@@ -44,8 +44,9 @@
 .emptyspan {
     display: inline-block; 
     color:white;
-    height:36px;
-    line-height:36px;
+    height:35px;
+    line-height:32px;
+    vertical-align: middle;
     min-width: 15px;
     border:1px inset rgb(123, 119, 119);
     
@@ -60,21 +61,35 @@ input.ng-invalid.ng-touched {
     border:2px solid rgb(196, 4, 4) !important;
 }
 
+input:disabled {
+    background-color:rgb(220, 220, 220) ;
+    
+}
+select:disabled {
+    background-color:rgb(220, 220, 220) ;
+    
+}
 
-.scorecard > span> input, .fairways > span > select, .greens > span > select ,
-.putts > span> input,.penalty > span> input {
-    width: 98%;
-    margin:0px;
-    height:34px;
+
+.fairways > span > span > select, .greens > span > span > select,
+.fairways > span select, .greens > span > select ,
+.putts > span> input, .putts > span > span > input, 
+.scorecard > span > input ,.scorecard > span > span > input,
+.penalty > span > input ,.penalty > span > span > input
+ {
+    width:98%;
+    margin:auto;
+    height:33px;
     font-size: 14px;
-    color:darkslategrey;
+    color:rgb(40, 42, 42);
     text-align:center;
     border:none;
     outline: none;
     vertical-align:top;
     appearance: none;
-
 }
+
+
 
 .dblcircle  {
 

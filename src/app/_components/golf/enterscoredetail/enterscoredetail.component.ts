@@ -26,7 +26,7 @@ export class EnterscoredetailComponent {
   currenthandicap;
   calculated = false;
   detail="3";
-  holesplayed;
+
 
  // shape = ["","","","","","","","","","","","","","","","","",""];
 
@@ -41,6 +41,9 @@ export class EnterscoredetailComponent {
   handicapArray : number[]=[];
   scorediff:number;
   holes18:boolean;
+  holesplayed;
+  front9;
+  back9;
 
   fullOptions = ["Y","L2","L1","R1","R2","S","W"];
   par3Options = ["--"];
@@ -198,7 +201,7 @@ export class EnterscoredetailComponent {
 
   ngOnInit() {
     this.scoreUser = localStorage.getItem('userid');
-
+ 
     this.getScore(this.scoreUser);
     this.user.getProfile()
     .subscribe((profile)=>{
@@ -206,7 +209,7 @@ export class EnterscoredetailComponent {
      // this.form.patchValue({'name' : profile.name});
      // this.form.patchValue({'gender' : profile.gender})
     });
-   
+   //this.form.controls["s1"].disable();
  
   }
 
@@ -223,16 +226,18 @@ export class EnterscoredetailComponent {
       this.courseTee.tee.h14,this.courseTee.tee.h15,this.courseTee.tee.h16,this.courseTee.tee.h17,this.courseTee.tee.h18  ] ;
    
     this.form.reset();
-    this.initializeForm();
+    
+    this.detail="3";
+
     this.shape = Array.from({length: 18}, (_, i) => "par");
     this.holes18=this.courseTee.tee.holes18;
+    this.front9 = this.courseTee.tee.front9p;
+    this.back9 = this.courseTee.tee.back9p;
+
     if(this.holes18) {this.holesplayed="18"}
     else {this.holesplayed="f9"}
-    //console.log("course id" + this.courseTee.course+ "  tee id" + this.courseTee.tee._id );
-    //console.log("holes18: " + this.courseTee.tee.holes18);
-    // console.log(JSON.stringify(this.parArray));
-    // console.log(this.courseTee.tee.p1);
-     //console.log(JSON.stringify(this.courseTee));
+    this.initializeForm();
+    this.setForm();
   }
   }
 
@@ -243,13 +248,52 @@ export class EnterscoredetailComponent {
       var pen = "pen"+(i+1);
       //console.log("value of x: " + x);
       if(this.parArray[i]== 3) {
-    //    console.log("attempting to patch " + x);
-        this.form.patchValue({[x]: "--" });
+        //console.log("initialize form. Detail level: " + this.detail + " holesplayed " + this.holesplayed );
+        if(this.detail=="3" && this.holesplayed=="18") { 
+          this.form.patchValue({[x]: "--" });
+
+        }
+        else if(this.detail=="3" && this.holesplayed=="f9") {
+          if(i < 9 ) {
+            this.form.patchValue({[x]: "--" });
+
+          }
+          else {
+            this.form.patchValue({[x]: "" });
+
+          }
+      }
+      else if(this.detail=="3" && this.holesplayed=="b9") {
+        if(i >= 9 ) {this.form.patchValue({[x]: "--" });}
+        else {this.form.patchValue({[x]: "" });}
+      }
         //this.form.get([x]).disable();
        
       }
+      if(this.detail=="3" && this.holesplayed=="18" ) {
       this.form.patchValue({[p]: 2 });
       this.form.patchValue({[pen]: 0 });
+      }
+      else if(this.detail=="3" && this.holesplayed=="f9") {
+        if(i<9) {
+          this.form.patchValue({[p]: 2 });
+          this.form.patchValue({[pen]: 0 });
+        }
+        else {
+          this.form.patchValue({[p]: null });
+          this.form.patchValue({[pen]: null });
+        }
+      }
+      else if(this.detail=="3" && this.holesplayed=="b9") {
+        if(i>=9) {
+          this.form.patchValue({[p]: 2 });
+          this.form.patchValue({[pen]: 0 });
+        }
+        else {
+          this.form.patchValue({[p]: null });
+          this.form.patchValue({[pen]: null });
+        }
+      }
     }
   }
 
@@ -361,10 +405,10 @@ export class EnterscoredetailComponent {
   // if level 2 or 3
     for(var i=0;i<18;i++) {
       if(this.detail !="1") {
-      if(i < 9) {
+      if(i < 9 && (this.holesplayed=="f9" || this.holesplayed=="18" )) {
         this.form.value.f9tot += this.scoreArray[i];
       }
-      if(i >= 9) {
+      if(i >= 9 && (this.holesplayed=="b9" || this.holesplayed=="18" )) {
         this.form.value.b9tot += this.scoreArray[i];
       }
     }
@@ -398,9 +442,17 @@ export class EnterscoredetailComponent {
         this.form.value.fs ++;
         this.form.value.fairways++;
       }
+
+    if(i < 9 && (this.holesplayed=="f9" || this.holesplayed=="18" )) {
       this.form.value.penaltytotal += this.penaltyArray[i];
       this.form.value.putts += this.puttsArray[i];
+    }
+    if(i >= 9 && (this.holesplayed=="b9" || this.holesplayed=="18" )) {
+      this.form.value.penaltytotal += this.penaltyArray[i];
+      this.form.value.putts += this.puttsArray[i];
+    }
 
+    if(i < 9 && (this.holesplayed=="f9" || this.holesplayed=="18" )) {
       switch (this.puttsArray[i]) {
         case 0:
           this.form.value.zeroputts++;
@@ -414,9 +466,30 @@ export class EnterscoredetailComponent {
         default:
           this.form.value.threeputtsplus++;
       }
+    }
 
+    if(i >= 9 && (this.holesplayed=="b9" || this.holesplayed=="18" )) {
+      switch (this.puttsArray[i]) {
+        case 0:
+          this.form.value.zeroputts++;
+          break;
+        case 1:
+          this.form.value.oneputts++;
+          break;
+        case 2:
+          this.form.value.twoputts++;
+          break;
+        default:
+          this.form.value.threeputtsplus++;
+      }
+    }
+    if(i < 9 && (this.holesplayed=="f9" || this.holesplayed=="18" )) {
       this.scorediff =this.scoreArray[i] - this.parArray[i];
-
+    }
+    if(i >= 9 && (this.holesplayed=="b9" || this.holesplayed=="18" )) {
+      this.scorediff =this.scoreArray[i] - this.parArray[i];
+    }
+    if(i < 9 && (this.holesplayed=="f9" || this.holesplayed=="18" )) {
       switch(this.scorediff) {
         case -3:
           this.form.value.albatotal++;
@@ -439,15 +512,51 @@ export class EnterscoredetailComponent {
         default:
           this.form.value.tripleplustotal++;
       }
+    }
+    if(i >= 9 && (this.holesplayed=="b9" || this.holesplayed=="18" )) {
+      switch(this.scorediff) {
+        case -3:
+          this.form.value.albatotal++;
+          break;
+        case -2: 
+          this.form.value.eagletotal++;
+          break;
+        case -1:
+          this.form.value.birdietotal++;
+          break;
+        case 0: 
+          this.form.value.partotal++;
+          break;
+        case 1:
+          this.form.value.bogeytotal++;
+          break;
+        case 2:
+          this.form.value.doubletotal++;
+          break;
+        default:
+          this.form.value.tripleplustotal++;
+      }
+    }
     }  
 
     // end of 18 hole loop
     //if level 2 or 3
     if(this.detail !="1") {
-    this.form.value.gtotal= this.form.value.f9tot + this.form.value.b9tot;
+      if(this.holesplayed=="18" ) {
+        this.form.value.gtotal= this.form.value.f9tot + this.form.value.b9tot;
+      }
+      else if(this.holesplayed=="f9") {
+        this.form.value.gtotal= this.form.value.f9tot;
+      }
+      else if(this.holesplayed=="b9") {
+        this.form.value.gtotal= this.form.value.b9tot;
+      }
   }
-
-    this.form.value.g_topar = this.form.value.gtotal - this.courseTee.tee.totalp;
+   //  need 3 ifs' one as is for 18 holes, 2 for summing up either the f9 or b9.  then compare to totalp
+   // when choosing 9 holes on 18 hole course, class calc failing [circle, dblcircle etc] on null values
+   if(this.holesplayed=="18") {this.form.value.g_topar = this.form.value.gtotal - this.courseTee.tee.totalp;}
+   else if(this.holesplayed=="f9") {this.form.value.g_topar = this.form.value.gtotal - this.front9;}
+   else if(this.holesplayed=="b9") {this.form.value.g_topar = this.form.value.gtotal - this.back9;}
 
     // do netscore calc and handicap calc here
     // level 2 and 3
@@ -468,6 +577,7 @@ export class EnterscoredetailComponent {
        this.alert.success(ret.message);
        this.resubmit=true;
        this.form.reset();
+    
        this.shape = Array.from({length: 18}, (_, i) => "par");
        
 
@@ -490,7 +600,9 @@ export class EnterscoredetailComponent {
     }  
     this.shape = [];
     let scoremax=0; 
-    for(let i=0;i<this.numbers.length;i++) {
+
+//  set unplayed holes to "par"
+    for(let i=0;i<18;i++) {
       const noH = 5;
       let cp = this.parArray[i];
       let hh = this.handicapArray[i];
@@ -501,26 +613,30 @@ export class EnterscoredetailComponent {
       else if ((sc - cp) == 0  ) {this.shape.push("par")}
       else if ((sc - cp) == 1  ) {this.shape.push("square")}
       else if ((sc - cp) >= 2  ) {this.shape.push("dblsquare")}
+      else {this.shape.push("par")}
 
-      
-      if(ch) {
-        var xx;
-        xx = (rem > hh) ? 1 : 0;
-        scoremax = cp + all + xx + 2; 
-        // console.log("hole " +i+ " score max "+scoremax+" score " + sc + " par " + cp + "all " + all + " to h " +  xx);
-      } else {
-        scoremax = cp + noH;
-      }
-      if(scoremax < sc) {net += scoremax}
-      else {net+=sc}
+    // narrow down to only played holes.  if 9 holes run through and add par up   
+    if(sc > 0) {
+    if(ch  ) {
+      var xx;
+      xx = (rem > hh) ? 1 : 0;
+      scoremax = cp + all + xx + 2; 
+    //   //   // console.log("hole " +i+ " score max "+scoremax+" score " + sc + " par " + cp + "all " + all + " to h " +  xx);
+    } else {
+      scoremax = cp + noH;
+    }
+    if(scoremax < sc) {net += scoremax}
+    else {net+=sc}
       
     }
     // console.log("current Handicap: " + ch); 
     // console.log("net score: " + net);
+  }
     if(this.detail !="1") {
      
       this.form.value.ntotal = net;
     }
+  
   }
 
   calcHandicap() {
@@ -534,27 +650,262 @@ export class EnterscoredetailComponent {
     console.log("handicap calculated: " + this.form.value.handicap);
   }
 
-  setOneTwo() {
+  setForm() {
+    let scores =   ["s1","s2","s3","s4","s5","s6","s7","s8","s9",
+                   "s10","s11","s12","s13","s14","s15","s16","s17","s18"];
+    let fairways = ["f1","f2","f3","f4","f5","f6","f7","f8","f9",
+                   "f10","f11","f12","f13","f14","f15","f16","f17","f18"];
+    let greens =   ["g1","g2","g3","g4","g5","g6","g7","g8","g9",
+                   "g10","g11","g12","g13","g14","g15","g16","g17","g18"];
+    let pens =     ["pen1","pen2","pen3","pen4","pen5","pen6","pen7","pen8","pen9",
+                   "pen10","pen11","pen12","pen13","pen14","pen15","pen16","pen17","pen18"];
+    let putts =     ["p1","p2","p3","p4","p5","p6","p7","p8","p9",
+                   "p10","p11","p12","p13","p14","p15","p16","p17","p18"];   
+
+    this.form.reset();
     for(let i=0;i< 18;i++) { 
-      var x = "f"+(i+1);
-      var g = "g"+(i+1);
-      var p = "p"+(i+1);
-      var pen = "pen"+(i+1);
-      var s = "s"+(i+1);
-      //console.log("value of x: " + x);
-      if(this.detail == "1") {
-    //    console.log("attempting to patch " + x);
-        this.form.patchValue({[s]: "99" });
-        //this.form.get([x]).disable();
-       
-      }
-      this.form.patchValue({[x]: "na" });
-      this.form.patchValue({[p]: 99 });
-      this.form.patchValue({[pen]: 99 });
-      this.form.patchValue({[g]: "na" });
+      // var x = "f"+(i+1);
+      // var g = "g"+(i+1);
+      // var p = "p"+(i+1);
+      // var pen = "pen"+(i+1);
+      // var s = "s"+(i+1);
+
+    if(this.detail=="3" &&  this.holesplayed=="18") {
+     // console.log("detail 3, 18 hole course and 18 holes chosen ");
+      this.form.controls[scores[i]].enable();
+      this.form.get(scores[i]).addValidators(Validators.required);
+      this.form.get(scores[i]).updateValueAndValidity();
+      this.form.controls[fairways[i]].enable();
+      this.form.get(fairways[i]).addValidators(Validators.required);
+      this.form.get(fairways[i]).updateValueAndValidity();
+      this.form.controls[greens[i]].enable();
+      this.form.get(greens[i]).addValidators(Validators.required);
+      this.form.get(greens[i]).updateValueAndValidity();
+      this.form.controls[pens[i]].enable();
+      this.form.get(pens[i]).addValidators(Validators.required);
+      this.form.get(pens[i]).updateValueAndValidity();
+      this.form.controls[putts[i]].enable();
+      this.form.get(putts[i]).addValidators(Validators.required);
+      this.form.get(putts[i]).updateValueAndValidity();
+
     }
-    this.form.value.gtotal = null;
-    this.form.value.ntotal = null;
+    else if(this.detail=="3"  && this.holesplayed!="18") {
+      // console.log("detail 3, 18 hole course and 18 holes chosen ");
+      if(this.holesplayed=="f9" && i < 9) {
+       // console.log("first if, less than 9 and f9");
+       this.form.controls[scores[i]].enable();
+       this.form.get(scores[i]).addValidators(Validators.required);
+       this.form.get(scores[i]).updateValueAndValidity();
+       this.form.controls[fairways[i]].enable();
+       this.form.get(fairways[i]).addValidators(Validators.required);
+       this.form.get(fairways[i]).updateValueAndValidity();
+       this.form.controls[greens[i]].enable();
+       this.form.get(greens[i]).addValidators(Validators.required);
+       this.form.get(greens[i]).updateValueAndValidity();
+       this.form.controls[pens[i]].enable();
+       this.form.get(pens[i]).addValidators(Validators.required);
+       this.form.get(pens[i]).updateValueAndValidity();
+       this.form.controls[putts[i]].enable();
+       this.form.get(putts[i]).addValidators(Validators.required);
+       this.form.get(putts[i]).updateValueAndValidity();
+      }
+      if(this.holesplayed=="f9" && i >= 9) {
+        this.form.controls[scores[i]].disable();
+        this.form.get(scores[i]).removeValidators(Validators.required);
+        this.form.get(scores[i]).updateValueAndValidity();
+        this.form.controls[fairways[i]].disable();
+        this.form.get(fairways[i]).removeValidators(Validators.required);
+        this.form.get(fairways[i]).updateValueAndValidity();
+        this.form.controls[greens[i]].disable();
+        this.form.get(greens[i]).removeValidators(Validators.required);
+        this.form.get(greens[i]).updateValueAndValidity();
+        this.form.controls[pens[i]].disable();
+        this.form.get(pens[i]).removeValidators(Validators.required);
+        this.form.get(pens[i]).updateValueAndValidity();
+        this.form.controls[putts[i]].disable();
+        this.form.get(putts[i]).removeValidators(Validators.required);
+        this.form.get(putts[i]).updateValueAndValidity();
+       }
+       if((this.holesplayed=="b9" && i >= 9)) {
+        console.log("first if, greater than 9 and b9");
+        this.form.controls[scores[i]].enable();
+        this.form.get(scores[i]).addValidators(Validators.required);
+        this.form.get(scores[i]).updateValueAndValidity();
+        this.form.controls[fairways[i]].enable();
+        this.form.get(fairways[i]).addValidators(Validators.required);
+        this.form.get(fairways[i]).updateValueAndValidity();
+        this.form.controls[greens[i]].enable();
+        this.form.get(greens[i]).addValidators(Validators.required);
+        this.form.get(greens[i]).updateValueAndValidity();
+        this.form.controls[pens[i]].enable();
+        this.form.get(pens[i]).addValidators(Validators.required);
+        this.form.get(pens[i]).updateValueAndValidity();
+        this.form.controls[putts[i]].enable();
+        this.form.get(putts[i]).addValidators(Validators.required);
+        this.form.get(putts[i]).updateValueAndValidity();
+       }
+       if(this.holesplayed=="b9" && i < 9) {
+         this.form.controls[scores[i]].disable();
+         this.form.get(scores[i]).removeValidators(Validators.required);
+         this.form.get(scores[i]).updateValueAndValidity();
+         this.form.controls[fairways[i]].disable();
+         this.form.get(fairways[i]).removeValidators(Validators.required);
+         this.form.get(fairways[i]).updateValueAndValidity();
+         this.form.controls[greens[i]].disable();
+         this.form.get(greens[i]).removeValidators(Validators.required);
+         this.form.get(greens[i]).updateValueAndValidity();
+         this.form.controls[pens[i]].disable();
+         this.form.get(pens[i]).removeValidators(Validators.required);
+         this.form.get(pens[i]).updateValueAndValidity();
+         this.form.controls[putts[i]].disable();
+         this.form.get(putts[i]).removeValidators(Validators.required);
+         this.form.get(putts[i]).updateValueAndValidity();
+        }
+ 
+     }
+    else if(this.detail=="2" &&  this.holesplayed=="18") {
+      this.form.controls[scores[i]].enable();
+      this.form.get(scores[i]).addValidators(Validators.required);
+      this.form.get(scores[i]).updateValueAndValidity();
+     // this.form.controls[fairways[i]].enable();
+      this.form.get(fairways[i]).removeValidators(Validators.required);
+      this.form.get(fairways[i]).updateValueAndValidity();
+     // this.form.controls[greens[i]].enable();
+      this.form.get(greens[i]).removeValidators(Validators.required);
+      this.form.get(greens[i]).updateValueAndValidity();
+     // this.form.controls[pens[i]].enable();
+      this.form.get(pens[i]).removeValidators(Validators.required);
+      this.form.get(pens[i]).updateValueAndValidity();
+    // this.form.controls[putts[i]].enable();
+      this.form.get(putts[i]).removeValidators(Validators.required);
+      this.form.get(putts[i]).updateValueAndValidity();
+
+    }
+    else if(this.detail=="2" &&  this.holesplayed!="18") {
+      // console.log("detail 3, 18 hole course and 18 holes chosen ");
+      if(this.holesplayed=="f9" && i < 9) {
+        console.log("first if, less than 9 and f9");
+       this.form.controls[scores[i]].enable();
+       this.form.get(scores[i]).addValidators(Validators.required);
+       this.form.get(scores[i]).updateValueAndValidity();
+   //    this.form.controls[fairways[i]].enable();
+       this.form.get(fairways[i]).removeValidators(Validators.required);
+       this.form.get(fairways[i]).updateValueAndValidity();
+   //    this.form.controls[greens[i]].enable();
+       this.form.get(greens[i]).removeValidators(Validators.required);
+       this.form.get(greens[i]).updateValueAndValidity();
+   //    this.form.controls[pens[i]].enable();
+       this.form.get(pens[i]).removeValidators(Validators.required);
+       this.form.get(pens[i]).updateValueAndValidity();
+   //    this.form.controls[putts[i]].enable();
+       this.form.get(putts[i]).removeValidators(Validators.required);
+       this.form.get(putts[i]).updateValueAndValidity();
+      }
+      if(this.holesplayed=="f9" && i >= 9) {
+        this.form.controls[scores[i]].disable();
+        this.form.get(scores[i]).removeValidators(Validators.required);
+        this.form.get(scores[i]).updateValueAndValidity();
+    //    this.form.controls[fairways[i]].disable();
+        this.form.get(fairways[i]).removeValidators(Validators.required);
+        this.form.get(fairways[i]).updateValueAndValidity();
+     //   this.form.controls[greens[i]].disable();
+        this.form.get(greens[i]).removeValidators(Validators.required);
+        this.form.get(greens[i]).updateValueAndValidity();
+   //     this.form.controls[pens[i]].disable();
+        this.form.get(pens[i]).removeValidators(Validators.required);
+        this.form.get(pens[i]).updateValueAndValidity();
+    //    this.form.controls[putts[i]].disable();
+        this.form.get(putts[i]).removeValidators(Validators.required);
+        this.form.get(putts[i]).updateValueAndValidity();
+       }
+       if((this.holesplayed=="b9" && i >= 9)) {
+        this.form.controls[scores[i]].enable();
+        this.form.get(scores[i]).addValidators(Validators.required);
+        this.form.get(scores[i]).updateValueAndValidity();
+      //  this.form.controls[fairways[i]].enable();
+        this.form.get(fairways[i]).removeValidators(Validators.required);
+        this.form.get(fairways[i]).updateValueAndValidity();
+      //  this.form.controls[greens[i]].enable();
+        this.form.get(greens[i]).removeValidators(Validators.required);
+        this.form.get(greens[i]).updateValueAndValidity();
+      //  this.form.controls[pens[i]].enable();
+        this.form.get(pens[i]).removeValidators(Validators.required);
+        this.form.get(pens[i]).updateValueAndValidity();
+     //   this.form.controls[putts[i]].enable();
+        this.form.get(putts[i]).removeValidators(Validators.required);
+        this.form.get(putts[i]).updateValueAndValidity();
+       }
+       if(this.holesplayed=="b9" && i < 9) {
+         this.form.controls[scores[i]].disable();
+         this.form.get(scores[i]).removeValidators(Validators.required);
+         this.form.get(scores[i]).updateValueAndValidity();
+      //   this.form.controls[fairways[i]].disable();
+         this.form.get(fairways[i]).removeValidators(Validators.required);
+         this.form.get(fairways[i]).updateValueAndValidity();
+     //    this.form.controls[greens[i]].disable();
+         this.form.get(greens[i]).removeValidators(Validators.required);
+         this.form.get(greens[i]).updateValueAndValidity();
+      //   this.form.controls[pens[i]].disable();
+         this.form.get(pens[i]).removeValidators(Validators.required);
+         this.form.get(pens[i]).updateValueAndValidity();
+     //    this.form.controls[putts[i]].disable();
+         this.form.get(putts[i]).removeValidators(Validators.required);
+         this.form.get(putts[i]).updateValueAndValidity();
+        }
+ 
+     }
+     else if(this.detail=="1") { 
+     // this.form.controls[scores[i]].enable();
+      this.form.get(scores[i]).removeValidators(Validators.required);
+      this.form.get(scores[i]).updateValueAndValidity();
+     // this.form.controls[fairways[i]].enable();
+      this.form.get(fairways[i]).removeValidators(Validators.required);
+      this.form.get(fairways[i]).updateValueAndValidity();
+     //this.form.controls[greens[i]].enable();
+      this.form.get(greens[i]).removeValidators(Validators.required);
+      this.form.get(greens[i]).updateValueAndValidity();
+    //  this.form.controls[pens[i]].enable();
+      this.form.get(pens[i]).removeValidators(Validators.required);
+      this.form.get(pens[i]).updateValueAndValidity();
+    //  this.form.controls[putts[i]].enable();
+      this.form.get(putts[i]).removeValidators(Validators.required);
+      this.form.get(putts[i]).updateValueAndValidity();
+     }
+
+  }
+  this.form.value.gtotal = null;
+  this.form.value.ntotal = null;
+  if(this.detail == "3") this.initializeForm();
+
+
+  //   let items = ["p10","p11","p12","p13","p14","p15","p16","p17","p18",
+  //   "yd10","yd11","yd12","yd13","yd14","yd15","yd16","yd17","yd18",
+  //   "h10","h11","h12","h13","h14","h15","h16","h17","h18"
+  //  ]
+
+
+//     this.form.get(items[i]).removeValidators(Validators.required);
+//     this.form.get(items[i]).updateValueAndValidity();
+//   }
+// }
+// else {
+//   for(let i=0;i<items.length;i++) {
+//     this.form.get(items[i]).addValidators(Validators.required);
+//     this.form.get(items[i]).updateValueAndValidity();
+
+
+    //   //console.log("value of x: " + x);
+    //   if(this.detail == "1") {
+    // //    console.log("attempting to patch " + x);
+    //     this.form.patchValue({[s]: "99" });
+    //     //this.form.get([x]).disable();
+       
+    //   }
+    //   this.form.patchValue({[x]: "na" });
+    //   this.form.patchValue({[p]: 99 });
+    //   this.form.patchValue({[pen]: 99 });
+    //   this.form.patchValue({[g]: "na" });
+
 
   }
 
@@ -564,22 +915,18 @@ export class EnterscoredetailComponent {
     this.calculated = false;
     console.log("Detail level: " + this.detail);
     this.shape = Array.from({length: 18}, (_, i) => "par");
-    this.form.reset();
-    if(this.detail == "1" || this.detail == "2") {    this.setOneTwo();}
+    this.setForm();
+    
+    if(this.detail == "1" || this.detail == "2") {    this.setForm();}
     if(this.detail == "3" )  {this.initializeForm();}
   } 
 
   holesLevel(event) {
-    let x = event.value;
-    if(x=="18") {
-      console.log("18 holes chosen");
-    }
-    else if(x=="f9") {
-      console.log("front 9 chosen");
-    }
-    else if(x=="b9") {
-      console.log("back 9 chosen");
-    }
+    this.holesplayed = event.value;
+    this.calculated = false;
+    this.shape = Array.from({length: 18}, (_, i) => "par");
+    console.log(this.holesplayed);
+    this.setForm();
   }
   
 
