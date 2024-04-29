@@ -41,6 +41,10 @@
         <td class="ti1">CURRENT HANDICAP</td>
         <td class="ti2">{{currentHandicap | number :'1.2-2'}}</td>
       </tr>
+      <tr>
+        <td class="ti1">NICKNAME</td>
+        <td class="ti2"><span *ngIf='nickname !="undefined"'>{{nickname}}</span></td>
+      </tr>
     </table>
 
 
@@ -103,14 +107,6 @@
         <div class="example-element-detail"
              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
 
-          <!-- <div class="example-element-diagram">
-          
-
-            <div class="example-element-position"> {{element.position}} </div>
-            <div class="example-element-symbol"> {{element.symbol}} </div>
-            <div class="example-element-name"> {{element.name}} </div>
-            <div class="example-element-weight"> {{element.weight}} </div> 
-          </div> -->
           <div class="example-element-description">
             <hr style="width:100%;height:4px;color:darkslategray">
             <table style="width: 100%;table-layout: fixed;margin:auto;">
@@ -140,6 +136,7 @@
               modify filter to use a radio button for the 4 types.  add more rows, putts, fairways, penalties. also add fairway, gir's 
               and putts to the right of coursename -->
               <tr class="stTr">
+
                 <th class="stWider">HOLE</th>
                 <th>1</th>
                 <th>2</th>
@@ -150,18 +147,22 @@
                 <th>7</th>
                 <th>8</th>
                 <th>9</th>
-                <th class="stWider">OUT</th>
-                <th>10</th>
-                <th>11</th>
-                <th>12</th>
-                <th>13</th>
-                <th>14</th>
-                <th>15</th>
-                <th>16</th>
-                <th>17</th>
-                <th>18</th>
-                <th class="stWider">IN</th>
-                <th style="padding-left:10px;padding-right:10px;">TOT</th>
+                <th *ngIf="holes18" class="stWider">OUT</th>
+                <th *ngIf="!holes18" class="stWider">TOT</th>
+
+              <!-- <div *ngIf="holes18"> -->
+                <th *ngIf="holes18">10</th>
+                <th *ngIf="holes18">11</th>
+                <th *ngIf="holes18">12</th>
+                <th *ngIf="holes18">13</th>
+                <th *ngIf="holes18">14</th>
+                <th *ngIf="holes18">15</th>
+                <th *ngIf="holes18">16</th>
+                <th *ngIf="holes18">17</th>
+                <th *ngIf="holes18">18</th>
+                <th *ngIf="holes18" class="stWider">IN</th>
+                <th *ngIf="holes18" style="padding-left:10px;padding-right:10px;">TOT</th>
+              <!-- </div> -->
               </tr>
               <!-- <hr style="width:100%;height:10px;color:lightcoral; margin: 0px;"> -->
               <tr>
@@ -176,6 +177,7 @@
                 <td>{{course?.yd8}}</td>
                 <td>{{course?.yd9}}</td>
                 <td class="stWider">{{course?.front9y}}</td>
+              <!-- <div *ngIf="holes18"> -->
                 <td>{{course?.yd10}}</td>
                 <td>{{course?.yd11}}</td>
                 <td>{{course?.yd12}}</td>
@@ -185,8 +187,9 @@
                 <td>{{course?.yd16}}</td>
                 <td>{{course?.yd17}}</td>
                 <td>{{course?.yd18}}</td>
-                <td class="stWider">{{course?.back9y}}</td>
-                <td>{{course?.totaly}}</td>
+                <td *ngIf="holes18" class="stWider">{{course?.back9y}}</td>
+                <td *ngIf="holes18">{{course?.totaly}}</td>
+              <!-- </div> -->
               </tr>
               <tr>
                 <td class="stWider">Par</td>
@@ -200,6 +203,7 @@
                 <td>{{course?.p8}}</td>
                 <td>{{course?.p9}}</td>
                 <td class="stWider">{{course?.front9p}}</td>
+              <!-- <div *ngIf="holes18"> -->
                 <td>{{course?.p10}}</td>
                 <td>{{course?.p11}}</td>
                 <td>{{course?.p12}}</td>
@@ -209,8 +213,9 @@
                 <td>{{course?.p16}}</td>
                 <td>{{course?.p17}}</td>
                 <td>{{course?.p18}}</td>
-                <td class="stWider">{{course?.back9p}}</td>
-                <td style="width:calc(5.5%)">{{course?.totalp}}</td>
+                <td *ngIf="holes18" class="stWider">{{course?.back9p}}</td>
+                <td *ngIf="holes18" style="width:calc(5.5%)">{{course?.totalp}}</td>
+              <!-- </div> -->
               </tr>
               <tr>
                 <td class="stWider">Score</td>
@@ -224,6 +229,7 @@
                 <td [ngStyle]="getColor(course?.p8 - element.s8)">{{element.s8}}</td>
                 <td [ngStyle]="getColor(course?.p9 - element.s9)">{{element.s9}}</td>
                 <td class="stWider">{{element.f9tot}}</td>
+                <!-- <div *ngIf="holes18"> -->
                 <td [ngStyle]="getColor(course?.p10 - element.s10)">{{element.s10}}</td>
                 <td [ngStyle]="getColor(course?.p11 - element.s11)">{{element.s11}}</td>
                 <td [ngStyle]="getColor(course?.p12 - element.s12)">{{element.s12}}</td>
@@ -233,8 +239,9 @@
                 <td [ngStyle]="getColor(course?.p16 - element.s16)">{{element.s16}}</td>
                 <td [ngStyle]="getColor(course?.p17 - element.s17)">{{element.s17}}</td>
                 <td [ngStyle]="getColor(course?.p18 - element.s18)">{{element.s18}}</td>
-                <td class="stWider">{{element.b9tot}}</td>
-                <td style="width:calc(5.5%)">{{element.gtotal}}</td>
+                <td *ngIf="holes18" class="stWider">{{element.b9tot}}</td>
+                <td *ngIf="holes18" style="width:calc(5.5%)">{{element.gtotal}}</td>
+              <!-- </div> -->
               </tr>
               <tr *ngIf='element.scoredetail=="3"'>
                 <td class="stWider">Fairways</td>
@@ -252,6 +259,7 @@
                                       (element.f5=='Y' ? 1 : 0) + (element.f6=='Y' ? 1 : 0) +
                                       (element.f7=='Y' ? 1 : 0) + (element.f8=='Y' ? 1 : 0) +
                                       (element.f9=='Y' ? 1 : 0) }} </td>
+              <!-- <div *ngIf="holes18"> -->
                 <td>{{element.f10}}</td>
                 <td>{{element.f11}}</td>
                 <td>{{element.f12}}</td>
@@ -261,12 +269,13 @@
                 <td>{{element.f16}}</td>
                 <td>{{element.f17}}</td>
                 <td>{{element.f18}}</td>
-                <td class="stWider">{{(element.f10=='Y' ? 1 : 0) + (element.f11=='Y' ? 1 : 0) +
+                <td *ngIf="holes18" class="stWider">{{(element.f10=='Y' ? 1 : 0) + (element.f11=='Y' ? 1 : 0) +
                                       (element.f12=='Y' ? 1 : 0) + (element.f13=='Y' ? 1 : 0) +
                                       (element.f14=='Y' ? 1 : 0) + (element.f15=='Y' ? 1 : 0) +
                                       (element.f16=='Y' ? 1 : 0) + (element.f17=='Y' ? 1 : 0) +
                                       (element.f18=='Y' ? 1 : 0) }}</td>
-                <td style="width:calc(5.5%)">{{element.fy}}</td>
+                <td *ngIf="holes18" style="width:calc(5.5%)">{{element.fy}}</td>
+                <!-- </div> -->
               </tr>
 
               <tr *ngIf='element.scoredetail=="3"'>
@@ -285,6 +294,7 @@
                                       (element.g5=='Y' ? 1 : 0) + (element.g6=='Y' ? 1 : 0) +
                                       (element.g7=='Y' ? 1 : 0) + (element.g8=='Y' ? 1 : 0) +
                                       (element.g9=='Y' ? 1 : 0) }} </td>
+              <!-- <div *ngIf="holes18"> -->
                 <td>{{element.g10}}</td>
                 <td>{{element.g11}}</td>
                 <td>{{element.g12}}</td>
@@ -294,12 +304,13 @@
                 <td>{{element.g16}}</td>
                 <td>{{element.g17}}</td>
                 <td>{{element.g18}}</td>
-                <td class="stWider">{{(element.g10=='Y' ? 1 : 0) + (element.g11=='Y' ? 1 : 0) +
+                <td *ngIf="holes18" class="stWider">{{(element.g10=='Y' ? 1 : 0) + (element.g11=='Y' ? 1 : 0) +
                                       (element.g12=='Y' ? 1 : 0) + (element.g13=='Y' ? 1 : 0) +
                                       (element.g14=='Y' ? 1 : 0) + (element.g15=='Y' ? 1 : 0) +
                                       (element.g16=='Y' ? 1 : 0) + (element.g17=='Y' ? 1 : 0) +
                                       (element.g18=='Y' ? 1 : 0) }}</td>
-                <td style="width:calc(5.5%)">{{element.gir}}</td>
+                <td *ngIf="holes18" style="width:calc(5.5%)">{{element.gir}}</td>
+                <!-- </div> -->
               </tr>
               <tr *ngIf='element.scoredetail=="3"'>
                 <td class="stWider">Putts</td>
@@ -312,9 +323,10 @@
                 <td>{{element.p7}}</td>
                 <td>{{element.p8}}</td>
                 <td>{{element.p9}}</td>
-                <td class="stWider">{{element.p1 + element.p2 + element.p3 +
+                <td class="stWider">{{ element.p1  ? element.p1 + element.p2 + element.p3 +
                                       element.p4 + element.p5 + element.p6 +
-                                      element.p7 + element.p8 + element.p9  }}</td>
+                                      element.p7 + element.p8 + element.p9 :0 }}</td>
+              <!-- <div *ngIf="holes18"> -->
                 <td>{{element.p10}}</td>
                 <td>{{element.p11}}</td>
                 <td>{{element.p12}}</td>
@@ -324,10 +336,11 @@
                 <td>{{element.p16}}</td>
                 <td>{{element.p17}}</td>
                 <td>{{element.p18}}</td>
-                <td class="stWider">{{element.p10 + element.p11 + element.p12 +
+                <td *ngIf="holes18" class="stWider">{{ element.p10 ? element.p10 + element.p11 + element.p12 +
                   element.p13 + element.p14 + element.p15 +
-                  element.p16 + element.p17 + element.p18  }}</td>
-                <td style="width:calc(5.5%)">{{element.putts}}</td>
+                  element.p16 + element.p17 + element.p18 : 0 }}</td>
+                <td *ngIf="holes18" style="width:calc(5.5%)">{{element.putts}}</td>
+              <!-- </div> -->
               </tr>
               <tr *ngIf='element.scoredetail=="3"'>
                 <td class="stWider">Penalties</td>
@@ -340,9 +353,10 @@
                 <td>{{element.pen7}}</td>
                 <td>{{element.pen8}}</td>
                 <td>{{element.pen9}}</td>
-                <td class="stWider">{{element.pen1 + element.pen2 + element.pen3 +
+                <td class="stWider">{{element.pen1 ? element.pen1 + element.pen2 + element.pen3 +
                   element.pen4 + element.pen5 + element.pen6 +
-                  element.pen7 + element.pen8 + element.pen9  }}</td>
+                  element.pen7 + element.pen8 + element.pen9  : 0}}</td>
+              <!-- <div *ngIf="holes18"> -->
                 <td>{{element.pen10}}</td>
                 <td>{{element.pen11}}</td>
                 <td>{{element.pen12}}</td>
@@ -352,14 +366,16 @@
                 <td>{{element.pen16}}</td>
                 <td>{{element.pen17}}</td>
                 <td>{{element.pen18}}</td>
-                <td class="stWider">{{element.pen10 + element.pen11 + element.pen12 +
+                <td *ngIf="holes18" class="stWider">{{element.pen10 ? element.pen10 + element.pen11 + element.pen12 +
                   element.pen13 + element.pen14 + element.pen15 +
-                  element.pen16 + element.pen17 + element.pen18  }}</td>
-                <td style="width:calc(5.5%)">{{element.penaltytotal}}</td>
+                  element.pen16 + element.pen17 + element.pen18 : 0 }}</td>
+                <td *ngIf="holes18" style="width:calc(5.5%)">{{element.penaltytotal}}</td>
+              <!-- </div> -->
               </tr>
  
             </table>
-            <tr *ngIf='element.scoredetail!="1"' id="legend"><span>EAGLE+ </span><div style="background-color: #e9ea9b"></div>
+            <tr *ngIf='element.scoredetail!="1"' id="legend">
+                            <span>EAGLE+ </span><div style="background-color: #e9ea9b"></div>
                             <span>BIRDIE </span><div style="background-color: #a1eec7"></div>
                             <span>BOGEY </span><div style="background-color: #ea6e6e" ></div>
                             <span>DBL BOGEY+ </span><div style="background-color: #7ca9cf"></div>

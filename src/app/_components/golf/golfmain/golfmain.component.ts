@@ -53,6 +53,7 @@ export class GolfmainComponent implements AfterViewInit {
   constructor(private _liveAnnouncer: LiveAnnouncer, private score: ScoreService ,private courses: CoursesService, private router: Router, private alert: AlertService) {
     this.userid = localStorage.getItem('userid');
     this.homeCourse = localStorage.getItem('homeCourse');
+    this.nickname = localStorage.getItem('nickname');
     this.country = localStorage.getItem('country') || " ";
     const x = localStorage.getItem('countryCode') || " ";
     this.countryCode = x.toLowerCase() || " ";
@@ -67,6 +68,7 @@ export class GolfmainComponent implements AfterViewInit {
  
   scores=[];
   course;
+  holes18;
   
   allScore;
   data = [];
@@ -77,6 +79,7 @@ export class GolfmainComponent implements AfterViewInit {
   country = " ";
   countryCode = " ";
   birthdate;
+  nickname;
   gender;
   name;
   
@@ -109,7 +112,7 @@ export class GolfmainComponent implements AfterViewInit {
        // this.currenthandicap = s.scores.handicap;
       // console.log("Scores " + JSON.stringify(s.scores.scores));
       
-      this.allScore = s.scores;
+       this.allScore = s.scores;
        this.scores = s.scores.scores; 
        this.hcArray = s.scores.handicapArray;
        this.lowScores = s.scores.lowScoresArray;
@@ -184,10 +187,11 @@ export class GolfmainComponent implements AfterViewInit {
           // let temp = courses;
          // console.table(courses);
           for(let i = 0;i < courses.tees.length;i++) {
-            console.log( "x id value is:  "  +  courses.tees[i]._id + " y value : " + y);
+           // console.log( "x id value is:  "  +  courses.tees[i]._id + " y value : " + y);
             if(courses.tees[i]._id == y) {
-              console.log ("tee id found");
+              //console.log ("tee id found");
               this.course = courses.tees[i];
+              this.holes18 = this.course.holes18;
             }
            // console.log(" course tee value " + JSON.stringify(this.course));
           }
@@ -200,7 +204,8 @@ export class GolfmainComponent implements AfterViewInit {
   }
 
   getColor(x) {
-    
+   
+    if(x) {
     switch(x) {
       case 4:
       case 3:
@@ -220,6 +225,7 @@ export class GolfmainComponent implements AfterViewInit {
           return {'background-color': '#7ca9cf'}
           }
     }
+  } else {return {'background-color': 'white'}}
    
   }
 

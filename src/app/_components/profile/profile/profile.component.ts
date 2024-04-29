@@ -43,6 +43,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       oldpassword: new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
       homeCourse : new UntypedFormControl ('',[]),
       birthdate : new UntypedFormControl ('',[]),
+      nickname : new UntypedFormControl ('',[]),
       country : new UntypedFormControl ('',[])
     });
         
@@ -65,6 +66,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.form.patchValue({'country' : profile.country});
       this.form.patchValue({'countryCode' : profile.countryCode});
       this.form.patchValue({'birthdate' : profile.birthdate});
+      this.form.patchValue({'nickname' : profile.nickname});
       this.form.disable();
       this.id = profile._id;
       } 
@@ -105,6 +107,7 @@ get p() {
             homeCourse: this.form.value.homeCourse,
             gender : this.form.value.gender,
             birthdate: this.form.value.birthdate,
+            nickname: this.form.value.nickname,
             country : this.form.value.country,
             countryCode : cc.code
         }
@@ -126,6 +129,7 @@ get p() {
                  localStorage.setItem('gender', response.user.gender);
                  localStorage.setItem('email', response.user.email);
                  localStorage.setItem('birthdate', response.user.birthdate);
+                 localStorage.setItem('nickname', response.user.nickname);
                  localStorage.setItem('country', response.user.country);
                  localStorage.setItem('countryCode', response.user.countryCode);
                 // update the user object.

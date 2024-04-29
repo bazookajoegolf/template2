@@ -158,6 +158,11 @@ export class UsersComponent implements AfterViewInit, OnInit {
       password : this.form.value.password,
       isadmin : this.form.value.isadmin ? true : false,
       status : this.form.value.status ? "Disabled" : "Enabled",
+      homeCourse : " ",
+      country : " ",
+      countryCode :" ",
+      birthdate : " ",
+      nickname : " ",
       gender : this.form.value.gender,
       roles : ['User'],
       notes : this.form.value.notes ? this.form.value.notes : " "

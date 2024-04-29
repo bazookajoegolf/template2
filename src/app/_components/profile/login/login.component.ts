@@ -64,6 +64,7 @@ get f() {
        localStorage.setItem('email',response.email);
        localStorage.setItem('homeCourse',response.homeCourse);
        localStorage.setItem('birthdate',response.birthdate);
+       localStorage.setItem('nickname',response.nickname);
        localStorage.setItem('country',response.country);
        localStorage.setItem('countryCode',response.countryCode);
        localStorage.setItem('name', response.name);

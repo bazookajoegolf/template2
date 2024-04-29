@@ -58,7 +58,7 @@
     width: 100%;
   }
   
-.scoreTable > tr {
+.scoreTable > tr  {
     color:rgb(42, 43, 44);
     border-bottom: grey 1px;
     text-rendering: optimizeLegibility;
@@ -67,6 +67,10 @@
     line-height: 36px;
     vertical-align: middle;
 }  
+
+
+
+
 .stTr > th {
     border-top: solid rgb(83, 78, 78) 2px;
     width:calc(4.5%);
@@ -76,6 +80,10 @@
     vertical-align: middle;
     text-rendering: optimizeLegibility;
 
+}
+
+.stTr > div {
+  margin-top: -1px;
 }
 
 .stWider {

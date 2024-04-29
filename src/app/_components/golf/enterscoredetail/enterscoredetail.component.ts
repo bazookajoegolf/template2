@@ -226,6 +226,7 @@ export class EnterscoredetailComponent {
       this.courseTee.tee.h14,this.courseTee.tee.h15,this.courseTee.tee.h16,this.courseTee.tee.h17,this.courseTee.tee.h18  ] ;
    
     this.form.reset();
+    this.calculated = false;
     
     this.detail="3";
 
@@ -302,10 +303,16 @@ export class EnterscoredetailComponent {
     console.log("getting score user information for " + x);
     this.score.getScoreId(x)
       .subscribe((s) => {
+        
+        if(s.scores !="new") {
         this.roundsplayed = s.scores.scores.length;
         this.currenthandicap = s.scores.handicap;
         console.log("Current Handicap: " + this.currenthandicap + "     Rounds Played:  " + this.roundsplayed);
-               
+        } else {
+          this.roundsplayed = 0;
+          this.currenthandicap = 55;
+        }
+
       });
 
   }
@@ -587,7 +594,7 @@ export class EnterscoredetailComponent {
 
   }
   calcNetScore() {
-    console.log("net score: " + this.form.value.ntotal);
+   // console.log("net score: " + this.form.value.ntotal);
     let net = 0;
     let ch = this.currenthandicap;
     console.log("current handicap " + ch);
@@ -641,13 +648,85 @@ export class EnterscoredetailComponent {
 
   calcHandicap() {
     const x = 113;  // static number used 
-    
-    let a = x / this.form.value.slope;
-    let b = this.form.value.ntotal - this.form.value.rating;
-    if(b < 0) {b = Math.round(b * 10) / 10;}
-    this.form.value.handicap = b * a;
+    if(this.holesplayed=="18"){
+     let a = x / this.form.value.slope;
+     let b = this.form.value.ntotal - this.form.value.rating;
+    // if(b < 0) {b = Math.round(b * 10) / 10;}
+     b = Math.round(b * 10) / 10;
+     this.form.value.handicap = b * a;
+    } else {
+        let scoring_slope;
+        let scoring_rating;
+        let scoring_par;
+        let second_slope;
+        let second_rating;
+        let second_par;
+      //  let course_handicap;
+     
+        if(this.holesplayed=="f9" && this.holes18 ) {
+          scoring_slope = this.courseTee.tee.f9slope;
+          scoring_rating = this.courseTee.tee.f9rating;
+          scoring_par = this.courseTee.tee.front9p;
+          second_slope = this.courseTee.tee.b9slope;
+          second_rating = this.courseTee.tee.b9rating;
+          second_par = this.courseTee.tee.back9p;
+          console.log(scoring_slope + "  " + scoring_rating + "  "+ scoring_par + "  "+ second_slope + "  "+ second_rating + "  "+ second_par);
 
-    console.log("handicap calculated: " + this.form.value.handicap);
+        } else if(this.holesplayed=="b9") {
+          scoring_slope = this.courseTee.tee.b9slope;
+          scoring_rating = this.courseTee.tee.b9rating;
+          scoring_par = this.courseTee.tee.back9p;
+          second_slope = this.courseTee.tee.f9slope;
+          second_rating = this.courseTee.tee.f9rating;
+          second_par = this.courseTee.tee.front9p;
+         console.log(scoring_par + "  " + scoring_rating + " " + scoring_slope );
+
+
+        } else if (this.holesplayed=="f9" && !this.holes18) {
+          scoring_slope = this.courseTee.tee.f9slope;
+          scoring_rating = this.courseTee.tee.f9rating;
+          scoring_par = this.courseTee.tee.front9p;
+          second_slope = this.courseTee.tee.f9slope;
+          second_rating = this.courseTee.tee.f9rating;
+          second_par = this.courseTee.tee.front9p;
+
+
+        } 
+        
+
+        // The formula is as follows:
+        // Hardest thing to find on the web.  How to calculate "expected score". Best explanation below
+        // 18-hole Score Differential = ((Adjusted Gross Score – 9-hole Course Rating) × 113 / 9-hole Slope Rating) 
+        //                            + ((2nd Nine Par + Player’s 2nd Nine CH Strokes + 1) – 2nd Nine Course Rating)
+        // assuming 2nd nine is the 9 not played on an 18 hole course.  If course is 9 holes only, will use the one
+        // nine for both 9's
+
+        if(this.roundsplayed==0){
+          let first = (113 / scoring_slope) * (this.form.value.ntotal - scoring_rating);
+          let a = x / scoring_slope;
+          let b = this.form.value.ntotal - scoring_rating;
+          this.form.value.handicap = first * 2;
+          console.log("hdcp first: " + first) ;
+
+        } else {
+
+        let course_handicap = (scoring_slope / 113 * (.5 * this.currenthandicap)) + (scoring_rating - scoring_par) ;
+        let second = ((second_par + course_handicap + 1) - second_rating);
+        let first = (113 / scoring_slope) * (this.form.value.ntotal - scoring_rating);
+        console.log("hdcp first: " + first +" second"+ second) ;
+        //console.log("par:   " + scoring_par  + "  scoring rating " + scoring_rating  );
+        
+
+       // console.log("calculated course_handicap:   " + course_handicap);
+       // console.log("Calculated Score Differential: " + sd);
+        let a = x / scoring_slope;
+        let b = this.form.value.ntotal - scoring_rating;
+        this.form.value.handicap = first + second;
+        console.log("calculated handicap Index: " + this.form.value.handicap);
+        }
+       
+    }
+   // console.log("handicap calculated: " + this.form.value.handicap);
   }
 
   setForm() {
@@ -923,6 +1002,7 @@ export class EnterscoredetailComponent {
 
   holesLevel(event) {
     this.holesplayed = event.value;
+    this.form.value.holesplayed = this.holesplayed;
     this.calculated = false;
     this.shape = Array.from({length: 18}, (_, i) => "par");
     console.log(this.holesplayed);
