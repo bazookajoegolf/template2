@@ -1,1 +1,41 @@
-<p>golfstats works!</p>
+<div>
+    <div id="pagewidth" >
+        <div>
+        <p  style = "text-align: right;"> Current Handicap: {{currentHandicap | number :'1.2-2'}}</p>
+        </div>
+        <div>
+            <mat-accordion>
+
+                <mat-expansion-panel (opened)="panelOpenState = true"
+                                     (closed)="panelOpenState = false"
+                                     [expanded] = true>
+                  <mat-expansion-panel-header>
+                    Default Stats
+                </mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Current Year
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                      Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                    </mat-panel-description> -->
+
+                  stuff should go in here
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        More Stats
+                    </mat-expansion-panel-header>
+                    <!-- <mat-panel-title>
+                        More Stats title
+                    </mat-panel-title> -->
+                    dropdowns for detailed stats go here
+                </mat-expansion-panel>
+            </mat-accordion>
+            <hr>
+    
+        </div>
+    </div>  
+
+
+    
+</div>

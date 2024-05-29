@@ -72,10 +72,10 @@ a {
     background-color: #125b84;
     color:antiquewhite;
     margin: auto;
-    padding-bottom: 30px;
+    /* padding-bottom: 30px;  */
     width: 90%;
     height: 65px;
-    line-height: 32px;
+    line-height: 65px;
     text-align: bottom;
     font-size: 26px;
     font-weight: 500;
@@ -87,7 +87,7 @@ a {
     background-color: #125b84;
     color:antiquewhite;
     margin: auto;
-    padding-bottom: 30px;
+    /* padding-bottom: 30px; */
     width: 100%;
     height: 65px;
     line-height: 32px;

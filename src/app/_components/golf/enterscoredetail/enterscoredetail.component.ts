@@ -78,8 +78,8 @@ export class EnterscoredetailComponent {
       year    : new UntypedFormControl('', []),
       f9tot   : new UntypedFormControl('', []),
       b9tot    : new UntypedFormControl('', []),
-      gtotal     : new UntypedFormControl('', [Validators.min(50), Validators.max(499),Validators.pattern('^[0-9]*$')]),
-      ntotal     : new UntypedFormControl('', [Validators.min(50), Validators.max(499),Validators.pattern('^[0-9]*$')]),
+      gtotal     : new UntypedFormControl('', [Validators.min(9), Validators.max(499),Validators.pattern('^[0-9]*$')]),
+      ntotal     : new UntypedFormControl('', [Validators.min(9), Validators.max(499),Validators.pattern('^[0-9]*$')]),
       g_topar    : new UntypedFormControl('', []),
       handicap    : new UntypedFormControl('', []),
       gir     : new UntypedFormControl('', []),
@@ -354,6 +354,7 @@ export class EnterscoredetailComponent {
     this.form.value.date = this.courseTee.date;
     this.form.value.rn =  Date.now();
     this.form.value.year = this.courseTee?.date.getFullYear();
+    this.form.value.holesplayed = this.holesplayed;
     this.form.value.f9tot = 0;
     this.form.value.b9tot = 0;
     this.form.value.gir = 0;
