@@ -6,6 +6,8 @@ import { CoursesService } from '../../../services/courses.service';
 import { AlertService } from './../../../services/alert.service';
 import { Router } from '@angular/router';
 
+import { DonutComponent } from '../../stats/donut/donut.component';
+
 @Component({
   selector: 'app-golfstats',
   templateUrl: './golfstats.component.html',
@@ -22,16 +24,18 @@ export class GolfstatsComponent {
   name;
 
   
-  scores=[];
+  scores;
   allScore;
   hcArray;
   lowScores;
   currentHandicap;
   currentYear;
 
-  rounds;
-  scoreAvg;
-  scoreAvgRds;
+  rounds:number=0;
+  scoreAvg:number=0;
+  scoreAvgRds:number=0;
+
+  chart: any = [];
 
 
 
@@ -50,20 +54,16 @@ export class GolfstatsComponent {
     this.name = localStorage.getItem('name');
     console.log(this.countryCode);
     this.getScore(this.userid);
+    
+    
   }
   ngOnInit(): void {
     let x = new Date();
     this.currentYear = x.getFullYear();
+  
+    // console.log("AllScore:" + this.allScore.length);
+  
 
-    for(let i=0;i < this.scores.length;i++) {
-      if(this.scores[i].year == this.currentYear ) {
-        if(this.scoreAvg+this.scores[i].gtotal)
-        this.rounds++;
-        this.scoreAvg =this.scoreAvg+this.scores[i].g_topar;
-        this.scoreAvgRds++;
-
-      }
-    }
     
 
 
@@ -105,7 +105,21 @@ export class GolfstatsComponent {
 
 
       this.scores = tmp;
-      console.table( this.scores[14]);
+      
+      for(let i=0;i < this.scores.length;i++) {
+        if(this.scores[i].year == this.currentYear ) {
+          if(this.scores[i].gtotal) {
+             this.rounds++;
+             this.scoreAvg =this.scoreAvg+this.scores[i].g_topar;
+             this.scoreAvgRds++;
+           //  console.log(this.scoreAvg / this.rounds);
+          }
+  
+        }
+      }
+
+      //console.log("Rounds: " + this.rounds + "  Scoring Average: " + this.scoreAvg);
+     //console.table( this.scores[14]);
     });
   }
 

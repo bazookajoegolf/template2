@@ -27,6 +27,18 @@ export class ScoreService {
      return this.http.get<any>(this.scoreserver +'/' + id, Options)
   }
 
+  getScoreIdYr(id, yr) {
+    let myToken = localStorage.getItem('token');
+  
+    let Options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json' ,
+        'x-auth-token' : myToken
+      })
+    };
+     return this.http.get<any>(this.scoreserver +'/' + id +'/' + yr, Options)
+  }
+
   postScore(id,post) {
     let myToken = localStorage.getItem('token');
     console.log("in post score");
