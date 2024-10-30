@@ -34,6 +34,110 @@
             <hr>
     
         </div>
+        <div  style = "margin:1%;float:left">
+            <app-bar 
+                       [data1]="roundsbyYear"
+                       [id]="'first'"
+                       [type]="'Bar'"
+                       [title]="'18 hole Rounds per Year'"
+                       [htitle]="'Rounds'"
+                       [vtitle]="'Year'"
+                       [color]="'#135e96'"
+            >
+                
+            </app-bar>   
+
+        </div>
+
+        <div  style = "margin:1%;float:left">
+            <app-bar 
+                       [data1]="scoresbyYear"
+                       [id]="'second'"
+                       [type]="'Bar'"
+                       [title]="'Average 18 hole Score per Year'"
+                       [htitle]="'Average Score'"
+                       [vtitle]="'Year'"
+                       [color]="'#135e96'"
+            >
+                
+            </app-bar>   
+
+        </div>
+        <div  style = "margin:1%;float:left">
+            <app-donut 
+                       [data1]="scoreTypes"
+                       [id]="'third'"
+                       [type]="'Pie'"
+                       [title]="'Score Distribution'"
+                       [htitle]="'Average Score'"
+                       [vtitle]="'Year'"
+                       [color]="'#135e96'"
+            >
+                
+            </app-donut>   
+
+        </div>
+        <div  style = "margin:1%;float:left">
+            <app-donut 
+                       [data1]="fairways"
+                       [id]="'fourth'"
+                       [type]="'Pie'"
+                       [title]="'Fairway Distribution'"
+                       [htitle]="'Fairway Success'"
+                       [vtitle]="'Year'"
+                       [color]="'#135e96'"
+            >
+                
+            </app-donut>   
+
+        </div>
+
+        <!-- <div  style = "width:45%;display: inline-block;margin:1%">
+            <app-bar 
+                       [data1]="roundsbyYear"
+                       [id]="'second'"
+                       [type]="'Bar'"
+                       [title]="'Rounds per Year'"
+                       [color]="'#135e96'"
+                       >
+                
+            </app-bar>   
+        </div> -->
+        <!-- <div  style = "width:45%;display: inline-block;margin:1%">
+            Hello
+            <app-bar 
+                       [data1]="roundsbyYear"
+                       [id]="'second'"
+                       [type]="'Bar'"
+                       [title]="'Rounds per Year'"
+                       [color]="'#135e96'"
+                       >
+                
+            </app-bar>   
+        </div> -->
+
+         <!-- <div style = "width:30%;display:inline-block;margin:1%">
+            <app-donut [data]="chartData"
+                       [id]="'chart2'"
+                       [type]="'bar'"
+                       [title]="'Scoring Avg per Year'"
+                       [color]="'#8a2424'"
+                       [label]="labels">
+                
+            </app-donut>   
+        </div>
+        <div style = "width:30%;display:inline-block;margin:1%">
+            <app-donut [data]="chartData"
+                       [id]="'chart3'"
+                       [type]="'bar'"
+                       [title]="'Putting Avg per Year'"
+                       [color]="'#996800'"
+                       [label]="labels">
+                
+            </app-donut>   
+        </div> -->
+
+
     </div>  
 
 

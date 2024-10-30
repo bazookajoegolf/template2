@@ -28,6 +28,7 @@ import {UserEditDialog} from './_components/admin/users/usereditdialog.component
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import {GoogleChartsModule} from 'angular-google-charts';
 
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -47,6 +48,9 @@ import { EnterscoreComponent } from './_components/golf/enterscore/enterscore.co
 import { GolfstatsComponent } from './_components/golf/golfstats/golfstats.component';
 import { EnterscoredetailComponent } from './_components/golf/enterscoredetail/enterscoredetail.component';
 import { SortgridPipe } from './assets/pipes/sortgrid.pipe';
+
+import { DonutComponent } from './_components/stats/donut/donut.component';
+import { BarComponent } from './_components/stats/bar/bar.component';
 
 
 
@@ -81,6 +85,8 @@ import { SortgridPipe } from './assets/pipes/sortgrid.pipe';
         GolfstatsComponent,
         EnterscoredetailComponent,
         SortgridPipe,
+        DonutComponent,
+        BarComponent
 
     ],
     imports: [
@@ -94,7 +100,8 @@ import { SortgridPipe } from './assets/pipes/sortgrid.pipe';
         MatTableModule,
         MatExpansionModule,
         MatPaginatorModule,
-        MatSortModule
+        MatSortModule,
+        GoogleChartsModule
        
     ],
     providers: [SortPipe,SortgridPipe],
