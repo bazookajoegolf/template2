@@ -1,69 +1,216 @@
-<div>
+<div (window:resize)="onResize($event)">
     <div id="pagewidth" >
-        <div>
-        <p  style = "text-align: right;"> Current Handicap: {{currentHandicap | number :'1.2-2'}}</p>
-        </div>
-        <div>
-            <mat-accordion>
-
-                <mat-expansion-panel (opened)="panelOpenState = true"
-                                     (closed)="panelOpenState = false"
-                                     [expanded] = true>
-                  <mat-expansion-panel-header>
-                    Default Stats
-                </mat-expansion-panel-header>
-                    <mat-panel-title>
-                      Current Year
-                    </mat-panel-title>
-                    <!-- <mat-panel-description>
-                      Currently I am {{panelOpenState ? 'open' : 'closed'}}
-                    </mat-panel-description> -->
-
-                  stuff should go in here
-                </mat-expansion-panel>
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        More Stats
-                    </mat-expansion-panel-header>
-                    <!-- <mat-panel-title>
-                        More Stats title
-                    </mat-panel-title> -->
-                    dropdowns for detailed stats go here
-                </mat-expansion-panel>
-            </mat-accordion>
-            <hr>
+        <div style="display: block;">
+            <h3 style="text-align: left;">Scoring Stats</h3>
     
         </div>
-        <div  style = "margin:1%;float:left">
+        <form [formGroup]="form">
+            <mat-form-field style="margin-right:50px;" id="yearDropDown" appearance="outline">
+              <mat-label>Year</mat-label>
+              <mat-select #dd formControlName="year" [(value)]="selectedYear"
+               matNaviveControl required id="dd" (selectionChange)="selectYear($event)">  
+                 <!--[compareWith]="compareFn" -->
+                <mat-option value="All">All</mat-option>
+
+                <mat-option *ngFor="let option of labels" [value]="option" 
+                 [selected]="selectedYear === option">
+                  {{ option }}</mat-option>
+  
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field id="holesDropDown" appearance="outline">
+                <mat-label>9 or 18 Holes</mat-label>
+                <mat-select #ee formControlName="holes" [value]="name" id="ee" (selectionChange)="selectHoles($event)"
+                   >  
+                   <!--[compareWith]="compareFn" -->
+                  <mat-option value="18" [disabled]="count18 == 0 " selected>18</mat-option>
+                  <mat-option value="9" [disabled]="count9 == 0 ">9</mat-option>
+      
+                </mat-select>
+              </mat-form-field>
+          </form>
+       
+        <div  style = "margin:auto;display:inline-block">
             <app-bar 
                        [data1]="roundsbyYear"
                        [id]="'first'"
                        [type]="'Bar'"
-                       [title]="'18 hole Rounds per Year'"
+                       [title]="roundsLabel"
                        [htitle]="'Rounds'"
                        [vtitle]="'Year'"
                        [color]="'#135e96'"
+                       [width]="width"
             >
                 
             </app-bar>   
 
         </div>
 
-        <div  style = "margin:1%;float:left">
+        <div  style = "margin:auto;display:inline-block">
             <app-bar 
                        [data1]="scoresbyYear"
                        [id]="'second'"
                        [type]="'Bar'"
-                       [title]="'Average 18 hole Score per Year'"
+                       [title]="averageLabel"
                        [htitle]="'Average Score'"
                        [vtitle]="'Year'"
                        [color]="'#135e96'"
+                       [width]="width"
             >
                 
             </app-bar>   
 
         </div>
-        <div  style = "margin:1%;float:left">
+        <div  style = "margin:auto;display:inline-block">
+            <app-line 
+                       [data1]="handicap"
+                       [id]="'eighth'"
+                       [type]="'Line'"
+                       [title]="'Handicap Index'"
+                       [htitle]=""
+                       [vtitle]="'Handicap Index'"
+                       [color]="'#135e96'"
+                       [rounds]="rounds"
+                       [width]="width"
+            >
+                
+            </app-line>   
+
+        </div>
+
+        <div  style = "margin:auto;display:inline-block">
+            <app-line 
+                       [data1]="lhi"
+                       [id]="'nineth'"
+                       [type]="'Line'"
+                       [title]="' Low Handicap Index'"
+                       [htitle]=""
+                       [vtitle]="'LHI'"
+                       [color]="'#135e96'"
+                       [rounds]="rounds"
+                       [width]="width"
+            >
+                
+            </app-line>   
+
+        </div>
+        <div  style = "margin:auto;display:inline-block">
+            <app-line 
+                       [data1]="scoring"
+                       [id]="'sixth'"
+                       [type]="'Line'"
+                       [title]="'Scoring'"
+                       [htitle]=""
+                       [vtitle]="'Score'"
+                       [color]="'#135e96'"
+                       [rounds]="rounds"
+                       [width]="width"
+            >
+                
+            </app-line>   
+
+        </div>
+
+        <div  style = "margin:auto;display:inline-block">
+            <app-line 
+                       [data1]="scoreToPar"
+                       [id]="'seventh'"
+                       [type]="'Line'"
+                       [title]="'Score to Par'"
+                       [htitle]=""
+                       [vtitle]="'Score to Par'"
+                       [color]="'#135e96'"
+                       [rounds]="rounds"
+                       [width]="width"
+            >
+                
+            </app-line>   
+
+        </div>
+        <div style = "margin-top: 30px;"></div>
+        <div  style = "margin-left:3%;margin-right:3%;display:inline-block">
+            <h6 style="margin-top: 30px;margin-bottom:30px;text-align: left;">Top 5 Low Scores</h6>
+            <app-table class="tbll" 
+                       [data1]="lowScores"
+                       [id]="'nine'"
+                       [type]="'table'"
+                       [title]="'Low Scores'"
+                       [htitle]=""
+                       [vtitle]="'Low Scores'"
+                       [color]="'#135e96'"
+                       [width]="width"
+                       
+            >
+                
+            </app-table>   
+        
+        </div>
+        <div  style = "margin-left:3%;margin-right:3%;display:inline-block">
+            <h6 style="margin-top: 30px;margin-bottom:30px;text-align: left;">Top 5 High Scores</h6>
+            <app-table class="tblr"
+                       [data1]="highscores"
+                       [id]="'ten'"
+                       [type]="'table'"
+                       [title]="'High Scores'"
+                       [htitle]=""
+                       [vtitle]="' High Scores'"
+                       [color]="'#135e96'"
+                       [width]="width"
+                       
+            >
+                
+            </app-table>   
+        
+        </div>
+        <div style="margin-top:50px;"></div>
+
+        <div style="display: block;clear:both">
+            
+            <h3 style="margin-top:70px;text-align: left;" >Level 3 Stats</h3>
+            <hr>
+        </div>
+        <div style="display: block;clear:both">
+            <h4 style="margin-top:70px;margin-left:30px;text-align: left;">Scoring</h4>
+        </div>
+
+        <div  style = "margin-left:3%;margin-right:3%;display:inline-block">
+            <h6 style="margin-top: 30px;margin-bottom:30px;text-align: left;">Top 5 Birdies/Round</h6>
+            <app-table class="tbll" 
+                       [data1]="birdiescores"
+                       [id]="'twelve'"
+                       [type]="'table'"
+                       [title]="'Birdies'"
+                       [htitle]=""
+                       [vtitle]="'Birdies'"
+                       [color]="'#135e96'"
+                       [width]="width"
+                       
+            >
+                
+            </app-table>   
+        
+        </div>
+
+
+        <div  style = "margin-left:3%;margin-right:3%;display:inline-block">
+            <h6 style="margin-top: 30px;margin-bottom:30px;text-align: left;">Top 5 Pars/Round</h6>
+            <app-table class="tbll" 
+                       [data1]="parscores"
+                       [id]="'thirteen'"
+                       [type]="'table'"
+                       [title]="'Pars'"
+                       [htitle]=""
+                       [vtitle]="'Pars'"
+                       [color]="'#135e96'"
+                       [width]="width"
+                       
+            >
+                
+            </app-table>   
+        
+        </div>
+
+        <div  style = "margin-left:3%;margin-right:3%;margin-top:30px;display:inline-block">
             <app-donut 
                        [data1]="scoreTypes"
                        [id]="'third'"
@@ -72,12 +219,16 @@
                        [htitle]="'Average Score'"
                        [vtitle]="'Year'"
                        [color]="'#135e96'"
+                       [width]="width"
             >
                 
             </app-donut>   
 
         </div>
-        <div  style = "margin:1%;float:left">
+        <div style="display: block;clear:both">
+            <h4 style="margin-top:70px;margin-left:30px;text-align: left;">Fairways</h4>
+        </div>
+        <div  style = "margin-left:3%;margin-right:3%;display:inline-block">
             <app-donut 
                        [data1]="fairways"
                        [id]="'fourth'"
@@ -86,56 +237,38 @@
                        [htitle]="'Fairway Success'"
                        [vtitle]="'Year'"
                        [color]="'#135e96'"
+                       [width]="(width*.8)"
+                   
+            >
+                
+            </app-donut>   
+
+        </div>
+        <div style="display: block;clear:both">
+            <h4 style="margin-top:70px;margin-left:30px;text-align: left;">Putting</h4>
+        </div>
+        <div  style = "margin-left:3%;margin-right:3%;display:inline-block">
+            <app-donut 
+                       [data1]="putts"
+                       [id]="'fifth'"
+                       [type]="'Pie'"
+                       [title]="'Putt Distribution'"
+                       [htitle]="'Fairway Success'"
+                       [vtitle]="'Year'"
+                       [color]="'#135e96'"
+                       [width]="width"
             >
                 
             </app-donut>   
 
         </div>
 
-        <!-- <div  style = "width:45%;display: inline-block;margin:1%">
-            <app-bar 
-                       [data1]="roundsbyYear"
-                       [id]="'second'"
-                       [type]="'Bar'"
-                       [title]="'Rounds per Year'"
-                       [color]="'#135e96'"
-                       >
-                
-            </app-bar>   
-        </div> -->
-        <!-- <div  style = "width:45%;display: inline-block;margin:1%">
-            Hello
-            <app-bar 
-                       [data1]="roundsbyYear"
-                       [id]="'second'"
-                       [type]="'Bar'"
-                       [title]="'Rounds per Year'"
-                       [color]="'#135e96'"
-                       >
-                
-            </app-bar>   
-        </div> -->
 
-         <!-- <div style = "width:30%;display:inline-block;margin:1%">
-            <app-donut [data]="chartData"
-                       [id]="'chart2'"
-                       [type]="'bar'"
-                       [title]="'Scoring Avg per Year'"
-                       [color]="'#8a2424'"
-                       [label]="labels">
-                
-            </app-donut>   
-        </div>
-        <div style = "width:30%;display:inline-block;margin:1%">
-            <app-donut [data]="chartData"
-                       [id]="'chart3'"
-                       [type]="'bar'"
-                       [title]="'Putting Avg per Year'"
-                       [color]="'#996800'"
-                       [label]="labels">
-                
-            </app-donut>   
-        </div> -->
+
+
+
+
+       
 
 
     </div>  

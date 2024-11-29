@@ -51,6 +51,8 @@ import { SortgridPipe } from './assets/pipes/sortgrid.pipe';
 
 import { DonutComponent } from './_components/stats/donut/donut.component';
 import { BarComponent } from './_components/stats/bar/bar.component';
+import { LineComponent } from './_components/stats/line/line.component';
+import { TableComponent } from './_components/stats/table/table.component';
 
 
 
@@ -86,7 +88,9 @@ import { BarComponent } from './_components/stats/bar/bar.component';
         EnterscoredetailComponent,
         SortgridPipe,
         DonutComponent,
-        BarComponent
+        BarComponent,
+        LineComponent,
+        TableComponent
 
     ],
     imports: [

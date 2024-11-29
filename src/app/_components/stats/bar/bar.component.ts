@@ -18,8 +18,10 @@ export class BarComponent {
   @Input() htitle;
   @Input() vtitle;
   @Input() color;
+  @Input() width;
   
   chart:any;
+  w;
 
   ngOnInit() {
 
@@ -32,30 +34,24 @@ export class BarComponent {
     if(changes.data1?.currentValue ) {
     
     google.charts.load('current', {packages: ['corechart', 'bar']});
+  
     google.charts.setOnLoadCallback(this.drawAnnotations(changes.data1.currentValue));
     }
-  
+    this.w = ((this.width / 2) * .8);
+ 
    }
 
     drawAnnotations(x) {
-    // var data = google.visualization.arrayToDataTable([
-    //   ['Year', 'Rounds',],
-    //   ['2024', 30],
-    //   ['2023', 21],
-    //   ['2022', 56],
-    //   ['2021', 80],
-    //   ['2020', 30]
-    // ]);
-    console.log(JSON.stringify(x)); 
+
     if(x.length > 0) {
-      console.log(this.id);
+     // console.log(this.id);
        var data = google.visualization.arrayToDataTable(x);
        var options = {
         title: this.title,
         legend: 'none',
-        width:700,
-        height:400,
-        chartArea: {width:'50%'
+        width:this.w,
+        height:280,
+        chartArea: {width:'75%'
         },
         annotations: {
           alwaysOutside: false,
@@ -85,6 +81,7 @@ export class BarComponent {
       };
       var chart = new google.visualization.BarChart(document.getElementById(this.id));
       chart.draw(data, options);
+
     }
 
 

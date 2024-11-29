@@ -70,7 +70,12 @@ export class ChangePasswordComponent implements OnInit {
         password: this.form.value.password,
         name : this.user.name,
         email : this.user.email,
-        gender : this.user.gender
+        gender : this.user.gender,
+        homeCourse : this.user.homeCourse,
+        country: this.user.country,
+        countryCode: this.user.countryCode,
+        birthdate: this.user.birthdate,
+        nickname: this.user.nickname
        
     }
     this.signup.updateProfile(this.id, post)

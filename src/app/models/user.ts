@@ -10,7 +10,9 @@ export class User {
       public id?: number,
       public gender?:boolean,
       public country?:string,
-      public birthdate?: string
+      public birthdate?: string,
+      public countryCode? : string,
+      public nickname? : string
 
   ) {}
 }

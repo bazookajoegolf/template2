@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+
+import { DadjokesService } from '../../../services/dadjokes.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient,private dadjokes : DadjokesService ) { 
+
+  }
+
+  API = 'https://icanhazdadjoke.com';
+  joke;
 
   ngOnInit() {
+    this.getJokes();
   }
+
+  getJokes() {
+
+    this.dadjokes.getJokes()
+    .subscribe((res)=>{
+      this.joke = res.joke;
+      });
+  }
+  
 
 }

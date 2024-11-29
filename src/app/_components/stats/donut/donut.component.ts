@@ -20,8 +20,14 @@ export class DonutComponent {
   @Input() htitle;
   @Input() vtitle;
   @Input() color;
+  @Input() width;
+
+ // @Input() goo;
   
   chart:any;
+  w;
+
+  //google;
 
   ngOnInit() {
 
@@ -31,9 +37,12 @@ export class DonutComponent {
 
   ngOnChanges(changes: SimpleChanges): void { 
 
+    this.w = ((this.width / 2) * .7);
+
     if(changes.data1?.currentValue ) {
     
-    google.charts.load('current', {packages: ['corechart']});
+   // google.charts.load('current', {packages: ['corechart']});
+   // this.google = this.goo;
     google.charts.setOnLoadCallback(this.drawAnnotations(changes.data1.currentValue));
     }
   
@@ -48,10 +57,10 @@ export class DonutComponent {
        var options = {
         title: this.title,
         legend: 'right',
-       // is3D: true,
+        is3D: true,
       // slices: {2:{offset: 0.3}},
-        width:700,
-        height:400,
+        width:this.w,
+        height:300,
         sliceVisiblityThreshold:0,
         slices: {
           0: {color: '0a4b78'},
@@ -62,7 +71,7 @@ export class DonutComponent {
           5: {color: '4f94d4'},
           6: {color: 'bd8600'}
         },
-        chartArea: {width:'70%'
+        chartArea: {width:'80%'
         },
 
 

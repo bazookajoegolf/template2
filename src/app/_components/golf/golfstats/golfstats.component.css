@@ -4,3 +4,10 @@
     margin-right: auto;
     
 }
+.tbll {
+  align-items:flex-start;
+}
+
+.tblr {
+    align-items:flex-end;
+  }
