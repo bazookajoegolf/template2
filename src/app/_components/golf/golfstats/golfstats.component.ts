@@ -33,6 +33,7 @@ export class GolfstatsComponent {
   selectedHoles="18";
   roundsLabel="18 hole Rounds per Year";
   averageLabel="Average 18 hole Score per Year";
+  activeTab=0;
 
   scores;
   allCourses;
@@ -73,6 +74,7 @@ export class GolfstatsComponent {
   lowfairways=[];
   highputts=[];
   lowputts=[];
+  otherStats=[];
 
   width=0;
   smwidth=0;
@@ -83,10 +85,12 @@ export class GolfstatsComponent {
   labels9=[];
   colors = ["#775100","#3c434a","#135e96","#005c12","#82424","#dba617","#4262ab"];
   types = ["Aces","Albatross+","Eagles","Birdies","Par","Bogeys","Double Bogeys+"];
+  gChartTypes =["Average Putts / Round", "Average Penalties / Round", "Average Fairways / Round (count)",
+                "Average Fairways / Round (percent)"];
   puttTypes = ["Zero","One","Two","Three+"];
   fwtypes = ["Water", "Sand", "Left Trouble", "Left Rough","Fairway","Right Rough","Right Trouble"];
-  scorePerHole = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s15","s16","s17","s18"];
-  parPerHole = ["p1","p2","p3","p4","p5","p6","p7","p8","p9","p10","p11","p12","p13","p14","p15","p16","p17","p18"];
+  //scorePerHole = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s15","s16","s17","s18"];
+  //parPerHole = ["p1","p2","p3","p4","p5","p6","p7","p8","p9","p10","p11","p12","p13","p14","p15","p16","p17","p18"];
 
 
   panelOpenState = true;
@@ -127,6 +131,11 @@ export class GolfstatsComponent {
   ngOnChanges() {
 
     
+  }
+  getIsActive(e) {
+   // console.log(e);
+    this.activeTab = e.index;
+
   }
 
   onResize(e){
@@ -217,19 +226,6 @@ export class GolfstatsComponent {
     const highputts=[];
     const lowputts=[];
    
-    // for (const item of s) {
-    //    // i++;
-    //     var d = new Date(item.date);
-    //     var location;
-    //     for(const c of co) {
-    //       if(c._id == item.courseid) {
-    //         location = c.name;
-    //       }
-    //      }
-        
-    //     birdie.push([d.toLocaleDateString(),location , item.coursename,item.birdietotal]);
-
-    // }
 
 
 
@@ -247,16 +243,8 @@ export class GolfstatsComponent {
     itemcount++;
     //console.log("Birdies: " + item.birdietotal);
     if(item && itemcount <= 5) {
-     // i++;
       var d = new Date(item.date);
-      var location;
-      for(const c of co) {
-        if(c._id == item.courseid) {
-          location = c.name;
-        }
-       }
-      
-      birdie.push([d.toLocaleDateString(),location , item.coursename,item.birdietotal]);
+      birdie.push([d.toLocaleDateString(),item.name , item.coursename,item.birdietotal]);
     }
   }
   this.birdiescores = birdie;
@@ -267,32 +255,66 @@ export class GolfstatsComponent {
     return 0;
  });
  pars.push(['Date','Location','Course' ,'Pars']);
-// pars.push(['Date','Location','Course' ,'Score','+/-', 'Handicap']);
-   itemcount=0;
+ itemcount=0;
 
 for (const item of s) {
   itemcount++;
   //console.log("Birdies: " + item.birdietotal);
   if(item && itemcount <= 5) {
-   // i++;
     var d = new Date(item.date);
-    var location;
-    for(const c of co) {
-      if(c._id == item.courseid) {
-        location = c.name;
-      }
-     }
-    
-    pars.push([d.toLocaleDateString(),location , item.coursename,item.partotal]);
+    pars.push([d.toLocaleDateString(),item.name , item.coursename,item.partotal]);
   }
 }
 this.parscores = pars;
   //console.log(JSON.stringify(birdie));
+  s.sort((a,b) => {
+    if( a.fy > b.fy) {return -1}
+    if( a.fy < b.fy) {return 1}
+    return 0;
+ });
+ highfwy.push(['Date','Location','Course' ,'Fairways']);
 
+   itemcount=0;
+   for (const item of s) {
+    itemcount++;
+    //console.log("Birdies: " + item.birdietotal);
+    if(item && itemcount <= 5) {
+     // i++;
+      var d = new Date(item.date);
 
+      highfwy.push([d.toLocaleDateString(),item.name , item.coursename,item.fy]);
+    }
+  }
+  
+  this.highfairways = highfwy;
+  s.sort((a,b) => {
+    if( a.putts < b.putts) {return -1}
+    if( a.putts > b.putts) {return 1}
+    return 0;
+ });
 
+  lowputts.push(['Date','Location','Course' ,'Putts']);
+  itemcount=0;
+  for (const item of s) {
+    if(item.scoredetail=="3") {
+      itemcount++;
+      if(item && itemcount <= 5) {
+     // i++;
+      var d = new Date(item.date);
+
+      lowputts.push([d.toLocaleDateString(),item.name , item.coursename,item.putts]);
+    }
+    }
 
   }
+  this.lowputts = lowputts;
+   // console.log(JSON.stringify(lowputts));
+   
+ 
+
+
+
+}
   getHighLow(s, co) {
     const low=[];
     const high=[];
@@ -313,14 +335,14 @@ this.parscores = pars;
     if(item && itemcount <= 5) {
         i++;
         var d = new Date(item.date);
-        var location;
-        for(const c of co) {
-          if(c._id == item.courseid) {
-            location = c.name;
-          }
-         }
+        // var location;
+        // for(const c of co) {
+        //   if(c._id == item.courseid) {
+        //     location = c.name;
+        //   }
+        //  }
         
-        low.push([d.toLocaleDateString(),location , item.coursename,item.gtotal,item.g_topar,
+        low.push([d.toLocaleDateString(),item.name , item.coursename,item.gtotal,item.g_topar,
                   (Math.trunc(item.handicap *100 )/100)]);
 
     }
@@ -328,14 +350,14 @@ this.parscores = pars;
       //   console.log("in high score");
          i++;
          var d = new Date(item.date);
-         var location;
-         for(const c of co) {
-           if(c._id == item.courseid) {
-             location = c.name;
-           }
-          }
+        //  var location;
+        //  for(const c of co) {
+        //    if(c._id == item.courseid) {
+        //      location = c.name;
+        //    }
+        //   }
          
-         high.splice(1,0,[d.toLocaleDateString(),location , item.coursename,item.gtotal,item.g_topar,
+         high.splice(1,0,[d.toLocaleDateString(),item.name , item.coursename,item.gtotal,item.g_topar,
                    (Math.trunc(item.handicap *100 )/100)]);
  
        }
@@ -419,9 +441,17 @@ this.parscores = pars;
     let fwfw = [];
     let pu = [];
     let pupu =[];
+    let gChart=[];
+    let counter=0;
+    let putts=0;
+    let penalties=0;
+    let fwys=0;
+    let fwysAvail=0;
+
     z.push(['Type', 'Amount',{'role' : 'style'}]);
     fw.push(['Type', 'Amount',{'role' : 'style'}]);
     pu.push(['Type', 'Amount',{'role' : 'style'}]);
+    gChart.push(['Stat Type', 'Average']);
 
     //let level18 = s.filter((yr) => 18 == yr.holesplayed);
     
@@ -436,9 +466,13 @@ this.parscores = pars;
    for(let i=0; i < this.puttTypes.length;i++) {
     pu.push([(this.puttTypes[i]).toString() , 0 ,this.colors[i]]);
    }
+  //  for(let i=0; i < this.puttTypes.length;i++) {
+  //   gChart.push([(this.gChartTypes[i]).toString() , 0 ,this.colors[i]]);
+  //  }
 
    for (const item of s) {
     if(item.scoredetail == 3) {
+      counter++;
       pu[1][1]+=item.zeroputts;
       pu[2][1]+=item.oneputts;
       pu[3][1]+=item.twoputts;
@@ -452,6 +486,12 @@ this.parscores = pars;
       fw[5][1]+=item.fy;
       fw[6][1]+=item.fr1;
       fw[7][1]+=item.fr2;
+
+      putts+=item.putts;
+      penalties+=item.penaltytotal;
+      fwys+=item.fy;
+      fwysAvail+=item.fairways;
+
      }
      if(item.scoredetail== 3 || item.scoredetail== 2) {
       z[2][1]+=item.albatotal;
@@ -493,9 +533,18 @@ this.parscores = pars;
     //zz.push([(this.types[i]).toString() , 0 ,this.colors[i]]);
     fwfw.push([(this.fwtypes[i]).toString() + ": (" + fw[i+1][1] +")" , fw[i+1][1],this.colors[i]]);
    }
+
+   gChart.push([(this.gChartTypes[0]), (putts/counter).toFixed(2)]);
+   gChart.push([(this.gChartTypes[1]), (penalties/counter).toFixed(2)]);
+   gChart.push([(this.gChartTypes[2]), (fwys/counter).toFixed(2)]);
+   gChart.push([(this.gChartTypes[3]), (fwys*100/fwysAvail).toFixed(2) +"%"]);
+
+  // console.log(JSON.stringify(gChart));
+
   this.putts = pupu;
   this.scoreTypes = zz;
   this.fairways = fwfw;
+  this.otherStats = gChart;
 
   }
 

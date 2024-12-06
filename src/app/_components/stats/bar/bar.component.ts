@@ -19,6 +19,8 @@ export class BarComponent {
   @Input() vtitle;
   @Input() color;
   @Input() width;
+  @Input() default;
+  @Input() tabnum;
   
   chart:any;
   w;
@@ -51,7 +53,7 @@ export class BarComponent {
         legend: 'none',
         width:this.w,
         height:280,
-        chartArea: {width:'75%'
+        chartArea: {width:'85%'
         },
         annotations: {
           alwaysOutside: false,

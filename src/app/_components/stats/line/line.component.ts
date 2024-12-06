@@ -21,6 +21,7 @@ export class LineComponent {
   @Input() color;
   @Input() rounds;
   @Input() width;
+  @Input() tabnum;
 
  
   

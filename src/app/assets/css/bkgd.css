@@ -23,8 +23,8 @@ mat-form-field {
     margin-bottom: 30px;
 }
 .bkgd::before {
-    content:"";
-    background-image: url("../img/golfbkgrnd.jpeg");
+    content:""; 
+    background-image: url("../img/bg.png");
     position: absolute;
     background-repeat: no-repeat;
     background-size: cover;

@@ -21,6 +21,9 @@ export class DonutComponent {
   @Input() vtitle;
   @Input() color;
   @Input() width;
+  @Input() active;
+  @Input() default;
+  @Input() tabnum;
 
  // @Input() goo;
   
@@ -38,14 +41,22 @@ export class DonutComponent {
   ngOnChanges(changes: SimpleChanges): void { 
 
     this.w = ((this.width / 2) * .7);
-
-    if(changes.data1?.currentValue ) {
-    
-   // google.charts.load('current', {packages: ['corechart']});
-   // this.google = this.goo;
-    google.charts.setOnLoadCallback(this.drawAnnotations(changes.data1.currentValue));
+   // console.log("active change value: " + changes.active?.currentValue );
+    console.log("active: " + this.active + "  tabnum: " + this.tabnum);
+    if(changes.data1?.currentValue && this.active == this.tabnum) {
+      console.log("change data and active equals tabnum ");
+      google.charts.setOnLoadCallback(this.drawAnnotations(changes.data1.currentValue));
     }
-  
+    // else if(changes.data1?.currentValue && this.default ) {
+    //   google.charts.setOnLoadCallback(this.drawAnnotations(changes.data1.currentValue));
+    // }
+    //if((changes.active?.currentValue || !changes.active?.currentValue )&& this.data1 ) {
+     
+      if((changes.active?.currentValue == this.tabnum )&& this.data1 ) {
+        console.log("change active and active equals tabnum and data ");
+       google.charts.setOnLoadCallback(this.drawAnnotations(this.data1));
+   
+       }
    }
 
    drawAnnotations(x) {
@@ -77,6 +88,7 @@ export class DonutComponent {
 
         }
         var chart = new google.visualization.PieChart(document.getElementById(this.id));
+
         chart.draw(data, options);
        };
 

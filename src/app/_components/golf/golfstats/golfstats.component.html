@@ -30,7 +30,8 @@
               </mat-form-field>
           </form>
        
-        <div  style = "margin:auto;display:inline-block">
+        <!-- <div  style = "margin:auto;display:inline-block; margin-top:60px"> -->
+            <div  style = "margin:auto; width: 45%;display: inline-flex;">
             <app-bar 
                        [data1]="roundsbyYear"
                        [id]="'first'"
@@ -40,13 +41,15 @@
                        [vtitle]="'Year'"
                        [color]="'#135e96'"
                        [width]="width"
+                       
+                      
             >
                 
             </app-bar>   
 
         </div>
-
-        <div  style = "margin:auto;display:inline-block">
+ 
+        <div  style = "margin:auto; width: 45%;display: inline-flex;">
             <app-bar 
                        [data1]="scoresbyYear"
                        [id]="'second'"
@@ -56,15 +59,17 @@
                        [vtitle]="'Year'"
                        [color]="'#135e96'"
                        [width]="width"
+
             >
                 
             </app-bar>   
 
         </div>
-        <div  style = "margin:auto;display:inline-block">
+        <hr class="lineClass">
+        <div  style = "margin:auto; width: 45%;display: inline-flex;">
             <app-line 
                        [data1]="handicap"
-                       [id]="'eighth'"
+                       [id]="'third'"
                        [type]="'Line'"
                        [title]="'Handicap Index'"
                        [htitle]=""
@@ -78,10 +83,10 @@
 
         </div>
 
-        <div  style = "margin:auto;display:inline-block">
+        <div  style = "margin:auto; width: 45%;display: inline-flex;">
             <app-line 
                        [data1]="lhi"
-                       [id]="'nineth'"
+                       [id]="'fourth'"
                        [type]="'Line'"
                        [title]="' Low Handicap Index'"
                        [htitle]=""
@@ -94,10 +99,11 @@
             </app-line>   
 
         </div>
-        <div  style = "margin:auto;display:inline-block">
+        <hr class="lineClass">
+        <div  style = "margin:auto; width: 45%;display: inline-flex;">
             <app-line 
                        [data1]="scoring"
-                       [id]="'sixth'"
+                       [id]="'fifth'"
                        [type]="'Line'"
                        [title]="'Scoring'"
                        [htitle]=""
@@ -111,10 +117,10 @@
 
         </div>
 
-        <div  style = "margin:auto;display:inline-block">
+        <div  style = "margin:auto; width: 45%;display: inline-flex;">
             <app-line 
                        [data1]="scoreToPar"
-                       [id]="'seventh'"
+                       [id]="'sixth'"
                        [type]="'Line'"
                        [title]="'Score to Par'"
                        [htitle]=""
@@ -127,41 +133,45 @@
             </app-line>   
 
         </div>
+        <hr class="lineClass">
         <div style = "margin-top: 30px;"></div>
-        <div  style = "margin-left:3%;margin-right:3%;display:inline-block">
-            <h6 style="margin-top: 30px;margin-bottom:30px;text-align: left;">Top 5 Low Scores</h6>
+        <div  style = "margin:auto; width: 45%;display: inline-block;">
+            <h6 style="margin-top: 30px;margin-bottom:30px;">Top 5 Low Scores</h6>
             <app-table class="tbll" 
                        [data1]="lowScores"
-                       [id]="'nine'"
+                       [id]="'seventh'"
                        [type]="'table'"
                        [title]="'Low Scores'"
                        [htitle]=""
                        [vtitle]="'Low Scores'"
                        [color]="'#135e96'"
                        [width]="width"
+                       [active]="true"
                        
             >
                 
             </app-table>   
         
         </div>
-        <div  style = "margin-left:3%;margin-right:3%;display:inline-block">
-            <h6 style="margin-top: 30px;margin-bottom:30px;text-align: left;">Top 5 High Scores</h6>
+        <div  style = "margin:auto; width: 45%;display: inline-block;">
+            <h6 style="margin-top: 30px;margin-bottom:30px;">Top 5 High Scores</h6>
             <app-table class="tblr"
                        [data1]="highscores"
-                       [id]="'ten'"
+                       [id]="'eighth'"
                        [type]="'table'"
                        [title]="'High Scores'"
                        [htitle]=""
                        [vtitle]="' High Scores'"
                        [color]="'#135e96'"
                        [width]="width"
+                       [active]="true"
                        
             >
                 
             </app-table>   
         
         </div>
+        <!-- <hr class="lineClass"> -->
         <div style="margin-top:50px;"></div>
 
         <div style="display: block;clear:both">
@@ -169,94 +179,95 @@
             <h3 style="margin-top:70px;text-align: left;" >Level 3 Stats</h3>
             <hr>
         </div>
-        <div style="display: block;clear:both">
-            <h4 style="margin-top:70px;margin-left:30px;text-align: left;">Scoring</h4>
-        </div>
+        <div style="min-height: 800px;">
+            
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" 
+                           animationDuration="0ms"(selectedTabChange)="getIsActive($event)">
+                <!-- <mat-tab-group preserveContent> -->
+                <mat-tab label="Scoring">
+                    <div style="display: block;clear:both;height:40px;">
+                        <!-- <h4 style="margin-top:70px;margin-left:30px;text-align: left;">Scoring</h4> -->
+                    </div>
+            
+                    <div  style = "margin:auto; width: 45%;display: inline-block;">
+                        <h6 style="margin-bottom:20px">Top 5 Birdies/Round</h6>
+                        <app-table class="tbll" 
+                                   [data1]="birdiescores"
+                                   [id]="'nineth'"
+                                   [type]="'table'"
+                                   [title]="'Birdies'"
+                                   [htitle]=""
+                                   [vtitle]="'Birdies'"
+                                   [color]="'#135e96'"
+                                   [width]="width"
+                                   [active]="activeTab"
+                                   [default]="true"
+                                   [tabnum]="0"
+                                   
+                        >
+                            
+                        </app-table>   
+                    
+                    </div>
+                    <div  style = "margin:auto; margin-top: 0px;width: 45%;display: inline-block;vertical-align:top">
+                        <h6 style="margin-bottom:20px">Other Stats</h6>
+                        <app-table class="tbll" 
+                                   [data1]="otherStats"
+                                   [id]="'otherSt'"
+                                   [type]="'table'"
+                                   [title]="'Pars'"
+                                   [htitle]=""
+                                   [vtitle]="''"
+                                   [color]="'#135e96'"
+                                   [width]="width"
+                                   [active]="activeTab"
+                                   [default]="true"
+                                   [tabnum]="0"
+                                   
+                        >
+                            
+                        </app-table>   
+                    
+                    </div>
+            
 
-        <div  style = "margin-left:3%;margin-right:3%;display:inline-block">
-            <h6 style="margin-top: 30px;margin-bottom:30px;text-align: left;">Top 5 Birdies/Round</h6>
-            <app-table class="tbll" 
-                       [data1]="birdiescores"
-                       [id]="'twelve'"
-                       [type]="'table'"
-                       [title]="'Birdies'"
-                       [htitle]=""
-                       [vtitle]="'Birdies'"
-                       [color]="'#135e96'"
-                       [width]="width"
-                       
-            >
-                
-            </app-table>   
-        
-        </div>
+                    <div style="display: block;clear:both;height:60px;">
+                    </div>
+                    <div  style = "margin:auto; width: 45%;display: inline-block;vertical-align: top;">
+                        <h6 style="margin-bottom:20px">Top 5 Pars/Round</h6>
+                        <app-table class="tbll" 
+                                   [data1]="parscores"
+                                   [id]="'tenth'"
+                                   [type]="'table'"
+                                   [title]="'Pars'"
+                                   [htitle]=""
+                                   [vtitle]="'Pars'"
+                                   [color]="'#135e96'"
+                                   [width]="width"
+                                   [active]="activeTab"
+                                   [default]="true"
+                                   [tabnum]="0"
+                                   
+                        >
+                            
+                        </app-table>   
+                    
+                    </div>
+                     
 
-
-        <div  style = "margin-left:3%;margin-right:3%;display:inline-block">
-            <h6 style="margin-top: 30px;margin-bottom:30px;text-align: left;">Top 5 Pars/Round</h6>
-            <app-table class="tbll" 
-                       [data1]="parscores"
-                       [id]="'thirteen'"
-                       [type]="'table'"
-                       [title]="'Pars'"
-                       [htitle]=""
-                       [vtitle]="'Pars'"
-                       [color]="'#135e96'"
-                       [width]="width"
-                       
-            >
-                
-            </app-table>   
-        
-        </div>
-
-        <div  style = "margin-left:3%;margin-right:3%;margin-top:30px;display:inline-block">
+        <div  style = "margin:auto; width: 45%;display: inline-block;">
             <app-donut 
                        [data1]="scoreTypes"
-                       [id]="'third'"
+                       [id]="'eleventh'"
                        [type]="'Pie'"
                        [title]="'Score Distribution'"
                        [htitle]="'Average Score'"
                        [vtitle]="'Year'"
                        [color]="'#135e96'"
                        [width]="width"
-            >
-                
-            </app-donut>   
-
-        </div>
-        <div style="display: block;clear:both">
-            <h4 style="margin-top:70px;margin-left:30px;text-align: left;">Fairways</h4>
-        </div>
-        <div  style = "margin-left:3%;margin-right:3%;display:inline-block">
-            <app-donut 
-                       [data1]="fairways"
-                       [id]="'fourth'"
-                       [type]="'Pie'"
-                       [title]="'Fairway Distribution'"
-                       [htitle]="'Fairway Success'"
-                       [vtitle]="'Year'"
-                       [color]="'#135e96'"
-                       [width]="(width*.8)"
-                   
-            >
-                
-            </app-donut>   
-
-        </div>
-        <div style="display: block;clear:both">
-            <h4 style="margin-top:70px;margin-left:30px;text-align: left;">Putting</h4>
-        </div>
-        <div  style = "margin-left:3%;margin-right:3%;display:inline-block">
-            <app-donut 
-                       [data1]="putts"
-                       [id]="'fifth'"
-                       [type]="'Pie'"
-                       [title]="'Putt Distribution'"
-                       [htitle]="'Fairway Success'"
-                       [vtitle]="'Year'"
-                       [color]="'#135e96'"
-                       [width]="width"
+                       [active]="activeTab"
+                       [default]="true"
+                       [tabnum]="0"
             >
                 
             </app-donut>   
@@ -264,15 +275,98 @@
         </div>
 
 
-
-
-
-
-       
-
-
+                </mat-tab>
+                <mat-tab  label="Fairways"  >
+ 
+                    <div style="display: block;clear:both;height:40px;">
+                        <!-- <h4 style="margin-top:70px;margin-left:30px;text-align: left;">Fairways</h4> -->
+                    </div>
+                    <div  style = "margin:auto;margin-top:0px; width: 45%;display: inline-block;vertical-align:top">
+                        <h6 style="margin-top: 30px;margin-bottom:10px;text-align: center;">Top 5 Fairways</h6>
+                        <app-table 
+                                   class="tbll" 
+                                   [data1]="highfairways"
+                                   [id]="'twelvth'"
+                                   [type]="'table'"
+                                   [title]="'Pars'"
+                                   [htitle]=""
+                                   [vtitle]="'Pars'"
+                                   [color]="'#135e96'"
+                                   [width]="width"
+                                   [active]="activeTab"
+                                   [tabnum]="1"
+                               
+                                   
+                        >
+                            
+                        </app-table>   
+                    
+                    </div>
+                    <div  style = "margin:auto; width: 45%;display: inline-block;">
+                        <app-donut 
+                                   [data1]="fairways"
+                                   [id]="'thirteenth'"
+                                   [type]="'Pie'"
+                                   [title]="'Fairway Distribution'"
+                                   [htitle]="'Fairway Success'"
+                                   [vtitle]="'Year'"
+                                   [color]="'#135e96'"
+                                   [width]="(width*.8)"
+                                   [active]="activeTab"
+                                   [tabnum]="1"
+                               
+                        >
+                            
+                        </app-donut>   
+            
+                    </div>
+ 
+                </mat-tab>
+                <mat-tab label="Putting">
+                    <div style="display: block;clear:both;height:40px;">
+                        <!-- <h4 style="margin-top:70px;margin-left:30px;text-align: left;">Putting</h4> -->
+                    </div>
+                    <div  style = "margin:auto;margin-top:0px; width: 45%;display: inline-block;vertical-align:top">
+                        <h6 style="margin-top: 30px;margin-bottom:10px;text-align: center;">Top 5 Low Putt Rounds</h6>
+                        <app-table 
+                                   class="tbll" 
+                                   [data1]="lowputts"
+                                   [id]="'fifteenth'"
+                                   [type]="'table'"
+                                   [title]="'Putts'"
+                                   [htitle]=""
+                                   [vtitle]="'Putts'"
+                                   [color]="'#135e96'"
+                                   [width]="width"
+                                   [active]="activeTab"
+                                   [tabnum]="2"
+                               
+                                   
+                        >
+                            
+                        </app-table>   
+                    
+                    </div>
+                    <div  style = "margin:auto; width: 45%;display: inline-block;">
+                        <app-donut 
+                                   [data1]="putts"
+                                   [id]="'pfour'"
+                                   [type]="'Pie'"
+                                   [title]="'Putt Distribution'"
+                                   [htitle]="'Fairway Success'"
+                                   [vtitle]="'Year'"
+                                   [color]="'#135e96'"
+                                   [width]="width"
+                                   [active]="activeTab"
+                                   [tabnum]="2"
+                        >
+                            
+                        </app-donut>   
+            
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+          <div style="min-height:100px"></div>
+        </div>
     </div>  
-
-
-    
 </div>

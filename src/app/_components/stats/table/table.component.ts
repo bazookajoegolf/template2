@@ -19,6 +19,10 @@ export class TableComponent {
   @Input() vtitle;
   @Input() color;
   @Input() width;
+  @Input() active;
+  @Input() default;
+  @Input() tabnum;
+
   
   w;
   chart:any;
@@ -29,31 +33,41 @@ export class TableComponent {
   }
 
   ngOnChanges(changes: SimpleChanges): void { 
-
-    if(changes.data1?.currentValue ) {
-    
-   // google.charts.load('current', {'packages': ['table']});
-    google.charts.setOnLoadCallback(this.drawAnnotations(changes.data1.currentValue));
+   
+    if(changes.data1?.currentValue && this.active==this.tabnum ) {
+      google.charts.setOnLoadCallback(this.drawAnnotations(changes.data1.currentValue));
     }
-  
+    // else if(changes.data1?.currentValue && this.default ) {
+    //   google.charts.setOnLoadCallback(this.drawAnnotations(changes.data1.currentValue));
+    // }
+    if((changes.active?.currentValue == this.tabnum )&& this.data1 ) {
+
+       google.charts.setOnLoadCallback(this.drawAnnotations(this.data1));
+   
+       }
+
    }
+
+
 
    drawAnnotations(x) {
  
  //   console.log(JSON.stringify(x)); 
-    if(x.length > 0) {
+
+    if(x.length > 0 ) {
      // console.log(this.id);
        var data = google.visualization.arrayToDataTable(x);
        var options = {
         showRowNumber: true,
-        width:this.w,
-        height:225
+        width:'90%'
+        
        
         }
         var table = new google.visualization.Table(document.getElementById(this.id));
         table.draw(data, options);
-       };
 
+       };
+      
     }
 
 

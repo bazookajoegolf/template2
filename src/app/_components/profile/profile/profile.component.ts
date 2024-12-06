@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   form ;
   user :User;
  // statusMessage = null;
-  editMode = false;
+  editMode = true;
   id : string;
   exp : Date;
   courseList = [];
@@ -67,7 +67,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.form.patchValue({'countryCode' : profile.countryCode});
       this.form.patchValue({'birthdate' : profile.birthdate});
       this.form.patchValue({'nickname' : profile.nickname});
-      this.form.disable();
+    //  this.form.disable();
       this.id = profile._id;
       } 
      // this.alert.success("Success");
@@ -135,10 +135,15 @@ get p() {
                 // update the user object.
                 setTimeout(() => {
                     this.router.navigate(['profile']);
-                    this.form.patchValue({'email' : response.user.email});
-                    this.form.patchValue({'name' : response.user.name});
-                    this.editMode = false;
-                    this.form.disable();
+                   // this.form.reset();
+                    // this.form.patchValue({'email' : response.email});
+                    // this.form.patchValue({'name' : response.name});
+                    this.form.patchValue({'oldpassword' : null});
+                    this.form.markAsPristine();
+                    
+               
+                 //   this.editMode = false;
+                  //  this.form.disable();
                     this.alert.clear();
                 }, 2000);
             } ,
@@ -153,9 +158,9 @@ get p() {
   this.form.patchValue({'email' : this.user.email});
   this.form.patchValue({'name' : this.user.name});
   this.form.patchValue({'oldpassword' : "*****"});
-  this.editMode = false;
+ // this.editMode = false;
   if(this.editMode) {this.form.enable()}
-  else (this.form.disable())
+ // else (this.form.disable())
   this.alert.clear();
 }
 
@@ -163,7 +168,7 @@ get p() {
    this.editMode = true;
     this.form.patchValue({'oldpassword' : ""});
    if(this.editMode) {this.form.enable()}
-   else {this.form.disable()}
+   //else {this.form.disable()}
    this.alert.clear();
  }
  onPasswordUpdate() {

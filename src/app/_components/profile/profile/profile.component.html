@@ -70,9 +70,9 @@
 
         <mat-form-field *ngIf="editMode" class="fields">
           <input matInput id="oldpassword" type="password" placeholder="Password" formControlName="oldpassword">
-          <mat-error *ngIf="f.oldpassword.errors?.required && (f.oldpassword.dirty || f.oldpassword.invalid)">Password
+          <mat-error *ngIf="f.oldpassword.errors?.required && (!f.oldpassword.pristine )">Password
             is Required</mat-error>
-          <mat-error *ngIf="f.oldpassword.errors?.minlength && (f.oldpassword.dirty || f.oldpassword.invalid)">Password
+          <mat-error *ngIf="f.oldpassword.errors?.minlength && (!f.oldpassword.pristine || f.oldpassword.invalid)">Password
             must be a minimum 5 characters</mat-error>
 
         </mat-form-field>
@@ -82,8 +82,8 @@
         <button class="inline-buttons" *ngIf="editMode" id="submit-button" mat-raised-button color="primary"
           type="submit" [disabled]="!form.valid">Submit</button>
         <!-- <button class="inline-buttons" (click)="cancelUpdate()" *ngIf="editMode || passwordChange" -->
-        <button class="inline-buttons" (click)="cancelUpdate()" *ngIf="editMode" class=" inline-buttons"
-          mat-raised-button color="primary">Cancel</button>
+        <!-- <button class="inline-buttons" (click)="cancelUpdate()" *ngIf="editMode" class=" inline-buttons"
+          mat-raised-button color="primary">Cancel</button> -->
       </div>
       <div>
         <!-- <button class="inline-buttons" (click)="onUpdate()" *ngIf="!editMode && !passwordChange" mat-raised-button  -->
