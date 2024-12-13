@@ -60,6 +60,14 @@ export class LineComponent {
        var options = {
         title: this.title,
         legend: 'bottom',
+        curveType: 'function',
+        trendlines: {0: {
+          type: 'Linear',
+          color: 'green',
+          lineWidth: 3,
+          opacity: 0.5
+          
+        }   },
         //is3D: true,
       // slices: {2:{offset: 0.3}},
         width:this.w,

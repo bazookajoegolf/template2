@@ -8,6 +8,7 @@
       <div class="spacer">
 
         <mat-form-field>
+          <mat-label>Name</mat-label>
           <input matInput id="name" type="text" formControlName="name" placeholder="Name">
           <mat-error *ngIf="f.name.errors?.required && (f.name.dirty || f.name.invalid) && editMode">A Name is Required
           </mat-error>
@@ -18,6 +19,7 @@
         </mat-form-field>
 
         <mat-form-field>
+          <mat-label>E-Mail</mat-label>
           <input matInput id="email" type="text" formControlName="email" placeholder="E-Mail Address">
           <mat-error *ngIf="f.email.errors?.required && (f.email.dirty || f.email.invalid)">An Email address is Required
           </mat-error>
@@ -47,6 +49,7 @@
         </mat-form-field>
 
         <mat-form-field>
+          <mat-label>Nickname</mat-label>
           <input matInput id="nickname" type="text" formControlName="nickname" placeholder="Nickname">
         </mat-form-field>
 

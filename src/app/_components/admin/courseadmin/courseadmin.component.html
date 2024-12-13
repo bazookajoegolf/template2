@@ -11,7 +11,7 @@
         <form [formGroup]="form">
           <mat-form-field id="courseDropDown" appearance="outline">
             <mat-label>Course</mat-label>
-            <mat-select #dd formControlName="coursename" [value]="name" id="dd" (selectionChange)="selectCourse($event)"
+            <mat-select #dd formControlName="coursename" [(value)]="name" id="dd" (selectionChange)="selectCourse($event)"
               [compareWith]="compareFn">
               <mat-option value="blank"></mat-option>
               <mat-option value="newcourse" #x>New Course</mat-option>
@@ -20,6 +20,18 @@
 
             </mat-select>
           </mat-form-field>
+
+          <!-- <mat-form-field id="courseDropDown" appearance="outline">
+            <mat-label>Course</mat-label>
+            <mat-select #dd formControlName="coursename" [(ngModel)]="selectedCourseId" id="dd" (selectionChange)="selectCourse($event)"
+              [compareWith]="compareFn">
+              <mat-option value="blank"></mat-option>
+              <mat-option value="newcourse" #x>New Course</mat-option>
+              <mat-option *ngFor="let option of course" [value]="option._id" [selected]="selectCourseId === option._id">
+                {{ option.name }}</mat-option>
+
+            </mat-select>
+          </mat-form-field> -->
 
           <mat-checkbox class="chk-box" id="active" [checked]="active" (click)="activeCheck()">Active</mat-checkbox>
         </form>

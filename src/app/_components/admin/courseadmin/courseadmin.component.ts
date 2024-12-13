@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, AfterViewInit, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
 import { CoursesService } from '../../../services/courses.service';
 import { AlertService } from './../../../services/alert.service';
 import { Router } from '@angular/router';
@@ -40,6 +40,7 @@ export class CourseAdminComponent implements OnInit, OnChanges{
   constructor(private courses: CoursesService, private router: Router, private alert: AlertService) {}
   ngOnInit() {
    this.active=true; 
+   console.log(this.dd);
    //this.chosenCourse="Maple Ridge";
    this.getCourses();
 
@@ -53,12 +54,23 @@ export class CourseAdminComponent implements OnInit, OnChanges{
  //  const form = new FormControl('select');
 
   }
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges): void{
     this.getCourses();
     this.selectedCourseId=this.selectedCourseId;
     this.selectedCourse=this.selectedCourse;  // done to push down to child after receiving data from child
+
+    if(changes.name?.currentValue ) {
+      console.log("simple change occurred.");
+
+    }
+ 
     this.pushTee();
       
+  }
+
+  ngOnViewInit() {
+
+
   }
 
   getCourses() {
@@ -93,8 +105,8 @@ export class CourseAdminComponent implements OnInit, OnChanges{
   selectCourse(event) {
 
     /////this.id = (event.target as HTMLSelectElement).value;
-    console.log("courseadmin event  " + event.value);
-    console.log("event value "+ event);
+   // console.log("courseadmin event  " + event.value);
+   // console.log("event value "+ event);
     this.id = event.value;
     this.selectedCourseId = this.id;
     this.indexnumber=0;
@@ -152,8 +164,9 @@ export class CourseAdminComponent implements OnInit, OnChanges{
      this.activesctab=false;
      this.id = x.name._id;
      this.name = x.name.name;
-     this.form.patchValue({ 'coursename': this.name });
-     console.log("in fromCourseChild, value of selectedCourse after assignment " + x.name.name);
+     this.form.patchValue({ 'coursename': "New Course" });
+    
+     console.log(this.form.controls["coursename"]);
 
     // this.option._id= this.selectedCourse._id;
     
@@ -161,7 +174,7 @@ export class CourseAdminComponent implements OnInit, OnChanges{
   //  console.log("in fromCourseChild, checking if this is an update, should be false on new course  " + x.updateCourse);
 
    if(!x.updatedCourse){   
-    console.log("checking to see if course find if is firing");
+   // console.log("checking to see if course find if is firing");
     
     //const cn = this.course.find( obj => obj.name === x.name);
     // for(let i=0; i < this.course.length;i++) {

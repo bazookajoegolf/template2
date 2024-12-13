@@ -47,7 +47,7 @@ export class GolfstatsComponent {
   distinct18=[];
   hcArray;
   lowScores;
-  currentHandicap;
+  currentHandicap:number;
   currentYear;
  
   googly;
@@ -83,10 +83,10 @@ export class GolfstatsComponent {
   labels = [];
   labels18=[];
   labels9=[];
-  colors = ["#775100","#3c434a","#135e96","#005c12","#82424","#dba617","#4262ab"];
+  colors = ["#8a2424","#3c434a","#4262ab","#135e96","#005c12","#dba617","#775100"];
   types = ["Aces","Albatross+","Eagles","Birdies","Par","Bogeys","Double Bogeys+"];
   gChartTypes =["Average Putts / Round", "Average Penalties / Round", "Average Fairways / Round (count)",
-                "Average Fairways / Round (percent)"];
+                "Average Fairways / Round (percent)", "Current Handicap"];
   puttTypes = ["Zero","One","Two","Three+"];
   fwtypes = ["Water", "Sand", "Left Trouble", "Left Rough","Fairway","Right Rough","Right Trouble"];
   //scorePerHole = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s15","s16","s17","s18"];
@@ -243,8 +243,9 @@ export class GolfstatsComponent {
     itemcount++;
     //console.log("Birdies: " + item.birdietotal);
     if(item && itemcount <= 5) {
-      var d = new Date(item.date);
-      birdie.push([d.toLocaleDateString(),item.name , item.coursename,item.birdietotal]);
+      // var d = new Date(item.date);
+      // birdie.push([d.toLocaleDateString(),item.name , item.coursename,item.birdietotal]);
+      birdie.push([new Date(item.date).toLocaleDateString(),item.name , item.coursename,item.birdietotal]);
     }
   }
   this.birdiescores = birdie;
@@ -406,11 +407,12 @@ this.parscores = pars;
     let su = [];
     let par = [];
 
-    su.push(['Date', 'Score',{'role' : 'style'}]);  //
+    su.push(['[Date:date]', 'Score',{'role' : 'style'}]);  //
     par.push(['Date', 'Score to Par',{'role' : 'style'}]);  //
     for (const item of s) {
       var d = new Date(item.date);
-      su.push([d.toLocaleDateString() , item.gtotal,"red"]);
+      // su.push([d.toLocaleDateString() , item.gtotal,"red"]);
+      su.push([new Date(item.date).toLocaleDateString() , item.gtotal,"red"]);
       par.push([d.toLocaleDateString() , item.g_topar,"blue"]);
     }
     this.scoring = su; 
@@ -538,6 +540,7 @@ this.parscores = pars;
    gChart.push([(this.gChartTypes[1]), (penalties/counter).toFixed(2)]);
    gChart.push([(this.gChartTypes[2]), (fwys/counter).toFixed(2)]);
    gChart.push([(this.gChartTypes[3]), (fwys*100/fwysAvail).toFixed(2) +"%"]);
+   gChart.push([(this.gChartTypes[4]), this.currentHandicap.toFixed(2)]);
 
   // console.log(JSON.stringify(gChart));
 
