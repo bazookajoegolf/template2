@@ -28,7 +28,7 @@ export class ScorecardadminComponent implements OnChanges {
   ult;
   uniqueM;
   uniqueL;
-  extraTeeColors=["darkslateblue","darkslategray","olivedrab", "saddlebrown"];
+  extraTeeColors=["coral","darkslategray","olivedrab", "darkkhaki","darkcyan"];
 
   @Input()
   selectedCourse: Course;
@@ -156,10 +156,13 @@ export class ScorecardadminComponent implements OnChanges {
        x = strColor.toLowerCase();
      }
      else {
-      if(this.colorIndex==3) {this.colorIndex=0;}
+     
+      if(this.colorIndex==4)
+         {this.colorIndex=0;}
       else {this.colorIndex++;}
+      x = this.extraTeeColors[this.colorIndex];
        
-       x = this.extraTeeColors[this.colorIndex];
+      
        //console.log("only else is firing " + x);
      }
     } 
