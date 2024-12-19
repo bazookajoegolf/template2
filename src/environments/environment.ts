@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendhost: "http://pc01000.harvestenergy.ca:3000"
+  backendhost: "https://pc01000.harvestenergy.ca:3030"
 };
 
 /*
